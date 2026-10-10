@@ -340,9 +340,11 @@ function requireGate() {
 }
 document.getElementById('gate-btn').addEventListener('click', () => {
   const v = document.getElementById('gate-pass').value;
-  // placeholder check — the operator provides the real source
-  // (secret-source-bridge passphrase, read from localStorage, not hardcoded)
-  if (v === localStorage.getItem('tower-pass') || v === 'ae') {
+  // No hardcoded secret ships. The gate unlocks ONLY against a passphrase the
+  // operator has placed in localStorage['tower-pass'] (custody: local).
+  // Until the operator specifies the real source, the gate refuses by default.
+  const expected = localStorage.getItem('tower-pass');
+  if (expected && v === expected) {
     document.getElementById('gate').style.display = 'none';
     document.getElementById('gate-err').textContent = '';
     document.getElementById('status').textContent = 'UNLOCKED';
