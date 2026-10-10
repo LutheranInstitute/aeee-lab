@@ -97,6 +97,12 @@ CHAIN = [
         "shape": "python",
     },
     {
+        "n": 10, "id": "alias", "module": "ascii_alias",
+        "path": "C:/æ/agents/ascii_alias.py",
+        "role": "reach", "answers": "can a person actually open this path",
+        "verbs": ["scan", "make", "to_ascii", "has_rune"], "shape": "python",
+    },
+    {
         "n": 9, "id": "teach", "module": "teach_check", "path": "C:/æ/agents/teach_check.py",
         "role": "adoption", "answers": "is every agent actually taught to use this chain",
         "verbs": ["check", "REQUIRED_TERMS"], "shape": "python",

@@ -155,6 +155,24 @@ def check() -> dict:
         "missing": reg_bad, "ok": not reg_bad,
     })
 
+    # 3e. RUNE PATHS MUST RESOLVE. github.io does not serve raw UTF-8 in URLs,
+    # so a rune-named artifact is unreachable without an ASCII alias. This cost
+    # a cycle four times; now it is checked instead of remembered.
+    try:
+        import ascii_alias as aa
+        gp = pathlib.Path(os.environ.get("GITHUB_PAGES", r"C:\æ\github-pages"))
+        rune_paths = aa.scan(gp)
+        unaliased = [str(i["path"].relative_to(gp)) for i in rune_paths
+                     if not i["alias_exists"]]
+    except Exception as e:
+        unaliased = [f"could not scan: {type(e).__name__}"]
+    results.append({
+        "surface": "rune paths resolve", "path": "github-pages",
+        "exists": True, "reach": "a rune path 404s on github.io without an alias",
+        "required": ["every rune path has an ASCII alias"],
+        "missing": unaliased, "ok": not unaliased,
+    })
+
     # 4. INVERSE CHECK — do the surfaces point at files that exist?
     # A stale instruction is worse than a missing one.
     dead = []

@@ -42,6 +42,8 @@ Usage:
 """
 from __future__ import annotations
 
+import numpy as np
+
 import argparse
 import hashlib
 import json
@@ -171,7 +173,6 @@ def _decode_with_pyzbar(img) -> list[str]:
         from PIL import Image
     except ImportError:
         return []
-    import numpy as np
     if not isinstance(img, Image.Image):
         img = Image.fromarray(np.array(img)[:, :, ::-1] if img.ndim == 3 else img)
     out = []
@@ -187,7 +188,6 @@ def _module_size_px(img, points) -> float:
     """Mean edge length of the detected quad, in pixels."""
     if points is None:
         return 0.0
-    import numpy as np
     q = np.array(points, dtype=float).reshape(-1, 2)
     if len(q) < 4:
         return 0.0
@@ -207,7 +207,6 @@ def _estimate_modules_side(img, points) -> tuple[int, str]:
     whether the number is measured or assumed. The old code always assumed 21,
     which overstated module size for any code above v1.
     """
-    import numpy as np
     if points is None:
         return 21, "assumed (no quad)"
     q = np.array(points, dtype=float).reshape(-1, 2)
@@ -285,7 +284,6 @@ def _quiet_zone_ok(img, points, modules_side: int = 21) -> tuple[bool, str]:
     pixels and convert to modules using the module pitch derived from the
     detected quad, so the verdict is in the same unit as the requirement.
     """
-    import numpy as np
     if points is None:
         return False, "no quad"
     q = np.array(points, dtype=float).reshape(-1, 2)
@@ -314,7 +312,6 @@ def _quiet_zone_ok(img, points, modules_side: int = 21) -> tuple[bool, str]:
 
 
 def _contrast(img, points) -> tuple[float, str]:
-    import numpy as np
     if points is None:
         return 0.0, "no quad"
     q = np.array(points, dtype=float).reshape(-1, 2)
@@ -336,7 +333,6 @@ def supervise(image_path, expect_kind: str | None = None,
               envelope: str | None = None) -> QRReport:
     """Deterministically verify a QR artifact. Never raises; returns a report."""
     import cv2
-    import numpy as np
     import qr_envelope as qe
 
     checks: list[Check] = []
@@ -466,7 +462,6 @@ def supervise_raw(image_path, expect_text: str) -> QRReport:
     this exists so an existing raw renderer can still be gated today.
     """
     import cv2
-    import numpy as np
 
     checks: list[Check] = []
     path = pathlib.Path(image_path)
@@ -617,13 +612,15 @@ def chain_prev() -> tuple[str, str]:
     if k is None:
         return "", "no kænbæn"
     try:
-        chain = k.kænbæn.genesis_chain()
+        chain = k.genesis_chain()
         entries = chain.get("chain") or []
         if entries:
             return entries[-1].get("receipt", ""), "kænbæn genesis-chain"
         return "genesis", "kænbæn (empty chain)"
     except Exception as e:
-        return "", f"kænbæn read failed: {e}"
+        # A chain read that fails must NOT masquerade as "no chain" — that is
+        # how prev="" looked healthy for a whole session. Name the failure.
+        return "", f"kænbæn read FAILED ({type(e).__name__}: {e})"
 
 
 def chain_append(receipt_id: str, description: str, artifacts: list | None = None) -> bool:
@@ -636,7 +633,7 @@ def chain_append(receipt_id: str, description: str, artifacts: list | None = Non
     if k is None:
         return False
     try:
-        entry = k.kænbæn.append_chain_receipt("qr", description, artifacts or [])
+        entry = k.append_chain_receipt("qr", description, artifacts or [])
         return bool(entry)
     except Exception:
         return False
