@@ -99,7 +99,12 @@ def check() -> dict:
     # 3. capability-contracts — what each agent can do
     con = _read_json(CONTRACTS)
     agents = con.get("agents", {})
-    missing = [t for t in REQUIRED_TERMS["capability-contracts"] if t not in agents]
+    # an agent may be registered under its canonical name with aliases; the
+    # chain is present if ANY of them resolves.
+    known = set(agents.keys())
+    for _n, _a in agents.items():
+        known.update(_a.get("aliases", []))
+    missing = [t for t in REQUIRED_TERMS["capability-contracts"] if t not in known]
     results.append({
         "surface": "capability-contracts", "path": str(CONTRACTS),
         "exists": CONTRACTS.exists(), "reach": "read before dispatching",
@@ -128,6 +133,26 @@ def check() -> dict:
         "reach": "every delegated child (skip_context_files=True)",
         "required": SUBAGENT_TERMS, "missing": missing,
         "ok": DELEGATE_PROMPT.exists() and not missing,
+    })
+
+    # 3d. THE REGISTRY MUST BE TRUE (E6). Every registered path resolves, and
+    # every `cannot` is in the `cannot` list — not stuffed into `can`.
+    # An agent contract that lies about itself is the first thing to fix.
+    reg_bad = []
+    for name, a in agents.items():
+        if a.get("status") == "scratch":
+            continue
+        for pth in [a.get("path", "")] + list(a.get("also", [])):
+            if pth and not pathlib.Path(pth).exists():
+                reg_bad.append(f"{name}: dead path {pth}")
+        stuffed = [x for x in a.get("can", []) if str(x).startswith("cannot:")]
+        if stuffed:
+            reg_bad.append(f"{name}: {len(stuffed)} cannot(s) stuffed into can")
+    results.append({
+        "surface": "registry is true", "path": str(CONTRACTS),
+        "exists": CONTRACTS.exists(), "reach": "an agent contract that lies about itself",
+        "required": ["every path resolves", "cannots live in cannot"],
+        "missing": reg_bad, "ok": not reg_bad,
     })
 
     # 4. INVERSE CHECK — do the surfaces point at files that exist?
