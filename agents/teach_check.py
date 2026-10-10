@@ -36,6 +36,8 @@ BASE = pathlib.Path(os.environ.get("AE_BASE", r"C:\æ"))
 AGENTS_MD = BASE / "AGENTS.md"
 K_BASE = pathlib.Path(os.environ.get("KAENBAEN_BASE", str(BASE / "kænbæn")))
 SYS_MAP = K_BASE / "system-map.json"
+SOUL_MD = pathlib.Path(os.environ.get("HERMES_HOME",
+    str(pathlib.Path.home() / "AppData" / "Local" / "hermes"))) / "SOUL.md"
 CONTRACTS = K_BASE / "capability-contracts.json"
 
 # What a taught agent must be able to find, and where it must be findable.
@@ -43,7 +45,17 @@ REQUIRED_TERMS = {
     "AGENTS.md": ["væult", "væult://chain", "kanban_push.py", "agent_pledge.py"],
     "system-map": ["vaeult-chain"],
     "capability-contracts": ["vaeult_chain"],
+    # SOUL.md is loaded from HERMES_HOME and is CWD-INDEPENDENT — the only
+    # context surface that reaches an agent no matter where it runs.
+    "SOUL.md": ["væult_chain.py", "Claim before you act", "Never move a secret"],
 }
+
+# A subagent is built with skip_context_files=True, so it inherits neither
+# SOUL.md nor AGENTS.md. Its rules must live in the child prompt itself.
+DELEGATE_PROMPT = pathlib.Path(
+    os.environ.get("DELEGATE_TOOL", r"C:\æ\hermes-fork\tools\delegate_tool.py"))
+SUBAGENT_TERMS = ["CLAIM BEFORE YOU ACT", "VERIFY BEFORE YOU CLAIM",
+                  "NEVER MOVE A SECRET", "væult_chain.py"]
 
 
 def _read_text(p: pathlib.Path) -> str:
@@ -93,6 +105,29 @@ def check() -> dict:
         "exists": CONTRACTS.exists(), "reach": "read before dispatching",
         "required": REQUIRED_TERMS["capability-contracts"], "missing": missing,
         "ok": CONTRACTS.exists() and not missing,
+    })
+
+    # 3b. SOUL.md — the ONLY cwd-independent surface. AGENTS.md is anchored to
+    # the working directory and only walks DOWN, so an agent running in
+    # C:\æ\agents or C:\Users\yaelm gets nothing from it.
+    soul = _read_text(SOUL_MD)
+    missing = [x for x in REQUIRED_TERMS["SOUL.md"] if x not in soul]
+    results.append({
+        "surface": "SOUL.md", "path": str(SOUL_MD),
+        "exists": SOUL_MD.exists(), "reach": "every agent, ANY cwd (HERMES_HOME)",
+        "required": REQUIRED_TERMS["SOUL.md"], "missing": missing,
+        "ok": SOUL_MD.exists() and not missing,
+    })
+
+    # 3c. the subagent prompt — children skip context files entirely
+    dp = _read_text(DELEGATE_PROMPT)
+    missing = [x for x in SUBAGENT_TERMS if x not in dp]
+    results.append({
+        "surface": "subagent prompt", "path": str(DELEGATE_PROMPT),
+        "exists": DELEGATE_PROMPT.exists(),
+        "reach": "every delegated child (skip_context_files=True)",
+        "required": SUBAGENT_TERMS, "missing": missing,
+        "ok": DELEGATE_PROMPT.exists() and not missing,
     })
 
     # 4. INVERSE CHECK — do the surfaces point at files that exist?
