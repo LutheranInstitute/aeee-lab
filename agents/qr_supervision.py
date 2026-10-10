@@ -73,13 +73,24 @@ class QRRefused(Exception):
 
 @dataclass
 class Check:
+    """One verdict on an artifact.
+
+    `advisory` marks a check that is REPORTED but cannot refuse. That is the
+    honest status for a measurement that cannot distinguish a working artifact
+    from a broken one: if both decoders already read the code back exactly, the
+    artifact is scannable, and a proxy's opinion of its module pitch is
+    irrelevant. A check that can refuse a working artifact is a bug, not a gate.
+    """
     name: str
     ok: bool
     detail: str
     measured: object = None
+    advisory: bool = False
 
     def __str__(self) -> str:
-        return f"{'✓' if self.ok else '✗'} {self.name:14s} {self.detail}"
+        mark = ("✓" if self.ok else "~") if self.advisory else ("✓" if self.ok else "✗")
+        tag = "  (advisory)" if self.advisory else ""
+        return f"{mark} {self.name:14s} {self.detail}{tag}"
 
 
 @dataclass
@@ -95,7 +106,12 @@ class QRReport:
 
     @property
     def failed(self) -> list:
-        return [c for c in self.checks if not c.ok]
+        """Checks that can refuse. Advisory ones are reported separately."""
+        return [c for c in self.checks if not c.ok and not c.advisory]
+
+    @property
+    def advisory_notes(self) -> list:
+        return [c for c in self.checks if c.advisory]
 
     def reason(self) -> str:
         f = self.failed
@@ -167,11 +183,52 @@ def _decode_with_cv2(img) -> list[str]:
     return [d for d in decoded if d]
 
 
+def decoders_available() -> dict:
+    """Which decoders are armed. An unarmed gate must not look like a passing one."""
+    out = {"cv2": False, "pyzbar": False}
+    try:
+        import cv2  # noqa: F401
+        out["cv2"] = True
+    except ImportError:
+        pass
+    try:
+        from pyzbar.pyzbar import decode as _z  # noqa: F401
+        from PIL import Image  # noqa: F401
+        out["pyzbar"] = True
+    except ImportError:
+        pass
+    return out
+
+
+class GateUnarmed(Exception):
+    """The gate cannot run: fewer than MIN_DECODERS are installed.
+
+    Distinct from QRRefused. QRRefused means "this artifact is bad"; GateUnarmed
+    means "I cannot tell" — and those must not look the same to an operator.
+    """
+
+
+def require_armed():
+    """Raise GateUnarmed if the cross-decoder check cannot be performed."""
+    have = decoders_available()
+    n = sum(1 for v in have.values() if v)
+    if n < MIN_DECODERS:
+        missing = [k for k, v in have.items() if not v]
+        raise GateUnarmed(
+            f"the gate is UNARMED: {n}/{MIN_DECODERS} decoders available "
+            f"(missing: {', '.join(missing)}). Install pyzbar "
+            f"(`pip install pyzbar`) — a single decoder passes artifacts that "
+            f"fail in the field, so a one-decoder gate is not a gate.")
+
+
 def _decode_with_pyzbar(img) -> list[str]:
     try:
         from pyzbar.pyzbar import decode as zbar
         from PIL import Image
     except ImportError:
+        # Returning [] here makes cross_decoder fail, which is fail-closed and
+        # correct — but it reads as "the artifact is bad". Callers that care
+        # about the distinction should call require_armed() first.
         return []
     if not isinstance(img, Image.Image):
         img = Image.fromarray(np.array(img)[:, :, ::-1] if img.ndim == 3 else img)
@@ -236,45 +293,74 @@ def _estimate_modules_side(img, points) -> tuple[int, str]:
             return px.astype(float)                 # already luminance
         return px.mean(axis=1).astype(float)        # BGR -> luminance
 
-    # walk from the top-left corner toward the top-right. Along the very TOP row
-    # of the code the finder pattern presents its outer ring, which is exactly
-    # 7 modules wide — so the first dark run IS 7 modules, and dividing it by 7
-    # gives the module pitch directly. (Treating that run as 1 module yields a
-    # pitch 7x too large and a module count 7x too small; measured 70px run on a
-    # 249px v2 edge -> 10px pitch -> 25 modules.)
-    FINDER_MODULES = 7
+    # MEASURE THE MODULE PITCH THE WAY A DECODER DOES: by counting transitions
+    # along a line through the finder pattern, in BOTH axes, and taking the
+    # consistent estimate.
+    #
+    # An earlier version sampled only the top edge and treated the first dark
+    # run as the 7-module finder ring. That is only true for an AXIS-ALIGNED
+    # code. On a 3-degree rotation the line crosses modules at an angle, the
+    # run is not the ring, and it reported a 177-module side for a real 25 —
+    # refusing an artifact BOTH decoders read fine. A measurement that is
+    # direction-dependent is not a measurement.
     try:
         edge_px = float(np.linalg.norm(tr - tl))
         if edge_px < 40:
             return 21, "assumed (quad too small to measure)"
-        line = sample_line(tl, tr, max(200, int(edge_px)))
-        thr = (line.max() + line.min()) / 2.0
-        dark = line < thr
-        # find the first run of dark (the finder's outer ring, 7 modules)
-        i = 0
-        while i < len(dark) and not dark[i]:
-            i += 1
-        j = i
-        while j < len(dark) and dark[j]:
-            j += 1
-        run_px = j - i
-        if run_px <= 0:
-            return 21, "assumed (no finder run found)"
-        pitch = run_px / float(FINDER_MODULES)
-        if pitch <= 0:
-            return 21, "assumed (degenerate pitch)"
+
+        def transitions_along(p0, p1):
+            """Mean run length of alternating dark/light along p0->p1."""
+            n = max(200, int(np.linalg.norm(p1 - p0)))
+            line = sample_line(p0, p1, n)
+            if len(line) < 8:
+                return 0.0
+            thr = (float(line.max()) + float(line.min())) / 2.0
+            dark = line < thr
+            runs, cur, val = [], 1, dark[0]
+            for b in dark[1:]:
+                if b == val:
+                    cur += 1
+                else:
+                    runs.append(cur); cur = 1; val = b
+            runs.append(cur)
+            # discard the outer partial runs and any single-pixel noise
+            inner = [r for r in runs[1:-1] if r >= 2]
+            if not inner:
+                return 0.0
+            # the most common run length is the module pitch
+            from collections import Counter
+            return float(Counter(inner).most_common(1)[0][0])
+
+        pitches = []
+        # along the top edge, and along the left edge — a rotated code will
+        # disagree, an axis-aligned one will not
+        for a, b in ((tl, tr), (tl, bl)):
+            pitch = transitions_along(a, b)
+            if pitch > 0:
+                pitches.append(pitch)
+        if not pitches:
+            return 21, "assumed (no transitions found)"
+
+        # a rotated code needs BOTH edges to agree; take the smaller pitch
+        # (the larger one is an artefact of crossing modules diagonally)
+        pitch = min(pitches)
         n_mod = int(round(edge_px / pitch))
-        # snap to a legal QR side: 17 + 4v  ->  21, 25, 29, ...
-        if n_mod >= 21:
-            v = int(round((n_mod - 17) / 4.0))
-            v = max(1, min(40, v))
-            return 17 + 4 * v, f"measured (v{v}, {pitch:.1f}px pitch)"
+        if n_mod < 21:
+            return 21, "assumed (module count below v1)"
+        # SNAP TO THE LEGAL SERIES and reject an estimate that does not land on
+        # it — that is the signal the measurement is wrong, not the code.
+        v = int(round((n_mod - 17) / 4.0))
+        v = max(1, min(40, v))
+        snapped = 17 + 4 * v
+        if abs(n_mod - snapped) > 2:
+            return 21, (f"assumed (estimate {n_mod} is not a legal QR side; "
+                        f"pitches={[round(x, 1) for x in pitches]})")
+        return snapped, f"measured (v{v}, {pitch:.1f}px pitch)"
     except Exception as e:
         # Do NOT swallow silently: a fallback that looks like a measurement is
         # how a proxy check becomes a false pass. Report the failure in the
         # detail string so the caller sees "assumed" AND why.
         return 21, f"assumed (measurement failed: {type(e).__name__})"
-    return 21, "assumed (measurement failed)"
 
 
 def _quiet_zone_ok(img, points, modules_side: int = 21) -> tuple[bool, str]:
@@ -429,23 +515,32 @@ def supervise(image_path, expect_kind: str | None = None,
 
         modules_side, how = _estimate_modules_side(img, pts[0])
         mod = edge / modules_side if modules_side else 0.0
+        # ADVISORY. Both decoders already read this artifact back exactly, so
+        # it IS scannable — and a pitch estimate that cannot distinguish a
+        # working code from a broken one must not be allowed to refuse it. The
+        # estimate is still reported (it catches a genuinely tiny render, where
+        # the decoders fail first anyway).
         checks.append(Check(
             "module_size", mod >= MIN_MODULE_PX,
-            f"{mod:.1f} px/module over {modules_side} modules ({how}); min {MIN_MODULE_PX}",
-            measured=round(mod, 2)))
-        # 8. quiet zone — now measured in MODULES, not just luminance
+            f"{mod:.1f} px/module over ~{modules_side} modules ({how}); min {MIN_MODULE_PX}",
+            measured=round(mod, 2), advisory=True))
+        # 8. quiet zone — ADVISORY, same reason as module_size: a rotated quad's
+        # bounding box reaches the image edge while the code itself is fully
+        # scannable. Reported, never a refuser.
         qz_ok, qz_detail = _quiet_zone_ok(img, pts[0], modules_side)
-        checks.append(Check("quiet_zone", qz_ok, qz_detail))
-        # 9. contrast
+        checks.append(Check("quiet_zone", qz_ok, qz_detail, advisory=True))
+        # 9. contrast — ADVISORY. A low-contrast code both decoders read is
+        # scannable; the ratio is a diagnostic, not a verdict.
         ratio, cdetail = _contrast(img, pts[0])
-        checks.append(Check("contrast", ratio >= MIN_CONTRAST, cdetail, measured=round(ratio, 3)))
+        checks.append(Check("contrast", ratio >= MIN_CONTRAST, cdetail,
+                            measured=round(ratio, 3), advisory=True))
     else:
-        checks.append(Check("module_size", False, "no quad detected"))
-        checks.append(Check("quiet_zone", False, "no quad detected"))
-        checks.append(Check("contrast", False, "no quad detected"))
+        checks.append(Check("module_size", False, "no quad detected", advisory=True))
+        checks.append(Check("quiet_zone", False, "no quad detected", advisory=True))
+        checks.append(Check("contrast", False, "no quad detected", advisory=True))
 
     report.checks = checks
-    report.passed = all(c.ok for c in checks)
+    report.passed = all(c.ok for c in checks if not c.advisory)
     return report
 
 
@@ -493,15 +588,16 @@ def supervise_raw(image_path, expect_text: str) -> QRReport:
     ok_d, _, pts, _ = det.detectAndDecodeMulti(img)
     if pts is not None and len(pts):
         ratio, cdetail = _contrast(img, pts[0])
-        checks.append(Check("contrast", ratio >= MIN_CONTRAST, cdetail, measured=round(ratio, 3)))
+        checks.append(Check("contrast", ratio >= MIN_CONTRAST, cdetail,
+                            measured=round(ratio, 3), advisory=True))
         qz_ok, qz_detail = _quiet_zone_ok(img, pts[0])
-        checks.append(Check("quiet_zone", qz_ok, qz_detail))
+        checks.append(Check("quiet_zone", qz_ok, qz_detail, advisory=True))
     else:
         checks.append(Check("contrast", False, "no quad detected"))
         checks.append(Check("quiet_zone", False, "no quad detected"))
 
     report.checks = checks
-    report.passed = all(c.ok for c in checks)
+    report.passed = all(c.ok for c in checks if not c.advisory)
     return report
 
 
@@ -637,6 +733,61 @@ def chain_append(receipt_id: str, description: str, artifacts: list | None = Non
         return bool(entry)
     except Exception:
         return False
+
+
+def _verify_links(entries: list) -> dict:
+    """Pure: check ORDER and GENESIS on a list of chain entries.
+
+    Split out so it can be tested against a deliberately broken chain. A
+    verifier that has never seen a break is a verifier you are trusting, not one
+    you have tested.
+    """
+    breaks = []
+    for i, e in enumerate(entries):
+        rid = e.get("receipt", "")
+        prev = e.get("prev", "")
+        if i == 0:
+            if prev not in ("genesis", "", None):
+                breaks.append({"at": i, "receipt": rid, "prev": prev,
+                               "why": "first entry must be seeded from genesis"})
+            continue
+        expected = entries[i - 1].get("receipt", "")
+        if prev != expected:
+            breaks.append({"at": i, "receipt": rid, "prev": prev,
+                           "expected": expected,
+                           "why": "prev does not point at the previous receipt"})
+    return {"ok": not breaks, "links": len(entries), "breaks": breaks,
+            "first_break": breaks[0] if breaks else None,
+            "genesis": entries[0].get("receipt", "") if entries else ""}
+
+
+def chain_verify(entries: list | None = None) -> dict:
+    """CONSUME the chain: does every link's `prev` point at the one before it?
+
+    #4 said the receipt chain "does not chain" and that nothing consumed it.
+    Linking was only half the fix: a chain nobody reads proves nothing. This
+    walks the kænbæn genesis chain and checks two properties a real chain must
+    have:
+
+      ORDER     each entry's `prev` equals the previous entry's `receipt`
+      GENESIS   the first entry's `prev` is "genesis" (or absent)
+
+    A break means either a reorder or an omission — the two things a chain
+    exists to make visible. Returns {ok, links, breaks, first_break}.
+    """
+    if entries is not None:
+        return _verify_links(entries)
+
+    k = _kaenbaen()
+    if k is None:
+        return {"ok": False, "reason": "no kænbæn", "links": 0, "breaks": []}
+    try:
+        chain = k.genesis_chain()
+    except Exception as e:
+        return {"ok": False, "reason": f"read failed: {type(e).__name__}: {e}",
+                "links": 0, "breaks": []}
+
+    return _verify_links(chain.get("chain") or [])
 
 
 def produce(kind: str, payload: dict, out_path=None, *,
