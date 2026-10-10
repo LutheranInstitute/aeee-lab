@@ -103,6 +103,12 @@ class QRReport:
     envelope_bytes: int = 0
     decoded_type: str = ""
     decoders_ok: list = field(default_factory=list)
+    # What this report actually PROVED. `expected` means the artifact was
+    # compared against a caller-supplied truth; `self_consistent` means the
+    # image was only compared against itself — it decodes, but nothing asserts
+    # it decodes to what was intended.
+    assurance: str = "unknown"
+    expectations: list = field(default_factory=list)
 
     @property
     def failed(self) -> list:
@@ -541,6 +547,26 @@ def supervise(image_path, expect_kind: str | None = None,
 
     report.checks = checks
     report.passed = all(c.ok for c in checks if not c.advisory)
+
+    # Name the assurance level. A pass without an expectation is not the same
+    # claim as a pass against a stated truth, and the report must not blur them.
+    exp = []
+    if expect_kind is not None:
+        exp.append("kind")
+    if expect_payload is not None:
+        exp.append("payload")
+    if envelope is not None:
+        exp.append("envelope")
+    report.expectations = exp
+    report.assurance = "expected" if exp else "self_consistent"
+    if not exp:
+        checks.append(Check(
+            "assurance", False,
+            "SELF-CONSISTENT ONLY — the image was compared against itself. "
+            "It decodes, but nothing asserts it says what was intended. Pass "
+            "expect_kind/expect_payload, or supply the envelope you expect.",
+            advisory=True))
+        report.checks = checks
     return report
 
 
@@ -921,7 +947,13 @@ def main(argv: list[str]) -> None:
     s.add_argument("image")
     s.add_argument("--expect-kind", default=None)
     s.add_argument("--expect-payload", default=None)
-    s.add_argument("--envelope", default=None)
+    s.add_argument("--envelope", default=None,
+                   help="the envelope you EXPECT. Without one of the --expect* "
+                        "flags the verdict is SELF-CONSISTENT only: it proves "
+                        "the image decodes, not that it says what you meant.")
+    s.add_argument("--require-expected", action="store_true",
+                   help="exit 1 unless the verdict was checked against a stated "
+                        "truth (refuses a self-consistent-only pass)")
 
     sub.add_parser("selftest")
     sub.add_parser("types")
@@ -944,6 +976,11 @@ def main(argv: list[str]) -> None:
                         expect_payload=json.loads(a.expect_payload) if a.expect_payload else None,
                         envelope=a.envelope)
         print(rep.render())
+        if rep.passed and getattr(a, "require_expected", False) and rep.assurance != "expected":
+            print("REFUSED: --require-expected was set but the verdict was "
+                  "self-consistent only (nothing asserted what the artifact "
+                  "should say).", file=sys.stderr)
+            sys.exit(1)
         sys.exit(0 if rep.passed else 1)
 
     elif a.cmd == "selftest":

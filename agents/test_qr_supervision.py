@@ -314,5 +314,63 @@ class TestAdvisoryChecks(unittest.TestCase):
         self.assertEqual(rep.passed, scannable)
 
 
+class TestAssuranceLevel(unittest.TestCase):
+    """A pass without an expectation is not the same claim as a pass against a
+    stated truth. The report must not blur them.
+
+    Without this, `roundtrip` compares the image to the envelope recovered FROM
+    the image, and `cross_decoder` compares two decoders to each other — both
+    self-referential. The gate would report PASS for 'this image decodes to
+    whatever this image decodes to'."""
+
+    def setUp(self):
+        self.t = TempPNG()
+
+    def test_no_expectation_is_self_consistent(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(str(p))              # no expectation at all
+        self.assertEqual(rep.assurance, "self_consistent")
+        self.assertEqual(rep.expectations, [])
+        names = {c.name for c in rep.advisory_notes}
+        self.assertIn("assurance", names,
+                      "a self-consistent-only pass must SAY so")
+
+    def test_an_envelope_upgrades_the_assurance(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(str(p), envelope=env)
+        self.assertEqual(rep.assurance, "expected")
+        self.assertIn("envelope", rep.expectations)
+
+    def test_a_payload_expectation_is_expected(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(str(p), expect_payload={"cmd": "x"}, envelope=env)
+        self.assertEqual(rep.assurance, "expected")
+        self.assertIn("payload", rep.expectations)
+
+    def test_produce_always_yields_expected(self):
+        """The producer knows what it meant, so it must always assert it."""
+        r = qs.produce("route", {"cmd": "x"}, out_path=self.t.dir / "p.png")
+        self.assertEqual(r.report["assurance"], "expected")
+        self.assertTrue(r.report["expectations"])
+
+    def test_the_tautology_does_not_catch_a_wrong_but_consistent_render(self):
+        """The honest limitation, asserted: a self-consistent pass proves the
+        image decodes, NOT that it decodes to the intended payload."""
+        envA = qe.encode("route", {"cmd": "TRANSFER TO ALICE"})
+        envB = qe.encode("route", {"cmd": "TRANSFER TO MALLORY"})
+        pB = self.t.render(envB, name="b.png")
+        # a scan with no expectation cannot know B is wrong
+        rep = qs.supervise(str(pB))
+        self.assertTrue(rep.passed)
+        self.assertEqual(rep.assurance, "self_consistent",
+                         "and it must be labelled as such, not as verified")
+        # with the expectation, it is caught
+        rep2 = qs.supervise(str(pB), envelope=envA)
+        self.assertFalse(rep2.passed, "the expected envelope must catch the swap")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
