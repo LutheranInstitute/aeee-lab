@@ -118,6 +118,16 @@ pub fn artifacts() -> Vec<Artifact> {
             13,
             "Documento doctrinal definitivo del luteranismo clásico, 1577.",
         ),
+        artifact(
+            "libro",
+            "Libro de Concordia",
+            1580,
+            "f2072f22",
+            74_560,
+            253_990,
+            7,
+            "Corpus doctrinal completo del luteranismo clásico, 1580.",
+        ),
     ]
 }
 

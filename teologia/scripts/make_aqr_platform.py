@@ -41,6 +41,7 @@ ARTIFACTS = [
     {"id": "enchiridion", "file": "enchiridion.html"},
     {"id": "mayor",       "file": "catecismo-mayor.html"},
     {"id": "formula",     "file": "formula-de-concordia.html"},
+    {"id": "libro",       "file": "libro-de-concordia.html"},
 ]
 
 
