@@ -10,6 +10,7 @@ Plataforma soberana de devoción — 5 superficies æqr verificadas, cero CDN, c
 | 02 | Catecismo Menor | 100 KB | 420 KB | ✅ | PASS |
 | 03 | Enchiridion | 76 KB | 241 KB | ✅ | PASS |
 | 04 | Catecismo Mayor | 85 KB | 299 KB | ✅ | PASS |
+| 05 | Fórmula de Concordia | 85 KB | 280 KB | ✅ | PASS |
 | — | Plataforma (index) | 88 KB | 125 KB | ✅ | PASS |
 
 ## Núcleo de cómputo (en el navegador)
@@ -38,9 +39,10 @@ teologia/
 ├── catecismo-menor.html / .pdf
 ├── catecismo-mayor.html / .pdf
 ├── enchiridion.html / .pdf
+├── formula-de-concordia.html / .pdf
 ├── aeqr-badge-*.svg              ← Chips verificados (5)
 ├── *.aqr.json                    ← Receipts con payload/hash/issuer
-├── platform-manifest.json        ← Agregado sobre los 4 artefactos
+├── platform-manifest.json        ← Agregado sobre los 5 artefactos
 ├── scripts/
 │   ├── make_aqr*.py              ← Generadores de badge (matriz real + decode cv2)
 │   ├── verify_*.py               ← Verificación de PDF (el chip sobrevive al papel)
@@ -49,7 +51,7 @@ teologia/
 │   └── cdp_*.mjs                 ← Verificación en navegador real (CDP)
 ├── wasm/
 │   ├── Cargo.toml                ← sha2, serde, wasm-bindgen
-│   ├── src/lib.rs                ← SHA-256 real, 4 artefactos, payloads æqr
+│   ├── src/lib.rs                ← SHA-256 real, 5 artefactos, payloads æqr
 │   ├── build.sh                  ← Build reproducible (corrige el PATH de Rust)
 │   └── dist/                     ← Paquete compilado (rastreado, se sirve)
 └── vendor/
@@ -64,7 +66,7 @@ teologia/
 Cada artefacto tiene su badge æqr generado desde una matriz real (librería `qrcode`) y verificado decodificándolo de vuelta (OpenCV). El hash se calcula sobre el texto canónico del artefacto — quitar el badge no cambia el hash, porque el badge es contenedor, no mensaje.
 
 El badge de plataforma es un agregado: el hash cubre un manifiesto JSON con los
-SHA-256 reales de los 4 HTML en disco.
+SHA-256 reales de los 5 HTML en disco.
 
 ## Reproducibilidad
 
@@ -77,6 +79,7 @@ python scripts/make_aqr.py
 python scripts/make_aqr_catecismo.py
 python scripts/make_aqr_enchiridion.py
 python scripts/make_aqr_mayor.py
+python scripts/make_aqr_formula.py
 python scripts/make_aqr_platform.py
 
 # Recomponer la plataforma con el badge verificado

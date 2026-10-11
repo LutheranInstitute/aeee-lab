@@ -108,6 +108,16 @@ pub fn artifacts() -> Vec<Artifact> {
             5,
             "Expansión del Menor para la escuela y el púlpito.",
         ),
+        artifact(
+            "formula",
+            "Fórmula de Concordia",
+            1577,
+            "dc8fd685",
+            83_683,
+            280_336,
+            13,
+            "Documento doctrinal definitivo del luteranismo clásico, 1577.",
+        ),
     ]
 }
 
@@ -193,8 +203,10 @@ mod tests {
     }
 
     #[test]
-    fn four_artifacts() {
-        assert_eq!(artifacts().len(), 4);
+    fn five_artifacts() {
+        assert_eq!(artifacts().len(), 5);
+        let ids: Vec<_> = artifacts().into_iter().map(|a| a.id).collect();
+        assert!(ids.contains(&"formula".to_string()));
     }
 
     #[test]

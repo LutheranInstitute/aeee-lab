@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """æqr badge generator for the teologia.ai platform index page.
 
-The platform badge is a constitutional aggregate over all three artifacts.
+The platform badge is a constitutional aggregate over all five artifacts.
 The hash is computed over a canonical platform manifest that lists each
-artifact's title, year, region, and actual SHA-256 of its HTML bytes on disk.
+artifact's actual SHA-256 of its HTML bytes on disk.
 This is the æ:// canon: one badge, many surfaces, one root.
 
 Truth rules:
@@ -40,6 +40,7 @@ ARTIFACTS = [
     {"id": "catecismo",   "file": "catecismo-menor.html"},
     {"id": "enchiridion", "file": "enchiridion.html"},
     {"id": "mayor",       "file": "catecismo-mayor.html"},
+    {"id": "formula",     "file": "formula-de-concordia.html"},
 ]
 
 
@@ -164,7 +165,7 @@ def main() -> int:
         "badge_svg": str(BADGE_SVG),
         "manifest": str(MANIFEST),
         "html": str(INDEX),
-        "note": "platform manifest aggregates 3 devotional artifacts; "
+        "note": "platform manifest aggregates 5 devotional artifacts; "
                 "signed intent can travel; authority does not travel with it",
     }
     RECEIPT.write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
