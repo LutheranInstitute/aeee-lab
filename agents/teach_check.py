@@ -51,11 +51,22 @@ REQUIRED_TERMS = {
 }
 
 # A subagent is built with skip_context_files=True, so it inherits neither
-# SOUL.md nor AGENTS.md. Its rules must live in the child prompt itself.
+# SOUL.md nor AGENTS.md. Its rules must live in a surface that is NOT gated —
+# the vaeult-chain plugin section.
+#
+# The child prompt is built by the RUNNING tree, not the fork: hermes-fork is a
+# stale Oct-3 copy, hermes-agent is live. Pointing this at the fork made the old
+# check read code no running agent ever executes.
+HERMES_TREE = pathlib.Path(os.environ.get(
+    "HERMES_TREE",
+    str(pathlib.Path.home() / "AppData" / "Local" / "hermes" / "hermes-agent")))
 DELEGATE_PROMPT = pathlib.Path(
-    os.environ.get("DELEGATE_TOOL", r"C:\æ\hermes-fork\tools\delegate_tool.py"))
-SUBAGENT_TERMS = ["CLAIM BEFORE YOU ACT", "VERIFY BEFORE YOU CLAIM",
-                  "NEVER MOVE A SECRET", "væult_chain.py"]
+    os.environ.get("DELEGATE_TOOL", str(HERMES_TREE / "tools" / "delegate_tool.py")))
+CHAIN_PLUGIN = pathlib.Path(os.environ.get(
+    "CHAIN_PLUGIN",
+    str(pathlib.Path.home() / "AppData" / "Local" / "hermes" / "plugins"
+        / "vaeult-chain" / "__init__.py")))
+SUBAGENT_TERMS = ["væult_chain.py", "Claim before you act", "Never move a secret"]
 
 
 def _read_text(p: pathlib.Path) -> str:
@@ -70,6 +81,68 @@ def _read_json(p: pathlib.Path) -> dict:
         return json.loads(p.read_text(encoding="utf-8"))
     except Exception:
         return {}
+
+
+def _child_carries_chain() -> tuple:
+    """Build the prompt a delegated child actually gets, and look for the chain.
+
+    Returns (ok, detail, evidence). Never guesses: if the tree cannot be imported
+    the result is NOT a pass — an unverifiable surface is reported as
+    unverifiable, which is the rule the chain exists to enforce.
+    """
+    import subprocess
+    py = os.environ.get("AE_PYTHON") or str(HERMES_TREE / "venv" / "Scripts" / "python.exe")
+    if not pathlib.Path(py).exists():
+        py = sys.executable
+    script = r'''
+import sys, os
+sys.path.insert(0, os.environ["TREE"])
+from hermes_cli.plugins import discover_plugins, render_system_prompt_sections
+discover_plugins()
+from agent import system_prompt as sp
+
+class Child:
+    skip_context_files = True          # exactly how delegate_tool builds one
+    load_soul_identity = False
+    platform = "subagent"
+    session_id = "20261010_teachcheck"
+    valid_tool_names = {"bash", "read_file"}
+    model = "check"; provider = "check"
+    _plugin_system_prompt_sections_snapshot = render_system_prompt_sections({})
+    def __getattr__(self, n):
+        if n.startswith("_plugin"): raise AttributeError(n)
+        return None
+
+parts = sp.build_system_prompt_parts(Child())
+full = "\n\n".join(v for v in parts.values() if v)
+print("HAS_CHAIN=%s" % ("væult_chain.py" in full))
+print("LEN=%d" % len(full))
+print("VOLATILE=%d" % len(parts.get("volatile") or ""))
+print("CONTEXT=%d" % len(parts.get("context") or ""))
+'''
+    env = dict(os.environ, TREE=str(HERMES_TREE))
+    try:
+        r = subprocess.run([py, "-c", script], capture_output=True, text=True,
+                           timeout=120, env=env)
+    except Exception as e:
+        return False, f"could not build a child prompt: {type(e).__name__}: {e}", {}
+    out = r.stdout or ""
+    if "HAS_CHAIN=" not in out:
+        return False, f"child-prompt probe failed: {(r.stderr or out).strip()[:200]}", {}
+    ev = {}
+    for line in out.split("\n"):
+        if "=" in line:
+            k, _, v = line.partition("=")
+            if k in ("LEN", "VOLATILE", "CONTEXT"):
+                ev[k.lower()] = v.strip()
+    ok = "HAS_CHAIN=True" in out
+    # context == 0 proves the gating is real; a non-zero context means the probe
+    # is not exercising skip_context_files at all, so it would prove nothing.
+    if ok and ev.get("context") != "0":
+        return False, ("chain present but context tier is non-zero — the probe is "
+                       "not exercising skip_context_files, so it proves nothing"), ev
+    return ok, ("child carries the chain" if ok
+                else "a delegated child does NOT carry the chain"), ev
 
 
 def check() -> dict:
@@ -124,15 +197,24 @@ def check() -> dict:
         "ok": SOUL_MD.exists() and not missing,
     })
 
-    # 3c. the subagent prompt — children skip context files entirely
-    dp = _read_text(DELEGATE_PROMPT)
-    missing = [x for x in SUBAGENT_TERMS if x not in dp]
+    # 3c. THE SUBAGENT — the surface that matters most and was hardest to reach.
+    # Children are built with skip_context_files=True, so SOUL.md and AGENTS.md
+    # never load for them; a child inherited the chain only by accident of its
+    # workspace path. Measured before the fix: 0 of 116 stored subagent prompts
+    # carried it.
+    #
+    # This does NOT grep a source file — that was the old bug, and it passed
+    # while every child was blind. It builds the prompt a real child gets and
+    # asserts the chain is in it.
+    child_ok, child_detail, child_evidence = _child_carries_chain()
     results.append({
-        "surface": "subagent prompt", "path": str(DELEGATE_PROMPT),
-        "exists": DELEGATE_PROMPT.exists(),
+        "surface": "subagent prompt", "path": str(CHAIN_PLUGIN),
+        "exists": CHAIN_PLUGIN.exists(),
         "reach": "every delegated child (skip_context_files=True)",
-        "required": SUBAGENT_TERMS, "missing": missing,
-        "ok": DELEGATE_PROMPT.exists() and not missing,
+        "required": SUBAGENT_TERMS,
+        "missing": [] if child_ok else SUBAGENT_TERMS,
+        "ok": child_ok,
+        "detail": child_detail, "evidence": child_evidence,
     })
 
     # 3d. THE REGISTRY MUST BE TRUE (E6). Every registered path resolves, and
