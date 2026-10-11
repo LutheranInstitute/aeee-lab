@@ -3079,9 +3079,37 @@
         "github"
       ],
       "agent_access": "read",
-      "external": true,
-      "availability": "not_checked",
-      "functional_status": "not_verified"
+      "external": true
+    },
+    {
+      "id": "aeqr",
+      "name": "ÆQR",
+      "url": "/aeqr.html",
+      "description": "Resource addressing, verification & audit — a QR is an address, not permission",
+      "category": "sovereign",
+      "capabilities": [
+        "registry",
+        "qr-verify",
+        "audit",
+        "authority"
+      ],
+      "agent_access": "read",
+      "external": false,
+      "repo": "https://github.com/MYaelMendez/aeqr"
+    },
+    {
+      "id": "ae-store",
+      "name": "æ.store — Discover capabilities",
+      "url": "/æ_store/index.html",
+      "description": "Public discovery index for æQR, open education and agentic engineering. Discovery does not grant execution authority.",
+      "category": "discovery",
+      "capabilities": [
+        "resource-discovery",
+        "open-education",
+        "aeqr-addressing"
+      ],
+      "agent_access": "read",
+      "external": false
     }
   ],
   "categories": [
@@ -3130,16 +3158,8 @@
       "description": "Private client surfaces"
     },
     {
-      "id": "yellow",
-      "description": "Discover"
-    },
-    {
-      "id": "blue",
-      "description": "Engineer"
-    },
-    {
-      "id": "green",
-      "description": "Govern"
+      "id": "discovery",
+      "description": "Public resource and capability discovery"
     }
   ],
   "agent_protocol": {
