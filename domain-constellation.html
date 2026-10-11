@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>codæ:// · Domain Constellation</title>
+<meta name="description" content="The Codæ domain constellation: 25 entrances, dated observations, local directory commands, and exportable observation receipts. Human judgment remains the root of authority.">
+<link rel="canonical" href="https://myaelmendez.github.io/domain-constellation.html">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:dark;--void:#050505;--panel:#0b1017;--line:#30343b;--gold:#ffd873;--blue:#7fd0ff;--green:#72f8ac;--red:#ffb4b4;--ink:#f0ece4;--muted:#b2becc}
+*{box-sizing:border-box}body{margin:0;background:var(--void);color:var(--ink);font:14px/1.6 system-ui,sans-serif}a{color:var(--gold)}button,input,select{font:inherit}button,select,input{min-height:44px;border:1px solid var(--line);border-radius:6px;padding:10px;background:var(--panel);color:var(--ink)}button{cursor:pointer}button:hover{border-color:var(--gold)}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,canvas:focus-visible,summary:focus-visible{outline:3px solid #fff;outline-offset:3px}[hidden]{display:none!important}
+.skip{position:absolute;top:-100px;left:12px;z-index:10;padding:12px;background:#050505}.skip:focus{top:12px}.ticker{display:flex;gap:20px;overflow:auto;padding:14px 18px;border-bottom:1px solid var(--line);font:13px monospace}.ticker a{white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}.ticker a:nth-child(3n+2){color:var(--blue)}.ticker a:nth-child(3n){color:var(--green)}main{max-width:1000px;margin:auto;padding:20px 16px max(40px,env(safe-area-inset-bottom))}.bar,.controls,.actions{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.bar{font:11px monospace;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:12px}header{text-align:center;padding:26px 0 12px}h1{font:clamp(32px,9vw,64px) Georgia,serif;color:var(--gold);margin:0}h2{font-size:18px;margin:28px 0 12px}.sub{font:12px/1.8 monospace;letter-spacing:.06em}p{color:var(--muted)}.law{font-size:12px;border-top:1px solid var(--line);padding-top:16px}.map{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:radial-gradient(ellipse at center,#102433,#050505 75%);margin:16px 0}.map canvas{display:block;width:100%;height:clamp(300px,55svh,600px);touch-action:pan-y}.controls{padding:10px;border-top:1px solid var(--line);font-size:12px}.controls span{flex:1}.cmd{display:flex;gap:8px;margin:18px 0 10px}.cmd input{flex:1;min-width:0}.cmd button{background:var(--gold);color:#050505;font-weight:700}.output{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--panel);padding:14px;border:1px solid var(--line);border-radius:8px;color:var(--blue);font:12px/1.7 monospace}.examples{display:flex;flex-wrap:wrap;gap:6px}.examples button{font-size:12px}.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0}.filters label{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px}.card{text-align:left;display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;padding:14px}.card[aria-pressed=true]{border-color:var(--gold)}.card strong{color:var(--gold);overflow-wrap:anywhere}.card small{color:var(--muted)}.responded{color:var(--green)}.partial,.placeholder{color:var(--gold)}.failure{color:var(--red)}.unknown,.reported{color:var(--blue)}.repairs{display:flex;gap:8px;flex-wrap:wrap}.repairs button{color:var(--red)}dialog{width:min(460px,calc(100% - 32px));max-height:85svh;overflow:auto;background:var(--panel);color:var(--ink);border:1px solid var(--gold);border-radius:12px;padding:22px}dialog::backdrop{background:#000c}dialog h2{margin-top:0;color:var(--gold);overflow-wrap:anywhere}dialog code{display:block;overflow-wrap:anywhere;font-size:12px;margin:12px 0}.actions{justify-content:flex-start}.actions a{min-height:44px;display:inline-flex;align-items:center}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}details{margin:20px 0}summary{cursor:pointer}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to constellation</a>
+<nav class="ticker" id="ticker" aria-label="Domain links; open in new tabs"></nav>
+<main id="main">
+<div class="bar"><a href="./index.html">← codæ:// HOME</a><span>LOCAL DIRECTORY · SNAPSHOT 2026-10-11</span><time id="clock"></time></div>
+<header><h1>codæ://</h1><p class="sub">THE LANGUAGE IS COMPUTE<br>DOMAIN CONSTELLATION · HUMAN://ROOT</p><p>Choose an entrance. Inspect the evidence. Keep your authority.</p></header>
+<form class="cmd" id="command"><label for="intent" hidden>Directory command</label><input id="intent" aria-label="Directory command" placeholder="codæ:// status æ.store" autocomplete="off" spellcheck="false"><button type="submit">RUN</button></form>
+<p>Local directory commands only: <code>locate domain</code>, <code>status domain</code>, <code>repair</code>, <code>export</code>. This page does not compile .mec or invoke the homepage engine.</p>
+<div class="examples"><button type="button" data-command="status æ.store">status æ.store</button><button type="button" data-command="locate æææ.com">locate æææ.com</button><button type="button" data-command="repair">repair queue</button><button type="button" data-command="export">export snapshot</button></div>
+<p id="command-status" role="status">Ready for a local directory command.</p><pre class="output" id="output">Evidence ≠ authority. No live DNS scan or runtime telemetry.</pre>
+<section class="map" aria-label="Visual domain map"><canvas id="scene" tabindex="0" role="img" aria-label="Rotatable domain map. Arrow keys rotate, plus and minus zoom. Use the domain list below to inspect every node."></canvas><div class="controls"><span>Drag horizontally to rotate · wheel to zoom · domain buttons below</span><button id="motion" type="button" aria-pressed="false">Start rotation</button><button id="reset" type="button">Reset view</button></div></section>
+<h2>Repair queue · dated observations</h2><div class="repairs" id="repairs"></div>
+<div class="filters"><label for="filter">Status</label><select id="filter"><option value="all">All domains</option></select><span id="count" role="status"></span></div>
+<section aria-labelledby="list-title"><h2 id="list-title">25 entrances · inspect a domain</h2><div class="grid" id="grid"></div></section>
+<details><summary>Snapshot JSON</summary><pre id="json"></pre></details>
+<div class="actions"><button type="button" id="export">Export snapshot ↓</button><button type="button" id="receipts">Export session receipts ↓</button></div>
+<footer class="law"><p>HTTP responses establish accessibility at the time observed, not execution capability. Roles and services remain separate from measured evidence. Retrieval failures do not establish an outage. Domain links use HTTPS; a recorded HTTP-only redirect does not prove HTTPS forwarding works.</p><p>Local command receipts record actions in this page and their dated inputs. Hashes are not signatures, independent verification, or permission grants. No camera, DNS changes, provider calls, credentials, or external execution. No QR image is generated by this map.</p><a href="./teotech.html">TEOTECH</a> · <a href="./teologia/aprender.html">Learning journeys</a> · <a href="./surface-manifest.json">Public surface manifest</a></footer>
+<noscript><p>This interactive map requires JavaScript. <a href="./index.html">Return to the homepage.</a></p></noscript>
+</main>
+<dialog id="inspector" aria-labelledby="domain-title"><h2 id="domain-title"></h2><p id="domain-note"></p><code id="domain-url"></code><p id="domain-target"></p><div class="actions"><a id="visit" target="_blank" rel="noopener noreferrer">Visit domain ↗</a><button id="close" type="button">Close</button></div><p>Opening a domain is your explicit choice. Selecting its node only inspects this snapshot.</p></dialog>
+<script>
+"use strict";
+/* Registry and parser are independent of DOM and renderer. */
+const D=(domain,status,note,target="",priority=0)=>{const url=new URL("https://"+domain+"/");return{id:url.hostname,domain,status,note,target,priority,url:url.href};};
+const domains=[
+ D("æææ.com","reported","Operator reports redirection; independently unverified"),
+ D("soværeign.com","reported","Operator reports redirection; independently unverified"),
+ D("cli.llc","reported","Operator reports redirection; independently unverified"),
+ D("æ.store","responded","HTTPS returned 200"),D("llm.store","responded","HTTPS returned 200"),
+ D("yæl.com","failure","Root and www returned 404","",3),
+ D("æ.me","unknown","Retrieval failed; availability unverified"),
+ D("æl.app","responded","HTTPS returned 200"),D("æl.net","responded","HTTPS returned 200"),
+ D("commandprompt.ai","responded","HTTPS returned 200"),
+ D("privateclient.ai","partial","HTTP returned 200; HTTPS unverified"),
+ D("daollc.ai","partial","HTTP redirect observed; HTTPS unverified","https://æææ.com/"),
+ D("teologia.ai","partial","HTTP redirect observed; HTTPS unverified","https://æææ.com/"),
+ D("teologia.org","unknown","Retrieval failed; availability unverified"),
+ D("teología.org","placeholder","HTTPS returned 200 with Coming Soon"),
+ D("teologia.live","failure","Redirect destination returned 404","https://æl.net/luterana",2),
+ D("teologia.shop","responded","HTTPS returned 200"),
+ D("neuromitosis.com","responded","Redirect observed; destination returned 200","https://myaelmendez.github.io/neuromitosis"),
+ D("moltcontextprotocol.com","responded","HTTPS redirect completed with 200","https://myaelmendez.github.io/"),
+ D("molt.photos","partial","HTTP redirect observed; HTTPS entry unverified","https://myaelmendez.github.io/"),
+ D("molt.earth","failure","HTTP redirect destination returned 404","https://myaelmendez.github.io/mech-inventory",1),
+ D("molt.school","unknown","Retrieval failed; availability unverified"),
+ D("IAaMANO.com","responded","HTTPS redirect completed with 200","https://æ.store/"),
+ D("zacapa.ai","unknown","Retrieval failed; availability unverified"),
+ D("aipodcast.me","unknown","Search retrieval showed a page; live request failed")
+];
+const status={responded:{label:"HTTP response verified",color:"#72f8ac",radius:2.6},partial:{label:"Partial verification",color:"#ffd873",radius:3.6},placeholder:{label:"Coming Soon",color:"#ffd873",radius:3.6},failure:{label:"404 observed",color:"#ffb4b4",radius:4.6},unknown:{label:"Unverified",color:"#7fd0ff",radius:4.6},reported:{label:"Operator reported",color:"#7fd0ff",radius:4.6}};
+const snapshot={observedDate:"2026-10-11",timezone:"America/Chicago",liveMonitoring:false,qrDecodeVerified:false,domains};
+function findDomain(text){try{const s=text.trim();const u=new URL(s.includes("://")?s:"https://"+s);if(!["http:","https:"].includes(u.protocol)||u.username||u.password||u.pathname!=="/"||u.search||u.hash||u.port)return null;return domains.find(d=>d.id===u.hostname.toLowerCase())||null;}catch{return null;}}
+function parseCommand(text){const value=text.trim().replace(/^codæ:\/\/\s*/i,"");if(["repair","export"].includes(value.toLowerCase()))return{action:value.toLowerCase()};const m=/^(locate|status)\s+(.+)$/i.exec(value);const domain=m&&findDomain(m[2]);if(!domain)throw Error("Use locate DOMAIN, status DOMAIN, repair, or export. The domain must be in this registry.");return{action:m[1].toLowerCase(),domain};}
+/* DOM and browser actions. Stable domain IDs are shared with canvas nodes. */
+const $=id=>document.getElementById(id);
+const el=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
+let selectedId=null,opener=null;
+const cards=new Map();
+for(const d of domains){const a=el("a",d.domain);a.href=d.url;a.target="_blank";a.rel="noopener noreferrer";$("ticker").append(a);const b=el("button");b.type="button";b.className="card";b.setAttribute("aria-haspopup","dialog");b.setAttribute("aria-pressed","false");const badge=el("span",status[d.status].label);badge.className=d.status;b.append(el("strong",d.domain),badge,el("small",d.note));b.onclick=()=>inspect(d.id,b);cards.set(d.id,b);$("grid").append(b);}
+for(const [key,s] of Object.entries(status)){const o=el("option",s.label);o.value=key;$("filter").append(o);}
+function filterCards(){let visible=0;for(const d of domains){const show=$("filter").value==="all"||d.status===$("filter").value;cards.get(d.id).hidden=!show;visible+=Number(show);}$("count").textContent=visible+" of "+domains.length+" domains";}
+$("filter").onchange=filterCards;filterCards();
+const repairs=domains.filter(d=>d.priority).sort((a,b)=>a.priority-b.priority);
+for(const d of repairs){const b=el("button",d.priority+". "+d.domain);b.type="button";b.onclick=()=>inspect(d.id,b);$("repairs").append(b);}
+function select(id){selectedId=id;for(const [key,b] of cards)b.setAttribute("aria-pressed",String(key===id));render();}
+function inspect(id,from){const d=domains.find(d=>d.id===id);if(!d)return;opener=from;select(id);$("domain-title").textContent=d.domain;$("domain-note").textContent=status[d.status].label+" · "+d.note+" · Snapshot 2026-10-11";$("domain-url").textContent=d.url;$("domain-target").textContent=d.target?"Observed redirect target: "+d.target:"No redirect target recorded.";$("visit").href=d.url;if(!$("inspector").open)$("inspector").showModal();$("close").focus();}
+$("close").onclick=()=>$("inspector").close();$("inspector").addEventListener("close",()=>{if(opener?.isConnected)opener.focus();});
+function download(name,data){const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));const a=el("a");a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+const receipts=[];
+async function receipt(action,evidence){const entry={schema:"coda.directory.observation.v1",sequence:receipts.length+1,timestamp:new Date().toISOString(),snapshotDate:snapshot.observedDate,action,evidence,previousHash:receipts.at(-1)?.hash||null,authorityGranted:false};if(globalThis.crypto?.subtle){const bytes=new TextEncoder().encode(JSON.stringify(entry));entry.hash=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",bytes)),b=>b.toString(16).padStart(2,"0")).join("");}else{entry.hash=null;entry.hashUnavailable=true;}receipts.push(entry);return entry;}
+let busy=false;
+async function execute(text){if(busy)return;busy=true;try{const c=parseCommand(text);let evidence;if(c.domain){select(c.domain.id);evidence={domain:c.domain.domain,status:c.domain.status,note:c.domain.note,target:c.domain.target};if(c.action==="locate"){cards.get(c.domain.id).hidden=false;$("filter").value="all";filterCards();cards.get(c.domain.id).scrollIntoView({block:"center"});cards.get(c.domain.id).focus();}}else evidence={domains:c.action==="repair"?repairs:domains};const r=await receipt(c.action,evidence);$("output").textContent=JSON.stringify({action:c.action,evidence,receipt:r.hash,authorityGranted:false},null,2);$("command-status").textContent="Local "+c.action+" complete · snapshot evidence only.";if(c.action==="export")download("coda-domain-snapshot-2026-10-11.json",snapshot);}catch(e){$("command-status").textContent=e.message;$("output").textContent=e.message;}finally{busy=false;}}
+$("command").onsubmit=e=>{e.preventDefault();execute($("intent").value);};document.querySelectorAll("[data-command]").forEach(b=>b.onclick=()=>{$("intent").value=b.dataset.command;execute(b.dataset.command);});$("export").onclick=()=>execute("export");$("receipts").onclick=()=>download("coda-session-receipts.json",{schema:"coda.directory.session.v1",receipts});$("json").textContent=JSON.stringify(snapshot,null,2);
+const timeFormat=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZoneName:"short"});function clock(){$("clock").textContent=timeFormat.format(new Date());$("clock").dateTime=new Date().toISOString();}clock();setInterval(clock,1000);
+/* Canvas uses CSS coordinates; DPR only controls backing resolution. */
+const canvas=$("scene"),ctx=canvas.getContext("2d"),motion=matchMedia("(prefers-reduced-motion: reduce)");let yaw=0,pitch=-0.35,distance=11,width=0,height=0,hits=[],drag=null,preventClick=false,rotating=false,frame=null,lastTime=0;
+const groups=new Map();for(const d of domains){const radius=status[d.status].radius;if(!groups.has(radius))groups.set(radius,[]);groups.get(radius).push(d);}
+const nodes=[];for(const [radius,list] of groups){list.forEach((d,i)=>{const angle=i/list.length*Math.PI*2+radius*1.3;nodes.push({id:d.id,radius,angle,y:(i%2?1:-1)*0.65});});}
+function project(x,y,z){const X=x*Math.cos(yaw)+z*Math.sin(yaw),Z=-x*Math.sin(yaw)+z*Math.cos(yaw),Y=y*Math.cos(pitch)-Z*Math.sin(pitch),depth=y*Math.sin(pitch)+Z*Math.cos(pitch)+distance;const f=Math.min(width,height)*0.95/depth;return{x:width/2+X*f,y:height/2+Y*f,depth};}
+function render(){if(!ctx||!width)return;ctx.clearRect(0,0,width,height);hits=[];const center=project(0,0,0);for(const radius of groups.keys()){ctx.beginPath();for(let i=0;i<=80;i++){const a=i/80*Math.PI*2,p=project(Math.cos(a)*radius,0,Math.sin(a)*radius);i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);}ctx.strokeStyle="#7fd0ff25";ctx.lineWidth=1;ctx.stroke();}
+ const visible=nodes.map(n=>{const x=Math.cos(n.angle)*n.radius,z=Math.sin(n.angle)*n.radius;return{...n,p:project(x,n.y,z),d:domains.find(d=>d.id===n.id)};}).sort((a,b)=>b.p.depth-a.p.depth);
+ for(const n of visible){const color=status[n.d.status].color;ctx.strokeStyle=color+"45";ctx.beginPath();ctx.moveTo(center.x,center.y);ctx.lineTo(n.p.x,n.p.y);ctx.stroke();ctx.fillStyle=color;ctx.beginPath();ctx.arc(n.p.x,n.p.y,n.id===selectedId?8:4,0,Math.PI*2);ctx.fill();ctx.font="11px monospace";ctx.textAlign="center";const label=n.d.domain,w=ctx.measureText(label).width;ctx.fillText(label,n.p.x,n.p.y-12);hits.push({id:n.id,x:n.p.x,y:n.p.y-16,width:w});}
+ ctx.fillStyle="#ffd873";ctx.beginPath();ctx.arc(center.x,center.y,13,0,Math.PI*2);ctx.fill();ctx.fillStyle="#050505";ctx.font="bold 18px Georgia";ctx.textAlign="center";ctx.fillText("æ",center.x,center.y+6);ctx.fillStyle="#ffd873";ctx.font="11px monospace";ctx.fillText("HUMAN://ROOT",center.x,center.y+32);}
+function resize(){const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);width=rect.width;height=rect.height;canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);if(ctx)ctx.setTransform(dpr,0,0,dpr,0,0);render();}new ResizeObserver(resize).observe(canvas);
+function stop(){rotating=false;if(frame!==null)cancelAnimationFrame(frame);frame=null;$("motion").textContent="Start rotation";$("motion").setAttribute("aria-pressed","false");render();}
+function tick(now){if(!rotating||motion.matches){stop();return;}const dt=lastTime?Math.min((now-lastTime)/1000,0.05):0;lastTime=now;if(!drag)yaw+=dt*0.12;render();frame=requestAnimationFrame(tick);}
+$("motion").onclick=()=>{if(rotating){stop();return;}if(motion.matches){$("command-status").textContent="Reduced motion is enabled. Manual rotation remains available.";return;}rotating=true;lastTime=0;$("motion").textContent="Pause rotation";$("motion").setAttribute("aria-pressed","true");frame=requestAnimationFrame(tick);};motion.addEventListener("change",()=>{if(motion.matches)stop();});$("reset").onclick=()=>{yaw=0;pitch=-0.35;distance=11;render();};
+canvas.addEventListener("pointerdown",e=>{if(e.button!==0)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY};preventClick=false;canvas.setPointerCapture(e.pointerId);});canvas.addEventListener("pointermove",e=>{if(!drag||drag.id!==e.pointerId)return;if(Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>6)preventClick=true;yaw+=(e.clientX-drag.x)*0.006;pitch=Math.max(-1.2,Math.min(1.2,pitch+(e.clientY-drag.y)*0.004));drag.x=e.clientX;drag.y=e.clientY;render();});function endDrag(){drag=null;}canvas.addEventListener("pointerup",endDrag);canvas.addEventListener("pointercancel",()=>{preventClick=true;endDrag();});canvas.addEventListener("lostpointercapture",endDrag);
+canvas.addEventListener("click",e=>{if(preventClick){preventClick=false;return;}const rect=canvas.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;const hit=[...hits].reverse().find(h=>Math.abs(x-h.x)<h.width/2+8&&Math.abs(y-h.y)<14);if(hit)inspect(hit.id,canvas);});canvas.addEventListener("wheel",e=>{e.preventDefault();distance=Math.min(18,Math.max(7,distance+e.deltaY*0.008));render();},{passive:false});canvas.addEventListener("keydown",e=>{const actions={ArrowLeft:()=>yaw-=0.1,ArrowRight:()=>yaw+=0.1,ArrowUp:()=>pitch=Math.max(-1.2,pitch-0.1),ArrowDown:()=>pitch=Math.min(1.2,pitch+0.1),"+":()=>distance=Math.max(7,distance-0.5),"=":()=>distance=Math.max(7,distance-0.5),"-":()=>distance=Math.min(18,distance+0.5)};if(actions[e.key]){e.preventDefault();actions[e.key]();render();}});
+</script>
+</body>
+</html>
