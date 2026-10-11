@@ -187,5 +187,190 @@ class TestTheChainIsReal(unittest.TestCase):
                                 "the second receipt must have a real prev")
 
 
+class TestTheGateIsArmed(unittest.TestCase):
+    """#9: an unarmed gate must be distinguishable from a bad artifact."""
+
+    def test_decoders_available_reports_each(self):
+        d = qs.decoders_available()
+        self.assertIn("cv2", d)
+        self.assertIn("pyzbar", d)
+        self.assertTrue(d["cv2"], "cv2 is required for the gate to run at all")
+
+    def test_require_armed_raises_when_short(self):
+        """With one decoder, GateUnarmed must fire — not a check failure."""
+        orig = qs.decoders_available
+        qs.decoders_available = lambda: {"cv2": True, "pyzbar": False}
+        try:
+            with self.assertRaises(qs.GateUnarmed):
+                qs.require_armed()
+        finally:
+            qs.decoders_available = orig
+
+    def test_unarmed_is_not_a_refusal(self):
+        """GateUnarmed and QRRefused must be different types — an operator has
+        to tell 'this artifact is bad' from 'I cannot tell'."""
+        self.assertFalse(issubclass(qs.GateUnarmed, qs.QRRefused))
+        self.assertFalse(issubclass(qs.QRRefused, qs.GateUnarmed))
+
+
+class TestTheChainIsConsumable(unittest.TestCase):
+    """#4: a chain nobody reads proves nothing. ORDER and GENESIS must be checked."""
+
+    def _good(self):
+        return [{"receipt": "r1", "prev": "genesis"},
+                {"receipt": "r2", "prev": "r1"},
+                {"receipt": "r3", "prev": "r2"}]
+
+    def test_an_intact_chain_verifies(self):
+        r = qs._verify_links(self._good())
+        self.assertTrue(r["ok"], r["breaks"])
+        self.assertEqual(r["links"], 3)
+
+    def test_a_reorder_is_caught(self):
+        bad = self._good(); bad[1]["prev"] = "r0"
+        r = qs._verify_links(bad)
+        self.assertFalse(r["ok"], "a broken prev must not verify")
+        self.assertIn("previous receipt", r["first_break"]["why"])
+
+    def test_an_omission_is_caught(self):
+        g = self._good()
+        r = qs._verify_links([g[0], g[2]])       # r2 removed
+        self.assertFalse(r["ok"], "an omission must not verify")
+
+    def test_a_bad_genesis_seed_is_caught(self):
+        r = qs._verify_links([{"receipt": "r1", "prev": "elsewhere"}])
+        self.assertFalse(r["ok"])
+        self.assertIn("genesis", r["first_break"]["why"])
+
+    def test_the_real_chain_verifies(self):
+        r = qs.chain_verify()
+        self.assertTrue(r["ok"], f"the live chain has breaks: {r['breaks'][:2]}")
+        self.assertGreater(r["links"], 0)
+
+
+class TestAdvisoryChecks(unittest.TestCase):
+    """A check that cannot tell a working artifact from a broken one must not
+    refuse one. This class exists because module_size/quiet_zone/contrast DID
+    refuse working artifacts — a rotated code both decoders read fine."""
+
+    def setUp(self):
+        self.t = TempPNG()
+
+    def test_a_rotated_code_both_decoders_read_is_not_refused(self):
+        """The exact regression: 6 and 20 degrees were falsely refused."""
+        import cv2
+        import numpy as np
+        env = qe.encode("route", {"cmd": "test"})
+        p = self.t.render(env)
+        img = cv2.imread(str(p))
+        h, w = img.shape[:2]
+        for ang in (6, 20, 35):
+            with self.subTest(angle=ang):
+                M = cv2.getRotationMatrix2D((w/2, h/2), ang, 1.0)
+                rot = cv2.warpAffine(img, M, (w, h), borderValue=(255,255,255))
+                rp = self.t.dir / f"rot{ang}.png"
+                cv2.imwrite(str(rp), rot)
+                scannable = (env in qs._decode_with_cv2(rot)
+                             and env in qs._decode_with_pyzbar(rot))
+                rep = qs.supervise(str(rp), envelope=env)
+                self.assertEqual(rep.passed, scannable,
+                                 f"{ang}deg: decoders say {scannable}, gate says "
+                                 f"{rep.passed} — refused by "
+                                 f"{[c.name for c in rep.failed]}")
+
+    def test_advisory_checks_are_reported_but_cannot_refuse(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(p, envelope=env)
+        names = {c.name for c in rep.advisory_notes}
+        self.assertIn("module_size", names,
+                      "module_size must be advisory — it is a proxy")
+        for c in rep.failed:
+            self.assertFalse(c.advisory,
+                             f"{c.name} is advisory but appears in failed")
+
+    def test_the_gate_still_refuses_a_genuinely_broken_artifact(self):
+        """Advisory must not mean toothless: the real checks still bite."""
+        env = qe.encode("route", {"cmd": "a"})
+        p = self.t.render(env)
+        rep = qs.supervise(p, expect_payload={"cmd": "OTHER"}, envelope=env)
+        self.assertFalse(rep.passed, "payload_match must still refuse")
+
+    def test_occlusion_that_breaks_the_decode_is_refused(self):
+        """The one remaining sweep failure IS correct: decoders cannot read it."""
+        import cv2
+        import numpy as np
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        img = cv2.imread(str(p))
+        h, w = img.shape[:2]
+        occluded = img.copy()
+        occluded[h - int(h*0.16):, :int(w*0.16)] = 40
+        op = self.t.dir / "occ.png"
+        cv2.imwrite(str(op), occluded)
+        scannable = (env in qs._decode_with_cv2(occluded)
+                     and env in qs._decode_with_pyzbar(occluded))
+        rep = qs.supervise(str(op), envelope=env)
+        self.assertEqual(rep.passed, scannable)
+
+
+class TestAssuranceLevel(unittest.TestCase):
+    """A pass without an expectation is not the same claim as a pass against a
+    stated truth. The report must not blur them.
+
+    Without this, `roundtrip` compares the image to the envelope recovered FROM
+    the image, and `cross_decoder` compares two decoders to each other — both
+    self-referential. The gate would report PASS for 'this image decodes to
+    whatever this image decodes to'."""
+
+    def setUp(self):
+        self.t = TempPNG()
+
+    def test_no_expectation_is_self_consistent(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(str(p))              # no expectation at all
+        self.assertEqual(rep.assurance, "self_consistent")
+        self.assertEqual(rep.expectations, [])
+        names = {c.name for c in rep.advisory_notes}
+        self.assertIn("assurance", names,
+                      "a self-consistent-only pass must SAY so")
+
+    def test_an_envelope_upgrades_the_assurance(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(str(p), envelope=env)
+        self.assertEqual(rep.assurance, "expected")
+        self.assertIn("envelope", rep.expectations)
+
+    def test_a_payload_expectation_is_expected(self):
+        env = qe.encode("route", {"cmd": "x"})
+        p = self.t.render(env)
+        rep = qs.supervise(str(p), expect_payload={"cmd": "x"}, envelope=env)
+        self.assertEqual(rep.assurance, "expected")
+        self.assertIn("payload", rep.expectations)
+
+    def test_produce_always_yields_expected(self):
+        """The producer knows what it meant, so it must always assert it."""
+        r = qs.produce("route", {"cmd": "x"}, out_path=self.t.dir / "p.png")
+        self.assertEqual(r.report["assurance"], "expected")
+        self.assertTrue(r.report["expectations"])
+
+    def test_the_tautology_does_not_catch_a_wrong_but_consistent_render(self):
+        """The honest limitation, asserted: a self-consistent pass proves the
+        image decodes, NOT that it decodes to the intended payload."""
+        envA = qe.encode("route", {"cmd": "TRANSFER TO ALICE"})
+        envB = qe.encode("route", {"cmd": "TRANSFER TO MALLORY"})
+        pB = self.t.render(envB, name="b.png")
+        # a scan with no expectation cannot know B is wrong
+        rep = qs.supervise(str(pB))
+        self.assertTrue(rep.passed)
+        self.assertEqual(rep.assurance, "self_consistent",
+                         "and it must be labelled as such, not as verified")
+        # with the expectation, it is caught
+        rep2 = qs.supervise(str(pB), envelope=envA)
+        self.assertFalse(rep2.passed, "the expected envelope must catch the swap")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -1,0 +1,17 @@
+{
+  "scheme": "æqr://v1",
+  "artifact": "teologia.ai/platform",
+  "region": "es-LATAM",
+  "sha256": "cef95dab3ca92c2e25f3eb8c92f7907924571e8ad6cae17e2b7cde9e444605ee",
+  "issuer": "☺://cc",
+  "issued_at": "2026-10-10T23:15:44Z",
+  "qr_version": 8,
+  "qr_modules": 49,
+  "payload": "æqr://v1|teologia.ai/platform|es-LATAM|sha256:cef95dab3ca92c2e25f3eb8c92f7907924571e8ad6cae17e2b7cde9e444605ee|issuer:☺://cc",
+  "decoded_ok": true,
+  "decode_note": "decoded == payload",
+  "badge_svg": "C:\\æ\\site\\teologia\\aeqr-badge-platform.svg",
+  "manifest": "C:\\æ\\site\\teologia\\platform-manifest.json",
+  "html": "C:\\æ\\site\\teologia\\index.html",
+  "note": "platform manifest aggregates 3 devotional artifacts; signed intent can travel; authority does not travel with it"
+}
