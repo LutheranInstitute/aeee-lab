@@ -13,26 +13,259 @@
 *{box-sizing:border-box}body{margin:0;background:var(--void);color:var(--ink);font:14px/1.6 system-ui,sans-serif}a{color:var(--gold)}button,input,select{font:inherit}button,select,input{min-height:44px;border:1px solid var(--line);border-radius:6px;padding:10px;background:var(--panel);color:var(--ink)}button{cursor:pointer}button:hover{border-color:var(--gold)}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,canvas:focus-visible,summary:focus-visible{outline:3px solid #fff;outline-offset:3px}[hidden]{display:none!important}
 .skip{position:absolute;top:-100px;left:12px;z-index:10;padding:12px;background:#050505}.skip:focus{top:12px}.ticker{display:flex;gap:20px;overflow:auto;padding:14px 18px;border-bottom:1px solid var(--line);font:13px monospace}.ticker a{white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}.ticker a:nth-child(3n+2){color:var(--blue)}.ticker a:nth-child(3n){color:var(--green)}main{max-width:1000px;margin:auto;padding:20px 16px max(40px,env(safe-area-inset-bottom))}.bar,.controls,.actions{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.bar{font:11px monospace;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:12px}header{text-align:center;padding:26px 0 12px}h1{font:clamp(32px,9vw,64px) Georgia,serif;color:var(--gold);margin:0}h2{font-size:18px;margin:28px 0 12px}.sub{font:12px/1.8 monospace;letter-spacing:.06em}p{color:var(--muted)}.law{font-size:12px;border-top:1px solid var(--line);padding-top:16px}.map{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:radial-gradient(ellipse at center,#102433,#050505 75%);margin:16px 0}.map canvas{display:block;width:100%;height:clamp(300px,55svh,600px);touch-action:pan-y}.controls{padding:10px;border-top:1px solid var(--line);font-size:12px}.controls span{flex:1}.cmd{display:flex;gap:8px;margin:18px 0 10px}.cmd input{flex:1;min-width:0}.cmd button{background:var(--gold);color:#050505;font-weight:700}.output{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--panel);padding:14px;border:1px solid var(--line);border-radius:8px;color:var(--blue);font:12px/1.7 monospace}.examples{display:flex;flex-wrap:wrap;gap:6px}.examples button{font-size:12px}.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0}.filters label{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px}.card{text-align:left;display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;padding:14px}.card[aria-pressed=true]{border-color:var(--gold)}.card strong{color:var(--gold);overflow-wrap:anywhere}.card small{color:var(--muted)}.responded{color:var(--green)}.partial,.placeholder{color:var(--gold)}.failure{color:var(--red)}.unknown,.reported{color:var(--blue)}.repairs{display:flex;gap:8px;flex-wrap:wrap}.repairs button{color:var(--red)}dialog{width:min(460px,calc(100% - 32px));max-height:85svh;overflow:auto;background:var(--panel);color:var(--ink);border:1px solid var(--gold);border-radius:12px;padding:22px}dialog::backdrop{background:#000c}dialog h2{margin-top:0;color:var(--gold);overflow-wrap:anywhere}dialog code{display:block;overflow-wrap:anywhere;font-size:12px;margin:12px 0}.actions{justify-content:flex-start}.actions a{min-height:44px;display:inline-flex;align-items:center}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}details{margin:20px 0}summary{cursor:pointer}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.static-entry{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--panel)}.static-entry h3{margin:0;overflow-wrap:anywhere}.static-entry p{margin:6px 0;font-size:12px;overflow-wrap:anywhere}.repairs a{display:inline-flex;min-height:44px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:6px;color:var(--red)}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to constellation</a>
-<nav class="ticker" id="ticker" aria-label="Domain links; open in new tabs"></nav>
+<nav class="ticker" id="ticker" aria-label="Domain links; open in new tabs"><a href="https://xn--6caaa.com/" target="_blank" rel="noopener noreferrer">æææ.com</a><a href="https://xn--sovreign-l0a.com/" target="_blank" rel="noopener noreferrer">soværeign.com</a><a href="https://cli.llc/" target="_blank" rel="noopener noreferrer">cli.llc</a><a href="https://xn--6ca.store/" target="_blank" rel="noopener noreferrer">æ.store</a><a href="https://llm.store/" target="_blank" rel="noopener noreferrer">llm.store</a><a href="https://xn--yl-1ia.com/" target="_blank" rel="noopener noreferrer">yæl.com</a><a href="https://xn--6ca.me/" target="_blank" rel="noopener noreferrer">æ.me</a><a href="https://xn--l-3fa.app/" target="_blank" rel="noopener noreferrer">æl.app</a><a href="https://xn--l-3fa.net/" target="_blank" rel="noopener noreferrer">æl.net</a><a href="https://commandprompt.ai/" target="_blank" rel="noopener noreferrer">commandprompt.ai</a><a href="https://privateclient.ai/" target="_blank" rel="noopener noreferrer">privateclient.ai</a><a href="https://daollc.ai/" target="_blank" rel="noopener noreferrer">daollc.ai</a><a href="https://teologia.ai/" target="_blank" rel="noopener noreferrer">teologia.ai</a><a href="https://teologia.org/" target="_blank" rel="noopener noreferrer">teologia.org</a><a href="https://xn--teologa-dza.org/" target="_blank" rel="noopener noreferrer">teología.org</a><a href="https://teologia.live/" target="_blank" rel="noopener noreferrer">teologia.live</a><a href="https://teologia.shop/" target="_blank" rel="noopener noreferrer">teologia.shop</a><a href="https://neuromitosis.com/" target="_blank" rel="noopener noreferrer">neuromitosis.com</a><a href="https://moltcontextprotocol.com/" target="_blank" rel="noopener noreferrer">moltcontextprotocol.com</a><a href="https://molt.photos/" target="_blank" rel="noopener noreferrer">molt.photos</a><a href="https://molt.earth/" target="_blank" rel="noopener noreferrer">molt.earth</a><a href="https://molt.school/" target="_blank" rel="noopener noreferrer">molt.school</a><a href="https://iaamano.com/" target="_blank" rel="noopener noreferrer">IAaMANO.com</a><a href="https://zacapa.ai/" target="_blank" rel="noopener noreferrer">zacapa.ai</a><a href="https://aipodcast.me/" target="_blank" rel="noopener noreferrer">aipodcast.me</a></nav>
 <main id="main">
 <div class="bar"><a href="./index.html">← codæ:// HOME</a><span>LOCAL DIRECTORY · SNAPSHOT 2026-10-11</span><time id="clock"></time></div>
 <header><h1>codæ://</h1><p class="sub">THE LANGUAGE IS COMPUTE<br>DOMAIN CONSTELLATION · HUMAN://ROOT</p><p>Choose an entrance. Inspect the evidence. Keep your authority.</p></header>
-<form class="cmd" id="command"><label for="intent" hidden>Directory command</label><input id="intent" aria-label="Directory command" placeholder="codæ:// status æ.store" autocomplete="off" spellcheck="false"><button type="submit">RUN</button></form>
+<form class="cmd" id="command" hidden><label for="intent" hidden>Directory command</label><input id="intent" aria-label="Directory command" placeholder="codæ:// status æ.store" autocomplete="off" spellcheck="false"><button type="submit">RUN</button></form>
 <p>Local directory commands only: <code>locate domain</code>, <code>status domain</code>, <code>repair</code>, <code>export</code>. This page does not compile .mec or invoke the homepage engine.</p>
-<div class="examples"><button type="button" data-command="status æ.store">status æ.store</button><button type="button" data-command="locate æææ.com">locate æææ.com</button><button type="button" data-command="repair">repair queue</button><button type="button" data-command="export">export snapshot</button></div>
-<p id="command-status" role="status">Ready for a local directory command.</p><pre class="output" id="output">Evidence ≠ authority. No live DNS scan or runtime telemetry.</pre>
-<section class="map" aria-label="Visual domain map"><canvas id="scene" tabindex="0" role="img" aria-label="Rotatable domain map. Arrow keys rotate, plus and minus zoom. Use the domain list below to inspect every node."></canvas><div class="controls"><span>Drag horizontally to rotate · wheel to zoom · domain buttons below</span><button id="motion" type="button" aria-pressed="false">Start rotation</button><button id="reset" type="button">Reset view</button></div></section>
-<h2>Repair queue · dated observations</h2><div class="repairs" id="repairs"></div>
-<div class="filters"><label for="filter">Status</label><select id="filter"><option value="all">All domains</option></select><span id="count" role="status"></span></div>
-<section aria-labelledby="list-title"><h2 id="list-title">25 entrances · inspect a domain</h2><div class="grid" id="grid"></div></section>
-<details><summary>Snapshot JSON</summary><pre id="json"></pre></details>
-<div class="actions"><button type="button" id="export">Export snapshot ↓</button><button type="button" id="receipts">Export session receipts ↓</button></div>
+<div class="examples" id="examples" hidden><button type="button" data-command="status æ.store">status æ.store</button><button type="button" data-command="locate æææ.com">locate æææ.com</button><button type="button" data-command="repair">repair queue</button><button type="button" data-command="export">export snapshot</button></div>
+<p id="command-status" role="status">Static directory available · interactive controls appear when JavaScript runs.</p><pre class="output" id="output" hidden>Evidence ≠ authority. No live DNS scan or runtime telemetry.</pre>
+<section class="map" id="map" aria-label="Visual domain map" hidden><canvas id="scene" tabindex="0" role="img" aria-label="Rotatable domain map. Arrow keys rotate, plus and minus zoom. Use the domain list below to inspect every node."></canvas><div class="controls"><span>Drag horizontally to rotate · wheel to zoom · domain buttons below</span><button id="motion" type="button" aria-pressed="false">Start rotation</button><button id="reset" type="button">Reset view</button></div></section>
+<h2>Repair queue · dated observations</h2><div class="repairs" id="repairs"><a href="#domain-molt.earth">1. molt.earth</a><a href="#domain-teologia.live">2. teologia.live</a><a href="#domain-xn--yl-1ia.com">3. yæl.com</a></div>
+<div class="filters" id="filters" hidden><label for="filter">Status</label><select id="filter"><option value="all">All domains</option></select><span id="count" role="status"></span></div>
+<section aria-labelledby="list-title"><h2 id="list-title">25 entrances · inspect a domain</h2><div id="static-registry" class="grid"><article class="static-entry" id="domain-xn--6caaa.com"><h3><a href="https://xn--6caaa.com/" target="_blank" rel="noopener noreferrer">æææ.com ↗</a></h3><p class="reported">Operator reported</p><p>Operator reports redirection; independently unverified</p></article><article class="static-entry" id="domain-xn--sovreign-l0a.com"><h3><a href="https://xn--sovreign-l0a.com/" target="_blank" rel="noopener noreferrer">soværeign.com ↗</a></h3><p class="reported">Operator reported</p><p>Operator reports redirection; independently unverified</p></article><article class="static-entry" id="domain-cli.llc"><h3><a href="https://cli.llc/" target="_blank" rel="noopener noreferrer">cli.llc ↗</a></h3><p class="reported">Operator reported</p><p>Operator reports redirection; independently unverified</p></article><article class="static-entry" id="domain-xn--6ca.store"><h3><a href="https://xn--6ca.store/" target="_blank" rel="noopener noreferrer">æ.store ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS returned 200</p></article><article class="static-entry" id="domain-llm.store"><h3><a href="https://llm.store/" target="_blank" rel="noopener noreferrer">llm.store ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS returned 200</p></article><article class="static-entry" id="domain-xn--yl-1ia.com"><h3><a href="https://xn--yl-1ia.com/" target="_blank" rel="noopener noreferrer">yæl.com ↗</a></h3><p class="failure">404 observed</p><p>Root and www returned 404</p></article><article class="static-entry" id="domain-xn--6ca.me"><h3><a href="https://xn--6ca.me/" target="_blank" rel="noopener noreferrer">æ.me ↗</a></h3><p class="unknown">Unverified</p><p>Retrieval failed; availability unverified</p></article><article class="static-entry" id="domain-xn--l-3fa.app"><h3><a href="https://xn--l-3fa.app/" target="_blank" rel="noopener noreferrer">æl.app ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS returned 200</p></article><article class="static-entry" id="domain-xn--l-3fa.net"><h3><a href="https://xn--l-3fa.net/" target="_blank" rel="noopener noreferrer">æl.net ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS returned 200</p></article><article class="static-entry" id="domain-commandprompt.ai"><h3><a href="https://commandprompt.ai/" target="_blank" rel="noopener noreferrer">commandprompt.ai ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS returned 200</p></article><article class="static-entry" id="domain-privateclient.ai"><h3><a href="https://privateclient.ai/" target="_blank" rel="noopener noreferrer">privateclient.ai ↗</a></h3><p class="partial">Partial verification</p><p>HTTP returned 200; HTTPS unverified</p></article><article class="static-entry" id="domain-daollc.ai"><h3><a href="https://daollc.ai/" target="_blank" rel="noopener noreferrer">daollc.ai ↗</a></h3><p class="partial">Partial verification</p><p>HTTP redirect observed; HTTPS unverified</p><p>Observed target: https://æææ.com/</p></article><article class="static-entry" id="domain-teologia.ai"><h3><a href="https://teologia.ai/" target="_blank" rel="noopener noreferrer">teologia.ai ↗</a></h3><p class="partial">Partial verification</p><p>HTTP redirect observed; HTTPS unverified</p><p>Observed target: https://æææ.com/</p></article><article class="static-entry" id="domain-teologia.org"><h3><a href="https://teologia.org/" target="_blank" rel="noopener noreferrer">teologia.org ↗</a></h3><p class="unknown">Unverified</p><p>Retrieval failed; availability unverified</p></article><article class="static-entry" id="domain-xn--teologa-dza.org"><h3><a href="https://xn--teologa-dza.org/" target="_blank" rel="noopener noreferrer">teología.org ↗</a></h3><p class="placeholder">Coming Soon</p><p>HTTPS returned 200 with Coming Soon</p></article><article class="static-entry" id="domain-teologia.live"><h3><a href="https://teologia.live/" target="_blank" rel="noopener noreferrer">teologia.live ↗</a></h3><p class="failure">404 observed</p><p>Redirect destination returned 404</p><p>Observed target: https://æl.net/luterana</p></article><article class="static-entry" id="domain-teologia.shop"><h3><a href="https://teologia.shop/" target="_blank" rel="noopener noreferrer">teologia.shop ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS returned 200</p></article><article class="static-entry" id="domain-neuromitosis.com"><h3><a href="https://neuromitosis.com/" target="_blank" rel="noopener noreferrer">neuromitosis.com ↗</a></h3><p class="responded">HTTP response verified</p><p>Redirect observed; destination returned 200</p><p>Observed target: https://myaelmendez.github.io/neuromitosis</p></article><article class="static-entry" id="domain-moltcontextprotocol.com"><h3><a href="https://moltcontextprotocol.com/" target="_blank" rel="noopener noreferrer">moltcontextprotocol.com ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS redirect completed with 200</p><p>Observed target: https://myaelmendez.github.io/</p></article><article class="static-entry" id="domain-molt.photos"><h3><a href="https://molt.photos/" target="_blank" rel="noopener noreferrer">molt.photos ↗</a></h3><p class="partial">Partial verification</p><p>HTTP redirect observed; HTTPS entry unverified</p><p>Observed target: https://myaelmendez.github.io/</p></article><article class="static-entry" id="domain-molt.earth"><h3><a href="https://molt.earth/" target="_blank" rel="noopener noreferrer">molt.earth ↗</a></h3><p class="failure">404 observed</p><p>HTTP redirect destination returned 404</p><p>Observed target: https://myaelmendez.github.io/mech-inventory</p></article><article class="static-entry" id="domain-molt.school"><h3><a href="https://molt.school/" target="_blank" rel="noopener noreferrer">molt.school ↗</a></h3><p class="unknown">Unverified</p><p>Retrieval failed; availability unverified</p></article><article class="static-entry" id="domain-iaamano.com"><h3><a href="https://iaamano.com/" target="_blank" rel="noopener noreferrer">IAaMANO.com ↗</a></h3><p class="responded">HTTP response verified</p><p>HTTPS redirect completed with 200</p><p>Observed target: https://æ.store/</p></article><article class="static-entry" id="domain-zacapa.ai"><h3><a href="https://zacapa.ai/" target="_blank" rel="noopener noreferrer">zacapa.ai ↗</a></h3><p class="unknown">Unverified</p><p>Retrieval failed; availability unverified</p></article><article class="static-entry" id="domain-aipodcast.me"><h3><a href="https://aipodcast.me/" target="_blank" rel="noopener noreferrer">aipodcast.me ↗</a></h3><p class="unknown">Unverified</p><p>Search retrieval showed a page; live request failed</p></article></div><div class="grid" id="grid" hidden></div></section>
+<details><summary>Snapshot JSON</summary><pre id="json">{
+  &quot;observedDate&quot;: &quot;2026-10-11&quot;,
+  &quot;timezone&quot;: &quot;America/Chicago&quot;,
+  &quot;liveMonitoring&quot;: false,
+  &quot;qrDecodeVerified&quot;: false,
+  &quot;domains&quot;: [
+    {
+      &quot;id&quot;: &quot;xn--6caaa.com&quot;,
+      &quot;domain&quot;: &quot;æææ.com&quot;,
+      &quot;status&quot;: &quot;reported&quot;,
+      &quot;note&quot;: &quot;Operator reports redirection; independently unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--6caaa.com/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--sovreign-l0a.com&quot;,
+      &quot;domain&quot;: &quot;soværeign.com&quot;,
+      &quot;status&quot;: &quot;reported&quot;,
+      &quot;note&quot;: &quot;Operator reports redirection; independently unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--sovreign-l0a.com/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;cli.llc&quot;,
+      &quot;domain&quot;: &quot;cli.llc&quot;,
+      &quot;status&quot;: &quot;reported&quot;,
+      &quot;note&quot;: &quot;Operator reports redirection; independently unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://cli.llc/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--6ca.store&quot;,
+      &quot;domain&quot;: &quot;æ.store&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--6ca.store/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;llm.store&quot;,
+      &quot;domain&quot;: &quot;llm.store&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://llm.store/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--yl-1ia.com&quot;,
+      &quot;domain&quot;: &quot;yæl.com&quot;,
+      &quot;status&quot;: &quot;failure&quot;,
+      &quot;note&quot;: &quot;Root and www returned 404&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 3,
+      &quot;url&quot;: &quot;https://xn--yl-1ia.com/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--6ca.me&quot;,
+      &quot;domain&quot;: &quot;æ.me&quot;,
+      &quot;status&quot;: &quot;unknown&quot;,
+      &quot;note&quot;: &quot;Retrieval failed; availability unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--6ca.me/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--l-3fa.app&quot;,
+      &quot;domain&quot;: &quot;æl.app&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--l-3fa.app/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--l-3fa.net&quot;,
+      &quot;domain&quot;: &quot;æl.net&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--l-3fa.net/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;commandprompt.ai&quot;,
+      &quot;domain&quot;: &quot;commandprompt.ai&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://commandprompt.ai/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;privateclient.ai&quot;,
+      &quot;domain&quot;: &quot;privateclient.ai&quot;,
+      &quot;status&quot;: &quot;partial&quot;,
+      &quot;note&quot;: &quot;HTTP returned 200; HTTPS unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://privateclient.ai/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;daollc.ai&quot;,
+      &quot;domain&quot;: &quot;daollc.ai&quot;,
+      &quot;status&quot;: &quot;partial&quot;,
+      &quot;note&quot;: &quot;HTTP redirect observed; HTTPS unverified&quot;,
+      &quot;target&quot;: &quot;https://æææ.com/&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://daollc.ai/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;teologia.ai&quot;,
+      &quot;domain&quot;: &quot;teologia.ai&quot;,
+      &quot;status&quot;: &quot;partial&quot;,
+      &quot;note&quot;: &quot;HTTP redirect observed; HTTPS unverified&quot;,
+      &quot;target&quot;: &quot;https://æææ.com/&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://teologia.ai/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;teologia.org&quot;,
+      &quot;domain&quot;: &quot;teologia.org&quot;,
+      &quot;status&quot;: &quot;unknown&quot;,
+      &quot;note&quot;: &quot;Retrieval failed; availability unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://teologia.org/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;xn--teologa-dza.org&quot;,
+      &quot;domain&quot;: &quot;teología.org&quot;,
+      &quot;status&quot;: &quot;placeholder&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200 with Coming Soon&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://xn--teologa-dza.org/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;teologia.live&quot;,
+      &quot;domain&quot;: &quot;teologia.live&quot;,
+      &quot;status&quot;: &quot;failure&quot;,
+      &quot;note&quot;: &quot;Redirect destination returned 404&quot;,
+      &quot;target&quot;: &quot;https://æl.net/luterana&quot;,
+      &quot;priority&quot;: 2,
+      &quot;url&quot;: &quot;https://teologia.live/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;teologia.shop&quot;,
+      &quot;domain&quot;: &quot;teologia.shop&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS returned 200&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://teologia.shop/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;neuromitosis.com&quot;,
+      &quot;domain&quot;: &quot;neuromitosis.com&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;Redirect observed; destination returned 200&quot;,
+      &quot;target&quot;: &quot;https://myaelmendez.github.io/neuromitosis&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://neuromitosis.com/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;moltcontextprotocol.com&quot;,
+      &quot;domain&quot;: &quot;moltcontextprotocol.com&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS redirect completed with 200&quot;,
+      &quot;target&quot;: &quot;https://myaelmendez.github.io/&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://moltcontextprotocol.com/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;molt.photos&quot;,
+      &quot;domain&quot;: &quot;molt.photos&quot;,
+      &quot;status&quot;: &quot;partial&quot;,
+      &quot;note&quot;: &quot;HTTP redirect observed; HTTPS entry unverified&quot;,
+      &quot;target&quot;: &quot;https://myaelmendez.github.io/&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://molt.photos/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;molt.earth&quot;,
+      &quot;domain&quot;: &quot;molt.earth&quot;,
+      &quot;status&quot;: &quot;failure&quot;,
+      &quot;note&quot;: &quot;HTTP redirect destination returned 404&quot;,
+      &quot;target&quot;: &quot;https://myaelmendez.github.io/mech-inventory&quot;,
+      &quot;priority&quot;: 1,
+      &quot;url&quot;: &quot;https://molt.earth/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;molt.school&quot;,
+      &quot;domain&quot;: &quot;molt.school&quot;,
+      &quot;status&quot;: &quot;unknown&quot;,
+      &quot;note&quot;: &quot;Retrieval failed; availability unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://molt.school/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;iaamano.com&quot;,
+      &quot;domain&quot;: &quot;IAaMANO.com&quot;,
+      &quot;status&quot;: &quot;responded&quot;,
+      &quot;note&quot;: &quot;HTTPS redirect completed with 200&quot;,
+      &quot;target&quot;: &quot;https://æ.store/&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://iaamano.com/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;zacapa.ai&quot;,
+      &quot;domain&quot;: &quot;zacapa.ai&quot;,
+      &quot;status&quot;: &quot;unknown&quot;,
+      &quot;note&quot;: &quot;Retrieval failed; availability unverified&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://zacapa.ai/&quot;
+    },
+    {
+      &quot;id&quot;: &quot;aipodcast.me&quot;,
+      &quot;domain&quot;: &quot;aipodcast.me&quot;,
+      &quot;status&quot;: &quot;unknown&quot;,
+      &quot;note&quot;: &quot;Search retrieval showed a page; live request failed&quot;,
+      &quot;target&quot;: &quot;&quot;,
+      &quot;priority&quot;: 0,
+      &quot;url&quot;: &quot;https://aipodcast.me/&quot;
+    }
+  ]
+}</pre></details>
+<div class="actions" id="exports" hidden><button type="button" id="export">Export snapshot ↓</button><button type="button" id="receipts">Export session receipts ↓</button></div>
 <footer class="law"><p>HTTP responses establish accessibility at the time observed, not execution capability. Roles and services remain separate from measured evidence. Retrieval failures do not establish an outage. Domain links use HTTPS; a recorded HTTP-only redirect does not prove HTTPS forwarding works.</p><p>Local command receipts record actions in this page and their dated inputs. Hashes are not signatures, independent verification, or permission grants. No camera, DNS changes, provider calls, credentials, or external execution. No QR image is generated by this map.</p><a href="./teotech.html">TEOTECH</a> · <a href="./teologia/aprender.html">Learning journeys</a> · <a href="./surface-manifest.json">Public surface manifest</a></footer>
-<noscript><p>This interactive map requires JavaScript. <a href="./index.html">Return to the homepage.</a></p></noscript>
+<noscript><p>The complete static directory is available above. Map controls and exports require JavaScript. <a href="./index.html">Return to the homepage.</a></p></noscript>
 </main>
 <dialog id="inspector" aria-labelledby="domain-title"><h2 id="domain-title"></h2><p id="domain-note"></p><code id="domain-url"></code><p id="domain-target"></p><div class="actions"><a id="visit" target="_blank" rel="noopener noreferrer">Visit domain ↗</a><button id="close" type="button">Close</button></div><p>Opening a domain is your explicit choice. Selecting its node only inspects this snapshot.</p></dialog>
 <script>
@@ -73,12 +306,12 @@ const $=id=>document.getElementById(id);
 const el=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
 let selectedId=null,opener=null;
 const cards=new Map();
-for(const d of domains){const a=el("a",d.domain);a.href=d.url;a.target="_blank";a.rel="noopener noreferrer";$("ticker").append(a);const b=el("button");b.type="button";b.className="card";b.setAttribute("aria-haspopup","dialog");b.setAttribute("aria-pressed","false");const badge=el("span",status[d.status].label);badge.className=d.status;b.append(el("strong",d.domain),badge,el("small",d.note));b.onclick=()=>inspect(d.id,b);cards.set(d.id,b);$("grid").append(b);}
+for(const d of domains){const b=el("button");b.type="button";b.className="card";b.setAttribute("aria-haspopup","dialog");b.setAttribute("aria-pressed","false");const badge=el("span",status[d.status].label);badge.className=d.status;b.append(el("strong",d.domain),badge,el("small",d.note));b.onclick=()=>inspect(d.id,b);cards.set(d.id,b);$("grid").append(b);}
 for(const [key,s] of Object.entries(status)){const o=el("option",s.label);o.value=key;$("filter").append(o);}
 function filterCards(){let visible=0;for(const d of domains){const show=$("filter").value==="all"||d.status===$("filter").value;cards.get(d.id).hidden=!show;visible+=Number(show);}$("count").textContent=visible+" of "+domains.length+" domains";}
 $("filter").onchange=filterCards;filterCards();
 const repairs=domains.filter(d=>d.priority).sort((a,b)=>a.priority-b.priority);
-for(const d of repairs){const b=el("button",d.priority+". "+d.domain);b.type="button";b.onclick=()=>inspect(d.id,b);$("repairs").append(b);}
+$("repairs").replaceChildren();for(const d of repairs){const b=el("button",d.priority+". "+d.domain);b.type="button";b.onclick=()=>inspect(d.id,b);$("repairs").append(b);}
 function select(id){selectedId=id;for(const [key,b] of cards)b.setAttribute("aria-pressed",String(key===id));render();}
 function inspect(id,from){const d=domains.find(d=>d.id===id);if(!d)return;opener=from;select(id);$("domain-title").textContent=d.domain;$("domain-note").textContent=status[d.status].label+" · "+d.note+" · Snapshot 2026-10-11";$("domain-url").textContent=d.url;$("domain-target").textContent=d.target?"Observed redirect target: "+d.target:"No redirect target recorded.";$("visit").href=d.url;if(!$("inspector").open)$("inspector").showModal();$("close").focus();}
 $("close").onclick=()=>$("inspector").close();$("inspector").addEventListener("close",()=>{if(opener?.isConnected)opener.focus();});
@@ -104,6 +337,10 @@ function tick(now){if(!rotating||motion.matches){stop();return;}const dt=lastTim
 $("motion").onclick=()=>{if(rotating){stop();return;}if(motion.matches){$("command-status").textContent="Reduced motion is enabled. Manual rotation remains available.";return;}rotating=true;lastTime=0;$("motion").textContent="Pause rotation";$("motion").setAttribute("aria-pressed","true");frame=requestAnimationFrame(tick);};motion.addEventListener("change",()=>{if(motion.matches)stop();});$("reset").onclick=()=>{yaw=0;pitch=-0.35;distance=11;render();};
 canvas.addEventListener("pointerdown",e=>{if(e.button!==0)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY};preventClick=false;canvas.setPointerCapture(e.pointerId);});canvas.addEventListener("pointermove",e=>{if(!drag||drag.id!==e.pointerId)return;if(Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>6)preventClick=true;yaw+=(e.clientX-drag.x)*0.006;pitch=Math.max(-1.2,Math.min(1.2,pitch+(e.clientY-drag.y)*0.004));drag.x=e.clientX;drag.y=e.clientY;render();});function endDrag(){drag=null;}canvas.addEventListener("pointerup",endDrag);canvas.addEventListener("pointercancel",()=>{preventClick=true;endDrag();});canvas.addEventListener("lostpointercapture",endDrag);
 canvas.addEventListener("click",e=>{if(preventClick){preventClick=false;return;}const rect=canvas.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;const hit=[...hits].reverse().find(h=>Math.abs(x-h.x)<h.width/2+8&&Math.abs(y-h.y)<14);if(hit)inspect(hit.id,canvas);});canvas.addEventListener("wheel",e=>{e.preventDefault();distance=Math.min(18,Math.max(7,distance+e.deltaY*0.008));render();},{passive:false});canvas.addEventListener("keydown",e=>{const actions={ArrowLeft:()=>yaw-=0.1,ArrowRight:()=>yaw+=0.1,ArrowUp:()=>pitch=Math.max(-1.2,pitch-0.1),ArrowDown:()=>pitch=Math.min(1.2,pitch+0.1),"+":()=>distance=Math.max(7,distance-0.5),"=":()=>distance=Math.max(7,distance-0.5),"-":()=>distance=Math.min(18,distance+0.5)};if(actions[e.key]){e.preventDefault();actions[e.key]();render();}});
+
+/* Reveal enhancements only after successful initialization. */
+for(const id of ["command","examples","output","map","filters","exports","grid"])$(id).hidden=false;
+$("static-registry").hidden=true;$("command-status").textContent="Ready for a local directory command · dated snapshot.";resize();
 </script>
 </body>
 </html>
