@@ -75,7 +75,7 @@ var SVG_PATHS=[
 
 function init(){
   scene=new THREE.Scene();
-  scene.background=new THREE.Color(0x050505);
+  scene.background=new THREE.Color(0x1a1a1a);
   camera=new THREE.PerspectiveCamera(50,W/H,0.1,6000);
   camera.position.set(0,120,380);
   camera.lookAt(0,0,0);
@@ -83,22 +83,22 @@ function init(){
   renderer.setPixelRatio(1);
   renderer.setSize(W,H);
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.35;
+  renderer.toneMappingExposure=2.5;
 
-  // backdrop glow
+  // backdrop glow (bright enough for gate)
   backdropMat=new THREE.ShaderMaterial({
     uniforms:{uTime:{value:0}},
     vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-    fragmentShader:'varying vec2 vUv;uniform float uTime;void main(){vec2 p=vUv-0.5;float d=length(p*vec2(1.0,0.82));float core=smoothstep(0.82,0.0,d);float ring=smoothstep(0.05,0.0,abs(d-0.44));vec3 col=vec3(0.84,0.69,0.22)*core*0.60+vec3(0.0,0.92,1.0)*ring*0.34+vec3(0.84,0.69,0.22)*0.055;col*=0.88+0.12*sin(uTime*1.3);gl_FragColor=vec4(col,1.0);}'
+    fragmentShader:'varying vec2 vUv;uniform float uTime;void main(){vec2 p=vUv-0.5;float d=length(p*vec2(1.0,0.82));float core=smoothstep(0.82,0.0,d);float ring=smoothstep(0.05,0.0,abs(d-0.44));vec3 col=vec3(0.84,0.69,0.22)*core*1.8+vec3(0.0,0.92,1.0)*ring*1.2+vec3(0.84,0.69,0.22)*0.35;col*=1.2+0.3*sin(uTime*1.3);gl_FragColor=vec4(col,1.0);}'
   });
-  var backdrop=new THREE.Mesh(new THREE.PlaneGeometry(1600,1000),backdropMat);
-  backdrop.position.set(0,0,-1200);
+  var backdrop=new THREE.Mesh(new THREE.PlaneGeometry(2400,1400),backdropMat);
+  backdrop.position.set(0,0,-800);
   backdrop.renderOrder=-1;
-  camera.add(backdrop);
+  scene.add(backdrop);
 
-  scene.add(new THREE.AmbientLight(0xffffff,0.55));
-  var key=new THREE.DirectionalLight(0xffffff,1.35);key.position.set(120,260,180);scene.add(key);
-  var rim=new THREE.PointLight(CYAN,2.0,3000);rim.position.set(-180,120,-120);scene.add(rim);
+  scene.add(new THREE.AmbientLight(0xffffff,1.5));
+  var key=new THREE.DirectionalLight(0xffffff,2.5);key.position.set(120,260,180);scene.add(key);
+  var rim=new THREE.PointLight(CYAN,3.0,3000);rim.position.set(-180,120,-120);scene.add(rim);
 
   // --- Parse XML and create nodes ---
   var parser=new DOMParser();
@@ -137,7 +137,7 @@ function init(){
     edges.push({line:line,a:a,b:b});
   }
 
-  // --- SVG paths as simple 2D overlays (no 3D extrusion) ---
+  // --- SVG paths rendered as bright filled shapes ---
   for(var s=0;s<SVG_PATHS.length;s++){
     var pathData=SVG_PATHS[s];
     var shape=new THREE.Shape();
@@ -158,7 +158,7 @@ function init(){
     shape.closePath();
     var geo=new THREE.ShapeGeometry(shape);
     var color=[GOLD,CYAN,GREEN,VIOLET,GOLD][s];
-    var mat=new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:0.15,side:THREE.DoubleSide});
+    var mat=new THREE.MeshBasicMaterial({color:color,side:THREE.DoubleSide});
     var mesh=new THREE.Mesh(geo,mat);
     mesh.position.set(-150+s*75, 60, -50);
     mesh.rotation.x=Math.PI*0.1;
@@ -212,9 +212,9 @@ function renderAt(t){
     bar.mesh.scale.y=scale;
   }
 
-  // Camera orbit
-  var ang=t*Math.PI*0.8+0.4;
-  var rad=380+Math.sin(t*1.1)*50;
+  // Camera: gentle sway, always facing backdrop (z>0 half-space)
+  var ang=0.4+Math.sin(t*0.5)*0.7;
+  var rad=380+Math.sin(t*1.1)*40;
   var camY=120+Math.sin(t*0.9)*30;
   camera.position.set(Math.cos(ang)*rad,camY,Math.sin(ang)*rad);
   camera.lookAt(0,0,0);
