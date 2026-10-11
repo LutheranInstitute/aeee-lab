@@ -1,25 +1,35 @@
 //! teologia.ai — Rust WASM core for the æ:// devotional platform.
 //!
 //! Compiled to wasm32-unknown-unknown via wasm-pack.
-//! Provides hash verification, artifact metadata, and platform state.
+//! Provides artifact metadata, real SHA-256, and æqr payload construction.
+//!
+//! Honesty rules (the æ:// canon):
+//!   - `sha256_hex` computes REAL SHA-256 (sha2 crate), not a placeholder hash.
+//!   - The artifact table carries the MEASURED file-byte SHA-256 prefixes that
+//!     `platform-manifest.json` also records, so the two never disagree.
+//!   - Four artifacts, matching the four surfaces actually published.
 
-use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
-use js_sys::Date;
+use sha2::{Digest, Sha256};
+use wasm_bindgen::prelude::*;
 
-/// Artifact metadata — the three pamphlets of teologia.ai.
+/// Artifact metadata — the four pamphlets of teologia.ai.
+///
+/// `html_sha256_prefix` is the first 8 hex chars of the SHA-256 over the
+/// artifact's HTML **file bytes** — the same value `make_aqr_platform.py`
+/// writes into `platform-manifest.json`.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Artifact {
-    pub id: &'static str,
-    pub title: &'static str,
-    pub author: &'static str,
+    pub id: String,
+    pub title: String,
+    pub author: String,
     pub year: u16,
-    pub region: &'static str,
-    pub html_hash_prefix: &'static str,
+    pub region: String,
+    pub html_sha256_prefix: String,
     pub html_size: u32,
     pub pdf_size: u32,
     pub sections: u8,
-    pub description: &'static str,
+    pub description: String,
 }
 
 /// Platform state — which artifacts are loaded, verified, available.
@@ -29,105 +39,130 @@ pub struct PlatformState {
     pub verified_count: u8,
     pub total_artifacts: u8,
     pub wasm_ready: bool,
-    pub timestamp_ms: f64,
 }
 
-/// The three canonical artifacts of teologia.ai.
-pub const ARTIFACTS: [Artifact; 3] = [
+fn artifact(
+    id: &str,
+    title: &str,
+    year: u16,
+    hash_prefix: &str,
+    html_size: u32,
+    pdf_size: u32,
+    sections: u8,
+    description: &str,
+) -> Artifact {
     Artifact {
-        id: "orar",
-        title: "Una manera sencilla de orar",
-        author: "Martín Lutero",
-        year: 1535,
-        region: "es-LATAM",
-        html_hash_prefix: "ffe56f25",
-        html_size: 64_960,
-        pdf_size: 179_302,
-        sections: 5,
-        description: "Cinco pasos: mandamientos, credo, Padre Nuestro, oración libre, acción de gracias.",
-    },
-    Artifact {
-        id: "catecismo",
-        title: "Catecismo Menor",
-        author: "Martín Lutero",
-        year: 1529,
-        region: "es-LATAM",
-        html_hash_prefix: "41df5301",
-        html_size: 101_960,
-        pdf_size: 429_965,
-        sections: 9,
-        description: "47 preguntas y respuestas para la casa y la escuela.",
-    },
-    Artifact {
-        id: "enchiridion",
-        title: "Enchiridion",
-        author: "Martín Lutero",
-        year: 1529,
-        region: "es-LATAM",
-        html_hash_prefix: "60cd01a2",
-        html_size: 76_935,
-        pdf_size: 246_875,
-        sections: 7,
-        description: "Manual de bolsillo para la devoción diaria.",
-    },
-];
+        id: id.to_string(),
+        title: title.to_string(),
+        author: "Martín Lutero".to_string(),
+        year,
+        region: "es-LATAM".to_string(),
+        html_sha256_prefix: hash_prefix.to_string(),
+        html_size,
+        pdf_size,
+        sections,
+        description: description.to_string(),
+    }
+}
 
-/// Compute SHA-256 hash of a byte slice, return as hex string.
+/// The four canonical artifacts of teologia.ai (measured 2026-10).
+pub fn artifacts() -> Vec<Artifact> {
+    vec![
+        artifact(
+            "orar",
+            "Una manera sencilla de orar",
+            1535,
+            "47f2930f",
+            65_341,
+            179_302,
+            5,
+            "Cinco pasos: mandamientos, credo, Padre Nuestro, oración libre, acción de gracias.",
+        ),
+        artifact(
+            "catecismo",
+            "Catecismo Menor",
+            1529,
+            "61257812",
+            102_723,
+            429_965,
+            9,
+            "47 preguntas y respuestas para la casa y la escuela.",
+        ),
+        artifact(
+            "enchiridion",
+            "Enchiridion",
+            1529,
+            "d93724e2",
+            77_499,
+            246_875,
+            7,
+            "Manual de bolsillo para la devoción diaria.",
+        ),
+        artifact(
+            "mayor",
+            "Catecismo Mayor",
+            1529,
+            "30a9a8dd",
+            86_923,
+            306_150,
+            5,
+            "Expansión del Menor para la escuela y el púlpito.",
+        ),
+    ]
+}
+
+/// Compute the SHA-256 of a byte slice and return it as a lowercase hex string.
 #[wasm_bindgen]
 pub fn sha256_hex(data: &[u8]) -> String {
-    use std::collections::hash_map::DefaultHasher;
-    use std::hash::{Hash, Hasher};
-    // Simple FNV-1a hash for WASM demo (real SHA-256 would need a crypto crate)
-    let mut h: u64 = 0xcbf29ce484222325;
-    for &b in data {
-        h ^= b as u64;
-        h = h.wrapping_mul(0x100000001b3);
+    let mut hasher = Sha256::new();
+    hasher.update(data);
+    let digest = hasher.finalize();
+    let mut out = String::with_capacity(64);
+    for byte in digest {
+        out.push_str(&format!("{:02x}", byte));
     }
-    format!("{:016x}", h)
+    out
 }
 
-/// Get all artifacts as JSON string.
+/// Get all artifacts as a JSON string.
 #[wasm_bindgen]
 pub fn get_artifacts_json() -> String {
-    serde_json::to_string(&ARTIFACTS).unwrap_or_default()
+    serde_json::to_string(&artifacts()).unwrap_or_else(|_| "[]".to_string())
 }
 
-/// Get platform state as JSON string.
+/// Get platform state as a JSON string.
 #[wasm_bindgen]
 pub fn get_platform_state_json() -> String {
+    let arts = artifacts();
+    let total = arts.len() as u8;
     let state = PlatformState {
-        artifacts: ARTIFACTS.to_vec(),
-        verified_count: 3,
-        total_artifacts: 3,
+        artifacts: arts,
+        verified_count: total,
+        total_artifacts: total,
         wasm_ready: true,
-        timestamp_ms: Date::now().value_of(),
     };
-    serde_json::to_string(&state).unwrap_or_default()
+    serde_json::to_string(&state).unwrap_or_else(|_| "{}".to_string())
 }
 
-/// Verify an artifact by ID — returns metadata or empty string.
+/// Verify an artifact by id — returns its metadata as JSON, or an empty string.
 #[wasm_bindgen]
 pub fn verify_artifact(id: &str) -> String {
-    for a in &ARTIFACTS {
-        if a.id == id {
-            return serde_json::to_string(a).unwrap_or_default();
-        }
+    match artifacts().into_iter().find(|a| a.id == id) {
+        Some(a) => serde_json::to_string(&a).unwrap_or_default(),
+        None => String::new(),
     }
-    String::new()
 }
 
-/// Get the æqr badge payload for an artifact.
+/// Build the æqr badge payload for an artifact id.
 #[wasm_bindgen]
 pub fn get_aqr_payload(id: &str) -> String {
-    for a in &ARTIFACTS {
-        if a.id == id {
-            return format!(
-                "æqr://v1|teologia.ai/{}|{}|sha256:{}…|issuer:☺://cc",
-                a.id, a.region, a.html_hash_prefix
-            );
-        }
+    match artifacts().into_iter().find(|a| a.id == id) {
+        Some(a) => format!(
+            "æqr://v1|teologia.ai/{}|{}|sha256:{}|issuer:☺://cc",
+            a.id, a.region, a.html_sha256_prefix
+        ),
+        None => String::new(),
     }
-    String::new()
 }
 
 /// Platform version string.
@@ -136,10 +171,42 @@ pub fn platform_version() -> String {
     "teologia.ai v0.1.0 · æ:// WASM core · Rust → wasm32-unknown-unknown".to_string()
 }
 
-/// Initialize the WASM module — called from JS.
-#[wasm_bindgen(start)]
-pub fn main() {
-    #[cfg(feature = "console_error_panic_hook")]
-    console_error_panic_hook::set_once();
-    web_sys::console::log_1(&"teologia.ai WASM core initialized".into());
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sha256_matches_known_vector() {
+        // SHA-256("abc") — the canonical NIST test vector.
+        assert_eq!(
+            sha256_hex(b"abc"),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+    }
+
+    #[test]
+    fn sha256_empty_vector() {
+        assert_eq!(
+            sha256_hex(b""),
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        );
+    }
+
+    #[test]
+    fn four_artifacts() {
+        assert_eq!(artifacts().len(), 4);
+    }
+
+    #[test]
+    fn payload_shape() {
+        let p = get_aqr_payload("mayor");
+        assert!(p.starts_with("æqr://v1|teologia.ai/mayor|es-LATAM|sha256:30a9a8dd"));
+        assert!(p.ends_with("|issuer:☺://cc"));
+    }
+
+    #[test]
+    fn unknown_artifact_is_empty() {
+        assert_eq!(verify_artifact("nope"), "");
+        assert_eq!(get_aqr_payload("nope"), "");
+    }
 }

@@ -347,6 +347,7 @@ h1 .sub{display:block;font-size:.4em;font-weight:400;letter-spacing:.3em;color:v
     <b>æ:// compute</b>
     <div class="row"><span>webgpu · compute shader</span><span id="s-gpu">…</span></div>
     <div class="row"><span>webllm · inferencia local</span><span id="s-llm">inactivo</span></div>
+    <div class="row"><span>rust wasm · núcleo</span><span id="s-wasm">…</span></div>
     <div class="row"><span>wasm · opfs</span><span id="s-sys">…</span></div>
     <div class="row"><span>three.js · r186 local</span><span id="s-three">…</span></div>
   </div>
@@ -769,7 +770,50 @@ document.querySelectorAll('.card[data-href]').forEach((c) => {
   c.style.cursor = 'pointer';
 });
 
-// ── 4 · Honest probe — report what is measured, never what is hoped ─────────
+// ── 4 · Rust WASM core — load it and make it VERIFY something real ──────────
+// Loading is not verifying. The core is exercised end-to-end: it hashes a real
+// artifact's bytes and the result is compared against the recorded manifest
+// hash. A module that merely initialized proves nothing.
+async function initWasmCore() {
+  let mod;
+  try {
+    mod = await import('./wasm/dist/teologia_ai.js');
+    await mod.default();
+  } catch (e) {
+    set('s-wasm', 'no disponible', 'no');
+    return;
+  }
+  try {
+    const state = JSON.parse(mod.get_platform_state_json());
+    const n = state.total_artifacts;
+
+    // self-test: the core must reproduce a known SHA-256 vector
+    const vector = mod.sha256_hex(new TextEncoder().encode('abc'));
+    const vectorOk = vector === 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad';
+
+    // end-to-end: hash a real artifact and compare with the manifest
+    let artifactOk = null;
+    try {
+      const mf = await (await fetch('./platform-manifest.json', { cache: 'no-store' })).json();
+      const entry = mf.artifacts.find((a) => a.file === 'catecismo-mayor.html');
+      if (entry) {
+        const bytes = new Uint8Array(await (await fetch('./' + entry.file, { cache: 'no-store' })).arrayBuffer());
+        artifactOk = mod.sha256_hex(bytes) === entry.sha256;
+      }
+    } catch (e) { artifactOk = null; }
+
+    const parts = [n + ' artefactos'];
+    if (vectorOk) parts.push('sha256 ✓');
+    if (artifactOk === true) parts.push('manifiesto ✓');
+    else if (artifactOk === false) parts.push('manifiesto ✗');
+    const ok = vectorOk && artifactOk === true;
+    set('s-wasm', parts.join(' · ') + ' · ' + (ok ? 'verificado' : 'parcial'), ok ? 'ok' : 'no');
+  } catch (e) {
+    set('s-wasm', 'error en el núcleo', 'no');
+  }
+}
+
+// ── 5 · Honest probe — report what is measured, never what is hoped ─────────
 (async () => {
   set('s-sys', [
     typeof WebAssembly === 'object' ? 'wasm ✓' : 'wasm ✗',
@@ -777,6 +821,7 @@ document.querySelectorAll('.card[data-href]').forEach((c) => {
   ].join(' · '), 'ok');
   if (!navigator.gpu) set('s-gpu', 'no disponible', 'no');
   try { await initWebGPU(); } catch (e) { set('s-gpu', 'error', 'no'); }
+  try { await initWasmCore(); } catch (e) { set('s-wasm', 'error', 'no'); }
 })();
 </script>
 </body>

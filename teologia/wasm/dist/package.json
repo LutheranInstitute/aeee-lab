@@ -1,0 +1,21 @@
+{
+  "name": "teologia-ai",
+  "type": "module",
+  "description": "teologia.ai platform — Rust WASM core for the æ:// devotional surface",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MYaelMendez/MYaelMendez.github.io"
+  },
+  "files": [
+    "teologia_ai_bg.wasm",
+    "teologia_ai.js",
+    "teologia_ai.d.ts"
+  ],
+  "main": "teologia_ai.js",
+  "types": "teologia_ai.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
