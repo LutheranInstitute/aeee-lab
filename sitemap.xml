@@ -31,6 +31,9 @@
     <loc>https://myaelmendez.github.io/aeos-916.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/aeqr.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/agentic-mail.html</loc>
   </url>
   <url>
@@ -40,10 +43,49 @@
     <loc>https://myaelmendez.github.io/aggregate.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/aestore.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/c2.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/aipodcast_me/cri_surface.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/aipodcast_me/discover.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase10-postprocessing.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase11-effects.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase12-integration.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase20-hauge.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase21-schweitzer.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase22-wikipedia-reformation.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase5-shaders.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase6-shaders.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase7-performance.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase8-architecture.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/aipodcast_me/fase9-webworkers.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/aipodcast_me/fleet-waves.html</loc>
@@ -124,7 +166,13 @@
     <loc>https://myaelmendez.github.io/any-ontology-master.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/calibracion.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/capability-mesh.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/chain/index.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/cli-4d-prompt-descent.html</loc>
@@ -172,6 +220,9 @@
     <loc>https://myaelmendez.github.io/demo.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/domain-constellation.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/domain-empire.html</loc>
   </url>
   <url>
@@ -181,10 +232,55 @@
     <loc>https://myaelmendez.github.io/draw-electronic.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/draw-video.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/droplet.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/factory.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase10-postprocessing.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase11-effects.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase12-integration.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase13-agentic-electronics.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase14-xmlsvg-dataflow.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase15-xmlsvg-dataflow.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase16-video-to-context.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase17-chaos.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase4-shaders.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase5-shaders.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase6-shaders.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase7-performance.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase8-architecture.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/fase9-webworkers.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/final-video.html</loc>
@@ -220,6 +316,9 @@
     <loc>https://myaelmendez.github.io/hermes-native-demo.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/homebase.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/index.html</loc>
   </url>
   <url>
@@ -238,13 +337,16 @@
     <loc>https://myaelmendez.github.io/internetofagents.html</loc>
   </url>
   <url>
-    <loc>https://myaelmendez.github.io/keeper.html</loc>
+    <loc>https://myaelmendez.github.io/kaenbaen/index.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/kaenbaen/storyboard.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/kanban/index.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/keeper.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/llm-store-4d-atlas.html</loc>
@@ -260,6 +362,9 @@
   </url>
   <url>
     <loc>https://myaelmendez.github.io/llm-store.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/material-lab.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/mcpgpt-chat.html</loc>
@@ -370,6 +475,9 @@
     <loc>https://myaelmendez.github.io/nano-lesson-node-latamocw.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/nebula.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/neuro-ur-watch.html</loc>
   </url>
   <url>
@@ -383,6 +491,9 @@
   </url>
   <url>
     <loc>https://myaelmendez.github.io/parallel-sovereignty.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/pledge.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/porter.html</loc>
@@ -469,136 +580,82 @@
     <loc>https://myaelmendez.github.io/sovaereign-os.html</loc>
   </url>
   <url>
-    <loc>https://myaelmendez.github.io/privateclient/glocal-secrets-blueprint.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/privateclient/omnibox.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/privateclient/secret-source-bridge.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/privateclient/terminal.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/privateclient/vaeult/index.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/privateclient/vault-layers.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/privateclient/vault.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/qr-as-skill.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/rails.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/reachy-clerk.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/reachy-emulator.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/reachy-face.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/reachy-video.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/redirect.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/rust-territory-tables.html</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/rust-vocabulary-reference.html</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/school-of-hermes-fleet.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/secret-source-bridge.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/skill-guide/index.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/skill-guide/skill-graph.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/sovaereign-os.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://myaelmendez.github.io/sovereign-state.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/teologia/_index_template.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/apocalipsis-21.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/aprender.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/calendario.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/catecismo-mayor.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/catecismo-menor.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/demo-teologia.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/enchiridion.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/formula-de-concordia.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/genesis-1.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/index.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/isaias-40.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/juan-316.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/libro-de-concordia.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/mateo-5.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/proverbios-3.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/qr/index.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/rtx-accelerator.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/salmo-23.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/timeline-reforma-luterana.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teologia/una-manera-sencilla-de-orar.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/teotech.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/the-mesh.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/threejs-review.html</loc>
+  </url>
+  <url>
+    <loc>https://myaelmendez.github.io/tower-sync/index.html</loc>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/trinity-runtime.html</loc>
@@ -610,6 +667,9 @@
     <loc>https://myaelmendez.github.io/v%C3%A6ult/index.html</loc>
   </url>
   <url>
+    <loc>https://myaelmendez.github.io/vaeult-demo.html</loc>
+  </url>
+  <url>
     <loc>https://myaelmendez.github.io/vaeult/index.html</loc>
   </url>
   <url>
@@ -619,31 +679,10 @@
     <loc>https://myaelmendez.github.io/vault.html</loc>
   </url>
   <url>
-    <loc>https://myaelmendez.github.io/video-corpus.html</loc>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/vault-layers.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/vault.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://myaelmendez.github.io/verify.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/video-corpus.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://myaelmendez.github.io/videolab.html</loc>
@@ -668,14 +707,5 @@
   </url>
   <url>
     <loc>https://myaelmendez.github.io/zeitgeist-4d.html</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://myaelmendez.github.io/æ_store/index.html</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
 </urlset>

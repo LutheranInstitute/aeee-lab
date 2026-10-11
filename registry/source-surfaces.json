@@ -182,6 +182,24 @@
       "capabilities": ["opensourceware", "mit", "github"],
       "agent_access": "read",
       "external": true
+    },
+    {
+      "id": "verify",
+      "name": "VERIFY",
+      "url": "/verify.html",
+      "description": "Verification surface",
+      "category": "state",
+      "capabilities": ["verification"],
+      "agent_access": "read"
+    },
+    {
+      "id": "ae-store",
+      "name": "Æ STORE",
+      "url": "/æ_store/index.html",
+      "description": "æ.store discovery surface",
+      "category": "business",
+      "capabilities": ["discovery", "capability-registry", "ae-store"],
+      "agent_access": "read"
     }
   ],
   "categories": [

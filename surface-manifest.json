@@ -15,7 +15,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-128cc35baaf40bac",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -32,7 +32,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-ee11c10fd7007fd3",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -49,7 +49,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-24c8b40384084675",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -66,7 +66,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-09ac5aa5a3c08846",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -83,7 +83,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-9e4afab6b802cc6b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -100,7 +100,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-04f8d008bcfac0b3",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -117,7 +117,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-c27fb9472c685d4b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -134,7 +134,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-26f8b13b4185b787",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -151,8 +151,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-02901af68d8830be",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -168,7 +168,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-559d79883fe5c36f",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-9860c70215ff3437",
+      "name": "æQR · resource addressing, verification & audit — æ://",
+      "url": "https://myaelmendez.github.io/aeqr.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-9860c70215ff3437",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -185,7 +202,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-107a8413fe57326c",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -207,7 +224,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-a3a50a2306b15206",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -224,7 +241,41 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-323cc1c817e0b933",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-39af34e7476adba2",
+      "name": "æ.store · Hub",
+      "url": "https://myaelmendez.github.io/aipodcast_me/aestore.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-39af34e7476adba2",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-4c52df0368557304",
+      "name": "æ://C2 · Command & Control",
+      "url": "https://myaelmendez.github.io/aipodcast_me/c2.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-4c52df0368557304",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -241,7 +292,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-49cd21570d19f28a",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -258,7 +309,194 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-0f2e8baaaea84bcd",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-2fc80a01d5dcae3e",
+      "name": "æ:// fase10-post — Post-Processing Pipeline",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase10-postprocessing.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-2fc80a01d5dcae3e",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-4f4ffacffbdc8416",
+      "name": "æ:// fase11-effects — Efectos Avanzados",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase11-effects.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-4f4ffacffbdc8416",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-f8699968a244a903",
+      "name": "æ:// fase12-integration — WebMCP + Agent Loop",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase12-integration.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-f8699968a244a903",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-b39d465c385f5355",
+      "name": "æ:// fase20-hauge — HANS NIELSEN HAUGE · LALI",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase20-hauge.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-b39d465c385f5355",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-d9701b2da85c2b54",
+      "name": "æ:// fase21-schweitzer — Albert Schweitzer",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase21-schweitzer.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-d9701b2da85c2b54",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-c894314714923384",
+      "name": "æ:// fase22-wikipedia — 1517 Reformation / Vernacular Bibles",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase22-wikipedia-reformation.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-c894314714923384",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-329f4a0e6e4009e1",
+      "name": "æ:// fase5-shaders — Intermediate Shaders",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase5-shaders.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-329f4a0e6e4009e1",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-1f13cc77d03558a8",
+      "name": "æ:// fase6-shaders — Advanced Shaders",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase6-shaders.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-1f13cc77d03558a8",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-c7798e089de55b71",
+      "name": "æ:// fase7-performance — Escalabilidad Masiva",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase7-performance.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-c7798e089de55b71",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-44adfdea9208f902",
+      "name": "æ:// fase8-architecture — Escenas Complejas",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase8-architecture.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-44adfdea9208f902",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-27b99412874b2d60",
+      "name": "æ:// fase9-webworkers — Async Rendering",
+      "url": "https://myaelmendez.github.io/aipodcast_me/fase9-webworkers.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-27b99412874b2d60",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -275,7 +513,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-7b537a8c0cff5bb9",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -292,7 +530,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-0c9e8f221055babe",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -309,7 +547,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-a40f1e1953002199",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -326,7 +564,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-cd1b5cc09b6e94c0",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -343,7 +581,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-479a113dab32ed01",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -360,7 +598,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5b3f5517d325ba4b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -377,7 +615,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-6aba451b09560ec2",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -394,7 +632,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-46f928f139ccc6c7",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -411,7 +649,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-dac2e0d456bdc552",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -428,7 +666,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e7c8fdf7ea554bdb",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -445,7 +683,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e35c807011afcc04",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -462,7 +700,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-d39708d5fef575c9",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -479,7 +717,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4c581d394a8bfa3d",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -496,7 +734,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3157673bbc204546",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -513,7 +751,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-0b744fde78941ec3",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -530,8 +768,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-19a324573a8dc666",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -547,8 +785,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-6e86b8878f78e761",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -564,7 +802,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5ef9f0a0d13c2740",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -581,8 +819,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-2d27de7cb4e60f92",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -598,8 +836,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-fcc84133427966a9",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -615,7 +853,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5fae37204c24ab72",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -632,7 +870,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-166cd4b807f50e1e",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -649,7 +887,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e897aa7d6f689d9d",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -666,7 +904,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-bb635b012033448d",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -683,7 +921,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-ea36fb8898776eff",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -700,7 +938,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-af53495f0b6ae653",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-9e8626355d069f30",
+      "name": "æ:// Calibración · Punto (1, 1, 1)",
+      "url": "https://myaelmendez.github.io/calibracion.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-9e8626355d069f30",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -717,7 +972,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-10b3cabf390419f9",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-6ecfe3f65559417a",
+      "name": "æ:// · Human Chain Composer · KÆNBÆN",
+      "url": "https://myaelmendez.github.io/chain/index.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-6ecfe3f65559417a",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -734,8 +1006,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3d9ca094e25e01f4",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -751,7 +1023,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-c13d32d7a40bf2e2",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -768,7 +1040,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-685c17e5bf8c33fe",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -785,7 +1057,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-94aff4bf277f2baf",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -819,7 +1091,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4e4b3a3cdf76b1b8",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -829,14 +1101,14 @@
     },
     {
       "id": "page-f293b94101f17787",
-      "name": "æ:/constellation · mesh topology",
+      "name": "æ:// Constellation — Internet of Agents",
       "url": "https://myaelmendez.github.io/constellation.html",
       "description": "",
       "category": "yellow",
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-f293b94101f17787",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -853,7 +1125,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-14add74b7706be1a",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -870,7 +1142,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-faa2ce267cd75028",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -887,7 +1159,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-abdd90c4a150e471",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -904,7 +1176,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-cfda51d8354805fb",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -925,7 +1197,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-49715e56bff2e7ae",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -947,8 +1219,8 @@
       ],
       "agent_access": "read",
       "registry_id": "page-3caa9d5ef869145c",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -964,7 +1236,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-980604a857c29119",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -985,7 +1257,24 @@
       ],
       "agent_access": "read",
       "registry_id": "page-c97623a67214ab20",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-0bc2bac0ff2a1bab",
+      "name": "codæ:// · Domain Constellation",
+      "url": "https://myaelmendez.github.io/domain-constellation.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-0bc2bac0ff2a1bab",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1019,7 +1308,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-fbb71c6e05e2545e",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1036,7 +1325,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-354aedc46f9d955b",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-a9055a8aecf7a5d5",
+      "name": "draw",
+      "url": "https://myaelmendez.github.io/draw-video.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-a9055a8aecf7a5d5",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1053,7 +1359,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-66495afdb3556db8",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1070,7 +1376,245 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-a1478cf8c28b775e",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-7d3ca487a3393fca",
+      "name": "æ:// fase10-post — Post-Processing Pipeline",
+      "url": "https://myaelmendez.github.io/fase10-postprocessing.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-7d3ca487a3393fca",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-1557785151fcc878",
+      "name": "æ:// fase11-effects — Efectos Avanzados",
+      "url": "https://myaelmendez.github.io/fase11-effects.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-1557785151fcc878",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-81ed935613ce7fb7",
+      "name": "æ:// fase12-integration — WebMCP + Agent Loop",
+      "url": "https://myaelmendez.github.io/fase12-integration.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-81ed935613ce7fb7",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-f83b7cb14782655a",
+      "name": "æ:// fase13-agentic — Agentic Electronic Engineering",
+      "url": "https://myaelmendez.github.io/fase13-agentic-electronics.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-f83b7cb14782655a",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-87f43314fce9f6dd",
+      "name": "æ:// fase14-xmlsvg — XML/SVG → Dataflow Geometry",
+      "url": "https://myaelmendez.github.io/fase14-xmlsvg-dataflow.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-87f43314fce9f6dd",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-8afe9fee9ea84a08",
+      "name": "æ:// fase15-xmlsvg — Spreadsheets → XML → Geometry",
+      "url": "https://myaelmendez.github.io/fase15-xmlsvg-dataflow.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-8afe9fee9ea84a08",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-21f0835b44bd0c03",
+      "name": "æ:// fase16 — Video → Context → Agent Action",
+      "url": "https://myaelmendez.github.io/fase16-video-to-context.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-21f0835b44bd0c03",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-0ac586a618bd6706",
+      "name": "æ:// fase17-chaos — Chaos Root + Pulse Gated",
+      "url": "https://myaelmendez.github.io/fase17-chaos.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-0ac586a618bd6706",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-eb6ca39fa2774270",
+      "name": "æ:// fase4-shaders — Shader Foundations",
+      "url": "https://myaelmendez.github.io/fase4-shaders.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-eb6ca39fa2774270",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-4aa01d7cfb1e5fce",
+      "name": "æ:// fase5-shaders — Intermediate Shaders",
+      "url": "https://myaelmendez.github.io/fase5-shaders.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-4aa01d7cfb1e5fce",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-46cdb215f5249b61",
+      "name": "æ:// fase6-shaders — Advanced Shaders",
+      "url": "https://myaelmendez.github.io/fase6-shaders.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-46cdb215f5249b61",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-187819aa26f7a289",
+      "name": "æ:// fase7-performance — Escalabilidad Masiva",
+      "url": "https://myaelmendez.github.io/fase7-performance.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-187819aa26f7a289",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-562e3b5fb3a10502",
+      "name": "æ:// fase8-architecture — Escenas Complejas",
+      "url": "https://myaelmendez.github.io/fase8-architecture.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-562e3b5fb3a10502",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-117400d416aa7031",
+      "name": "æ:// fase9-webworkers — Async Rendering",
+      "url": "https://myaelmendez.github.io/fase9-webworkers.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-117400d416aa7031",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1087,7 +1631,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5d79cca893c1f003",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1108,7 +1652,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-1c6bc154bccbf030",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1125,7 +1669,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5b312c99bb5c0a26",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1142,7 +1686,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-b58ba38dc796c409",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1159,7 +1703,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4a13dccdbac89986",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1176,7 +1720,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-94c714b3cd03b880",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1193,7 +1737,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-ff13a4e819c9dcff",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1210,7 +1754,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-6ca5bb59eb5ee672",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1227,7 +1771,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3b6259b46d6b4f91",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1244,8 +1788,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-1a84e89b51b555cf",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1261,7 +1805,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-cdf3d84de2d6d508",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-a63dbd3e55968326",
+      "name": "æ:// HOMEBASE — full system · codæ://",
+      "url": "https://myaelmendez.github.io/homebase.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-a63dbd3e55968326",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1271,7 +1832,7 @@
     },
     {
       "id": "page-0eb547304658805a",
-      "name": "#OPENSOURCEWARE · æ:// — global source of agentic electronic engineering",
+      "name": "codæ:// — the language is compute",
       "url": "https://myaelmendez.github.io/index.html",
       "description": "",
       "category": "yellow",
@@ -1295,8 +1856,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-c87c9783f352eb93",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1312,7 +1873,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3046c1171c5dcb75",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1329,7 +1890,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-642952b601440c89",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1346,7 +1907,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3c68bf95746a8317",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1363,7 +1924,58 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-46341c9fe6e1f717",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-f8d675b7b5e07102",
+      "name": "kænbæn — shared system memory · codæ://",
+      "url": "https://myaelmendez.github.io/kaenbaen/index.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-f8d675b7b5e07102",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-31d65db877aee90a",
+      "name": "æ://kænbæn/æqrstoryboard · codæ://",
+      "url": "https://myaelmendez.github.io/kaenbaen/storyboard.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-31d65db877aee90a",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-e4df6d7028b0a8e6",
+      "name": "æ:// KÆNBÆN · Human Agency",
+      "url": "https://myaelmendez.github.io/kanban/index.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-e4df6d7028b0a8e6",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1380,7 +1992,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-f9d56cb4ecd1cc1a",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1397,7 +2009,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e7ab22c1c2c8437e",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1414,7 +2026,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e4574c8f1a415d8f",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1431,7 +2043,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-fe806da6c6bd6213",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1448,7 +2060,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-300ae94637e45ccc",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1465,8 +2077,25 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-98b5c9255de67c84",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-448ad1c0b2a784ed",
+      "name": "æ:// Material Lab — PBR Shader Matrix",
+      "url": "https://myaelmendez.github.io/material-lab.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-448ad1c0b2a784ed",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1499,7 +2128,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5a47d4fe7748dbf4",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1516,8 +2145,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-419cc0c31ad26f8a",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1533,7 +2162,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-264701f45f448858",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1550,7 +2179,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e67839df46fac43b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1567,7 +2196,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-cfe402d60c974422",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1584,7 +2213,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5f55ea5377adb15d",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1601,7 +2230,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3eed8407874ceb98",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1618,7 +2247,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-13114726c7a24eb8",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1635,7 +2264,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e45ce1773c907958",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1652,7 +2281,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-38503cda87ce6ddd",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1669,7 +2298,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5574a2cc62e94898",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1686,8 +2315,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-6cf5ac468a677e1d",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1703,8 +2332,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-a2e9c5911f194e02",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1720,7 +2349,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-314436b85b5201d9",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1737,8 +2366,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-441415502e0fd061",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1754,7 +2383,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-99e0f953da68e2bf",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1771,8 +2400,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-125ce254a89cce95",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1788,7 +2417,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-aa3a9b94750ff592",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1805,7 +2434,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-d2df4fbdcc3e3f74",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1822,8 +2451,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5fee28730b0222ae",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1839,7 +2468,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-2ac287f367cd381f",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1856,7 +2485,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-8caeb5ee37f21791",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1873,8 +2502,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-db2165b0da777bad",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1890,7 +2519,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-29dd18030a24e51b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1907,8 +2536,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-64f32bda10591e12",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1924,7 +2553,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-482d93b2b7843abd",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1941,7 +2570,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-1ee811845f929275",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -1958,8 +2587,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-275976ec21c5c2e7",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -1996,7 +2625,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-4cce4c9733cc574b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2013,7 +2642,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4c0e66128e5f5986",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2030,8 +2659,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-fee9e2c48a1271da",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2047,8 +2676,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4fe4bf2cd8d8fe69",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2064,7 +2693,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-59eaa9f8a9a5c4ac",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2081,8 +2710,25 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-c700a585ee4da01a",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-9d339dc41cfb2c3e",
+      "name": "æ:// Nebula — Three.js Particle Shader",
+      "url": "https://myaelmendez.github.io/nebula.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-9d339dc41cfb2c3e",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2098,7 +2744,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-3025752fb80865c2",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2115,7 +2761,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-c5a293c54b1fd8f4",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2132,8 +2778,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-da8a17430821a377",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2149,7 +2795,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-9d008079ef85cf85",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2166,7 +2812,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-34b0b3e47e247539",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-e5364439a64aa9cb",
+      "name": "The Agent Commitment · æ://",
+      "url": "https://myaelmendez.github.io/pledge.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-e5364439a64aa9cb",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2183,7 +2846,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-85db7af146dc2cf4",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2200,7 +2863,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-e30c79cec0da3b8d",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2220,8 +2883,8 @@
       ],
       "agent_access": "read",
       "registry_id": "page-cf9d4d457a32366b",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2242,8 +2905,8 @@
       ],
       "agent_access": "read",
       "registry_id": "page-e60346cdfa601689",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2263,8 +2926,8 @@
       ],
       "agent_access": "read",
       "registry_id": "page-5b1db54cd70bee26",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2285,8 +2948,8 @@
       ],
       "agent_access": "read",
       "registry_id": "page-04069ae3a59a72d2",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2306,7 +2969,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-1475d4230d791a9f",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2323,8 +2986,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4eeb9ccada7e16ad",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2346,7 +3009,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-6145724579e4881c",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2368,7 +3031,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-5bab2bfa3f7c2a77",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2385,8 +3048,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-8d2f3d57349f3a31",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2402,8 +3065,8 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-0c7c66631c29ccb8",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2419,7 +3082,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4ec88571a45f2c11",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2453,7 +3116,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-28b81d817fcd71ed",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2470,7 +3133,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-7778da4b7aba365a",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2487,7 +3150,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4cbf8e23c392c339",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2504,7 +3167,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-89720926b095cd16",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2521,7 +3184,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-2605ace9ebde990f",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2538,7 +3201,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-9d34b23439bdb5bc",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2589,7 +3252,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-d3e822d5a81f10e2",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2606,7 +3269,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-0fc75868c4171f0a",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2628,7 +3291,7 @@
       ],
       "agent_access": "read",
       "registry_id": "page-6056be0d5641c5a0",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2645,7 +3308,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-2d9ae58621076a66",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2662,7 +3325,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-6823d226b57d6183",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2683,8 +3346,382 @@
       ],
       "agent_access": "read",
       "registry_id": "page-b9e95179e5c76bec",
-      "availability": "available",
-      "functional_status": "blocked",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-d09071e83be81c6e",
+      "name": "teologia.ai · æ://",
+      "url": "https://myaelmendez.github.io/teologia/_index_template.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-d09071e83be81c6e",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-8c2c2eaabb5ada5f",
+      "name": "teologia.ai — Apocalipsis 21",
+      "url": "https://myaelmendez.github.io/teologia/apocalipsis-21.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-8c2c2eaabb5ada5f",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-eb50d0ba25d597b8",
+      "name": "Teologia.ai · Aprender y enseñar con æQR",
+      "url": "https://myaelmendez.github.io/teologia/aprender.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-eb50d0ba25d597b8",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-67e5b8fbc8919151",
+      "name": "æQR_TEOLOGIA.AI — Calendario Litúrgico Verificado",
+      "url": "https://myaelmendez.github.io/teologia/calendario.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-67e5b8fbc8919151",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-1dcf203878bc962d",
+      "name": "Catecismo Mayor · teologia.aiæqr://v1|teologia.ai/catecismo-mayor|es-LATAM|sha256:521b3c80d711f7e353232679720e57b968d3a1c5da683607ea241297f105bf0a|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/catecismo-mayor.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-1dcf203878bc962d",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-0ed52990623517b7",
+      "name": "Catecismo Menor · teologia.aiæqr://v1|teologia.ai/catecismo-menor|es-LATAM|sha256:41df530165df46da51b00674734e52cae124073aaebd8e8ba93c505f67d6be05|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/catecismo-menor.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-0ed52990623517b7",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-4922280d2b4292b1",
+      "name": "teologia.ai — demo (three.js)",
+      "url": "https://myaelmendez.github.io/teologia/demo-teologia.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-4922280d2b4292b1",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-2c6b265dd718c5e9",
+      "name": "Enchiridion · teologia.aiæqr://v1|teologia.ai/enchiridion|es-LATAM|sha256:60cd01a210d6ef7b298b348329b1a99af052a1a5c0b9198d8f7d48b73d6305bf|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/enchiridion.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-2c6b265dd718c5e9",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-16bd123970cfdc67",
+      "name": "Fórmula de Concordia · teologia.aiæqr://v1|teologia.ai/formula-de-concordia|es-LATAM|sha256:7ffde80ef69788566486512dff7133bbf8c47ed66e2e5c12ce2cea100ac2abf5|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/formula-de-concordia.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-16bd123970cfdc67",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-b81ab741fe43e970",
+      "name": "teologia.ai — Génesis 1",
+      "url": "https://myaelmendez.github.io/teologia/genesis-1.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-b81ab741fe43e970",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-5c7bec9d0e1f32e8",
+      "name": "teologia.ai · æ://æqr://v1|teologia.ai/platform|es-LATAM|sha256:464fa363cfb267aac80dd449de61d86153c48370da16bc7c94f8b6368ed523cc|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/index.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-5c7bec9d0e1f32e8",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-d86615018678fbba",
+      "name": "teologia.ai — Isaías 40",
+      "url": "https://myaelmendez.github.io/teologia/isaias-40.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-d86615018678fbba",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-fba7b1c9c0d47b5c",
+      "name": "teologia.ai — Juan 3:16",
+      "url": "https://myaelmendez.github.io/teologia/juan-316.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-fba7b1c9c0d47b5c",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-ddd6553faaf302fa",
+      "name": "Libro de Concordia · teologia.aiæqr://v1|teologia.ai/libro-de-concordia|es-LATAM|sha256:28081bc58a74bf88cbf6e0028c2091076018302d5682bbd90f92680f4ee3b039|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/libro-de-concordia.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-ddd6553faaf302fa",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-8bcd6f6ab5dee1c5",
+      "name": "teologia.ai — Mateo 5",
+      "url": "https://myaelmendez.github.io/teologia/mateo-5.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-8bcd6f6ab5dee1c5",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-c3d5275a3a3d4dd0",
+      "name": "teologia.ai — Proverbios 3:5-6",
+      "url": "https://myaelmendez.github.io/teologia/proverbios-3.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-c3d5275a3a3d4dd0",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-cb8bf4204777c1b1",
+      "name": "æ:// QR Index — Ecosystem",
+      "url": "https://myaelmendez.github.io/teologia/qr/index.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-cb8bf4204777c1b1",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-d4f2a2767f6123de",
+      "name": "æ:// RTX Three.js Accelerator — teologia.ai",
+      "url": "https://myaelmendez.github.io/teologia/rtx-accelerator.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-d4f2a2767f6123de",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-877061d1f47aab47",
+      "name": "teologia.ai — Salmo 23",
+      "url": "https://myaelmendez.github.io/teologia/salmo-23.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-877061d1f47aab47",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-b12da7b163d4e349",
+      "name": "Timeline de la Documentación Lutera · teologia.aiæqr://v1|teologia.ai/timeline-reforma-luterana|es-LATAM|sha256:aa6654e9f5dccd17a5f57ac8d0b5e2ac6899095f64972bf887a9febea6103c9a|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/timeline-reforma-luterana.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-b12da7b163d4e349",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-90da13a1429dbe23",
+      "name": "Una manera sencilla de orar · teologia.aiæqr://v1|teologia.ai/una-manera-sencilla-de-orar|sha256:ffe56f251ed713fd444fe1e515a3942898703dad7f6c83e063c71592ffb4efc5|issuer:☺://cc",
+      "url": "https://myaelmendez.github.io/teologia/una-manera-sencilla-de-orar.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-90da13a1429dbe23",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-6a008bd827ce3d79",
+      "name": "TEOTECH · Instituto Luterano Latinoamericano",
+      "url": "https://myaelmendez.github.io/teotech.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-6a008bd827ce3d79",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
       "authority": {
         "read": "public",
         "execute": "human_approval",
@@ -2700,7 +3737,41 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-284394a29bcad6cc",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-72e68e093a369db9",
+      "name": "æ:// threejs curriculum — review",
+      "url": "https://myaelmendez.github.io/threejs-review.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-72e68e093a369db9",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-e68528b801877092",
+      "name": "æææ:// TOWER — sovereign mesh sync",
+      "url": "https://myaelmendez.github.io/tower-sync/index.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-e68528b801877092",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2717,7 +3788,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-5116382a34915640",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2734,7 +3805,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-862f067612780173",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2751,7 +3822,24 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-025e40b857a3e9f3",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "page-aef978b61899a297",
+      "name": "væult — the chain, running",
+      "url": "https://myaelmendez.github.io/vaeult-demo.html",
+      "description": "",
+      "category": "yellow",
+      "capabilities": [],
+      "agent_access": "read",
+      "registry_id": "page-aef978b61899a297",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2768,7 +3856,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-91a03d5744f133dd",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2785,7 +3873,26 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-cfef4f69b21d8c2c",
-      "availability": "available",
+      "availability": "not_checked",
+      "functional_status": "not_verified",
+      "authority": {
+        "read": "public",
+        "execute": "human_approval",
+        "grants_authority": false
+      }
+    },
+    {
+      "id": "verify",
+      "name": "verify:// — æ:// verification gate · codæ://",
+      "url": "https://myaelmendez.github.io/verify.html",
+      "description": "",
+      "category": "state",
+      "capabilities": [
+        "verification"
+      ],
+      "agent_access": "read",
+      "registry_id": "page-c695397c8d4e1e65",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2802,7 +3909,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-16171b2f090ca190",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2819,7 +3926,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-a695a81378c2a637",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2836,7 +3943,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-b0a208e54662d069",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2853,7 +3960,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-119c8c7fcfdfe449",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2870,7 +3977,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-0ff53f204ab7aa68",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2904,7 +4011,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-92dbf9691d3e42c1",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2921,7 +4028,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-9e939dd41d7e2730",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2938,7 +4045,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-4d8b9a3496fc9592",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2955,7 +4062,7 @@
       "capabilities": [],
       "agent_access": "read",
       "registry_id": "page-8b6e7a2d2d8554a1",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -2964,15 +4071,19 @@
       }
     },
     {
-      "id": "page-90ca5ddb2b7f1f8b",
-      "name": "æ.store — Sovereign Compute Mesh",
+      "id": "ae-store",
+      "name": "æ.store — Discover capabilities · æQR",
       "url": "https://myaelmendez.github.io/%C3%A6_store/index.html",
       "description": "",
-      "category": "blue",
-      "capabilities": [],
+      "category": "business",
+      "capabilities": [
+        "discovery",
+        "capability-registry",
+        "ae-store"
+      ],
       "agent_access": "read",
       "registry_id": "page-90ca5ddb2b7f1f8b",
-      "availability": "available",
+      "availability": "not_checked",
       "functional_status": "not_verified",
       "authority": {
         "read": "public",
@@ -3079,37 +4190,9 @@
         "github"
       ],
       "agent_access": "read",
-      "external": true
-    },
-    {
-      "id": "aeqr",
-      "name": "ÆQR",
-      "url": "/aeqr.html",
-      "description": "Resource addressing, verification & audit — a QR is an address, not permission",
-      "category": "sovereign",
-      "capabilities": [
-        "registry",
-        "qr-verify",
-        "audit",
-        "authority"
-      ],
-      "agent_access": "read",
-      "external": false,
-      "repo": "https://github.com/MYaelMendez/aeqr"
-    },
-    {
-      "id": "ae-store",
-      "name": "æ.store — Discover capabilities",
-      "url": "/æ_store/index.html",
-      "description": "Public discovery index for æQR, open education and agentic engineering. Discovery does not grant execution authority.",
-      "category": "discovery",
-      "capabilities": [
-        "resource-discovery",
-        "open-education",
-        "aeqr-addressing"
-      ],
-      "agent_access": "read",
-      "external": false
+      "external": true,
+      "availability": "not_checked",
+      "functional_status": "not_verified"
     }
   ],
   "categories": [
@@ -3158,8 +4241,16 @@
       "description": "Private client surfaces"
     },
     {
-      "id": "discovery",
-      "description": "Public resource and capability discovery"
+      "id": "yellow",
+      "description": "Discover"
+    },
+    {
+      "id": "blue",
+      "description": "Engineer"
+    },
+    {
+      "id": "green",
+      "description": "Govern"
     }
   ],
   "agent_protocol": {
