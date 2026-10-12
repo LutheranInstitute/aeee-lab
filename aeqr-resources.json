@@ -3060,9 +3060,10 @@
       "type": "page",
       "verified": true,
       "evidence": {
-        "check": "http 200 on the canonical route",
+        "check": "http 200 on the canonical route, sha256 of the SERVED bytes",
         "url": "https://myaelmendez.github.io/startabusiness.html",
-        "sha256": "dba954e3207cf816d97c4af3afe601740b21d467d60c3f205e4aeabb96059c24",
+        "sha256": "cb34001d75647faa00b6b1a936143cde53806085fe0e55185aaf2dfe54f5c1f1",
+        "note": "hash of the artifact as served, not the local working copy — git eol normalization means the CRLF checkout and the LF blob differ byte-for-byte while being the same content",
         "at": "2026-10-10"
       }
     }
