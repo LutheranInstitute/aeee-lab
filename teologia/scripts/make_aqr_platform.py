@@ -42,6 +42,10 @@ ARTIFACTS = [
     {"id": "mayor",       "file": "catecismo-mayor.html"},
     {"id": "formula",     "file": "formula-de-concordia.html"},
     {"id": "libro",       "file": "libro-de-concordia.html"},
+    {"id": "augsburgo",   "file": "confesion-de-augsburgo.html"},
+    {"id": "apologia",    "file": "apologia-de-la-confesion.html"},
+    {"id": "smalcalda",   "file": "articulos-de-smalcalda.html"},
+    {"id": "tratado",     "file": "tratado-del-primado.html"},
 ]
 
 

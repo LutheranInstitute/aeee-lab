@@ -128,6 +128,46 @@ pub fn artifacts() -> Vec<Artifact> {
             7,
             "Corpus doctrinal completo del luteranismo clásico, 1580.",
         ),
+        artifact(
+            "augsburgo",
+            "Confesión de Augsburgo",
+            1530,
+            "af4111c7",
+            88_670,
+            274_309,
+            28,
+            "Declaración fundacional del luteranismo, 1530.",
+        ),
+        artifact(
+            "apologia",
+            "Apología de la Confesión",
+            1531,
+            "35729ba2",
+            82_380,
+            293_206,
+            18,
+            "Defensa artículo por artículo de la Confesión de Augsburgo, 1531.",
+        ),
+        artifact(
+            "smalcalda",
+            "Artículos de Smalcalda",
+            1537,
+            "2c21a1cf",
+            87_461,
+            287_941,
+            5,
+            "Plataforma teológica de Lutero para la Liga de Smalcalda, 1537.",
+        ),
+        artifact(
+            "tratado",
+            "Tratado del Primado del Papa",
+            1537,
+            "5946a5ea",
+            71_583,
+            123_960,
+            3,
+            "Eclesiología luterana: el primado papal no es de derecho divino, 1537.",
+        ),
     ]
 }
 
@@ -213,11 +253,15 @@ mod tests {
     }
 
     #[test]
-    fn six_artifacts() {
-        assert_eq!(artifacts().len(), 6);
+    fn ten_artifacts() {
+        assert_eq!(artifacts().len(), 10);
         let ids: Vec<_> = artifacts().into_iter().map(|a| a.id).collect();
         assert!(ids.contains(&"formula".to_string()));
         assert!(ids.contains(&"libro".to_string()));
+        assert!(ids.contains(&"augsburgo".to_string()));
+        assert!(ids.contains(&"apologia".to_string()));
+        assert!(ids.contains(&"smalcalda".to_string()));
+        assert!(ids.contains(&"tratado".to_string()));
     }
 
     #[test]
