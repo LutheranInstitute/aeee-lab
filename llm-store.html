@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM.store — The Model Store | Parallel LLM Fusion @ 2100 tok/s</title>
+    <title>LLM.store — The Model Store | Local Inference @ 27 tok/s (measured)</title>
     <meta name="description"
-        content="æ.store (triple-ashe) — The Command Line Internet Portal. QR CODE + MÆCH LANGUAGE unified namespace for global intelligence. Parallel LLM fusion @ 2100+ tok/s via Cerebras.">
+        content="æ.store (triple-ashe) — The Command Line Internet Portal. QR CODE + MÆCH LANGUAGE unified namespace for global intelligence. Local LLM inference: 27 tok/s generation, 829 tok/s prompt (measured, RTX 3050). Cerebras advertises ~2100 tok/s but is NOT wired here — no key present.">
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -5547,14 +5547,14 @@
         }
     </style>
 
-<meta property="og:title" content="LLM.store — The Model Store | Parallel LLM Fusion @ 2100 tok/s">
-<meta property="og:description" content="LLM.store — The Model Store | Parallel LLM Fusion @ 2100 tok/s — sovereign agentic surface">
+<meta property="og:title" content="LLM.store — The Model Store | Local Inference @ 27 tok/s (measured)">
+<meta property="og:description" content="LLM.store — The Model Store | Local Inference @ 27 tok/s (measured) — sovereign agentic surface">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://myaelmendez.github.io/llm-store.html">
 <meta property="og:image" content="https://myaelmendez.github.io/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="LLM.store — The Model Store | Parallel LLM Fusion @ 2100 tok/s">
-<meta name="twitter:description" content="LLM.store — The Model Store | Parallel LLM Fusion @ 2100 tok/s — sovereign agentic surface">
+<meta name="twitter:title" content="LLM.store — The Model Store | Local Inference @ 27 tok/s (measured)">
+<meta name="twitter:description" content="LLM.store — The Model Store | Local Inference @ 27 tok/s (measured) — sovereign agentic surface">
 <meta name="twitter:image" content="https://myaelmendez.github.io/og-image.png">
 
 <script>
@@ -6609,7 +6609,7 @@
                 </span>
                 <span>|</span>
                 <span class="stat">
-                    Cerebras <span class="stat-val">2100 tok/s</span>
+                    Cerebras <span class="stat-val">~2100 tok/s (Cerebras vendor spec — not wired)</span>
                 </span>
                 <span>|</span>
                 <span class="stat">
@@ -6668,7 +6668,7 @@
         <div class="term-footer-content">
             <div class="term-footer-left">
                 <span class="term-footer-prompt">æææ:///llm.store ⫸</span>
-                <span class="term-footer-status">⚡ 2100 tok/s — Parallel Fusion Active</span>
+                <span class="term-footer-status">⚡ 27 tok/s local — measured (RTX 3050)</span>
             </div>
             <div class="term-footer-center">
                 <a href="/" class="term-footer-link">æææ.com</a>
@@ -6753,7 +6753,7 @@
 
         // ⚡ Direct Cerebras Inference
         async function executeCerebrasPrompt(prompt) {
-            showCLIResult('⚡ Sending to Cerebras @ 2100 tok/s...', 'loading');
+            showCLIResult('⚡ Sending to Cerebras  @ 27 tok/s (measured)...', 'loading');
 
             try {
                 const response = await fetch('/api/llm-store/inference', {
@@ -6832,7 +6832,7 @@
             const helpText = `╔════════════════════════════════════════════════════════════════╗
 ║  COMMAND PARALLEL PROMPT LINE — MÆCH Unified CLI               ║
 ╠════════════════════════════════════════════════════════════════╣
-║  ⚡ CEREBRAS INFERENCE (2100+ tok/s)                           ║
+║  ⚡ CEREBRAS INFERENCE (27 tok/s measured)                           ║
 ║  ─────────────────────────────────────────────────────────────  ║
 ║  <any text>         Direct Cerebras inference                  ║
 ║  ask <prompt>       Ask Llama-3.3-70B via Cerebras             ║

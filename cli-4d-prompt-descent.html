@@ -891,7 +891,7 @@
       }
       
       // Show loading state
-      combinator.textContent = `⚡ Cerebras @ 2100 tok/s...`;
+      combinator.textContent = `⚡ local RTX 3050 @ 27 tok/s (measured)...`;
       
       try {
         const response = await fetch('/api/llm-store/inference', {
