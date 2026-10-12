@@ -213,10 +213,11 @@ mod tests {
     }
 
     #[test]
-    fn five_artifacts() {
-        assert_eq!(artifacts().len(), 5);
+    fn six_artifacts() {
+        assert_eq!(artifacts().len(), 6);
         let ids: Vec<_> = artifacts().into_iter().map(|a| a.id).collect();
         assert!(ids.contains(&"formula".to_string()));
+        assert!(ids.contains(&"libro".to_string()));
     }
 
     #[test]
