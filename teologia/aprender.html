@@ -18,4 +18,17 @@ $('qr').innerHTML=QRS[current.id];$('qr').firstElementChild.setAttribute('role',
 function link(){return 'https://myaelmendez.github.io/teologia/aprender.html#'+current.id}
 function save(completed){const entry={learned:$('learned').value.trim(),built:$('built').value.trim(),teach:$('teach').value.trim(),completed,updatedAt:new Date().toISOString()};if(completed&&(!entry.learned||!entry.built||!entry.teach)){message('Completa los tres campos antes de registrar tu recorrido.');return false}records[current.id]=entry;try{localStorage.setItem(KEY,JSON.stringify(records));storageOK=true}catch{storageOK=false}render();message(storageOK?'Bitácora guardada en este navegador.':'Bitácora en memoria: descarga una copia antes de cerrar.');return true}
 $('export').onclick=()=>{if(!save(Boolean(records[current.id]?.completed)))return;const blob=new Blob([JSON.stringify({schema:'teologia.learning.v1',exportedAt:new Date().toISOString(),records},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='teologia-mi-bitacora.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);message('Bitácora descargada. Guárdala en tu repo si deseas compartirla.')};$('print').onclick=()=>window.print();addEventListener('hashchange',render);render();if(!storageOK)message('No se pudo leer el almacenamiento. Puedes trabajar y exportar tu bitácora.');
-</script></body></html>
+</script><!-- æ:// QR Verification Badge -->
+<div id="æ-qr-badge" style="
+  position:fixed;bottom:16px;right:16px;z-index:99999;
+  width:56px;height:56px;border:1px solid #D4AF37;border-radius:8px;
+  background:#050505;padding:4px;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 20px rgba(212,175,55,0.4)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'"
+   onclick="window.open('https://myaelmendez.github.io/verify.html?url='+encodeURIComponent(location.href),'_blank')"
+   title="æ:// Verify this surface">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=48x48&data=https://myaelmendez.github.io/teologia/aprender.html&color=D4AF37&bgcolor=050505"
+       alt="QR Verify" style="width:100%;height:100%;display:block;">
+</div>
+</body></html>

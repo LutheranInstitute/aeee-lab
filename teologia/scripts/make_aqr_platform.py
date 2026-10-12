@@ -46,6 +46,13 @@ ARTIFACTS = [
     {"id": "apologia",    "file": "apologia-de-la-confesion.html"},
     {"id": "smalcalda",   "file": "articulos-de-smalcalda.html"},
     {"id": "tratado",     "file": "tratado-del-primado.html"},
+    {"id": "tesis",       "file": "noventa-y-cinco-tesis.html"},
+    {"id": "nobleza",     "file": "a-la-nobleza-cristiana.html"},
+    {"id": "cautividad",  "file": "la-cautividad-babilonica.html"},
+    {"id": "libertad",    "file": "la-libertad-cristiana.html"},
+    {"id": "apostolico",  "file": "credo-apostolico.html"},
+    {"id": "niceno",      "file": "credo-niceno.html"},
+    {"id": "atanasio",    "file": "credo-atanasio.html"},
 ]
 
 

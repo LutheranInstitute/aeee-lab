@@ -1,0 +1,16 @@
+{
+  "scheme": "æqr://v1",
+  "artifact": "teologia.ai/nobleza",
+  "region": "es-LATAM",
+  "sha256": "c722e7ed589adbf5a8e7601f0e038f2ec89d2be53c924ff7316e924c72ccf277",
+  "issuer": "☺://cc",
+  "issued_at": "2026-10-12T21:49:29Z",
+  "qr_version": 8,
+  "qr_modules": 49,
+  "payload": "æqr://v1|teologia.ai/nobleza|es-LATAM|sha256:c722e7ed589adbf5a8e7601f0e038f2ec89d2be53c924ff7316e924c72ccf277|issuer:☺://cc",
+  "decoded_ok": true,
+  "decode_note": "cv2 box=8 decoded",
+  "badge_svg": "C:\\æ\\site\\teologia\\aeqr-badge-nobleza.svg",
+  "html": "C:\\æ\\site\\teologia\\a-la-nobleza-cristiana.html",
+  "note": "signed intent can travel; authority does not travel with it"
+}
