@@ -19,7 +19,7 @@
   "workspace": {
     "kind": "branch_copy",
     "branch": "startabusiness/yael-20261013",
-    "status": "prepared"
+    "status": "homebase_prepared"
   },
   "formation": {
     "status": "not_submitted",
@@ -43,6 +43,22 @@
     "source_revision": "pinned",
     "cli_llc_routing": "unverified",
     "public_doola_page": "architecture_only_no_provider_link",
-    "formation_or_payment_performed": false
+    "formation_or_payment_performed": false,
+    "homebase_checks": [
+      "html_structure",
+      "internal_anchors",
+      "javascript_syntax"
+    ],
+    "browser_visual_qa": "not_available"
+  },
+  "homebase": {
+    "path": "business/index.html",
+    "status": "prepared_not_deployed",
+    "features": [
+      "personal_browser_checklist",
+      "copy_agent_prompts",
+      "formation_handoff_links"
+    ],
+    "backend_connected": false
   }
 }
