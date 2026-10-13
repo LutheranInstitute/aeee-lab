@@ -1,7 +1,7 @@
 #EXTM3U
 # source of truth: https://myaelmendez.github.io
-# generated 2026-10-12T21:03:49-0500
-# 88 entries · probed, all HTTP 200
+# generated 2026-10-12T21:38:19-0500
+# 91 entries · probed, all HTTP 200
 # excluded (did not answer 200): 0
 #EXTINF:-1,aaa com 916
 #EXTALB:video
@@ -283,6 +283,18 @@ https://myaelmendez.github.io/startabusiness-launch.mp4
 #EXTALB:video
 # æsha256:94c8fadd8f1efa867151ee010377f9e26a22b596d369534c4e345972bee68b5e
 https://myaelmendez.github.io/storyboards.mp4
+#EXTINF:-1,teo 1 corpus 916
+#EXTALB:video
+# æsha256:d38425b7b9b7955a8d968522344049d97759d41eb9ff1e56f651164168aff1c0
+https://myaelmendez.github.io/teo-1-corpus-916.mp4
+#EXTINF:-1,teo 2 plataforma 916
+#EXTALB:video
+# æsha256:2f98acce1b2c2595b46b1cab7db9ab53e57b5a3c023ce59afd7d1f872171896b
+https://myaelmendez.github.io/teo-2-plataforma-916.mp4
+#EXTINF:-1,teo 3 ensenar 916
+#EXTALB:video
+# æsha256:3406b7c728198621aec266a24f6ac5a6a558d8d600414cd0272aadecda27a2c1
+https://myaelmendez.github.io/teo-3-ensenar-916.mp4
 #EXTINF:-1,apocalipsis 21
 #EXTALB:video
 # æsha256:1aa104b199220debc5e49f546748400081070ca396b8ec10d36e190f448c6af5
