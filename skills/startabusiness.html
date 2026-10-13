@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-glyph="æ">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#050505"/>
+<title>#startabusiness — an Agent Skills package</title>
+<meta name="description" content="One command, one person, full agency. An Agent Skills package that runs in ChatGPT, Codex, Claude, Cursor, Gemini CLI and Hermes."/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+:root{--void:#050505;--panel:#0a0a0a;--gold:#D4AF37;--gold-hi:#FFD700;--neon:#00ff9d;
+--txt:#f0ece4;--muted:rgba(240,236,228,.64);--dim:rgba(240,236,228,.36);
+--line:rgba(212,175,55,.16);--line-hot:rgba(212,175,55,.5)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--void);color:var(--txt)}
+body{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:13.5px;line-height:1.7}
+canvas#mesh{position:fixed;inset:0;z-index:0;pointer-events:none}
+.scan{position:fixed;inset:0;z-index:1;pointer-events:none;
+background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.18) 2px 3px);opacity:.45}
+.wrap{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:26px 20px 90px}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;
+border:1px solid var(--line);border-top:2px solid var(--line-hot);background:var(--panel);
+padding:11px 15px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase}
+.topbar .l{color:var(--gold)}.topbar .m{color:var(--dim)}
+.cmd{border:1px solid var(--line);border-bottom:0;background:#111112;padding:30px 26px 26px}
+.prompt{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(20px,4.6vw,36px);
+color:var(--gold);text-shadow:0 0 26px rgba(212,175,55,.42)}
+.prompt .g{color:var(--txt)}
+.sub{margin-top:12px;color:var(--muted);font-size:12px;letter-spacing:1.5px}
+h2{font-family:'Orbitron',sans-serif;font-weight:700;font-size:14px;letter-spacing:3.2px;
+text-transform:uppercase;color:var(--gold);padding-bottom:9px;border-bottom:1px solid var(--line);
+margin:34px 0 12px}
+p{color:var(--muted);margin:11px 0}
+b{color:var(--txt)}a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line-hot)}
+a:hover{color:var(--gold-hi)}
+code{color:var(--gold-hi);background:rgba(212,175,55,.08);padding:1px 5px;font-size:12.5px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.5px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--gold);font-size:10.5px;letter-spacing:1.7px;text-transform:uppercase;background:rgba(212,175,55,.05)}
+pre{background:#060606;border:1px solid var(--line);border-left:2px solid var(--line-hot);
+padding:15px 17px;overflow-x:auto;font-size:12.5px;margin:13px 0;line-height:1.7}
+pre .c{color:var(--dim)}
+.dl{display:inline-block;margin:16px 0;padding:14px 26px;border:1px solid var(--line-hot);
+background:linear-gradient(135deg,rgba(212,175,55,.14),rgba(212,175,55,.04));
+font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:2.4px;font-size:13px;
+color:var(--gold-hi);text-transform:uppercase}
+.hash{margin-top:16px;color:var(--dim);font-size:11px;word-break:break-all}
+.seal{margin-top:44px;border-top:2px solid var(--line-hot);border-bottom:2px solid var(--line-hot);
+padding:28px 20px;text-align:center;background:linear-gradient(180deg,rgba(212,175,55,.05),transparent)}
+.seal .m{font-family:'Orbitron',sans-serif;font-weight:900;font-size:18px;letter-spacing:4px;color:var(--gold)}
+.seal .s{margin-top:10px;color:var(--muted);font-size:11.5px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<canvas id="mesh"></canvas>
+<div class="scan"></div>
+<div class="wrap">
+  <div class="topbar">
+    <span class="l">æ:// AGENT SKILLS PACKAGE</span>
+    <span class="m">v1.1.0 · MIT</span>
+  </div>
+  <div class="cmd">
+    <div class="prompt">&gt;_<span class="g">æ:</span>#startabusiness</div>
+    <div class="sub">ONE COMMAND · ONE PERSON · FULL AGENCY · 一人公司</div>
+  </div>
+
+  <h2>What this is</h2>
+  <p>A portable <b>Agent Skills</b> package — the open standard at
+  <a href="https://agentskills.io">agentskills.io</a>. OpenAI's own docs:
+  <b>"OpenAI Skills follow the Agent Skills open standard, so you can download them from
+  one product and install them in another."</b></p>
+  <p>The same folder runs in <b>ChatGPT, Codex, Claude, Cursor, Gemini CLI, and Hermes</b>.
+  Plain text — nothing to compile, nothing to migrate, no vendor lock.</p>
+
+  <a class="dl" href="https://myaelmendez.github.io/skills/startabusiness.zip">↓ startabusiness.zip</a>
+  <div class="hash">sha256 32ee4fa0c52383b9269a67f26090c4d5bdf7c1fffb7bc81c32e7c7d1912f468d</div>
+
+  <h2>Install</h2>
+  <table>
+    <tr><th>Host</th><th>How</th></tr>
+    <tr><td class="k"><b>ChatGPT</b></td><td>Sidebar → <b>Plugins</b> → <b>Skills</b> →
+      <b>Create</b> → <b>Upload from your computer</b>. Then <code>@startabusiness</code>.</td></tr>
+    <tr><td class="k"><b>Codex / IDE</b></td><td>Copy the folder to <code>.agents/skills/</code>,
+      then <code>$startabusiness</code> or <code>/skills</code>.</td></tr>
+    <tr><td class="k"><b>Hermes Agent</b></td><td><code>hermes skills install &lt;url&gt;</code></td></tr>
+    <tr><td class="k"><b>Any other host</b></td><td>Drop the folder in that host's skills
+      directory. It is plain text.</td></tr>
+  </table>
+
+  <h2>What's inside</h2>
+  <pre>startabusiness/
+├── SKILL.md              <span class="c">instructions (name + description frontmatter)</span>
+├── scripts/
+│   └── doola_client.py   <span class="c">Doola Partner API client — stdlib-only, sandbox-first</span>
+├── references/
+│   └── doola-api.md      <span class="c">the API reference</span>
+├── assets/
+│   ├── startabusiness.html   <span class="c">reference agentic.html layout</span>
+│   └── clillc-banner.html    <span class="c">canonical gold-on-void reference</span>
+└── agents/
+    └── openai.yaml       <span class="c">optional appearance + dependency hints</span></pre>
+
+  <h2>The two rules that carry the weight</h2>
+  <pre><span class="c">// 1</span>  A QR is an ADDRESS, not permission. Discovery never grants execution.
+<span class="c">// 2</span>  NEVER move a secret. The key stays in local custody; SSN/ITIN values are
+<span class="c">//    </span>collected locally, sent straight to the API, and redacted from every line.</pre>
+
+  <h2>Verify before you trust</h2>
+  <pre>python scripts/doola_client.py selftest   <span class="c"># expect 13/13, offline, no credentials</span>
+python scripts/doola_client.py status     <span class="c"># environment + credential presence (never values)</span></pre>
+
+  <div class="seal">
+    <div class="m">CTRL+<span style="color:var(--gold)">æ</span></div>
+    <div class="s">#OPENSOURCEWARE · THE GESTURE, NOT THE LIBRARY</div>
+  </div>
+</div>
+<script>
+(function(){const c=document.getElementById('mesh'),x=c.getContext('2d');let w,h,nodes=[];
+const N=58,G='212,175,55';
+function size(){w=c.width=innerWidth;h=c.height=innerHeight;
+nodes=Array.from({length:N},()=>({x:Math.random()*w,y:Math.random()*h,
+vx:(Math.random()-.5)*.24,vy:(Math.random()-.5)*.24,r:Math.random()*1.5+.5}));}
+function frame(){x.clearRect(0,0,w,h);
+for(const n of nodes){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>w)n.vx*=-1;if(n.y<0||n.y>h)n.vy*=-1;}
+for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+if(d<132){x.strokeStyle=`rgba(${G},${(1-d/132)*.16})`;x.lineWidth=.6;x.beginPath();
+x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}
+for(const n of nodes){x.fillStyle=`rgba(${G},.5)`;x.beginPath();x.arc(n.x,n.y,n.r,0,Math.PI*2);x.fill();}
+requestAnimationFrame(frame);}
+size();addEventListener('resize',size);frame();})();
+</script>
+<div id="æ-qr-badge" style="position:fixed;bottom:16px;right:16px;z-index:99999;width:56px;height:56px;
+border:1px solid #D4AF37;border-radius:8px;background:#050505;padding:4px;cursor:pointer"
+ onclick="window.open('https://myaelmendez.github.io/verify.html?url='+encodeURIComponent(location.href),'_blank')"
+ title="æ:// Verify this surface">
+ <img src="https://api.qrserver.com/v1/create-qr-code/?size=48x48&data=https://myaelmendez.github.io/skills/startabusiness.html&color=D4AF37&bgcolor=050505"
+  alt="QR Verify" style="width:100%;height:100%;display:block;">
+</div>
+</body>
+</html>
