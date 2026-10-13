@@ -1,0 +1,20 @@
+{
+  "webmcp": "1.0",
+  "homebase": "https://myaelmendez.github.io",
+  "operator": "Yæl Méndez",
+  "api": "navigator.modelContext.registerTool",
+  "layer": "/webmcp.js",
+  "contract": "/webmcp-tools.json",
+  "capabilities": "/capability-manifest.json",
+  "atlas": "/ae-atlas.json",
+  "code_mode": "/code.html",
+  "tools": [
+    "list_capabilities",
+    "find_capability",
+    "open_surface",
+    "resolve_address",
+    "get_manifest",
+    "verify_chain"
+  ],
+  "note": "Feature-detected; HTTPS/secure-context only. registerTool is the current shape (provideContext removed March 2026)."
+}
