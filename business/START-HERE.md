@@ -23,3 +23,15 @@ The source /doola/index.html currently describes a capability architecture and h
 Choose which existing page or runtime to customize next, confirm real provider connections, and verify each capability before marking it active. This copy retains the source content; its existing live/verified labels are not evidence that services are active for this project.
 
 This preparation made no filing, payment, account creation, or deployment. The branch preserves the source revision and separates proposed services from confirmed results.
+
+## Prepared homebase
+
+Open [business/index.html](index.html) locally to use the prepared homebase. It is saved on this branch and has not been deployed. The checklist stores personal notes in the browser; it does not certify formation or activate services. Copy-agent buttons provide prompts to paste into an agent; they do not execute tools.
+
+Your next steps:
+1. Define CLI.LLC's first offer: a customer, problem, deliverable, and completion check.
+2. Connect a real runtime and run one bounded workflow.
+3. Review the homebase and verify the chosen hosting destination and domain routing before publication.
+4. Review provider formation options and authorize any filing separately.
+
+Checks completed: HTML structure, internal anchors, JavaScript syntax. Browser rendering QA was unavailable in this environment. A draft pull request makes the prepared changes reviewable; no merge or deployment occurred.
