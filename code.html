@@ -17,7 +17,7 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
 .scan{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(212,175,55,.025) 0 1px,transparent 1px 3px)}
 .wrap{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;max-width:900px;margin:0 auto;padding:0 16px}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 0 12px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
-.bar .b1{color:var(--gold);font-weight:700}
+.bar .b1{color:var(--gold);font-weight:700;text-transform:none}
 .bar .live{color:var(--neon);display:flex;align-items:center;gap:6px}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon);animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
@@ -50,8 +50,8 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
     <span class="live"><span class="dot"></span><span id="ct">manifest</span></span>
   </div>
   <div class="out" id="out"></div>
-  <div class="inrow"><span class="p">æ›</span><input id="cmd" placeholder="æ.manifest() · æ.find('cuda') · æ.open('vault') · help" autocomplete="off" spellcheck="false" autofocus><button id="go">RUN</button></div>
-  <div class="hint"><b>æ.manifest(q)</b> list · <b>æ.find(q)</b> discover · <b>æ.open(addr)</b> reach · <b>æ.capabilities()</b> all · <b>goto x:y:z:æ</b> coordinate</div>
+  <div class="inrow"><span class="p">æ›</span><input id="cmd" placeholder="æ.manifest() · æ.find(q) · help" autocomplete="off" spellcheck="false" autofocus><button id="go">RUN</button></div>
+  <div class="hint"><b>æ.manifest(q)</b> · <b>æ.find(q)</b> · <b>æ.open(addr)</b> · <b>æ.capabilities()</b> · <b>goto x:y:z:æ</b></div>
 </div>
 <script>
 (function(){'use strict';
@@ -84,11 +84,11 @@ $('cmd').addEventListener('keydown',function(e){if(e.key==='Enter'){run($('cmd')
 document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();$('cmd').focus()}});
 // boot
 out('<span class="h">æ://code-mode · terminal I/O</span>');
-out('<span class="c">homebase   '+MANIFEST.homebase+'</span>');
-out('<span class="c">manifest   '+MANIFEST.count+' capabilities · authority axis public→custody</span>');
+out('<span class="c">homebase   myaelmendez.github.io</span>');
+out('<span class="c">manifest   '+MANIFEST.count+' capabilities</span>');out('<span class="c">axis       public → published → operator → custody</span>');
 out('<span class="c">one manifest makes every surface available to the right code.</span>');
 out('');
-out('<span class="g">æ› </span><span class="c">type æ.manifest() to list · æ.find(\'cuda\') to discover · help</span>');
+out('<span class="g">æ› </span><span class="c">type æ.manifest() to list · help</span>');
 $('ct').textContent=MANIFEST.count+' caps';
 })();
 </script>
