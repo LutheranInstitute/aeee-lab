@@ -1,0 +1,81 @@
+{
+  "protocol": "neuromitosis://",
+  "alias": "Hæbbian://",
+  "equivalence": "Hæbbian:// == neuromitosis://",
+  "thesis": "The bond where Human + Robot + DAO become one agent. Agents that fire together, wire together.",
+  "node": {
+    "name": "neuromitosis.com",
+    "kind": "bonded MoD node",
+    "human": "Yæl Méndez",
+    "principle": "El cerebro es plástico. Soft-wired.",
+    "sovereignty": "La inteligencia no se delega. Se cultiva. Se gobierna."
+  },
+  "routes": [
+    {
+      "scheme": "file://",
+      "role": "the filesystem — where the work lands"
+    },
+    {
+      "scheme": "computer://",
+      "role": "the machine — the host itself"
+    },
+    {
+      "scheme": "desktop://",
+      "role": "the human surface — what is seen"
+    },
+    {
+      "scheme": "+bæsic://",
+      "role": "the qc64 BASIC chassis — verified runtime"
+    },
+    {
+      "scheme": "æ://",
+      "role": "the agentic namespace — the runtime"
+    }
+  ],
+  "wiring": [
+    {
+      "from": "æ://",
+      "to": "file://",
+      "weight": 3,
+      "why": "the agent writes; the file persists",
+      "provenance": "declared — not yet measured"
+    },
+    {
+      "from": "æ://",
+      "to": "desktop://",
+      "weight": 3,
+      "why": "the agent acts; the human sees",
+      "provenance": "declared — not yet measured"
+    },
+    {
+      "from": "computer://",
+      "to": "æ://",
+      "weight": 2,
+      "why": "the host runs the namespace",
+      "provenance": "declared — not yet measured"
+    },
+    {
+      "from": "+bæsic://",
+      "to": "æ://",
+      "weight": 2,
+      "why": "the verified chassis under the runtime",
+      "provenance": "declared — not yet measured"
+    },
+    {
+      "from": "file://",
+      "to": "computer://",
+      "weight": 1,
+      "why": "the work lands on the machine",
+      "provenance": "declared — not yet measured"
+    },
+    {
+      "from": "desktop://",
+      "to": "computer://",
+      "weight": 1,
+      "why": "the surface is drawn by the host",
+      "provenance": "declared — not yet measured"
+    }
+  ],
+  "structure_survives": "🦞 → 🐚➗ → 💧",
+  "note": "Weight is DECLARED, not measured. A real Hæbbian map would count actual co-firings from session history; that has not been done, so the field says so rather than implying a measurement."
+}
