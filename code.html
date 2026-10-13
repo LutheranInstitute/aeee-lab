@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>æ://code-mode · terminal I/O</title>
+<meta name="description" content="Code-mode terminal I/O. One manifest makes every capability surface available to the right code. æ.manifest() · æ.find() · æ.open().">
+<link rel="canonical" href="https://myaelmendez.github.io/code.html">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="manifest" href="./capability-manifest.json" type="application/json">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050505;--gold:#D4AF37;--gold-hi:#ffda83;--neon:#00ff9d;--cyan:#70dcff;--purple:#b98cff;--ink:#e8e6df;--muted:#6f6a5c;--frame:#0c0c0c;--line:rgba(212,175,55,.18)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'JetBrains Mono',monospace}
+.scan{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(212,175,55,.025) 0 1px,transparent 1px 3px)}
+.wrap{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;max-width:900px;margin:0 auto;padding:0 16px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 0 12px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
+.bar .b1{color:var(--gold);font-weight:700}
+.bar .live{color:var(--neon);display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+@media(max-width:560px){.bar .mid{display:none}}
+.out{flex:1;overflow-y:auto;padding:16px 0;font-size:12.5px;line-height:1.85;white-space:pre-wrap;word-break:break-word}
+.out .g{color:var(--gold);font-weight:700}
+.out .ok{color:var(--neon)}
+.out .c{color:var(--cyan)}
+.out .e{color:#ff6b6b}
+.out .h{color:var(--gold-hi)}
+.out .addr{color:var(--cyan)}
+.out .nm{color:var(--gold);font-weight:700}
+.out .cat{color:var(--muted)}
+.out .ly{font-weight:700}
+.inrow{display:flex;border:1px solid var(--line);background:rgba(5,5,5,.7);margin-bottom:8px}
+.inrow .p{color:var(--gold);padding:0 0 0 14px;display:flex;align-items:center;font-family:'Orbitron';font-weight:700;font-size:13px}
+#cmd{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--ink);font-family:inherit;font-size:14px;padding:14px 10px;letter-spacing:.5px}
+#go{background:var(--gold);color:var(--void);border:none;font-family:'Orbitron';font-weight:700;font-size:11px;letter-spacing:1px;padding:0 22px;cursor:pointer;text-transform:uppercase}
+#go:hover{background:var(--gold-hi)}
+.hint{font-size:9px;color:var(--muted);letter-spacing:.5px;padding:0 0 16px;opacity:.75;text-align:center;line-height:1.8}
+.hint b{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="scan"></div>
+<div class="wrap">
+  <div class="bar">
+    <span class="b1">æ://code-mode</span>
+    <span class="mid">TERMINAL I/O · ONE MANIFEST → EVERY CAPABILITY</span>
+    <span class="live"><span class="dot"></span><span id="ct">manifest</span></span>
+  </div>
+  <div class="out" id="out"></div>
+  <div class="inrow"><span class="p">æ›</span><input id="cmd" placeholder="æ.manifest() · æ.find('cuda') · æ.open('vault') · help" autocomplete="off" spellcheck="false" autofocus><button id="go">RUN</button></div>
+  <div class="hint"><b>æ.manifest(q)</b> list · <b>æ.find(q)</b> discover · <b>æ.open(addr)</b> reach · <b>æ.capabilities()</b> all · <b>goto x:y:z:æ</b> coordinate</div>
+</div>
+<script>
+(function(){'use strict';
+var MANIFEST={"$schema":"https://myaelmendez.github.io/schemas/capability-manifest-v1.json","name":"æ:// capability manifest","version":"1.0.0","homebase":"https://myaelmendez.github.io","operator":"Yæl Méndez","description":"One manifest. Every capability surface addressed in 4-space and reachable by code-mode. Derived from surface-manifest.json — never hand-written.","authority_axis":{"0":"public","1":"published","2":"operator","3":"custody"},"discovery":{"manifest":"/capability-manifest.json","atlas":"/ae-atlas.json","surfaces":"/surface-manifest.json","code_mode":"/code.html"},"count":21,"capabilities":[{"id":"mesh-agenti","name":"MESH AGENTI","address":"x1:y0:z0:æ0","url":"/mesh-agenti.html","category":"networking","capabilities":["qr-pairing","node-discovery","wifi-lan"],"access":"read","layer":0,"layer_name":"public"},{"id":"fleet","name":"FLEET","address":"x2:y0:z0:æ0","url":"/fleet.html","category":"orchestration","capabilities":["device-mixture","bootstrap","mod-mom"],"access":"read","layer":0,"layer_name":"public"},{"id":"cuda-vlc","name":"CUDA · VLC","address":"x3:y0:z0:æ0","url":"/cuda-vlc.html","category":"media","capabilities":["cuda","nvenc","vlc","streaming"],"access":"read","layer":0,"layer_name":"public"},{"id":"demo","name":"DEMO","address":"x4:y0:z0:æ0","url":"/demo.html","category":"demo","capabilities":["html","vscode","primitive"],"access":"read","layer":0,"layer_name":"public"},{"id":"sovereign-state","name":"SOVEREIGN STATE","address":"x5:y0:z0:æ0","url":"/sovereign-state.html","category":"state","capabilities":["memory","ledger","mission"],"access":"read","layer":0,"layer_name":"public"},{"id":"agentic","name":"#STARTABUSINESS","address":"x6:y0:z0:æ0","url":"/agentic.html","category":"business","capabilities":["bootstrap","stripe","daollc","startabusiness"],"access":"read","layer":0,"layer_name":"public"},{"id":"cuda-blueprint","name":"CUDA BLUEPRINT","address":"x7:y0:z0:æ0","url":"/cuda-blueprint.html","category":"blueprint","capabilities":["cuda","blueprint","opensourceware"],"access":"read","layer":0,"layer_name":"public"},{"id":"gpu-preview","name":"GPU PREVIEW","address":"x8:y0:z0:æ0","url":"/gpu-preview.html","category":"gpu","capabilities":["webgpu","cuda","gui"],"access":"read","layer":0,"layer_name":"public"},{"id":"skill-guide","name":"SKILL GUIDE","address":"x9:y0:z0:æ0","url":"/skill-guide/","category":"skills","capabilities":["skills","catalog","topology","graph"],"access":"read","layer":0,"layer_name":"public"},{"id":"privateclient-vault","name":"VÆULT WEB","address":"x10:y0:z0:æ3","url":"/privateclient/vault.html","category":"secrets","capabilities":["vault","encryption","qr-airgap","secrets"],"access":"write","layer":3,"layer_name":"custody"},{"id":"privateclient-vault-cli","name":"VÆULT CLI","address":"x10:y1:z0:æ3","url":"/privateclient/vaeult/vaeult.py","category":"secrets","capabilities":["vault","cli","scrypt","pbkdf2","aes-256-gcm","qr"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-vault-layers","name":"VAULT LAYERS","address":"x10:y2:z0:æ3","url":"/privateclient/vault-layers.html","category":"secrets","capabilities":["vault","3d","visualization","webgpu","threejs"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-secret-bridge","name":"SECRET BRIDGE","address":"x10:y3:z0:æ3","url":"/privateclient/secret-source-bridge.html","category":"secrets","capabilities":["secrets","bridge","local","handoff"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-glocal-secrets","name":"GLOCAL SECRETS","address":"x10:y4:z0:æ3","url":"/privateclient/glocal-secrets-blueprint.html","category":"secrets","capabilities":["secrets","blueprint","glocal","broker"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-secret-system","name":"SECRET SYSTEM","address":"x10:y5:z0:æ3","url":"/privateclient/SECRET_SOURCE_SYSTEM.md","category":"secrets","capabilities":["secrets","architecture","contract"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-terminal","name":"PRIVATE CLIENT TERMINAL","address":"x11:y0:z0:æ2","url":"/privateclient/terminal.html","category":"privateclient","capabilities":["terminal","command-prompt","æ-store"],"access":"read","layer":2,"layer_name":"operator"},{"id":"privateclient-compute","name":"PRIVATE CLIENT COMPUTE","address":"x11:y1:z0:æ2","url":"/privateclient/compute.html","category":"privateclient","capabilities":["compute","sovereign"],"access":"read","layer":2,"layer_name":"operator"},{"id":"privateclient-omnibox","name":"PRIVATE CLIENT OMNIBOX","address":"x11:y2:z0:æ2","url":"/privateclient/omnibox.html","category":"privateclient","capabilities":["omnibox","gateway","cli"],"access":"read","layer":2,"layer_name":"operator"},{"id":"vaeult-repo","name":"VÆULT REPO","address":"x10:y6:z0:æ3","url":"https://github.com/MYaelMendez/vaeult","category":"secrets","capabilities":["opensourceware","mit","github"],"access":"read","layer":3,"layer_name":"custody"},{"id":"aeqr","name":"ÆQR","address":"x13:y0:z0:æ0","url":"/aeqr.html","category":"sovereign","capabilities":["registry","qr-verify","audit","authority"],"access":"read","layer":0,"layer_name":"public"},{"id":"code-mode","name":"CODE-MODE","address":"x12:y0:z0:æ0","url":"/code.html","category":"runtime","capabilities":["code-mode","terminal","dsl","manifest","discovery"],"access":"read","layer":0,"layer_name":"public"}]};
+var CAPS=MANIFEST.capabilities;
+var $=function(id){return document.getElementById(id)};
+function LAYCOL(a){return ['#D4AF37','#70dcff','#00ff9d','#b98cff'][a]||'#888'}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function out(html){var el=$('out');el.innerHTML+=html+'\n';el.scrollTop=el.scrollHeight}
+function row(c){return '<span class="addr">'+c.address+'</span>  <span class="nm">'+esc(c.name)+'</span>  <span class="cat">'+esc(c.category)+'</span>  <span class="ly" style="color:'+LAYCOL(c.layer)+'">æ'+c.layer+' '+c.layer_name+'</span>'}
+function find(q){q=(q||'').toLowerCase().trim();return CAPS.filter(function(c){return !q||c.id.indexOf(q)>=0||c.name.toLowerCase().indexOf(q)>=0||c.category.indexOf(q)>=0||c.url.toLowerCase().indexOf(q)>=0||(c.capabilities||[]).join(' ').indexOf(q)>=0})}
+function open(c){out('<span class="ok">  → '+c.address+'  '+esc(c.name)+'  ('+esc(c.url)+')</span>');setTimeout(function(){location.href=c.url},520)}
+function run(raw){
+  var c=(raw||'').trim();if(!c)return;
+  out('<span class="g">æ› '+esc(c)+'</span>');
+  var m=c.replace(/^æ\./,'').replace(/^ae\./,'');
+  var fn=m.match(/^([a-zA-Z]+)\s*\(?\s*(.*?)\s*\)?$/);
+  var name=(fn?fn[1]:m).toLowerCase();
+  var arg=(fn&&fn[2])?fn[2].replace(/^['"]|['"]$/g,'').trim():'';
+  if(name==='help'){out('<span class="h">  æ.manifest(q)     every capability: address · name · category · layer</span>');out('<span class="h">  æ.find(q)         discovery — capabilities + categories</span>');out('<span class="h">  æ.open(addr)      reach a surface (by id, name, or address)</span>');out('<span class="h">  æ.capabilities()  list the capability tags</span>');out('<span class="h">  goto x:y:z:æ      resolve a coordinate</span>');out('<span class="h">  clear             wipe the terminal</span>')}
+  else if(name==='clear'){$('out').innerHTML=''}
+  else if(name==='capabilities'||name==='caps'){var tags={};CAPS.forEach(function(c){(c.capabilities||[]).forEach(function(t){tags[t]=(tags[t]||0)+1})});var ks=Object.keys(tags).sort();out('<span class="c">  '+ks.length+' capability tags:</span>');out('  '+ks.join(' · '))}
+  else if(name==='manifest'||name==='ls'||name==='list'){var r=find(arg);r.forEach(function(c){out(row(c))});out('<span class="c">  '+r.length+' / '+CAPS.length+' capabilities · '+MANIFEST.count+' in manifest</span>')}
+  else if(name==='find'||name==='grep'){var r=find(arg);r.forEach(function(c){out(row(c))});out('<span class="c">  '+r.length+' match'+(r.length===1?'':'es')+'</span>')}
+  else if(name==='open'||name==='goto'){var r=find(arg)[0];if(r)open(r);else out('<span class="e">  no capability "'+esc(arg)+'"</span>')}
+  else {var r=find(c)[0];if(r)open(r);else out('<span class="e">  unknown: '+esc(c)+' — type help</span>')}
+}
+$('go').addEventListener('click',function(){run($('cmd').value);$('cmd').value=''});
+$('cmd').addEventListener('keydown',function(e){if(e.key==='Enter'){run($('cmd').value);$('cmd').value=''}});
+document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();$('cmd').focus()}});
+// boot
+out('<span class="h">æ://code-mode · terminal I/O</span>');
+out('<span class="c">homebase   '+MANIFEST.homebase+'</span>');
+out('<span class="c">manifest   '+MANIFEST.count+' capabilities · authority axis public→custody</span>');
+out('<span class="c">one manifest makes every surface available to the right code.</span>');
+out('');
+out('<span class="g">æ› </span><span class="c">type æ.manifest() to list · æ.find(\'cuda\') to discover · help</span>');
+$('ct').textContent=MANIFEST.count+' caps';
+})();
+</script>
+</body>
+</html>

@@ -290,6 +290,21 @@
       "agent_access": "read",
       "external": false,
       "repo": "https://github.com/MYaelMendez/aeqr"
+    },
+    {
+      "id": "code-mode",
+      "name": "CODE-MODE",
+      "url": "/code.html",
+      "description": "Code-mode terminal I/O · the manifest as a typed API",
+      "category": "runtime",
+      "capabilities": [
+        "code-mode",
+        "terminal",
+        "dsl",
+        "manifest",
+        "discovery"
+      ],
+      "agent_access": "read"
     }
   ],
   "categories": [
@@ -336,6 +351,10 @@
     {
       "id": "privateclient",
       "description": "Private client surfaces"
+    },
+    {
+      "id": "runtime",
+      "description": "Code-mode terminal + runtime surfaces"
     }
   ],
   "agent_protocol": {

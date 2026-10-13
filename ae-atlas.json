@@ -2,7 +2,7 @@
   "$schema": "https://myaelmendez.github.io/schemas/ae-atlas-v1.json",
   "name": "æ:// coordinate atlas",
   "version": "1.0.0",
-  "description": "Every surface addressed in 4-space. x=category ordinal, y=item ordinal, z=depth, æ=authority gradient (0 public · 1 published · 2 operator · 3 custody). Origin = x0:y0:z0:æ0.",
+  "description": "Every surface addressed in 4-space. x=category ordinal, y=item ordinal, z=depth, æ=authority gradient. Origin = x0:y0:z0:æ0.",
   "origin": {
     "x": 0,
     "y": 0,
@@ -26,9 +26,10 @@
     "gpu",
     "skills",
     "secrets",
-    "privateclient"
+    "privateclient",
+    "runtime"
   ],
-  "count": 22,
+  "count": 23,
   "addresses": [
     {
       "id": "mesh-agenti",
@@ -287,11 +288,23 @@
       "name": "ÆQR",
       "url": "/aeqr.html",
       "cat": "sovereign",
-      "x": 12,
+      "x": 13,
       "y": 0,
       "z": 0,
       "a": 0,
       "desc": "Resource addressing, verification & audit — a QR is an address, not permission",
+      "access": "read"
+    },
+    {
+      "id": "code-mode",
+      "name": "CODE-MODE",
+      "url": "/code.html",
+      "cat": "runtime",
+      "x": 12,
+      "y": 0,
+      "z": 0,
+      "a": 0,
+      "desc": "Code-mode terminal I/O · the manifest as a typed API",
       "access": "read"
     }
   ]
