@@ -1,0 +1,31 @@
+{
+  "portfolio": "CLI.LLC / æ",
+  "schema_version": "1.0",
+  "principal": "human",
+  "skills": [
+    {
+      "id": "startabusiness",
+      "invocation": "$startabusiness",
+      "purpose": "Prepare a business blueprint and owned homebase",
+      "entry": "/cli/",
+      "joint_entry": "/æ#startabusiness",
+      "workflow": "/skills/startabusiness/SKILL.md",
+      "next": "ae"
+    },
+    {
+      "id": "ae",
+      "invocation": "$ae",
+      "display_invocation": "$æ",
+      "purpose": "Configure and operate repository capabilities with evidence",
+      "entry": "/ae/",
+      "workflow": "/skills/ae/SKILL.md",
+      "requires_startabusiness": false
+    }
+  ],
+  "handoff": {
+    "context": "reviewed business blueprint",
+    "profile": ".ae/environment.json",
+    "authority": "does not propagate"
+  },
+  "web_account_linking": "not_configured"
+}
