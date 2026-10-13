@@ -225,7 +225,7 @@ var BOOT=[
  ['> ready. type \'help\' or move with WASD','',140]
 ];
 parseHash();render();buildMesh();drawGrid();typeSeq(BOOT,0);
-tickRender();tickScroll();tickAmb();setInterval(tickAmb,5200);
+tickRender();tickScroll();for(var _s=0;_s<4;_s++)tickAmb();setInterval(tickAmb,4200);
 window.travel=travel;
 })();
 </script>
