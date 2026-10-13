@@ -29,7 +29,7 @@
     "privateclient",
     "runtime"
   ],
-  "count": 23,
+  "count": 24,
   "addresses": [
     {
       "id": "mesh-agenti",
@@ -305,6 +305,18 @@
       "z": 0,
       "a": 0,
       "desc": "Code-mode terminal I/O · the manifest as a typed API",
+      "access": "read"
+    },
+    {
+      "id": "webmcp",
+      "name": "WEBMCP",
+      "url": "/webmcp.html",
+      "cat": "runtime",
+      "x": 12,
+      "y": 1,
+      "z": 0,
+      "a": 0,
+      "desc": "Browser-as-MCP · real WebMCP tool registration (navigator.modelContext)",
       "access": "read"
     }
   ]

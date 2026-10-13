@@ -1,0 +1,95 @@
+{
+  "$schema": "https://myaelmendez.github.io/schemas/webmcp-tools-v1.json",
+  "name": "æ:// WebMCP tool contract",
+  "version": "1.0.0",
+  "homebase": "https://myaelmendez.github.io",
+  "operator": "Yæl Méndez",
+  "spec": "W3C WebMCP — navigator.modelContext.registerTool({name, description, inputSchema, execute})",
+  "note": "Feature-detected. HTTPS/secure-context required. registerTool is current; provideContext was removed March 2026.",
+  "tools": [
+    {
+      "name": "list_capabilities",
+      "description": "List every capability surface published at the æ:// homebase (myaelmendez.github.io). Returns each surface as {id, name, address, url, category, layer, layer_name, capabilities}. Optionally filter by authority layer (0 public, 1 published, 2 operator, 3 custody) or category.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "layer": {
+            "type": "number",
+            "description": "authority layer 0-3"
+          },
+          "category": {
+            "type": "string",
+            "description": "category id, e.g. secrets"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "find_capability",
+      "description": "Discover æ:// capability surfaces by free-text query, matched against name, id, category, url and capability tags. Use to answer 'does the homebase do X?'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "search text, e.g. 'cuda' or 'vault'"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "open_surface",
+      "description": "Get the URL and address of a capability surface by id (e.g. 'privateclient-vault'), name, or coordinate (e.g. 'x10:y0:z0:æ3'). Navigating the page to it if same-origin.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "surface id, name, or coordinate"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "resolve_address",
+      "description": "Resolve a 4-space coordinate x:y:z:æ (x=category, y=item, z=depth, æ=authority) to the capability surface at that address.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "e.g. x10:y0:z0:æ3"
+          }
+        },
+        "required": [
+          "address"
+        ]
+      }
+    },
+    {
+      "name": "get_manifest",
+      "description": "Return the full æ:// capability manifest: homebase, operator, authority axis, and every capability surface.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "verify_chain",
+      "description": "Return the væult tool chain status — the nine links custody→format→gate→authority→contract→dispatch→publish→delivery→adoption.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  ]
+}

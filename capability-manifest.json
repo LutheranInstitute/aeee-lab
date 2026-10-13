@@ -17,7 +17,7 @@
     "surfaces": "/surface-manifest.json",
     "code_mode": "/code.html"
   },
-  "count": 21,
+  "count": 22,
   "capabilities": [
     {
       "id": "mesh-agenti",
@@ -342,6 +342,23 @@
         "dsl",
         "manifest",
         "discovery"
+      ],
+      "access": "read",
+      "layer": 0,
+      "layer_name": "public"
+    },
+    {
+      "id": "webmcp",
+      "name": "WEBMCP",
+      "address": "x12:y1:z0:æ0",
+      "url": "/webmcp.html",
+      "category": "runtime",
+      "capabilities": [
+        "webmcp",
+        "mcp",
+        "tools",
+        "agent-discovery",
+        "registerTool"
       ],
       "access": "read",
       "layer": 0,

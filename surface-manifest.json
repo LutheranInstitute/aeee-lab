@@ -305,6 +305,21 @@
         "discovery"
       ],
       "agent_access": "read"
+    },
+    {
+      "id": "webmcp",
+      "name": "WEBMCP",
+      "url": "/webmcp.html",
+      "description": "Browser-as-MCP · real WebMCP tool registration (navigator.modelContext)",
+      "category": "runtime",
+      "capabilities": [
+        "webmcp",
+        "mcp",
+        "tools",
+        "agent-discovery",
+        "registerTool"
+      ],
+      "agent_access": "read"
     }
   ],
   "categories": [
