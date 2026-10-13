@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1",
+  "status": "not_configured",
+  "purpose": "Account-linking implementation requirements; not an active auth service",
+  "github": {
+    "registration_required": true,
+    "client_id": null,
+    "callback_url": null,
+    "flow": "provider-documented OAuth authorization code",
+    "documentation": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps"
+  },
+  "openai": {
+    "registration_required": true,
+    "client_id": null,
+    "callback_url": null,
+    "availability": "Website Sign in with ChatGPT is documented as a limited trial for selected partners; eligibility must be confirmed",
+    "flow": "Authorization Code with PKCE and OpenID Connect",
+    "documentation": "https://developers.openai.com/siwc/website",
+    "plan_usage": "Separate registration and authorization; identity sign-in does not establish inference usage"
+  },
+  "backend": {
+    "required": true,
+    "status": "not_implemented",
+    "requirements": [
+      "Short-lived one-time sign-in transactions with state and PKCE/nonce where applicable",
+      "Server-side code exchange and verified identity",
+      "Secure HttpOnly session cookies",
+      "Secrets kept out of HTML, repo files, logs, profiles, and browser storage",
+      "Explicit confirmation before linking two provider identities; never assume shared email proves identity",
+      "Separate identity, repository permissions, inference grants, and per-action authorization"
+    ]
+  },
+  "current_interface": {
+    "github_entry": "https://github.com/login",
+    "openai_entry": "https://chatgpt.com/",
+    "links_authenticate_this_webapp": false
+  }
+}

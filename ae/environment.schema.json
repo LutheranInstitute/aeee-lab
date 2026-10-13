@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://myaelmendez.github.io/ae/environment.schema.json",
+  "title": "æ Agentic Environment preparation profile",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "environment_type",
+    "name",
+    "principal",
+    "authorization",
+    "capabilities"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "environment_type": {
+      "const": "ae-agentic-environments"
+    },
+    "locale": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "purpose": {
+      "type": "string",
+      "maxLength": 400
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "principal": {
+      "type": "null"
+    },
+    "execution_provider": {
+      "const": "GitHub Actions"
+    },
+    "connections": {
+      "type": "object"
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "grants"
+      ],
+      "properties": {
+        "grants": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "status": {
+          "const": "requires_live_principal_authorization"
+        }
+      }
+    },
+    "revision": {
+      "type": "object"
+    },
+    "capabilities": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "included",
+          "grants",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,80}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "purpose": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "included": {
+            "type": "boolean"
+          },
+          "workflow_path": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\.github/workflows/[a-zA-Z0-9_.-]+\\.ya?ml$"
+              }
+            ]
+          },
+          "provider": {
+            "const": "GitHub Actions"
+          },
+          "required_permissions": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "read_repository",
+                "prepare_changes",
+                "dispatch_workflow",
+                "publish_external_content"
+              ]
+            }
+          },
+          "grants": {
+            "type": "array",
+            "maxItems": 0
+          },
+          "status": {
+            "const": "not_configured"
+          },
+          "verification": {
+            "type": "object",
+            "required": [
+              "status",
+              "completion_condition"
+            ],
+            "properties": {
+              "completion_condition": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 300
+                  }
+                ]
+              },
+              "status": {
+                "const": "pending"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
