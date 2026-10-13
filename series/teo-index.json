@@ -1,0 +1,24 @@
+{
+  "series": "teo",
+  "brand": "teologia.ai",
+  "handle": "",
+  "episodes": [
+    {
+      "episode": "1-corpus",
+      "url": "https://myaelmendez.github.io/teo-1-corpus-916.mp4",
+      "sha256": "d38425b7b9b7955a8d968522344049d97759d41eb9ff1e56f651164168aff1c0"
+    },
+    {
+      "episode": "2-plataforma",
+      "url": "https://myaelmendez.github.io/teo-2-plataforma-916.mp4",
+      "sha256": "2f98acce1b2c2595b46b1cab7db9ab53e57b5a3c023ce59afd7d1f872171896b"
+    },
+    {
+      "episode": "3-ensenar",
+      "url": "https://myaelmendez.github.io/teo-3-ensenar-916.mp4",
+      "sha256": "3406b7c728198621aec266a24f6ac5a6a558d8d600414cd0272aadecda27a2c1"
+    }
+  ],
+  "count": 3,
+  "at": "2026-10-12T21:32:19-0500"
+}
