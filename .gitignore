@@ -1,0 +1,7 @@
+# Build / tooling junk — site HTML and media ARE content, tracked deliberately
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+Thumbs.db
