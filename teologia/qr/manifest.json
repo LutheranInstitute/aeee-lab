@@ -3,7 +3,11 @@
   "generated": "2026-10-10",
   "resource_count": 255,
   "unique_urls": 255,
-  "verified": 255,
+  "round_trip_decoded": 255,
+  "http_ok_true": 254,
+  "http_ok_false": 1,
+  "non_http_schemes": 0,
+  "verified": 254,
   "qrs": [
     {
       "id": "thr-teologia-apocalipsis-21-html",
@@ -15,6 +19,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-apocalipsis-21-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -27,6 +33,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-demo-teologia-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -39,6 +47,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-genesis-1-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -51,6 +61,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-isaias-40-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -63,6 +75,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-juan-316-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -75,6 +89,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-mateo-5-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -87,6 +103,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-proverbios-3-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -99,6 +117,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/thr-teologia-salmo-23-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -111,6 +131,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-aertx-demo-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -123,6 +145,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-bot-vision-cyan-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -135,6 +159,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-cuda-mcp2-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -147,6 +173,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-demo-9x16-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -159,6 +187,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-draw-video-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -171,6 +201,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-golden-ratio-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -183,6 +215,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/vid-holomesh-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -195,6 +229,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-inside-compute-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -207,6 +243,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-internetofagents-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -219,6 +257,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-internetofagents-v2-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -231,6 +271,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-storyboards-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -243,6 +285,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-apocalipsis-21-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -255,6 +299,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-demo-teologia-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -267,6 +313,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-genesis-1-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -279,6 +327,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-isaias-40-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -291,6 +341,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-juan-316-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -303,6 +355,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-mateo-5-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -315,6 +369,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-proverbios-3-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -327,6 +383,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-teologia-salmo-23-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -339,6 +397,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-the-toolchain-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -351,6 +411,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-this-is-agentic-engineering-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -363,6 +425,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/vid-ufo-8s-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -375,6 +439,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-video-vision-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -387,78 +453,92 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/vid-zeitgeist-mp4.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "kan-kænbæn-capability-contracts-json",
       "label": "Kænbæn: kænbæn/capability-contracts.json",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/kænbæn/capability-contracts.json",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/k%C3%A6nb%C3%A6n/capability-contracts.json",
       "type": "kanban",
       "category": "kanban",
       "src": "sovereign",
       "qr_version": 6,
       "modules": 41,
       "svg": "qr/kan-kænbæn-capability-contracts-json.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "kan-kænbæn-genesis-chain-json",
       "label": "Kænbæn: kænbæn/genesis-chain.json",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/kænbæn/genesis-chain.json",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/k%C3%A6nb%C3%A6n/genesis-chain.json",
       "type": "kanban",
       "category": "kanban",
       "src": "sovereign",
-      "qr_version": 5,
-      "modules": 37,
+      "qr_version": 6,
+      "modules": 41,
       "svg": "qr/kan-kænbæn-genesis-chain-json.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "kan-kænbæn-kænbæn-py",
       "label": "Kænbæn: kænbæn/kænbæn.py",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/kænbæn/kænbæn.py",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/k%C3%A6nb%C3%A6n/k%C3%A6nb%C3%A6n.py",
       "type": "kanban",
       "category": "kanban",
       "src": "sovereign",
-      "qr_version": 5,
-      "modules": 37,
+      "qr_version": 6,
+      "modules": 41,
       "svg": "qr/kan-kænbæn-kænbæn-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "kan-kænbæn-system-map-json",
       "label": "Kænbæn: kænbæn/system-map.json",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/kænbæn/system-map.json",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/k%C3%A6nb%C3%A6n/system-map.json",
       "type": "kanban",
       "category": "kanban",
       "src": "sovereign",
-      "qr_version": 5,
-      "modules": 37,
+      "qr_version": 6,
+      "modules": 41,
       "svg": "qr/kan-kænbæn-system-map-json.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "kan-kænbæn-verification-gates-json",
       "label": "Kænbæn: kænbæn/verification-gates.json",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/kænbæn/verification-gates.json",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/k%C3%A6nb%C3%A6n/verification-gates.json",
       "type": "kanban",
       "category": "kanban",
       "src": "sovereign",
       "qr_version": 6,
       "modules": 41,
       "svg": "qr/kan-kænbæn-verification-gates-json.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "wid-widget-live-widget-mjs",
       "label": "Widget: widget/live_widget.mjs",
-      "url": "ae://local/widget/live_widget.mjs",
+      "url": "https://myaelmendez.github.io/widget/live_widget.mjs",
       "type": "widget",
       "category": "widget",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/wid-widget-live-widget-mjs.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -471,6 +551,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/wid-widget-make-widget-qr-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -483,18 +565,22 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/wid-widget-manifest-json.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "wid-widget-probe-mjs",
       "label": "Widget: widget/_probe.mjs",
-      "url": "ae://local/widget/_probe.mjs",
+      "url": "https://myaelmendez.github.io/widget/_probe.mjs",
       "type": "widget",
       "category": "widget",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/wid-widget-probe-mjs.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -507,6 +593,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/wid-widget-probe-widget-mjs.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -519,18 +607,22 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/wid-widget-readme-md.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "wid-widget-server-cjs",
       "label": "Widget: widget/_server.cjs",
-      "url": "ae://local/widget/_server.cjs",
+      "url": "https://myaelmendez.github.io/widget/_server.cjs",
       "type": "widget",
       "category": "widget",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/wid-widget-server-cjs.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -543,6 +635,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/wid-widget-shot-widget-mjs.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -555,6 +649,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/wid-widget-verify-widget-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -567,6 +663,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-contract-qr-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -579,6 +677,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-cri-engine-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -591,6 +691,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-cri-server-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -603,6 +705,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-fleet-code-mode-audit-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -615,6 +719,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-fleet-orchestrator-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -627,6 +733,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-fleet-threes-audit-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -639,18 +747,22 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-hermes-supervision-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "pyt-agents-kanban-push-py",
       "label": "Agent: agents/kanban_push.py",
-      "url": "ae://local/agents/kanban_push.py",
+      "url": "https://myaelmendez.github.io/agents/kanban_push.py",
       "type": "agent",
       "category": "python_agents",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/pyt-agents-kanban-push-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -663,6 +775,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-keeper-cron-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -675,6 +789,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-keeper-email-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -687,6 +803,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-mail-agent-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -699,6 +817,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-patch-vps-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -711,6 +831,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-envelope-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -723,6 +845,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-gpu-cuda-v2-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -735,6 +859,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-indexed-audit-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -747,6 +873,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-kanban-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -759,6 +887,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-key-manager-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -771,6 +901,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-mail-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -783,6 +915,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-server-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -795,6 +929,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-sms-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -807,6 +943,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-qr-supervision-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -819,6 +957,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-rtx-bridge-startup-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -831,6 +971,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-rtx-leaf-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -843,6 +985,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-secret-source-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -855,6 +999,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-verify-3d-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -867,6 +1013,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-verify-3d-v2-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -879,18 +1027,22 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-vps-node-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "pyt-agents-væult-email-py",
       "label": "Agent: agents/væult_email.py",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/agents/væult_email.py",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/agents/v%C3%A6ult_email.py",
       "type": "agent",
       "category": "python_agents",
       "src": "sovereign",
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-væult-email-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -903,18 +1055,22 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-zeus-engine-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "pyt-agents-æ-code-mode-py",
       "label": "Agent: agents/æ_code_mode.py",
-      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/agents/æ_code_mode.py",
+      "url": "https://github.com/MYaelMendez/SOVEREIGN/blob/master/agents/%C3%A6_code_mode.py",
       "type": "agent",
       "category": "python_agents",
       "src": "sovereign",
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/pyt-agents-æ-code-mode-py.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -927,6 +1083,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-404-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -939,6 +1097,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-a2ui-interface-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -951,6 +1111,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aaa-protocol-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -963,6 +1125,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-ae-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -975,6 +1139,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-ae-store-digital-twin-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -987,6 +1153,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-ae-store-pico-os-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -999,6 +1167,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-ae-store-semantic-key-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1011,6 +1181,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aea-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1023,6 +1195,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-ael-tv-net-station-creator-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1035,6 +1209,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aeos-916-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1047,6 +1223,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-agentic-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1059,6 +1237,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-agentic-mail-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1071,6 +1251,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aggregate-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1083,6 +1265,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-cri-surface-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1095,6 +1279,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-discover-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1107,6 +1293,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-fleet-waves-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1119,6 +1307,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-aipodcast-me-frame-01-opening-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1131,6 +1321,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-frame-02-build-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1143,6 +1335,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-frame-03-peak-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1155,6 +1349,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-frame-04-fall-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1167,6 +1363,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-aipodcast-me-frame-05-resolve-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1179,6 +1377,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-gateway-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1191,6 +1391,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-holomesh-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1203,6 +1405,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1215,6 +1419,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-indices-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1227,6 +1433,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-llamacpp-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1239,6 +1447,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-loop-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1251,6 +1461,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-markets-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1263,6 +1475,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-aipodcast-me-markets-radar-player-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1275,6 +1489,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-media-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1287,6 +1503,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-monaco-editor-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1299,6 +1517,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-qr-keys-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1311,6 +1531,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-skill-graph-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1323,6 +1545,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-aipodcast-me-storyboard-animation-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1335,6 +1559,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-storyboard-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1347,6 +1573,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-vault-layers-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1359,6 +1587,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-videolab-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1371,6 +1601,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-aipodcast-me-vscoder-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1383,6 +1615,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-any-ontology-compute-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1395,6 +1629,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-any-ontology-compute-v2-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1407,6 +1643,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-any-ontology-master-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1419,6 +1657,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-capability-mesh-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1431,6 +1671,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cli-4d-prompt-descent-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1443,6 +1685,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cli-llc-os-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1455,6 +1699,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-codex-dual-bio-runtime-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1467,6 +1713,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-command-map-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1479,6 +1727,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-command-prompt-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1491,6 +1741,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-commandprompt-ai-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1503,6 +1755,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-constellation-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1515,6 +1769,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cri-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1527,6 +1783,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cri-school-of-hermes-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1539,6 +1797,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cri-teleprompter-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1551,6 +1811,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-cri-v01-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1563,6 +1825,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cuda-blueprint-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1575,6 +1839,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cuda-ide-rtx-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1587,6 +1853,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-cuda-vlc-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1599,6 +1867,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-demo-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1611,6 +1881,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-domain-empire-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1623,6 +1895,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-draw-agentic-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1635,6 +1909,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-draw-electronic-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1647,6 +1923,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-droplet-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1659,6 +1937,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-factory-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1671,6 +1951,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-final-video-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1683,6 +1965,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-fleet-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1695,6 +1979,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-glocal-cuda-blueprint-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1707,6 +1993,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-glocal-cuda-mesh-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1719,6 +2007,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-glocal-funding-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1731,6 +2021,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-glocal-mesh-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1743,6 +2035,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-glocal-secrets-blueprint-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1755,6 +2049,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-googlemcp-interface-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1767,6 +2063,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-hauge-lali-916-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1779,6 +2077,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-hauge-teologia-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1791,6 +2091,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-hermes-native-demo-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1803,6 +2105,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1815,6 +2119,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-integration-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1827,6 +2133,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-internetofagents-demo-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1839,6 +2147,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-internetofagents-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1851,6 +2161,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-internetofagents-render-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1863,6 +2175,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-internetofagents-v2-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1875,6 +2189,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-keeper-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1887,6 +2203,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-llm-store-4d-atlas-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1899,6 +2217,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-llm-store-dna-qr-916-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1911,6 +2231,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-llm-store-dna-qr-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1923,6 +2245,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-llm-store-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1935,6 +2259,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-llm-store-widget-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1947,6 +2273,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mcpgpt-chat-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1959,6 +2287,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-measurement-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1971,6 +2301,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-3d-os-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1983,6 +2315,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-3d-webgl-engine-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -1995,6 +2329,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-4d-holomesh-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2007,6 +2343,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-4d-mobile-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2019,6 +2357,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-agent-orchestrator-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2031,6 +2371,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-ai-by-hand-lessons-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2043,6 +2385,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-app-example-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2055,6 +2399,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-compatibility-migrator-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2067,6 +2413,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-deepcode-agentic-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2079,6 +2427,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-education-hub-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2091,6 +2441,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-educational-streaming-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2103,6 +2455,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-integration-hub-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2115,6 +2469,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-latam-ocw-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2127,6 +2483,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-map-native-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2139,6 +2497,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-mech-mobile-educational-streaming-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2151,6 +2511,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-mech-mobile-matrix-controller-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2163,6 +2525,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-mobile-qr-scanner-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2175,6 +2539,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-model-combinator-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2187,6 +2553,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-mech-notaebook-rust-education-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2199,6 +2567,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-ocw-student-dashboard-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2211,6 +2581,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-mech-os-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2223,6 +2595,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-os-vae-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2235,6 +2609,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-spatial-os-dot-matrix-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2247,6 +2623,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-spatial-os-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2259,6 +2637,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mech-terminal-browser-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2271,6 +2651,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-mech-territorial-documentation-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2283,6 +2665,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-mech-territorial-programming-interface-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2295,6 +2679,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mechdown-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2307,6 +2693,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-mesh-agenti-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2319,6 +2707,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-molt-earth-ultimate-fractal-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2331,6 +2721,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-motlbook-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2343,6 +2735,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-multimedia-test-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2355,6 +2749,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-nano-banana-rust-capsules-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2367,6 +2763,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-nano-lesson-node-latamocw-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2379,6 +2777,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-neuro-ur-watch-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2391,6 +2791,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-neuromitosis-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2403,6 +2805,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-neuromitosis-polar-star-cell-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2415,6 +2819,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-openai-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2427,6 +2833,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-parallel-sovereignty-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2439,6 +2847,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-porter-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2451,6 +2861,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-private-client-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2463,6 +2875,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-compute-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2475,6 +2889,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-compute-html-2.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2487,6 +2903,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-privateclient-glocal-secrets-blueprint-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2499,6 +2917,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-omnibox-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2511,6 +2931,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-omnibox-html-2.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2523,6 +2945,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-privateclient-secret-source-bridge-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2535,6 +2959,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-terminal-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2547,6 +2973,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-vaeult-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2559,6 +2987,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-vault-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2571,6 +3001,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-privateclient-vault-layers-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2583,6 +3015,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-qr-as-skill-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2595,6 +3029,8 @@
       "qr_version": 6,
       "modules": 41,
       "svg": "qr/htm-qr-maxxing-chain-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2607,6 +3043,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-rails-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2619,6 +3057,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-reachy-clerk-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2631,6 +3071,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-reachy-emulator-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2643,6 +3085,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-reachy-face-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2655,6 +3099,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-reachy-video-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2667,6 +3113,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-redirect-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2679,6 +3127,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-rust-territory-tables-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2691,6 +3141,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-rust-vocabulary-reference-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2703,6 +3155,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-school-of-hermes-fleet-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2715,6 +3169,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-secret-source-bridge-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2727,6 +3183,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-skill-guide-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2739,6 +3197,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-skill-guide-skill-graph-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2751,6 +3211,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-sovaereign-os-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2763,18 +3225,22 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-sovereign-state-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "htm-teologia-calendar-html",
       "label": "teologia-calendar.html",
-      "url": "ae://local/teologia-calendar.html",
+      "url": "https://myaelmendez.github.io/teologia/calendario.html",
       "type": "page",
       "category": "html_surfaces",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/htm-teologia-calendar-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2787,6 +3253,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-teologia-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2799,6 +3267,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-teologia-qr-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2811,6 +3281,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-the-mesh-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2823,6 +3295,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-trinity-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2835,6 +3309,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-trinity-runtime-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2847,6 +3323,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-vaeult-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2859,6 +3337,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-vault-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2871,6 +3351,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-vault-layers-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2883,6 +3365,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-video-corpus-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2895,30 +3379,36 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-videolab-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "htm-videos-html",
       "label": "videos.html",
-      "url": "ae://local/videos.html",
+      "url": "https://myaelmendez.github.io/videos.html",
       "type": "page",
       "category": "html_surfaces",
-      "src": "ae-local",
-      "qr_version": 2,
-      "modules": 25,
+      "src": "gh-pages",
+      "qr_version": 3,
+      "modules": 29,
       "svg": "qr/htm-videos-html.svg",
-      "verified": true
+      "decode_verified": true,
+      "http_ok": false,
+      "verified": false
     },
     {
       "id": "htm-væult-index-html",
       "label": "væult/index.html",
-      "url": "https://myaelmendez.github.io/væult/index.html",
+      "url": "https://myaelmendez.github.io/v%C3%A6ult/index.html",
       "type": "page",
       "category": "html_surfaces",
       "src": "gh-pages",
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-væult-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2931,6 +3421,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-webllm-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2943,6 +3435,8 @@
       "qr_version": 3,
       "modules": 29,
       "svg": "qr/htm-webmcp-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2955,6 +3449,8 @@
       "qr_version": 5,
       "modules": 37,
       "svg": "qr/htm-widget-widget-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2967,6 +3463,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-yael-baesic-vae-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2979,6 +3477,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-yael-route-engine-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -2991,6 +3491,8 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-yarn-weave-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
@@ -3003,66 +3505,78 @@
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-zeitgeist-4d-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "htm-æ-store-index-html",
       "label": "æ_store/index.html",
-      "url": "https://myaelmendez.github.io/æ_store/index.html",
+      "url": "https://myaelmendez.github.io/%C3%A6_store/index.html",
       "type": "page",
       "category": "html_surfaces",
       "src": "gh-pages",
       "qr_version": 4,
       "modules": 33,
       "svg": "qr/htm-æ-store-index-html.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "con-c-æ-qr-inventory-json",
       "label": "Config: qr_inventory.json",
-      "url": "ae://local/qr_inventory.json",
+      "url": "https://myaelmendez.github.io/qr_inventory.json",
       "type": "config",
       "category": "configs",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/con-c-æ-qr-inventory-json.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "log-logs-diagnosis-servers-20261008-md",
       "label": "Log: logs/diagnosis-servers-20261008.md",
-      "url": "ae://local/logs/diagnosis-servers-20261008.md",
+      "url": "https://myaelmendez.github.io/logs/diagnosis-servers-20261008.md",
       "type": "log",
       "category": "logs",
-      "src": "ae-local",
-      "qr_version": 4,
-      "modules": 33,
+      "src": "gh-pages",
+      "qr_version": 5,
+      "modules": 37,
       "svg": "qr/log-logs-diagnosis-servers-20261008-md.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "log-logs-environment-branch-decision-md",
       "label": "Log: logs/environment-branch-decision.md",
-      "url": "ae://local/logs/environment-branch-decision.md",
+      "url": "https://myaelmendez.github.io/logs/environment-branch-decision.md",
       "type": "log",
       "category": "logs",
-      "src": "ae-local",
-      "qr_version": 4,
-      "modules": 33,
+      "src": "gh-pages",
+      "qr_version": 5,
+      "modules": 37,
       "svg": "qr/log-logs-environment-branch-decision-md.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     },
     {
       "id": "log-logs-ops-decision-2026-07-01-md",
       "label": "Log: logs/ops-decision-2026-07-01.md",
-      "url": "ae://local/logs/ops-decision-2026-07-01.md",
+      "url": "https://myaelmendez.github.io/logs/ops-decision-2026-07-01.md",
       "type": "log",
       "category": "logs",
-      "src": "ae-local",
-      "qr_version": 3,
-      "modules": 29,
+      "src": "gh-pages",
+      "qr_version": 4,
+      "modules": 33,
       "svg": "qr/log-logs-ops-decision-2026-07-01-md.svg",
+      "decode_verified": true,
+      "http_ok": true,
       "verified": true
     }
   ]
