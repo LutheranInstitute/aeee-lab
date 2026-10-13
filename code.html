@@ -37,7 +37,7 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
 #cmd{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--ink);font-family:inherit;font-size:14px;padding:14px 10px;letter-spacing:.5px}
 #go{background:var(--gold);color:var(--void);border:none;font-family:'Orbitron';font-weight:700;font-size:11px;letter-spacing:1px;padding:0 22px;cursor:pointer;text-transform:uppercase}
 #go:hover{background:var(--gold-hi)}
-.hint{font-size:9px;color:var(--muted);letter-spacing:.5px;padding:0 0 16px;opacity:.75;text-align:center;line-height:1.8}
+.hint{font-size:9px;color:var(--muted);letter-spacing:.5px;padding:0 0 16px;opacity:.75;text-align:center;line-height:1.8;white-space:normal;word-break:break-word}
 .hint b{color:var(--gold)}
 </style>
 </head>
@@ -51,7 +51,7 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
   </div>
   <div class="out" id="out"></div>
   <div class="inrow"><span class="p">æ›</span><input id="cmd" placeholder="æ.manifest() · æ.find(q) · help" autocomplete="off" spellcheck="false" autofocus><button id="go">RUN</button></div>
-  <div class="hint"><b>æ.manifest(q)</b> · <b>æ.find(q)</b> · <b>æ.open(addr)</b> · <b>æ.capabilities()</b> · <b>goto x:y:z:æ</b></div>
+  <div class="hint"><b>æ.manifest()</b> · <b>æ.find()</b> · <b>æ.open()</b> · <b>help</b></div>
 </div>
 <script>
 (function(){'use strict';
