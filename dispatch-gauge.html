@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>æææ:///dispatch — capability gauge</title>
+<style>
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #050505; }
+  canvas { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Deterministic portrait gauge — every value is a pure function of the frame index.
+// No CSS @keyframes (they do not advance under frame-by-frame capture), no clocks,
+// no randomness. Same input -> identical frames.
+const W = 1080, H = 1920;
+const canv = document.getElementById('c');
+const ctx = canv.getContext('2d');
+
+const VOID = '#050505', GOLD = '#D4AF37', MUTED = '#6a6a6a', INK = '#f0ece4', RED = '#ff6b4d';
+
+// Measured facts (this session)
+const REACHABLE = 9;      // allowlisted dispatch commands (win 3 + vscode 6)
+const GATEKEPT  = 486;    // contributed commands inside the workbench, extension-owned
+const TOTAL     = REACHABLE + GATEKEPT;
+const REACH     = REACHABLE / TOTAL;      // 0.01818...
+const PROBES_OK = 2;      // hostname + list_extensions executed live
+const REFUSALS  = 2;      // rm (not allowlisted) + workbench (explicitly declared)
+
+function easeOut(p) { return 1 - Math.pow(1 - p, 3); }
+
+function drawWash() {
+  // Lift the field above the gate's luminance floor. Gold-on-void alone scores
+  // luminancia ~5-12 and every frame reads as black. A warm radial wash gives the
+  // frame mass while the edges stay true void — the documented fix.
+  const g = ctx.createRadialGradient(W / 2, H * 0.45, 60, W / 2, H * 0.5, 1150);
+  g.addColorStop(0, '#3a3222');
+  g.addColorStop(0.5, '#251f16');
+  g.addColorStop(1, '#080706');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawScanlines() {
+  ctx.fillStyle = 'rgba(212,175,55,0.030)';
+  for (let y = 0; y < H; y += 4) ctx.fillRect(0, y, W, 1);
+}
+
+function drawHeader(t) {
+  const a = Math.min(1, t * 3);
+  ctx.globalAlpha = a;
+  ctx.textAlign = 'center';
+  ctx.fillStyle = GOLD;
+  ctx.font = '700 54px monospace';
+  ctx.fillText('æææ:///dispatch', W / 2, 150);
+  ctx.fillStyle = MUTED;
+  ctx.font = '400 30px monospace';
+  ctx.fillText('COMMAND PROMPT AI', W / 2, 202);
+  ctx.fillStyle = 'rgba(212,175,55,0.35)';
+  ctx.fillRect(W / 2 - 260, 232, 520 * a, 2);
+  ctx.globalAlpha = 1;
+}
+
+// ── primary arc gauge: reach percentage ───────────────────────────────────────
+function drawGauge(t) {
+  const cx = W / 2, cy = 620, r = 330;
+  const START = Math.PI * 0.75, SWEEP = Math.PI * 1.5;   // 270 degrees
+
+  ctx.lineCap = 'butt';
+  ctx.beginPath();
+  ctx.strokeStyle = '#141414';
+  ctx.lineWidth = 54;
+  ctx.arc(cx, cy, r, START, START + SWEEP);
+  ctx.stroke();
+
+  // progress arc follows the eased frame index
+  const p = REACH * easeOut(t);
+  ctx.beginPath();
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 54;
+  ctx.arc(cx, cy, r, START, START + SWEEP * Math.max(p, 0.0001));
+  ctx.stroke();
+
+  // tick marks
+  for (let k = 0; k <= 10; k++) {
+    const ang = START + SWEEP * (k / 10);
+    const r1 = r - 34, r2 = r - 46;
+    ctx.beginPath();
+    ctx.strokeStyle = k === 0 ? RED : '#2a2a2a';
+    ctx.lineWidth = 3;
+    ctx.moveTo(cx + Math.cos(ang) * r1, cy + Math.sin(ang) * r1);
+    ctx.lineTo(cx + Math.cos(ang) * r2, cy + Math.sin(ang) * r2);
+    ctx.stroke();
+  }
+
+  // needle
+  const ang = START + SWEEP * p;
+  ctx.beginPath();
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 6;
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(cx + Math.cos(ang) * (r - 70), cy + Math.sin(ang) * (r - 70));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.fillStyle = GOLD;
+  ctx.arc(cx, cy, 16, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = INK;
+  ctx.font = '700 128px monospace';
+  ctx.fillText((p * 100).toFixed(1) + '%', cx, cy + 40);
+  ctx.fillStyle = MUTED;
+  ctx.font = '400 32px monospace';
+  ctx.fillText('COMMAND DISPATCH REACH', cx, cy + 100);
+  ctx.fillStyle = GOLD;
+  ctx.font = '700 40px monospace';
+  ctx.fillText(REACHABLE + ' / ' + TOTAL, cx, cy + 160);
+}
+
+// ── comparison bars: reachable vs gatekept ───────────────────────────────────
+function drawBars(t) {
+  const x = 90, maxW = W - 180;
+  const rows = [
+    { label: 'REACHABLE  (allowlist)', value: REACHABLE, max: GATEKEPT, color: GOLD },
+    { label: 'GATEKEPT   (extension host)', value: GATEKEPT, max: GATEKEPT, color: RED },
+  ];
+  let y = 1080;
+  ctx.font = '400 30px monospace';
+  rows.forEach((row, idx) => {
+    const w = maxW * (row.value / row.max) * easeOut(t);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = MUTED;
+    ctx.fillText(row.label, x, y);
+    ctx.fillStyle = '#111';
+    ctx.fillRect(x, y + 16, maxW, 44);
+    ctx.fillStyle = row.color;
+    ctx.fillRect(x, y + 16, Math.max(w, row.value > 0 ? 6 : 0), 44);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = row.color;
+    ctx.font = '700 34px monospace';
+    ctx.fillText(String(Math.round(row.value * easeOut(t))), x + maxW, y - 6);
+    ctx.font = '400 30px monospace';
+    y += 130;
+  });
+}
+
+// ── footer: integrity + the honest boundary ──────────────────────────────────
+function drawFooter(t) {
+  const a = Math.min(1, Math.max(0, (t - 0.35) / 0.4));
+  if (a <= 0) return;
+  ctx.globalAlpha = a;
+  ctx.textAlign = 'left';
+  const lines = [
+    ['ALLOWLIST', REACHABLE + ' commands'],
+    ['PROBES VERIFIED', PROBES_OK + ' executed live'],
+    ['REFUSALS HONORED', REFUSALS + ' paths asserted'],
+    ['RECEIPTS', 'SHA-256 chained, ON'],
+  ];
+  let y = 1480;
+  lines.forEach(([k, v]) => {
+    ctx.fillStyle = MUTED; ctx.font = '400 28px monospace';
+    ctx.fillText(k, 90, y);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = GOLD; ctx.font = '700 28px monospace';
+    ctx.fillText(v, W - 90, y);
+    ctx.textAlign = 'left';
+    y += 52;
+  });
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255,107,77,0.85)';
+  ctx.font = '400 25px monospace';
+  ctx.fillText('workbench executeCommand is extension-host owned —', W / 2, 1770);
+  ctx.fillText('NOT reachable from an external process. Refused, not faked.', W / 2, 1806);
+  ctx.fillStyle = MUTED;
+  ctx.font = '400 22px monospace';
+  ctx.fillText('deterministic · frame-driven · local only', W / 2, 1866);
+  ctx.globalAlpha = 1;
+}
+
+window.__renderFrame = function (i, total) {
+  const t = total > 1 ? i / (total - 1) : 1;
+  ctx.fillStyle = VOID;
+  ctx.fillRect(0, 0, W, H);
+  drawWash();
+  drawScanlines();
+  drawHeader(t);
+  drawGauge(t);
+  drawBars(t);
+  drawFooter(t);
+  return true;
+};
+
+window.__renderFrame(0, 1);
+</script>
+</body>
+</html>
