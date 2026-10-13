@@ -1,0 +1,34 @@
+name: ae runner contract demo
+on:
+  workflow_dispatch:
+permissions: {}
+jobs:
+  demonstrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Prepare runner values
+        id: prepare
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s\n' '::group::Runner contract preparation'
+          printf '%s\n' 'AE_DEMO_LABEL=prepared' >> "$GITHUB_ENV"
+          printf '%s\n' 'phase=prepared' >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUNNER_TEMP/ae-bin"
+          printf '%s\n' "$RUNNER_TEMP/ae-bin" >> "$GITHUB_PATH"
+          printf '%s\n' '::endgroup::'
+      - name: Verify later-step values
+        shell: bash
+        env:
+          AE_PHASE: ${{ steps.prepare.outputs.phase }}
+        run: |
+          set -euo pipefail
+          test "$AE_DEMO_LABEL" = 'prepared'
+          test "$AE_PHASE" = 'prepared'
+          case ":$PATH:" in
+            *":$RUNNER_TEMP/ae-bin:"*) ;;
+            *) printf '%s\n' '::error::Runner path missing'; exit 1 ;;
+          esac
+          printf '%s\n' '::notice::Runner communication checks passed'
+          printf '%s\n' '## æ runner contract' 'Environment, output, and path checks passed.' 'This demonstration performed no business operation or MCP call.' >> "$GITHUB_STEP_SUMMARY"

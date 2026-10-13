@@ -1,0 +1,14 @@
+interface:
+  display_name: æ^Agentic_Environments
+  short_description: Customize profiles, connect repos, and verify actions
+  default_prompt: Use $ae to inspect my repo, prepare an execution workflow, and verify
+    authorized actions.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

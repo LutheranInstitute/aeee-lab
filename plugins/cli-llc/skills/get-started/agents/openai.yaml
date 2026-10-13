@@ -1,0 +1,4 @@
+interface:
+  display_name: "CLI.LLC / æ setup"
+  short_description: "Choose your business or repository journey"
+  default_prompt: "Help me get started with CLI.LLC / æ."

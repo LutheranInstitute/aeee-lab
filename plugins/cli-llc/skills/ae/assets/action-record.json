@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.1",
+  "operator": "ae",
+  "intent": null,
+  "principal": null,
+  "mode": "prepare",
+  "repository": {"host": null, "owner": null, "name": null, "source_revision": null, "target_ref": null},
+  "authorization": {"basis": null, "allowed_effects": [], "excluded_effects": []},
+  "execution": {"provider": null, "workflow": null, "inputs": {}, "run_id": null, "attempt": null, "status": "proposed"},
+  "verification": {"completion_condition": null, "checks": [], "artifacts": [], "provider_confirmations": [], "status": "pending"},
+  "witness": {"result_revision": null, "evidence_links": [], "failures": []}
+}

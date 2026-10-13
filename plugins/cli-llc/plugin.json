@@ -1,0 +1,45 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cli-llc",
+  "version": "0.1.0",
+  "description": "Business preparation and repository operations with the user as principal.",
+  "author": {
+    "name": "Yael Méndez",
+    "url": "https://myaelmendez.github.io/skills/"
+  },
+  "homepage": "https://myaelmendez.github.io/skills/",
+  "repository": "https://github.com/MYaelMendez/MYaelMendez.github.io",
+  "license": "MIT",
+  "keywords": [
+    "business",
+    "github",
+    "actions",
+    "agentic-environments"
+  ],
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "interface": {
+        "displayName": "CLI.LLC / æ",
+        "shortDescription": "Prepare. Own. Operate.",
+        "longDescription": "Prepare any kind of business with startabusiness, then configure and operate repository capabilities with ae. Each person uses their own identity, business and permissions. This skills-only package relies on tools already available in the host chat; it does not bundle GitHub access, account linking, an MCP server or an embedded UI. The optional public portrait cockpits offer local interviews, profiles, company colors, and handoff prompts. Formation remains an optional provider pathway and never happens from installation alone. Independently authored; no GitHub, OpenAI or doola endorsement is implied. #opensourceware: clone it, fork it, make it yours.",
+        "developerName": "Yael Méndez",
+        "category": "Productivity",
+        "websiteURL": "https://myaelmendez.github.io/skills/",
+        "defaultPrompt": [
+          "Prepare my business homebase and show me what comes next.",
+          "Help me configure an agentic environment for my repository."
+        ],
+        "brandColor": "#a4490b",
+        "brandColorDark": "#ffa74b",
+        "composerIcon": "./assets/icon.svg",
+        "composerIconDark": "./assets/icon-dark.svg",
+        "logo": "./assets/icon.svg",
+        "logoDark": "./assets/icon-dark.svg"
+      },
+      "publication": {
+        "release_notes": "Initial skills-only review candidate. Includes setup, startabusiness and ae. Not yet submitted or approved."
+      }
+    }
+  }
+}

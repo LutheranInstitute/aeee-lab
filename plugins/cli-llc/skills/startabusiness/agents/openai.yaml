@@ -1,0 +1,14 @@
+interface:
+  display_name: '#startabusiness · æQR codæmodæ'
+  short_description: Interview, classify, and prepare your business homebase
+  default_prompt: Use $startabusiness to find my starter repo, prepare my copy, and
+    show me the formation pathway.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
