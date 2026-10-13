@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="webmcp" href="/webmcp-tools.json">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#000000">
@@ -88,7 +89,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
   <div class="head">
     <div class="title">æ:// · WebMCP</div>
     <div class="sub">Browser-as-MCP · Sovereign Actuation Surface</div>
-    <div class="tag" id="statTag">0 TOOLS</div><div class="tag" id="mcpStat" style="color:var(--gold)">WEBMCP: DETECTING</div>
+    <div class="tag" id="statTag">0 SIM TOOLS</div><div class="tag" id="mcpStat" style="color:var(--gold)">WEBMCP: DETECTING</div>
   </div>
 
   <div class="panel">
@@ -257,6 +258,7 @@ document.getElementById('fName').value='Yæl';
 document.getElementById('fEmail').value='yael@llm.store';
 document.getElementById('statTag').textContent=registry.length+' TOOLS';
 log(registry.length+' tools registered','ok');advance('INIT');
+log('note: this panel simulates MCP calls — the REAL WebMCP layer (webmcp.js) registers 6 tools with navigator.modelContext','dim');
 setTimeout(function(){var s=document.getElementById('mcpStat');var m=window.__aeWebmcp||{};s.textContent=m.available?('WEBMCP: LIVE · '+m.shape+' · '+(m.tools||[]).length+' agent tools'):'WEBMCP: not in this browser (feature-detect ok)';s.style.color=m.available?'var(--neon)':'var(--muted)';},900);
 
 })();
