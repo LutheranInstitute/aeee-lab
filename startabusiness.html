@@ -344,6 +344,25 @@ low_contrast 6/6 · jpeg 6/6 · occlude 4/6
     custody on our side.</p>
     <a class="btn" href="https://partnersps.doola.com/hhsoqhb23250"
        rel="noopener">Start a business →</a>
+
+    <div style="margin-top:26px;padding:18px 20px;border:1px solid rgba(212,175,55,.28);background:rgba(212,175,55,.04)">
+      <h3 style="margin:0 0 10px">Or drive the formation from the API</h3>
+      <p style="margin:0 0 12px">Same rail, programmatic. Sandbox first — default deny.</p>
+      <pre style="margin:0 0 12px"><span class="c"># environment + credential presence (never the values)</span>
+python skills/startabusiness/doola_client.py status
+<span class="c"># 13 offline checks — no credentials, no network</span>
+python skills/startabusiness/doola_client.py selftest
+<span class="c"># the wired flow</span>
+python skills/startabusiness/doola_client.py playbook
+
+create-customer → doolaCustomerId
+create-company  → POST /v1/partner/companies · Idempotency-Key required
+verify-webhook  → X-Doola-Signature (HMAC SHA256)</pre>
+      <div class="fine">Key custody: <b>DOOLA_API_KEY</b> env, or <b>C:\æ\secrets\doola.json</b>.
+      Never in this page, never in a URL, never in a QR. SSN/ITIN are collected
+      locally and sent straight to the API — redacted from every log line.
+      A dk_test_ key aimed at production is refused.</div>
+    </div>
     <div style="margin-top:20px">
       <a href="./startabusiness-launch.mp4" style="font-size:13px">▶ watch the launch (18s · gate PASS · NVENC)</a>
     </div>
@@ -562,9 +581,20 @@ the rune class:
   chain: () => `custody → format → gate → authority → contract → dispatch → publish → delivery → adoption
 
   vault  envelope  supervision  authority  pledge  registry  orchard`,
-  doola: () => `https://partnersps.doola.com/hhsoqhb23250
-real, paid: $133.65 commission (50% of a $267.30 formation)
-external provider under their own ToS — not legal/tax advice.`,
+  doola: () => `doola partner api — the formation rail
+sandbox   https://api.test.doola.com    key dk_test_
+prod      https://api.doola.com         key dk_live_   (DOOLA_ENV=production AND --live)
+
+  1 GATHER     founder + company facts — LOCAL ONLY, never in a chat
+  2 CUSTOMER   POST /v1/partner/customers         → doolaCustomerId
+  3 FORMATION  POST /v1/partner/companies         → starts the filing · Idempotency-Key
+  4 PROGRESS   X-Doola-Signature webhooks         → never poll
+  5 DOCUMENTS  ArticlesOfOrganization · EinLetter → short-lived URL
+  6 RECEIPT    append the formation receipt to kænbæn
+
+submission status ≠ formation — track the Formation service, not the submission.
+hand-off (affiliate, real, paid $133.65): https://partnersps.doola.com/hhsoqhb23250
+client:  python skills/startabusiness/doola_client.py selftest   (13/13, offline)`,
 };
 const term = document.getElementById('term');
 function say(text, cls) {
@@ -634,5 +664,18 @@ document.getElementById('cmdkq').oninput = e => {
 };
 document.getElementById('cmdk').onclick = e => { if (e.target.id === 'cmdk') cmdkToggle(false); };
 </script>
+<!-- æ:// QR Verification Badge -->
+<div id="æ-qr-badge" style="
+  position:fixed;bottom:16px;right:16px;z-index:99999;
+  width:56px;height:56px;border:1px solid #D4AF37;border-radius:8px;
+  background:#050505;padding:4px;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 20px rgba(212,175,55,.4)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'"
+   onclick="window.open('https://myaelmendez.github.io/verify.html?url='+encodeURIComponent(location.href),'_blank')"
+   title="æ:// Verify this surface">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=48x48&data=https://myaelmendez.github.io/startabusiness.html&color=D4AF37&bgcolor=050505"
+       alt="QR Verify" style="width:100%;height:100%;display:block;">
+</div>
 </body>
 </html>
