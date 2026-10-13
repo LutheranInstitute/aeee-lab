@@ -1,0 +1,357 @@
+#EXTM3U
+# source of truth: https://myaelmendez.github.io
+# generated 2026-10-12T21:03:49-0500
+# 88 entries · probed, all HTTP 200
+# excluded (did not answer 200): 0
+#EXTINF:-1,aaa com 916
+#EXTALB:video
+# æsha256:08a0fce31c1f9d121a97633987f3a39752e8eafbf4e279ce39c9ea666c0c8123
+https://myaelmendez.github.io/aaa-com-916.mp4
+#EXTINF:-1,aaa namespace 916
+#EXTALB:video
+# æsha256:578c556af7cfe0790178a361d23a9f654459f82c60e94660f15288485aa75654
+https://myaelmendez.github.io/aaa-namespace-916.mp4
+#EXTINF:-1,aertx demo
+#EXTALB:video
+# æsha256:e8029338111fd4af886a5fb504ff34f4f010386620a155ea41932a67bc9c6a01
+https://myaelmendez.github.io/aertx-demo.mp4
+#EXTINF:-1,aertx demo
+#EXTALB:video
+# æsha256:e8029338111fd4af886a5fb504ff34f4f010386620a155ea41932a67bc9c6a01
+https://myaelmendez.github.io/aipodcast_me/aertx-demo.mp4
+#EXTINF:-1,bot vision cyan
+#EXTALB:video
+# æsha256:0e84bc58bec2a35c190e4dae579e6df8ae8634adfc3d24bf400920d5343e67cd
+https://myaelmendez.github.io/aipodcast_me/bot-vision-cyan.mp4
+#EXTINF:-1,cuda mcp2
+#EXTALB:video
+# æsha256:9839e7ee8c6deeb0f798543aed34d8ed9744112145481692d2396d88ce02d440
+https://myaelmendez.github.io/aipodcast_me/cuda-mcp2.mp4
+#EXTINF:-1,demo 9x16
+#EXTALB:video
+# æsha256:cad9eb268215d4ee8b7fc4034734fe7f4ab7221564f0a11a8cc64fdd9cadac00
+https://myaelmendez.github.io/aipodcast_me/demo-9x16.mp4
+#EXTINF:-1,episode 001 the human loop
+#EXTALB:audio
+# æsha256:78206813fe0a2e242b95bfc5142496af2e0132c205b0f301115ebca06f8c9115
+https://myaelmendez.github.io/aipodcast_me/episodes/episode-001-the-human-loop.mp3
+#EXTINF:-1,fase20 hauge
+#EXTALB:video
+# æsha256:47a169a817b90828b25598d7b1c5a4771038707108d4e73c08c8626ee1491162
+https://myaelmendez.github.io/aipodcast_me/fase20-hauge.mp4
+#EXTINF:-1,fleet waves development
+#EXTALB:video
+# æsha256:e5b7aa1f763893ca5db61b22231b77f92d0446aa03b4b3c81c939918c6b7d2c2
+https://myaelmendez.github.io/aipodcast_me/fleet-waves-development.mp4
+#EXTINF:-1,holomesh
+#EXTALB:video
+# æsha256:a7d8d1d2b1658a144cbd8be5511eeac5fc9e00dea19c0188cdb91ed8a0c4be2a
+https://myaelmendez.github.io/aipodcast_me/holomesh.mp4
+#EXTINF:-1,inside compute
+#EXTALB:video
+# æsha256:20f0f81e0f75c2c78388c8f0f6797856c00fef59f6dffdd1336229ab7d573a4c
+https://myaelmendez.github.io/aipodcast_me/inside-compute.mp4
+#EXTINF:-1,markets radar timestamp
+#EXTALB:video
+# æsha256:4c39e782007f6a974c25421a9d3d19a55358c3fed6066ae1222f40f80792f85f
+https://myaelmendez.github.io/aipodcast_me/markets-radar-timestamp.mp4
+#EXTINF:-1,markets radar
+#EXTALB:video
+# æsha256:0f17f545b878e369d0c85d30c2ecc6bb01c39d8f0d50f98d9f01ffbca46ba686
+https://myaelmendez.github.io/aipodcast_me/markets-radar.mp4
+#EXTINF:-1,storyboard
+#EXTALB:video
+# æsha256:470648fa455abab6d4d153490d11e799cc257f8f5a8ab6c39c965e9c9cce83d4
+https://myaelmendez.github.io/aipodcast_me/storyboard.mp4
+#EXTINF:-1,storyboards
+#EXTALB:video
+# æsha256:94c8fadd8f1efa867151ee010377f9e26a22b596d369534c4e345972bee68b5e
+https://myaelmendez.github.io/aipodcast_me/storyboards.mp4
+#EXTINF:-1,video vision
+#EXTALB:video
+# æsha256:0a730cd6258b047c485aa3c108964786429e11825d86a87f076a820477f2db40
+https://myaelmendez.github.io/aipodcast_me/video-vision.mp4
+#EXTINF:-1,zeitgeist
+#EXTALB:video
+# æsha256:8a912501d17b9bb6b3eb62b7b82ec9a8655fc8b75a6a85804a944335e09f111b
+https://myaelmendez.github.io/aipodcast_me/zeitgeist.mp4
+#EXTINF:-1,bot vision cyan
+#EXTALB:video
+# æsha256:0e84bc58bec2a35c190e4dae579e6df8ae8634adfc3d24bf400920d5343e67cd
+https://myaelmendez.github.io/bot-vision-cyan.mp4
+#EXTINF:-1,capabilities chain
+#EXTALB:video
+# æsha256:9d6f4762052e55978577c39a092c970952584a8b9b7c51f01bcef6734f5a16db
+https://myaelmendez.github.io/capabilities-chain.mp4
+#EXTINF:-1,constellation
+#EXTALB:video
+# æsha256:ce6b42411eaf852f3c34d9cd11137c86640c07fd853eeb6a98a375c2ea96c423
+https://myaelmendez.github.io/constellation.mp4
+#EXTINF:-1,cri video
+#EXTALB:video
+# æsha256:0a7409d3921cc9ffc99b7e7f37f6c72947b167455fbf904ff0111a40a3b6ef1c
+https://myaelmendez.github.io/cri-video.mp4
+#EXTINF:-1,cuda mcp2
+#EXTALB:video
+# æsha256:9839e7ee8c6deeb0f798543aed34d8ed9744112145481692d2396d88ce02d440
+https://myaelmendez.github.io/cuda-mcp2.mp4
+#EXTINF:-1,demo 9x16
+#EXTALB:video
+# æsha256:cad9eb268215d4ee8b7fc4034734fe7f4ab7221564f0a11a8cc64fdd9cadac00
+https://myaelmendez.github.io/demo-9x16.mp4
+#EXTINF:-1,draw video
+#EXTALB:video
+# æsha256:4b04daa0121152c28f5b95b4b8df49e7b83a62adabfb6b9491487c6a4cf2a986
+https://myaelmendez.github.io/draw-video.mp4
+#EXTINF:-1,early weekend catchup
+#EXTALB:video
+# æsha256:504ca342f171b54ccf851599a56870d4a322040d477b01eef025d6f66c7b97ca
+https://myaelmendez.github.io/early-weekend-catchup.mp4
+#EXTINF:-1,eee 1 ethics 916
+#EXTALB:video
+# æsha256:ba6b090b775c08a16621dac0b1dd3d34aad4bf019c4289e24d8ef3335655b3ad
+https://myaelmendez.github.io/eee-1-ethics-916.mp4
+#EXTINF:-1,eee 2 economics 916
+#EXTALB:video
+# æsha256:7aa434124a679c77c4006ac47f5f1d27178e110ba68b317cdc93502d57ef7377
+https://myaelmendez.github.io/eee-2-economics-916.mp4
+#EXTINF:-1,eee 3 engineering 916
+#EXTALB:video
+# æsha256:763b7dd1caf7aa58eb3ab5e393fa5603f6eab6bfc97903609aee3587c2345b95
+https://myaelmendez.github.io/eee-3-engineering-916.mp4
+#EXTINF:-1,fase10 postprocessing audio
+#EXTALB:video
+# æsha256:a1820f1b6f6078dc031794f94885b063ef9827e81fff6140d41021cfeca4dc19
+https://myaelmendez.github.io/fase10-postprocessing-audio.mp4
+#EXTINF:-1,fase10 postprocessing
+#EXTALB:video
+# æsha256:037f43889d4763000eea1d6872c65a216084b03faf6ac61d88a888fddd933fae
+https://myaelmendez.github.io/fase10-postprocessing.mp4
+#EXTINF:-1,fase11 effects audio
+#EXTALB:video
+# æsha256:57ec569c003ec3584c3b03422d689ec1aa394ae8fb7bf4112631ab21672399d4
+https://myaelmendez.github.io/fase11-effects-audio.mp4
+#EXTINF:-1,fase11 effects
+#EXTALB:video
+# æsha256:46736ed74acbeaf5e62d79c4a3fd9e01063d1bcbc73b802abb75d1eabd3591b5
+https://myaelmendez.github.io/fase11-effects.mp4
+#EXTINF:-1,fase12 integration audio
+#EXTALB:video
+# æsha256:60be938ab250ff11a1247c32dfd65e609140258a165b779afd64fb0e4a989012
+https://myaelmendez.github.io/fase12-integration-audio.mp4
+#EXTINF:-1,fase12 integration
+#EXTALB:video
+# æsha256:4b6182ce2e0177e92112e60c3fe7c3ad48f2dafdac00e530c85534aed66ed6cd
+https://myaelmendez.github.io/fase12-integration.mp4
+#EXTINF:-1,fase13 agentic electronics
+#EXTALB:video
+# æsha256:07b30b6f3b5273d37b87a140e5a16b96ac0eba79117c3e115f0bf5018582a020
+https://myaelmendez.github.io/fase13-agentic-electronics.mp4
+#EXTINF:-1,fase14 xmlsvg dataflow
+#EXTALB:video
+# æsha256:abaf2efb0a1156da9dd7da24c99416ed2d5e092bffce633f7aa0f5c87c4d90d0
+https://myaelmendez.github.io/fase14-xmlsvg-dataflow.mp4
+#EXTINF:-1,fase15 xmlsvg dataflow
+#EXTALB:video
+# æsha256:2f2423c208ac719b4f33c344cfbba3a6a8aebbf9028800d04db878a12cf3915e
+https://myaelmendez.github.io/fase15-xmlsvg-dataflow.mp4
+#EXTINF:-1,fase16 video to context
+#EXTALB:video
+# æsha256:cfcfdb6e85c2dbd8d87ae3a4552c850b9e36d4a1b5e1e53349b92d126f632eba
+https://myaelmendez.github.io/fase16-video-to-context.mp4
+#EXTINF:-1,fase17 chaos
+#EXTALB:video
+# æsha256:eb79c54cbc9299c3a7b308e47864fba5c84def3eb63a3f621a86f4c98685af8d
+https://myaelmendez.github.io/fase17-chaos.mp4
+#EXTINF:-1,fase21 schweitzer
+#EXTALB:video
+# æsha256:30e83108507843bcb54b14dc03e5642dd7204dbba40b49d1d892635785754b22
+https://myaelmendez.github.io/fase21-schweitzer.mp4
+#EXTINF:-1,fase22 wikipedia reformation
+#EXTALB:video
+# æsha256:ec23ec4400a4b1430fe00f1896bab1ba4f9711f3c0ca30e8c310e5234c7830bd
+https://myaelmendez.github.io/fase22-wikipedia-reformation.mp4
+#EXTINF:-1,fase4 shaders audio
+#EXTALB:video
+# æsha256:ccc830d84ca5048434f273d50b85465b9b9a26deb3bf5309b0475abba797b486
+https://myaelmendez.github.io/fase4-shaders-audio.mp4
+#EXTINF:-1,fase4 shaders
+#EXTALB:video
+# æsha256:4057f94e33bb1b0eefd0b6243a59b863438eb514f713a80d5e6fe7dd31cc14dd
+https://myaelmendez.github.io/fase4-shaders.mp4
+#EXTINF:-1,fase5 shaders audio
+#EXTALB:video
+# æsha256:c75f09e103bf766d9a869e9e943b523bf5b22955e5da606a051899227af41d4c
+https://myaelmendez.github.io/fase5-shaders-audio.mp4
+#EXTINF:-1,fase5 shaders
+#EXTALB:video
+# æsha256:5a69f1437b229eeddc94b1dd7020d518afaf98b728dcd7ca8911ffbd32a5c819
+https://myaelmendez.github.io/fase5-shaders.mp4
+#EXTINF:-1,fase6 shaders audio
+#EXTALB:video
+# æsha256:372e86414f72708331d3c5f46919882d95c9a8374c948358754e79650386fc99
+https://myaelmendez.github.io/fase6-shaders-audio.mp4
+#EXTINF:-1,fase6 shaders
+#EXTALB:video
+# æsha256:a31cb3155b45b853553c0513e80a5209596b0d42dcc12b5505840cbbcbc99a17
+https://myaelmendez.github.io/fase6-shaders.mp4
+#EXTINF:-1,fase7 performance audio
+#EXTALB:video
+# æsha256:b85a1fcf5a7e3a45386bc06241dbd8dceffa36299304293340d57ebe9c69c637
+https://myaelmendez.github.io/fase7-performance-audio.mp4
+#EXTINF:-1,fase7 performance
+#EXTALB:video
+# æsha256:e3638634aa378dab6fd3150f4e80e5d9ca4784bfb49e6cc077742c6697e9cb3b
+https://myaelmendez.github.io/fase7-performance.mp4
+#EXTINF:-1,fase8 architecture audio
+#EXTALB:video
+# æsha256:6f7942248a72270b091f2de69028a4270eb51462a8467309b8661cbbf3a9827a
+https://myaelmendez.github.io/fase8-architecture-audio.mp4
+#EXTINF:-1,fase8 architecture
+#EXTALB:video
+# æsha256:4c58079b90f3240b8e6f224ac28af8c6f74cfc5e36c72294d01211dc3ac3c8f7
+https://myaelmendez.github.io/fase8-architecture.mp4
+#EXTINF:-1,fase9 webworkers audio
+#EXTALB:video
+# æsha256:4d5616d6510a2f241c5ab5e488e8201d719021058363895d05ec01726fc67a04
+https://myaelmendez.github.io/fase9-webworkers-audio.mp4
+#EXTINF:-1,fase9 webworkers
+#EXTALB:video
+# æsha256:16b6bc5c5a3a83eae2b288666de2499ee742c70739baf342acce55e76ff91af7
+https://myaelmendez.github.io/fase9-webworkers.mp4
+#EXTINF:-1,golden ratio
+#EXTALB:video
+# æsha256:40f4b813199e1ab61d3251c67184d9f146ff9b906932e28b2c3f5f819172d039
+https://myaelmendez.github.io/golden-ratio.mp4
+#EXTINF:-1,holomesh
+#EXTALB:video
+# æsha256:a7d8d1d2b1658a144cbd8be5511eeac5fc9e00dea19c0188cdb91ed8a0c4be2a
+https://myaelmendez.github.io/holomesh.mp4
+#EXTINF:-1,inside compute
+#EXTALB:video
+# æsha256:20f0f81e0f75c2c78388c8f0f6797856c00fef59f6dffdd1336229ab7d573a4c
+https://myaelmendez.github.io/inside-compute.mp4
+#EXTINF:-1,internetofagents 916
+#EXTALB:video
+# æsha256:23ca2ce27911a7aa7bf39c941c99597ca3ee82d9cf3dac611a704fead764c143
+https://myaelmendez.github.io/internetofagents-916.mp4
+#EXTINF:-1,internetofagents report
+#EXTALB:video
+# æsha256:9735a82dee5f3d020d719949cdb61c40ad39878f30582eb9891c71de03a8f4f9
+https://myaelmendez.github.io/internetofagents-report.mp4
+#EXTINF:-1,internetofagents v2
+#EXTALB:video
+# æsha256:9025bc533e260d133e4eae90b47293d8d925c4ba98acd12b1cb92aed4f94ab61
+https://myaelmendez.github.io/internetofagents-v2.mp4
+#EXTINF:-1,internetofagents
+#EXTALB:video
+# æsha256:769065ef1e25abf4a15c6fc9ae922ea0fb66f2dde3f61506974e2c8e3d5ebf04
+https://myaelmendez.github.io/internetofagents.mp4
+#EXTINF:-1,many agents 916
+#EXTALB:video
+# æsha256:b0b93a864b6246008f2c2957c7ea200ee9bfa3307cab19b82008bcdc0f4d28f7
+https://myaelmendez.github.io/many-agents-916.mp4
+#EXTINF:-1,material lab
+#EXTALB:video
+# æsha256:d6ac30e8edf433bb6eb68af7a489384410019f0f3331e836032021566e887635
+https://myaelmendez.github.io/material-lab.mp4
+#EXTINF:-1,nebula
+#EXTALB:video
+# æsha256:c8512b7894d4fd47cbdcd1c525378cebfacfa79c4ada4f8714b24c912d9fd10a
+https://myaelmendez.github.io/nebula.mp4
+#EXTINF:-1,neuro 1 bond 916
+#EXTALB:video
+# æsha256:e1370943ffa706de8949cb5d2bfb8ab4d6252679780b733d1bad721bf7c2695a
+https://myaelmendez.github.io/neuro-1-bond-916.mp4
+#EXTINF:-1,neuro 2 haebbian 916
+#EXTALB:video
+# æsha256:db2ac9ac7d15698b676d73a91e4eaccff6b4e990012fe9ce3eece9f39964c43f
+https://myaelmendez.github.io/neuro-2-haebbian-916.mp4
+#EXTINF:-1,neuro 3 sovereignty 916
+#EXTALB:video
+# æsha256:9fb32c673a526922e903f3eee6c9619ce94c0e5416352a84e56373492572beea
+https://myaelmendez.github.io/neuro-3-sovereignty-916.mp4
+#EXTINF:-1,public private sovereign 916
+#EXTALB:video
+# æsha256:79ed4c11974550dc9acb078580a637f721849d543952b7b7f97e34d900c176c1
+https://myaelmendez.github.io/public-private-sovereign-916.mp4
+#EXTINF:-1,startabusiness launch
+#EXTALB:video
+# æsha256:1aab1256464abed760b482dbe01e3584e15eba1d1e6efd0c9c6756c11f21301a
+https://myaelmendez.github.io/startabusiness-launch.mp4
+#EXTINF:-1,storyboards
+#EXTALB:video
+# æsha256:94c8fadd8f1efa867151ee010377f9e26a22b596d369534c4e345972bee68b5e
+https://myaelmendez.github.io/storyboards.mp4
+#EXTINF:-1,apocalipsis 21
+#EXTALB:video
+# æsha256:1aa104b199220debc5e49f546748400081070ca396b8ec10d36e190f448c6af5
+https://myaelmendez.github.io/teologia/apocalipsis-21.mp4
+#EXTINF:-1,demo teologia
+#EXTALB:video
+# æsha256:723af5405a1ed374c7e192fd468f2e2b68ec517544e19544f1601ac88d6309c2
+https://myaelmendez.github.io/teologia/demo-teologia.mp4
+#EXTINF:-1,genesis 1
+#EXTALB:video
+# æsha256:dff0958aafa28d74b955a633e0b2784ee7cd4156da213470613fe56851030e7a
+https://myaelmendez.github.io/teologia/genesis-1.mp4
+#EXTINF:-1,isaias 40
+#EXTALB:video
+# æsha256:51d0fb433546a0900a8293eb358660423fbfbd05461539f953dd9a15b5b4b56c
+https://myaelmendez.github.io/teologia/isaias-40.mp4
+#EXTINF:-1,juan 316
+#EXTALB:video
+# æsha256:b7c8ce49888677fb596b5b4ba002290d3fe9eee644cbc086d3528eb31a864cf5
+https://myaelmendez.github.io/teologia/juan-316.mp4
+#EXTINF:-1,mateo 5
+#EXTALB:video
+# æsha256:c641a181a615c2facd5b08bb61e7604e2a7d209c45addefee89b583d2c8a9209
+https://myaelmendez.github.io/teologia/mateo-5.mp4
+#EXTINF:-1,proverbios 3
+#EXTALB:video
+# æsha256:49f52a630022f699b7ec4e2d313fedf20bdc73bc75548f00f52c66bc8059bb53
+https://myaelmendez.github.io/teologia/proverbios-3.mp4
+#EXTINF:-1,salmo 23
+#EXTALB:video
+# æsha256:2935181eae2af4e620bd8a9fe6ac638667b8d0ab464b45fa97d462b683a6d5ad
+https://myaelmendez.github.io/teologia/salmo-23.mp4
+#EXTINF:-1,teologia calendario
+#EXTALB:video
+# æsha256:30c172b78e1886dbe899f733c34c6adfc83836a7be46510155452036b3971eb0
+https://myaelmendez.github.io/teologia-calendario.mp4
+#EXTINF:-1,the toolchain
+#EXTALB:video
+# æsha256:cdc0bc772b8b34fef092fe4bd6aff393e38a43ee5c8afff8590c8250c8e71d42
+https://myaelmendez.github.io/the-toolchain.mp4
+#EXTINF:-1,this is agentic engineering
+#EXTALB:video
+# æsha256:0af8399ae6c60c2d31a9e5bb40a24be352677ad181f045c3a5975810c9bfa5a2
+https://myaelmendez.github.io/this-is-agentic-engineering.mp4
+#EXTINF:-1,ae
+#EXTALB:audio
+# æsha256:ada68a8135c94aace26f998856f4f240af1193aff0c93b0f27ee0e8de655d2cb
+https://myaelmendez.github.io/threejs-curriculo/ae.mp3
+#EXTINF:-1,demo audio
+#EXTALB:audio
+# æsha256:371d945862f8a0a53259e3334f689e438e2e313f2a93ddf218e235f06a915d53
+https://myaelmendez.github.io/threejs-curriculo/demo-audio.mp3
+#EXTINF:-1,æ
+#EXTALB:audio
+# æsha256:ada68a8135c94aace26f998856f4f240af1193aff0c93b0f27ee0e8de655d2cb
+https://myaelmendez.github.io/threejs-curriculo/%C3%A6.mp3
+#EXTINF:-1,ufo 8s
+#EXTALB:video
+# æsha256:f05de454faca66fed525967ad383e1c55d0782e656d7316706bd52b6fd890a48
+https://myaelmendez.github.io/ufo-8s.mp4
+#EXTINF:-1,video vision
+#EXTALB:video
+# æsha256:0a730cd6258b047c485aa3c108964786429e11825d86a87f076a820477f2db40
+https://myaelmendez.github.io/video-vision.mp4
+#EXTINF:-1,osw250 narration
+#EXTALB:audio
+# æsha256:f121b5e50a045258776b10b349086741ff242a1cffec78086a6056b636590944
+https://myaelmendez.github.io/voice-memos/osw250-narration.mp3
+#EXTINF:-1,zeitgeist
+#EXTALB:video
+# æsha256:8a912501d17b9bb6b3eb62b7b82ec9a8655fc8b75a6a85804a944335e09f111b
+https://myaelmendez.github.io/zeitgeist.mp4
