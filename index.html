@@ -64,6 +64,20 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
 .door .ax{font-size:8px;color:var(--ac,var(--cyan));letter-spacing:.5px}
 .door b{font-size:11px;color:var(--gold);letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .door small{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* live ticker — the coordinate collapses into a flowing agentic feed */
+.ticker{display:flex;align-items:center;gap:10px;width:100%;padding:9px 0;border-bottom:1px solid var(--line);font-size:9px;letter-spacing:.4px;overflow:hidden}
+.tlabel{display:inline-flex;align-items:center;gap:5px;color:var(--gold);font-weight:700;letter-spacing:1.6px;white-space:nowrap;text-transform:uppercase;flex:none}
+.tlabel .dot{width:5px;height:5px}
+.tmask{flex:1;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.tstream{display:inline-flex;white-space:nowrap;will-change:transform}
+.tgrp{display:inline-flex;gap:22px;padding-right:22px}
+.tm{color:var(--muted)}
+.tm.g{color:var(--gold)}.tm.ok{color:var(--neon)}.tm.c{color:var(--cyan)}.tm.p{color:var(--purple)}
+.tm.coord{color:var(--gold-hi);font-weight:700;text-shadow:0 0 10px rgba(212,175,55,.4);transition:text-shadow .25s}
+.tm.coord.flash{text-shadow:0 0 22px rgba(212,175,55,.95)}
+.td{color:var(--gold);opacity:.35}
+.coord{transition:transform .22s,opacity .22s}
+.coord.dip{transform:scale(.94);opacity:.66}
 .hint{font-size:9px;color:var(--muted);letter-spacing:1px;padding-bottom:14px;opacity:.7;text-align:center}
 </style>
 </head>
@@ -75,6 +89,10 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
     <span class="b1">æææ:// · ORIGIN</span>
     <span class="mid">LANGUAGE · IMPLEMENTATION · RUNTIME</span>
     <span class="live"><span class="dot"></span><span id="meshstate">22 addresses</span></span>
+  </div>
+  <div class="ticker">
+    <span class="tlabel"><span class="dot"></span>æ://live</span>
+    <div class="tmask"><div class="tstream" id="tstream"></div></div>
   </div>
   <div class="core">
     <div class="glyph">☺</div>
@@ -107,6 +125,32 @@ var AXCOL=['#D4AF37','#70dcff','#00ff9d','#b98cff'];
 var AXNAME=['public','published','operator','custody'];
 var S={x:0,y:0,z:0,a:0};
 var $=function(id){return document.getElementById(id)};
+// ── live ticker: the coordinate collapses into a flowing agentic feed ──
+var TCOORD=['x0:y0:z0:æ0 · the origin','coord'];
+var TLOG=[], _lastCoord='';
+function tickGroup(){return [TCOORD].concat(TLOG).map(function(m){return '<span class="tm '+(m[1]||'')+'">'+m[0]+'</span>'}).join('<span class="td">·</span>')}
+function tickRender(){$('tstream').innerHTML='<span class="tgrp">'+tickGroup()+'</span><span class="td">·</span><span class="tgrp">'+tickGroup()+'</span>'}
+function tickPush(msg,cls){TLOG.push([msg,cls||'']);if(TLOG.length>16)TLOG.shift();tickRender()}
+function tickSetCoord(){
+  var hit=atCoord(), v=coordOf(S)+(hit?(' · '+hit.name):' · the origin');
+  if(v===_lastCoord)return; _lastCoord=v; TCOORD[0]=v; tickRender();
+  var cs=$('tstream').querySelectorAll('.tm.coord');
+  for(var i=0;i<cs.length;i++)cs[i].classList.add('flash');
+  setTimeout(function(){var c2=$('tstream').querySelectorAll('.tm.coord');for(var j=0;j<c2.length;j++)c2[j].classList.remove('flash')},320);
+}
+var AMB=[
+  ['atlas synced · '+ATLAS.length+' addresses','c'],
+  ['væult chain · 10/10 links answer','ok'],
+  ['webmcp · 6 agent tools registered','ok'],
+  ['authority axis · public → custody','g'],
+  ['code-mode · æ.manifest() discovery','c'],
+  ['one manifest · every surface','g'],
+  ['agents reference agents · #internetofagents',''],
+  ['the origin · x0:y0:z0:æ0 · you are here','']
+];
+var _ai=0; function tickAmb(){var m=AMB[_ai++%AMB.length];tickPush(m[0],m[1])}
+function tickScroll(){var s=$('tstream'),pos=0;(function loop(){var half=s.scrollWidth/2;pos-=0.4;if(half>0&&-pos>=half)pos+=half;s.style.transform='translateX('+pos+'px)';requestAnimationFrame(loop)})()}
+
 function coordOf(s){return 'x'+s.x+':y'+s.y+':z'+s.z+':æ'+s.a}
 function atCoord(){for(var i=0;i<ATLAS.length;i++){var s=ATLAS[i];if(s.x===S.x&&s.y===S.y&&s.z===S.z&&s.a===S.a)return s}return null}
 function render(){
@@ -114,6 +158,8 @@ function render(){
   $('cz').textContent=(S.z>0?'+':'')+S.z;$('ca').textContent=(S.a>0?'+':'')+S.a;
   var hit=atCoord();
   $('where').innerHTML=hit?('→ <b>'+hit.name+'</b> · '+AXNAME[hit.a]+' layer'):(S.x===0&&S.y===0&&S.z===0&&S.a===0?'you are here · the origin of æ-space':'offset from origin · x'+S.x+':y'+S.y+':z'+S.z+':æ'+S.a);
+  var ce=$('coord');ce.classList.add('dip');setTimeout(function(){ce.classList.remove('dip')},200);
+  tickSetCoord();
 }
 function setHash(){location.hash=coordOf(S)}
 function parseHash(){var m=location.hash.match(/x(-?\d+):y(-?\d+):z(-?\d+):æ(-?\d+)/);if(m){S.x=+m[1];S.y=+m[2];S.z=+m[3];S.a=+m[4]}}
@@ -137,15 +183,16 @@ function travel(ev,id){
   var s=ATLAS.filter(function(x){return x.id===id})[0];if(!s)return true;
   S={x:s.x,y:s.y,z:s.z,a:s.a};render();setHash();
   log('  travel → '+coordOf(s)+'  '+s.name,'ok');
+  tickPush('travel → '+coordOf(s)+' · '+s.name,'ok');
   ev.preventDefault();setTimeout(function(){location.href=s.url},420);return false;
 }
 function run(raw){
   var c=(raw||'').trim();if(!c)return;log('> '+c,'g');
   var low=c.toLowerCase();
   if(low==='help'){log('  æ://<name>            — resolve + open a surface','c');log('  x1:y0:z0:æ0           — jump to a coordinate','c');log('  goto x9:y0:z0:æ0      — move the cursor','c');log('  origin                — return to x0:y0:z0:æ0','c');log('  atlas                 — list all 22 addresses','c');log('  scan | whoami | help','c')}
-  else if(low==='origin'){S={x:0,y:0,z:0,a:0};render();setHash();log('  returned to origin','ok')}
+  else if(low==='origin'){S={x:0,y:0,z:0,a:0};render();setHash();log('  returned to origin','ok');tickPush('returned to origin · x0:y0:z0:æ0','coord')}
   else if(low==='atlas'||low==='ls'){ATLAS.slice().sort(function(a,b){return a.a-b.a}).forEach(function(s){log('  '+coordOf(s)+'  '+s.name,'')})}
-  else if(low==='scan'||low==='verify'){log('  væult chain ......... 10/10 links answer','ok');log('  custody→format→gate→authority→contract→dispatch→publish→delivery→adoption','c')}
+  else if(low==='scan'||low==='verify'){tickPush('scan · væult chain 10/10 links answer','ok');log('  væult chain ......... 10/10 links answer','ok');log('  custody→format→gate→authority→contract→dispatch→publish→delivery→adoption','c')}
   else if(low==='whoami'){log('  x0:y0:z0:æ0 · one principal · sovereign','ok')}
   else if(low.indexOf('goto')===0){var m=low.match(/x?(-?\d+):y?(-?\d+):z?(-?\d+):æ?(-?\d+)/);if(m){S.x=+m[1];S.y=+m[2];S.z=+m[3];S.a=+m[4];render();setHash();log('  moved to '+coordOf(S),'ok')}else log('  usage: goto x1:y0:z0:æ0','')}
   else {var hit=resolve(c);if(hit){log('  resolve '+c+' → '+coordOf(hit)+'  '+hit.name,'ok');S={x:hit.x,y:hit.y,z:hit.z,a:hit.a};render();setHash();setTimeout(function(){location.href=hit.url},520)}else log('  no surface "'+c+'" — try \'atlas\' for the full map','')}
@@ -178,6 +225,7 @@ var BOOT=[
  ['> ready. type \'help\' or move with WASD','',140]
 ];
 parseHash();render();buildMesh();drawGrid();typeSeq(BOOT,0);
+tickRender();tickScroll();tickAmb();setInterval(tickAmb,5200);
 window.travel=travel;
 })();
 </script>
