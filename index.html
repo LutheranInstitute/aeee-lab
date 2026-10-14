@@ -138,16 +138,28 @@ function tickSetCoord(){
   for(var i=0;i<cs.length;i++)cs[i].classList.add('flash');
   setTimeout(function(){var c2=$('tstream').querySelectorAll('.tm.coord');for(var j=0;j<c2.length;j++)c2[j].classList.remove('flash')},320);
 }
+// ambient feed — STATIC fallback until the real mesh loads, then seeded from capability-manifest.json
 var AMB=[
+  ['x0:y0:z0:æ0 · the origin · you are here',''],
   ['atlas synced · '+ATLAS.length+' addresses','c'],
   ['væult chain · 10/10 links answer','ok'],
   ['webmcp · 6 agent tools registered','ok'],
   ['authority axis · public → custody','g'],
-  ['code-mode · æ.manifest() discovery','c'],
-  ['one manifest · every surface','g'],
-  ['agents reference agents · #internetofagents',''],
-  ['the origin · x0:y0:z0:æ0 · you are here','']
+  ['agents reference agents · #internetofagents','']
 ];
+var _seeded=false;
+function seedAmb(M){
+  if(_seeded||!M||!M.capabilities)return; _seeded=true;
+  var s=[],AXC=['g','c','ok','p'];
+  M.capabilities.forEach(function(c){s.push([c.address+' · '+c.name+' · '+c.category,AXC[c.layer]||''])});
+  s.push(['homebase · '+String(M.homebase||'').replace(/^https?:\/\//,''),'c']);
+  s.push([M.count+' capabilities · one manifest · derived, never hand-written','g']);
+  s.push(['authority axis · public → published → operator → custody','g']);
+  s.push(['operator · '+(M.operator||''),'']);
+  AMB=s;
+}
+// pull the real mesh state — the ticker becomes the manifest's heartbeat
+fetch('capability-manifest.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(seedAmb).catch(function(){});
 var _ai=0; function tickAmb(){var m=AMB[_ai++%AMB.length];tickPush(m[0],m[1])}
 function tickScroll(){var s=$('tstream'),pos=0;(function loop(){var half=s.scrollWidth/2;pos-=0.4;if(half>0&&-pos>=half)pos+=half;s.style.transform='translateX('+pos+'px)';requestAnimationFrame(loop)})()}
 
