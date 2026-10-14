@@ -1,0 +1,258 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+\usepackage{enumitem}
+
+\title{\textbf{\ae:// --- The Conductor Model}\\[4pt]
+\large Sovereign Authority, Digital Twins, and the Right to Reflect}
+\author{Y\ae l M\'endez\\ \small \ae:// $\cdot$ sovereign private client mesh}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Human--agent systems today are \emph{capacitive}: they scale the number of agents
+one person can supervise, but not the \emph{authority} those agents may exercise.
+We argue that the missing layer is not infrastructure but the product itself --- a
+\emph{conductor}: an intermediate process through which one human directs many
+agents, and through which $N$ receipts are consolidated into one verified truth. We
+specify the conductor's five duties (translate, arbitrate, fan out, fan in, hold
+memory) and identify \emph{fan-in} --- consolidating $N$ receipts into a single
+verified truth --- as the unsolved gap. We then extend the model vertically into a
+four-layer stack: \emph{sovereign} (cryptographic custody and authority),
+\emph{private client} (local-first surface), \emph{digital twin} (conductor
+memory), and \emph{digital human} (voice and face). We observe that recent
+full-duplex speech models such as NVIDIA PersonaPlex, and digital-human pipelines
+such as NVIDIA ACE/Tokkio, solve the \emph{projection} layer --- voice, face, and
+natural turn-taking --- while providing no cryptographic identity. We show that
+this missing layer is exactly what a sovereign signing substrate supplies, and we
+propose treating every full-duplex conversational act as a \emph{signed dispatch}
+that passes the same gate as any other action. We give a minimal specification of
+the receipt rail and report a working instance (5 waves, 20 tasks, 20/20 verified).
+Our central claim: NVIDIA provides the mirror; the sovereign layer owns the thing
+mirrored and the right to reflect it.
+\end{abstract}
+
+\section{Introduction}
+
+A one-person company is not a company with one employee. It is a company whose
+\emph{authority} does not scale with headcount. The founder cannot hire, cannot
+delegate custody, and cannot personally verify the work of twenty agents at once.
+Yet the tools available --- LLM APIs, agent frameworks, orchestration platforms ---
+are all \emph{capacitive}: they increase throughput without increasing authority.
+
+We contend that the layer between the human and the fleet is not plumbing. It is
+the product. We call it \ae://, and this paper specifies it.
+
+Two claims organise the paper. First, that the correct abstraction is a
+\emph{conductor}, and that the conductor's hard problem is not dispatch (fan-out)
+but \emph{consolidation} (fan-in): turning $N$ agent receipts into one verified
+truth. Second, that the same authority substrate that makes fan-in trustworthy is
+what a \emph{digital human} needs and does not have --- and that a full-duplex
+conversational model is, structurally, a stream of \emph{actions} that must pass
+the same gate.
+
+\section{The Conductor Model}
+
+\subsection{Definition}
+
+Let $H$ be a single human principal and $A=\{a_1,\dots,a_N\}$ a set of $N$
+autonomous agents. A conductor $C$ is an intermediate process such that
+\begin{align}
+  H &\rightarrow C && \text{(intent)} \\
+  C &\rightarrow a_i && \text{(dispatch)} \\
+  a_i &\rightarrow C && \text{(receipt)} \\
+  C &\rightarrow H && \text{(consolidated truth)}
+\end{align}
+$C$ is the only process that both issues and receives. The human never addresses
+an agent directly; an agent never reports to the human directly. Identity is
+\emph{relational}: an agent is defined by its position in this graph, not by an
+intrinsic property.
+
+\subsection{The Five Duties}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Translate.} Convert natural-language intent into typed dispatches:
+        a capability address, a task specification, and an authority scope.
+  \item \textbf{Arbitrate.} Every dispatch must be authorised by a capability.
+        Custody of the signing key remains with $H$. The conductor may
+        \emph{propose}; it may not \emph{approve}.
+  \item \textbf{Fan out.} Partition work into \emph{waves} --- batches dispatched
+        in parallel across the fleet.
+  \item \textbf{Fan in.} Collect receipts from each agent and consolidate them
+        into a single verified truth. \emph{This is the critical gap.}
+  \item \textbf{Hold memory.} Maintain a digest --- a self-referencing record of
+        what was dispatched, completed, and outstanding --- across instances.
+\end{enumerate}
+
+\subsection{The Gap: Fan-In}
+
+Fan-out is largely solved: partition, dispatch, parallelise. Fan-in is not. The
+consolidation of $N$ receipts into one truth requires
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Addressability}: each receipt cites the capability address that
+        produced it;
+  \item \textbf{Verifiability}: each receipt carries a signature checkable against
+        that capability's public key;
+  \item \textbf{Deduplication}: where several agents attempt the same task, select
+        one winner;
+  \item \textbf{Consolidation}: reduce to a single boolean, \textsc{pass} or
+        \textsc{fail}.
+\end{itemize}
+We call this structure the \textbf{receipt rail}. Without it, the conductor is a
+load balancer, not a conductor.
+
+\section{The Vertical Stack}
+
+The conductor sits atop a four-layer stack:
+\begin{align}
+  \textsc{digital human}  &\quad \text{(voice $+$ face) --- the mirror} \notag\\
+  \textsc{digital twin}   &\quad \text{(conductor memory) --- the thing mirrored} \notag\\
+  \textsc{private client} &\quad \text{(local-first surface) --- where the twin lives} \notag\\
+  \textsc{sovereign}      &\quad \text{(custody $+$ authority) --- who may act} \notag
+\end{align}
+Each layer depends on the one below: the human cannot speak without the twin's
+memory; the twin cannot remember without the client's storage; the client cannot
+store without the sovereign's custody.
+
+\subsection{Sovereign}
+The sovereign layer holds an Ed25519 signing key and is the only layer that can
+authorise an action. The human is its sole custodian. The conductor may request a
+signature; the sovereign may refuse.
+
+\subsection{Private Client}
+The private client is the local-first interface --- the human's name, logo, and
+configuration, and the place the twin resides when not projected. It is personal in
+the legal sense: authority and credentials are never exported.
+
+\subsection{Digital Twin}
+The twin is the conductor's persistent memory, \emph{feed-informed}: it updates as
+receipts arrive and supplies the digital human's responses. It is the record of
+what the human intended and what was done.
+
+\subsection{Digital Human}
+The digital human is the projection. Recent full-duplex speech models make this
+layer newly tractable: NVIDIA \emph{PersonaPlex}~\cite{personaplex} is a
+$7$B full-duplex speech-to-speech model, built on
+\emph{Moshi}~\cite{moshi}, that allows voice conditioning and role control through
+a text prompt, and that handles interruptions, backchannels, and turn-taking with
+reported latencies near $0.17$\,s (turn-taking) and $0.24$\,s (interruption).
+NVIDIA \emph{ACE}/Tokkio~\cite{ace,tokkio} supplies the 3D animation pipeline
+(Audio2Face). Together these provide voice, face, and presence. They do not provide
+cryptographic identity.
+
+\section{The Gate: Full-Duplex as Signed Acts}
+
+\subsection{The Problem}
+A full-duplex model listens and speaks simultaneously, interrupting, yielding, and
+backchannelling in real time. Each such behaviour is an \emph{act} --- a change to
+the shared state of a conversation. In a single-agent system an act is cheap. In a
+conductor system, an act by the digital human is an act by \emph{all agents the
+human represents}, and must therefore pass the gate.
+
+\subsection{The Proposal}
+We propose that every full-duplex act be treated as a dispatch:
+\begin{enumerate}[leftmargin=*]
+  \item the twin generates a candidate act (speak, pause, yield, interrupt);
+  \item the conductor validates it against the human's current intent and scope;
+  \item the sovereign signs the act as a \texttt{sign\_card} capability;
+  \item the act is projected through the digital human;
+  \item a receipt is written to the rail.
+\end{enumerate}
+This is not throttling; it is \emph{authority enforcement}. The digital human may
+speak freely --- but only for the conductor, and only within the conductor's scope.
+
+\subsection{The Canonical Separation}
+\begin{quote}
+\textbf{NVIDIA provides the mirror; \ae:// owns the thing mirrored and the right to
+reflect it.}
+\end{quote}
+The mirror is a solved problem. The authority to reflect --- to decide whose face
+may speak, and what it may say --- is not.
+
+\section{The Receipt Rail: A Minimal Specification}
+
+The rail is a single JSON document, versioned by schema:
+\begin{verbatim}
+{
+  "schema": "receipt-rail/v1",
+  "batches": [
+    {"wave": "daollc-content", "status": "complete",
+     "tasks": 5, "complete": 5,
+     "verb_list": ["scan","extract","claim","complete","verify"]}
+  ],
+  "total_waves": 5, "total_tasks": 20, "total_complete": 20,
+  "consolidated_verdict": "PASS - 20/20 verified via fleet waves",
+  "topology": "one human -> waves (fan-out) -> agents -> receipts (fan-in)"
+}
+\end{verbatim}
+Each batch is a \emph{wave}; each wave is a fleet with receipt tasks. A working
+instance is deployed and verifies $20/20$ tasks across $5$ waves. The capability
+that authorises a dispatch binds the verb, task identifier, subject, expiry, and a
+single-use nonce, and is signed with Ed25519.
+
+\section{Related Work}
+
+\paragraph{Full-duplex speech.} PersonaPlex~\cite{personaplex} extends
+Moshi~\cite{moshi} with voice and role control; both replace the cascaded
+ASR$\rightarrow$LLM$\rightarrow$TTS pipeline with a single dual-stream model. We
+adopt this class as the projection layer and observe that it has no notion of
+authority.
+
+\paragraph{Digital humans.} NVIDIA ACE~\cite{ace} and the Tokkio reference
+workflow~\cite{tokkio} compose NIM microservices (Riva ASR/TTS, Audio2Face, an
+LLM) into a lifelike avatar. The blueprint is enterprise-facing and
+identity-agnostic.
+
+\paragraph{Mixture of agents.} MoA~\cite{moa} improves generation by combining
+models. We extend the idea from generation to \emph{execution}: dispatching and
+verifying actions, with a signed receipt as the unit of trust.
+
+\section{Limitations}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Hardware.} The reference environment (NVIDIA RTX 3050, 6\,GB, cc
+        8.6) cannot hold PersonaPlex-7B in bf16 ($\approx 14$\,GB). A $q4_k$
+        quantisation ($\approx 4.5$\,GB) is the only plausible local path and has
+        not been measured; the ACE/Tokkio blueprint targets datacenter GPUs.
+  \item \textbf{Gate latency.} Signing every conversational act adds latency whose
+        effect on naturalness we have not measured.
+  \item \textbf{Cross-instance fan-in.} The reported rail consolidates within a
+        single instance; consolidation across eight instances is future work.
+  \item \textbf{Proposed vs.\ measured.} The conductor and stack are specified;
+        the receipt rail is deployed and verified ($20/20$); the gated full-duplex
+        digital human is proposed.
+\end{itemize}
+
+\section{Conclusion}
+
+The one-person company is limited not by compute but by authority. The conductor,
+not the agent, is the product. We specified five duties, identified fan-in as the
+critical gap, gave a minimal receipt rail, and extended the model vertically to a
+digital human. The missing layer there is cryptographic identity --- which the
+sovereign layer supplies. The mirror is solved. The right to reflect is not.
+
+\begin{thebibliography}{9}
+\bibitem{personaplex} R. Roy, J. Raiman, S.-g. Lee, T.-D. Ene, R. Kirby, S. Kim,
+J. Kim, B. Catanzaro. \emph{PersonaPlex: Voice and Role Control for Full Duplex
+Conversational Speech Models.} arXiv:2602.06053, 2026.
+
+\bibitem{moshi} A. D\'efossez et al. \emph{Moshi: a speech-text foundation model
+for real-time dialogue.} Kyutai; arXiv:2410.00037, 2024.
+
+\bibitem{ace} NVIDIA. \emph{NVIDIA ACE --- Avatar Cloud Engine.}
+\url{https://github.com/NVIDIA/ACE}.
+
+\bibitem{tokkio} NVIDIA. \emph{Tokkio Digital Human AI Blueprint.}
+\url{https://github.com/NVIDIA-AI-Blueprints/digital-human}.
+
+\bibitem{moa} J. Wang, B. Chen, et al. \emph{Mixture-of-Agents Enhances Large
+Language Model Capabilities.} arXiv:2406.04692, 2024.
+\end{thebibliography}
+
+\end{document}

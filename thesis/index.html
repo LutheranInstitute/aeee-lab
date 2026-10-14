@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>æ:// — The Conductor Model</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  :root { --ink:#111; --mut:#666; --rule:#ddd; --gold:#8a6d1a; }
+  html,body{ background:#fff; }
+  body{ font-family:"Times New Roman",Georgia,serif; color:var(--ink);
+        max-width:720px; margin:0 auto; padding:28px 22px 60px; line-height:1.5; font-size:15.5px; }
+  .kicker{ font-family:ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:.12em;
+           text-transform:uppercase; color:var(--gold); border-bottom:1px solid var(--rule);
+           padding-bottom:8px; margin-bottom:22px; }
+  h1{ font-size:26px; line-height:1.2; margin:0 0 6px; text-align:center; font-weight:700; }
+  .sub{ text-align:center; font-size:16px; color:#333; margin:0 0 16px; font-style:italic; }
+  .auth{ text-align:center; font-size:14px; margin:0 0 4px; }
+  .aff{ text-align:center; font-size:12.5px; color:var(--mut); font-family:ui-monospace,Consolas,monospace; margin:0 0 22px; }
+  .abstract{ background:#faf9f6; border:1px solid var(--rule); border-radius:6px; padding:16px 20px; margin:0 0 26px; }
+  .abstract h2{ font-size:13px; text-align:center; letter-spacing:.14em; text-transform:uppercase;
+                margin:0 0 10px; font-weight:700; }
+  .abstract p{ margin:0; font-size:14px; text-align:justify; }
+  h2{ font-size:17px; margin:26px 0 8px; border-bottom:1px solid var(--rule); padding-bottom:4px; }
+  h3{ font-size:15px; margin:18px 0 6px; color:#222; }
+  p{ margin:0 0 10px; text-align:justify; }
+  ul,ol{ margin:0 0 12px; padding-left:24px; }
+  li{ margin:0 0 5px; }
+  .eq{ text-align:center; font-family:ui-monospace,Consolas,monospace; font-size:14px; margin:12px 0; color:#1a1a1a; }
+  .eq b{ font-weight:400; color:#555; }
+  blockquote{ border-left:3px solid var(--gold); margin:16px 0; padding:6px 0 6px 16px;
+              font-size:15.5px; background:#faf9f6; }
+  pre{ background:#0d0d12; color:#d9d6c9; border-radius:6px; padding:14px 16px; overflow-x:auto;
+       font-family:ui-monospace,Consolas,monospace; font-size:12px; line-height:1.45; }
+  code{ font-family:ui-monospace,Consolas,monospace; font-size:.9em; background:#f0efe9; padding:1px 4px; border-radius:3px; }
+  .refs{ font-size:13.5px; }
+  .refs p{ padding-left:22px; text-indent:-22px; margin:0 0 8px; text-align:left; }
+  .foot{ margin-top:30px; border-top:1px solid var(--rule); padding-top:10px;
+         font-family:ui-monospace,Consolas,monospace; font-size:11px; color:var(--mut); }
+</style></head>
+<body>
+<div style="max-width:720px;margin:0 auto;padding:12px 22px 0;font-family:ui-monospace,Consolas,monospace;font-size:12px;display:flex;gap:16px;justify-content:flex-end;"><a href="thesis-conductor.pdf" style="color:#8a6d1a;">PDF</a><a href="thesis-conductor.tex" style="color:#8a6d1a;">LaTeX</a><a href="sovereign-twin-human.svg" style="color:#8a6d1a;">diagram</a></div>
+
+<div class="kicker">Preprint · draft · not yet submitted to arXiv</div>
+<h1>æ:// — The Conductor Model</h1>
+<p class="sub">Sovereign Authority, Digital Twins, and the Right to Reflect</p>
+<p class="auth">Yæl Méndez</p>
+<p class="aff">æ:// · sovereign private client mesh</p>
+
+<div class="abstract">
+  <h2>Abstract</h2>
+  <p>Human–agent systems today are <em>capacitive</em>: they scale the number of agents one
+  person can supervise, but not the <em>authority</em> those agents may exercise. We argue that
+  the missing layer is not infrastructure but the product itself — a <em>conductor</em>: an
+  intermediate process through which one human directs many agents, and through which N
+  receipts are consolidated into one verified truth. We specify the conductor's five duties
+  (translate, arbitrate, fan out, fan in, hold memory) and identify <em>fan-in</em> —
+  consolidating N receipts into a single verified truth — as the unsolved gap. We then extend
+  the model vertically into a four-layer stack: <em>sovereign</em> (cryptographic custody and
+  authority), <em>private client</em> (local-first surface), <em>digital twin</em> (conductor
+  memory), and <em>digital human</em> (voice and face). We observe that recent full-duplex
+  speech models such as NVIDIA PersonaPlex, and digital-human pipelines such as NVIDIA
+  ACE/Tokkio, solve the <em>projection</em> layer — voice, face, and natural turn-taking —
+  while providing no cryptographic identity. We show that this missing layer is exactly what a
+  sovereign signing substrate supplies, and we propose treating every full-duplex
+  conversational act as a <em>signed dispatch</em> that passes the same gate as any other
+  action. We give a minimal specification of the receipt rail and report a working instance
+  (5 waves, 20 tasks, 20/20 verified). Our central claim: NVIDIA provides the mirror; the
+  sovereign layer owns the thing mirrored and the right to reflect it.</p>
+</div>
+
+<h2>1. Introduction</h2>
+<p>A one-person company is not a company with one employee. It is a company whose
+<em>authority</em> does not scale with headcount. The founder cannot hire, cannot delegate
+custody, and cannot personally verify the work of twenty agents at once. Yet the tools
+available — LLM APIs, agent frameworks, orchestration platforms — are all <em>capacitive</em>:
+they increase throughput without increasing authority.</p>
+<p>We contend that the layer between the human and the fleet is not plumbing. It is the
+product. We call it æ://, and this paper specifies it.</p>
+<p>Two claims organise the paper. First, that the correct abstraction is a <em>conductor</em>,
+and that the conductor's hard problem is not dispatch (fan-out) but <em>consolidation</em>
+(fan-in): turning N agent receipts into one verified truth. Second, that the same authority
+substrate that makes fan-in trustworthy is what a <em>digital human</em> needs and does not
+have — and that a full-duplex conversational model is, structurally, a stream of <em>actions</em>
+that must pass the same gate.</p>
+
+<h2>2. The Conductor Model</h2>
+<h3>2.1 Definition</h3>
+<p>Let H be a single human principal and A = {a₁, …, a_N} a set of N autonomous agents. A
+conductor C is an intermediate process such that</p>
+<div class="eq">H → C &nbsp; <b>(intent)</b><br>C → aᵢ &nbsp; <b>(dispatch)</b><br>
+aᵢ → C &nbsp; <b>(receipt)</b><br>C → H &nbsp; <b>(consolidated truth)</b></div>
+<p>C is the only process that both issues and receives. The human never addresses an agent
+directly; an agent never reports to the human directly. Identity is <em>relational</em>: an
+agent is defined by its position in this graph, not by an intrinsic property.</p>
+
+<h3>2.2 The Five Duties</h3>
+<ol>
+<li><strong>Translate.</strong> Convert natural-language intent into typed dispatches: a
+capability address, a task specification, and an authority scope.</li>
+<li><strong>Arbitrate.</strong> Every dispatch must be authorised by a capability. Custody of
+the signing key remains with H. The conductor may <em>propose</em>; it may not <em>approve</em>.</li>
+<li><strong>Fan out.</strong> Partition work into <em>waves</em> — batches dispatched in
+parallel across the fleet.</li>
+<li><strong>Fan in.</strong> Collect receipts from each agent and consolidate them into a
+single verified truth. <em>This is the critical gap.</em></li>
+<li><strong>Hold memory.</strong> Maintain a digest — a self-referencing record of what was
+dispatched, completed, and outstanding — across instances.</li>
+</ol>
+
+<h3>2.3 The Gap: Fan-In</h3>
+<p>Fan-out is largely solved: partition, dispatch, parallelise. Fan-in is not. The
+consolidation of N receipts into one truth requires</p>
+<ul>
+<li><strong>Addressability</strong>: each receipt cites the capability address that produced it;</li>
+<li><strong>Verifiability</strong>: each receipt carries a signature checkable against that
+capability's public key;</li>
+<li><strong>Deduplication</strong>: where several agents attempt the same task, select one winner;</li>
+<li><strong>Consolidation</strong>: reduce to a single boolean, PASS or FAIL.</li>
+</ul>
+<p>We call this structure the <strong>receipt rail</strong>. Without it, the conductor is a load
+balancer, not a conductor.</p>
+
+<h2>3. The Vertical Stack</h2>
+<p>The conductor sits atop a four-layer stack:</p>
+<div class="eq">DIGITAL HUMAN &nbsp; <b>(voice + face) — the mirror</b><br>
+DIGITAL TWIN &nbsp; <b>(conductor memory) — the thing mirrored</b><br>
+PRIVATE CLIENT &nbsp; <b>(local-first surface) — where the twin lives</b><br>
+SOVEREIGN &nbsp; <b>(custody + authority) — who may act</b></div>
+<p>Each layer depends on the one below: the human cannot speak without the twin's memory; the
+twin cannot remember without the client's storage; the client cannot store without the
+sovereign's custody.</p>
+
+<h3>3.1 Sovereign</h3>
+<p>The sovereign layer holds an Ed25519 signing key and is the only layer that can authorise an
+action. The human is its sole custodian. The conductor may request a signature; the sovereign
+may refuse.</p>
+
+<h3>3.2 Private Client</h3>
+<p>The private client is the local-first interface — the human's name, logo, and configuration,
+and the place the twin resides when not projected. It is personal in the legal sense: authority
+and credentials are never exported.</p>
+
+<h3>3.3 Digital Twin</h3>
+<p>The twin is the conductor's persistent memory, <em>feed-informed</em>: it updates as receipts
+arrive and supplies the digital human's responses. It is the record of what the human intended
+and what was done.</p>
+
+<h3>3.4 Digital Human</h3>
+<p>The digital human is the projection. Recent full-duplex speech models make this layer newly
+tractable: NVIDIA <em>PersonaPlex</em> [1] is a 7B full-duplex speech-to-speech model, built on
+<em>Moshi</em> [2], that allows voice conditioning and role control through a text prompt, and
+that handles interruptions, backchannels, and turn-taking with reported latencies near 0.17 s
+(turn-taking) and 0.24 s (interruption). NVIDIA <em>ACE</em>/Tokkio [3,4] supplies the 3D
+animation pipeline (Audio2Face). Together these provide voice, face, and presence. They do not
+provide cryptographic identity.</p>
+
+<h2>4. The Gate: Full-Duplex as Signed Acts</h2>
+<h3>4.1 The Problem</h3>
+<p>A full-duplex model listens and speaks simultaneously, interrupting, yielding, and
+backchannelling in real time. Each such behaviour is an <em>act</em> — a change to the shared
+state of a conversation. In a single-agent system an act is cheap. In a conductor system, an act
+by the digital human is an act by <em>all agents the human represents</em>, and must therefore
+pass the gate.</p>
+<h3>4.2 The Proposal</h3>
+<p>We propose that every full-duplex act be treated as a dispatch:</p>
+<ol>
+<li>the twin generates a candidate act (speak, pause, yield, interrupt);</li>
+<li>the conductor validates it against the human's current intent and scope;</li>
+<li>the sovereign signs the act as a <code>sign_card</code> capability;</li>
+<li>the act is projected through the digital human;</li>
+<li>a receipt is written to the rail.</li>
+</ol>
+<p>This is not throttling; it is <em>authority enforcement</em>. The digital human may speak
+freely — but only for the conductor, and only within the conductor's scope.</p>
+<h3>4.3 The Canonical Separation</h3>
+<blockquote><strong>NVIDIA provides the mirror; æ:// owns the thing mirrored and the right to
+reflect it.</strong></blockquote>
+<p>The mirror is a solved problem. The authority to reflect — to decide whose face may speak,
+and what it may say — is not.</p>
+
+<h2>5. The Receipt Rail: A Minimal Specification</h2>
+<p>The rail is a single JSON document, versioned by schema:</p>
+<pre>{
+  "schema": "receipt-rail/v1",
+  "batches": [
+    {"wave": "daollc-content", "status": "complete",
+     "tasks": 5, "complete": 5,
+     "verb_list": ["scan","extract","claim","complete","verify"]}
+  ],
+  "total_waves": 5, "total_tasks": 20, "total_complete": 20,
+  "consolidated_verdict": "PASS - 20/20 verified via fleet waves",
+  "topology": "one human -> waves (fan-out) -> agents -> receipts (fan-in)"
+}</pre>
+<p>Each batch is a <em>wave</em>; each wave is a fleet with receipt tasks. A working instance is
+deployed and verifies 20/20 tasks across 5 waves. The capability that authorises a dispatch
+binds the verb, task identifier, subject, expiry, and a single-use nonce, and is signed with
+Ed25519.</p>
+
+<h2>6. Related Work</h2>
+<p><strong>Full-duplex speech.</strong> PersonaPlex [1] extends Moshi [2] with voice and role
+control; both replace the cascaded ASR→LLM→TTS pipeline with a single dual-stream model. We
+adopt this class as the projection layer and observe that it has no notion of authority.</p>
+<p><strong>Digital humans.</strong> NVIDIA ACE [3] and the Tokkio reference workflow [4] compose
+NIM microservices (Riva ASR/TTS, Audio2Face, an LLM) into a lifelike avatar. The blueprint is
+enterprise-facing and identity-agnostic.</p>
+<p><strong>Mixture of agents.</strong> MoA [5] improves generation by combining models. We extend
+the idea from generation to <em>execution</em>: dispatching and verifying actions, with a signed
+receipt as the unit of trust.</p>
+
+<h2>7. Limitations</h2>
+<ul>
+<li><strong>Hardware.</strong> The reference environment (NVIDIA RTX 3050, 6 GB, cc 8.6) cannot
+hold PersonaPlex-7B in bf16 (≈14 GB). A q4_k quantisation (≈4.5 GB) is the only plausible local
+path and has not been measured; the ACE/Tokkio blueprint targets datacenter GPUs.</li>
+<li><strong>Gate latency.</strong> Signing every conversational act adds latency whose effect on
+naturalness we have not measured.</li>
+<li><strong>Cross-instance fan-in.</strong> The reported rail consolidates within a single
+instance; consolidation across eight instances is future work.</li>
+<li><strong>Proposed vs. measured.</strong> The conductor and stack are specified; the receipt
+rail is deployed and verified (20/20); the gated full-duplex digital human is proposed.</li>
+</ul>
+
+<h2>8. Conclusion</h2>
+<p>The one-person company is limited not by compute but by authority. The conductor, not the
+agent, is the product. We specified five duties, identified fan-in as the critical gap, gave a
+minimal receipt rail, and extended the model vertically to a digital human. The missing layer
+there is cryptographic identity — which the sovereign layer supplies. The mirror is solved. The
+right to reflect is not.</p>
+
+<h2>References</h2>
+<div class="refs">
+<p>[1] R. Roy, J. Raiman, S.-g. Lee, T.-D. Ene, R. Kirby, S. Kim, J. Kim, B. Catanzaro.
+<em>PersonaPlex: Voice and Role Control for Full Duplex Conversational Speech Models.</em>
+arXiv:2602.06053, 2026.</p>
+<p>[2] A. Défossez et al. <em>Moshi: a speech-text foundation model for real-time dialogue.</em>
+Kyutai; arXiv:2410.00037, 2024.</p>
+<p>[3] NVIDIA. <em>NVIDIA ACE — Avatar Cloud Engine.</em>
+https://github.com/NVIDIA/ACE.</p>
+<p>[4] NVIDIA. <em>Tokkio Digital Human AI Blueprint.</em>
+https://github.com/NVIDIA-AI-Blueprints/digital-human.</p>
+<p>[5] J. Wang, B. Chen, et al. <em>Mixture-of-Agents Enhances Large Language Model
+Capabilities.</em> arXiv:2406.04692, 2024.</p>
+</div>
+<div class="foot">æ://thesis-conductor · v1 draft · 9:16-sibling artifact: sovereign-twin-human.svg</div>
+</body></html>
