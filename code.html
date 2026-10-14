@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050505">
 <title>æ://code-mode · terminal I/O</title>
-<meta name="description" content="Code-mode terminal I/O. One manifest makes every capability surface available to the right code. æ.manifest() · æ.find() · æ.open().">
+<meta name="description" content="Code-mode terminal I/O — a live, ranked, composable way for agents to find the mesh's resources. æ.manifest() · æ.find() · æ.path() · æ.open() · pipes.">
 <link rel="canonical" href="https://myaelmendez.github.io/code.html">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="manifest" href="./capability-manifest.json" type="application/json">
@@ -33,6 +33,8 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
 .out .nm{color:var(--gold);font-weight:700}
 .out .cat{color:var(--muted)}
 .out .ly{font-weight:700}
+.out .sc{color:var(--purple);opacity:.8}
+.out .k{color:var(--muted)}
 .inrow{display:flex;border:1px solid var(--line);background:rgba(5,5,5,.7);margin-bottom:8px}
 .inrow .p{color:var(--gold);padding:0 0 0 14px;display:flex;align-items:center;font-family:'Orbitron';font-weight:700;font-size:13px}
 #cmd{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--ink);font-family:inherit;font-size:14px;padding:14px 10px;letter-spacing:.5px}
@@ -47,50 +49,123 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
 <div class="wrap">
   <div class="bar">
     <span class="b1">æ://code-mode</span>
-    <span class="mid">TERMINAL I/O · ONE MANIFEST → EVERY CAPABILITY</span>
-    <span class="live"><span class="dot"></span><span id="ct">manifest</span></span>
+    <span class="mid">TERMINAL I/O · LIVE · RANKED · COMPOSABLE</span>
+    <span class="live"><span class="dot"></span><span id="ct">loading mesh…</span></span>
   </div>
   <div class="out" id="out"></div>
-  <div class="inrow"><span class="p">æ›</span><input id="cmd" placeholder="æ.manifest() · æ.find(q) · help" autocomplete="off" spellcheck="false" autofocus><button id="go">RUN</button></div>
-  <div class="hint"><b>æ.manifest()</b> · <b>æ.find()</b> · <b>æ.open()</b> · <b>help</b></div>
+  <div class="inrow"><span class="p">æ›</span><input id="cmd" placeholder="æ.find('cuda') · æ.path('vault') · æ.find('gpu') | open · help" autocomplete="off" spellcheck="false" autofocus><button id="go">RUN</button></div>
+  <div class="hint"><b>æ.manifest()</b> · <b>æ.find()</b> · <b>æ.path()</b> · <b>æ.open()</b> · <b>æ.stats()</b> · <b>æ.chain()</b> · <b>find(q) | open</b> · <b>help</b></div>
 </div>
 <script>
 (function(){'use strict';
-var MANIFEST={"$schema":"https://myaelmendez.github.io/schemas/capability-manifest-v1.json","name":"æ:// capability manifest","version":"1.0.0","homebase":"https://myaelmendez.github.io","operator":"Yæl Méndez","description":"One manifest. Every capability surface addressed in 4-space and reachable by code-mode. Derived from surface-manifest.json — never hand-written.","authority_axis":{"0":"public","1":"published","2":"operator","3":"custody"},"discovery":{"manifest":"/capability-manifest.json","atlas":"/ae-atlas.json","surfaces":"/surface-manifest.json","code_mode":"/code.html"},"count":21,"capabilities":[{"id":"mesh-agenti","name":"MESH AGENTI","address":"x1:y0:z0:æ0","url":"/mesh-agenti.html","category":"networking","capabilities":["qr-pairing","node-discovery","wifi-lan"],"access":"read","layer":0,"layer_name":"public"},{"id":"fleet","name":"FLEET","address":"x2:y0:z0:æ0","url":"/fleet.html","category":"orchestration","capabilities":["device-mixture","bootstrap","mod-mom"],"access":"read","layer":0,"layer_name":"public"},{"id":"cuda-vlc","name":"CUDA · VLC","address":"x3:y0:z0:æ0","url":"/cuda-vlc.html","category":"media","capabilities":["cuda","nvenc","vlc","streaming"],"access":"read","layer":0,"layer_name":"public"},{"id":"demo","name":"DEMO","address":"x4:y0:z0:æ0","url":"/demo.html","category":"demo","capabilities":["html","vscode","primitive"],"access":"read","layer":0,"layer_name":"public"},{"id":"sovereign-state","name":"SOVEREIGN STATE","address":"x5:y0:z0:æ0","url":"/sovereign-state.html","category":"state","capabilities":["memory","ledger","mission"],"access":"read","layer":0,"layer_name":"public"},{"id":"agentic","name":"#STARTABUSINESS","address":"x6:y0:z0:æ0","url":"/agentic.html","category":"business","capabilities":["bootstrap","stripe","daollc","startabusiness"],"access":"read","layer":0,"layer_name":"public"},{"id":"cuda-blueprint","name":"CUDA BLUEPRINT","address":"x7:y0:z0:æ0","url":"/cuda-blueprint.html","category":"blueprint","capabilities":["cuda","blueprint","opensourceware"],"access":"read","layer":0,"layer_name":"public"},{"id":"gpu-preview","name":"GPU PREVIEW","address":"x8:y0:z0:æ0","url":"/gpu-preview.html","category":"gpu","capabilities":["webgpu","cuda","gui"],"access":"read","layer":0,"layer_name":"public"},{"id":"skill-guide","name":"SKILL GUIDE","address":"x9:y0:z0:æ0","url":"/skill-guide/","category":"skills","capabilities":["skills","catalog","topology","graph"],"access":"read","layer":0,"layer_name":"public"},{"id":"privateclient-vault","name":"VÆULT WEB","address":"x10:y0:z0:æ3","url":"/privateclient/vault.html","category":"secrets","capabilities":["vault","encryption","qr-airgap","secrets"],"access":"write","layer":3,"layer_name":"custody"},{"id":"privateclient-vault-cli","name":"VÆULT CLI","address":"x10:y1:z0:æ3","url":"/privateclient/vaeult/vaeult.py","category":"secrets","capabilities":["vault","cli","scrypt","pbkdf2","aes-256-gcm","qr"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-vault-layers","name":"VAULT LAYERS","address":"x10:y2:z0:æ3","url":"/privateclient/vault-layers.html","category":"secrets","capabilities":["vault","3d","visualization","webgpu","threejs"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-secret-bridge","name":"SECRET BRIDGE","address":"x10:y3:z0:æ3","url":"/privateclient/secret-source-bridge.html","category":"secrets","capabilities":["secrets","bridge","local","handoff"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-glocal-secrets","name":"GLOCAL SECRETS","address":"x10:y4:z0:æ3","url":"/privateclient/glocal-secrets-blueprint.html","category":"secrets","capabilities":["secrets","blueprint","glocal","broker"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-secret-system","name":"SECRET SYSTEM","address":"x10:y5:z0:æ3","url":"/privateclient/SECRET_SOURCE_SYSTEM.md","category":"secrets","capabilities":["secrets","architecture","contract"],"access":"read","layer":3,"layer_name":"custody"},{"id":"privateclient-terminal","name":"PRIVATE CLIENT TERMINAL","address":"x11:y0:z0:æ2","url":"/privateclient/terminal.html","category":"privateclient","capabilities":["terminal","command-prompt","æ-store"],"access":"read","layer":2,"layer_name":"operator"},{"id":"privateclient-compute","name":"PRIVATE CLIENT COMPUTE","address":"x11:y1:z0:æ2","url":"/privateclient/compute.html","category":"privateclient","capabilities":["compute","sovereign"],"access":"read","layer":2,"layer_name":"operator"},{"id":"privateclient-omnibox","name":"PRIVATE CLIENT OMNIBOX","address":"x11:y2:z0:æ2","url":"/privateclient/omnibox.html","category":"privateclient","capabilities":["omnibox","gateway","cli"],"access":"read","layer":2,"layer_name":"operator"},{"id":"vaeult-repo","name":"VÆULT REPO","address":"x10:y6:z0:æ3","url":"https://github.com/MYaelMendez/vaeult","category":"secrets","capabilities":["opensourceware","mit","github"],"access":"read","layer":3,"layer_name":"custody"},{"id":"aeqr","name":"ÆQR","address":"x13:y0:z0:æ0","url":"/aeqr.html","category":"sovereign","capabilities":["registry","qr-verify","audit","authority"],"access":"read","layer":0,"layer_name":"public"},{"id":"code-mode","name":"CODE-MODE","address":"x12:y0:z0:æ0","url":"/code.html","category":"runtime","capabilities":["code-mode","terminal","dsl","manifest","discovery"],"access":"read","layer":0,"layer_name":"public"}]};
-var CAPS=MANIFEST.capabilities;
 var $=function(id){return document.getElementById(id)};
-function LAYCOL(a){return ['#D4AF37','#70dcff','#00ff9d','#b98cff'][a]||'#888'}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function out(html){var el=$('out');el.innerHTML+=html+'\n';el.scrollTop=el.scrollHeight}
-function row(c){return '<span class="addr">'+c.address+'</span>  <span class="nm">'+esc(c.name)+'</span>  <span class="cat">'+esc(c.category)+'</span>  <span class="ly" style="color:'+LAYCOL(c.layer)+'">æ'+c.layer+' '+c.layer_name+'</span>'}
-function find(q){q=(q||'').toLowerCase().trim();return CAPS.filter(function(c){return !q||c.id.indexOf(q)>=0||c.name.toLowerCase().indexOf(q)>=0||c.category.indexOf(q)>=0||c.url.toLowerCase().indexOf(q)>=0||(c.capabilities||[]).join(' ').indexOf(q)>=0})}
-function open(c){out('<span class="ok">  → '+c.address+'  '+esc(c.name)+'  ('+esc(c.url)+')</span>');setTimeout(function(){location.href=c.url},520)}
+var AXC=['#D4AF37','#70dcff','#00ff9d','#b98cff'];
+var AXN=['public','published','operator','custody'];
+var CHAIN=['custody','format','gate','authority','contract','dispatch','publish','delivery','adoption'];
+var MANIFEST={homebase:'https://myaelmendez.github.io',operator:'Yæl Méndez',count:0,capabilities:[]};
+var CAPS=[], LIVE=false, TAGS={};
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function out(h){var el=$('out');el.innerHTML+=h+'\n';el.scrollTop=el.scrollHeight}
+function row(c,sc){return '<span class="addr">'+esc(c.address)+'</span>  <span class="nm">'+esc(c.name)+'</span>  <span class="cat">'+esc(c.category)+'</span>  <span class="ly" style="color:'+(AXC[c.layer]||'#888')+'">æ'+c.layer+' '+esc(c.layer_name||AXN[c.layer])+'</span>'+(sc!=null?'  <span class="sc">'+sc+'</span>':'')}
+function subseq(q,s){var i=0;for(var j=0;j<s.length&&i<q.length;j++){if(s[j]===q[i])i++}return i===q.length}
+function score(c,q){
+  if(!q)return 1;
+  var id=(c.id||'').toLowerCase(),nm=(c.name||'').toLowerCase(),cat=(c.category||'').toLowerCase(),url=(c.url||'').toLowerCase(),tags=(c.capabilities||[]).join(' ').toLowerCase();
+  if(id===q||nm===q)return 100;
+  if(id.split('-').indexOf(q)>=0)return 92;   // canonical id segment — beats a name-prefix tie
+  if(nm.indexOf(q)===0||id.indexOf(q)===0)return 85;
+  if(nm.indexOf(q)>=0||id.indexOf(q)>=0)return 65;
+  if(cat.indexOf(q)>=0)return 45;
+  if(tags.indexOf(q)>=0)return 35;
+  if(url.indexOf(q)>=0)return 25;
+  if(subseq(q,nm)||subseq(q,id))return 12;
+  return 0;
+}
+function search(q){q=(q||'').toLowerCase().trim();
+  return CAPS.map(function(c){return {c:c,s:score(c,q)}}).filter(function(x){return x.s>0})
+    .sort(function(a,b){return b.s-a.s||a.c.layer-b.c.layer||String(a.c.id).localeCompare(String(b.c.id))});
+}
+function open(c){out('<span class="ok">  → '+esc(c.address)+'  '+esc(c.name)+'  ('+esc(c.url)+')</span>');setTimeout(function(){location.href=c.url},520)}
+function parseCmd(s){s=String(s||'').trim().replace(/^æ\./,'').replace(/^ae\./,'');
+  var m=s.match(/^([a-zA-Z]+)\s*\(?\s*(.*?)\s*\)?$/);
+  return {name:(m?m[1]:s).toLowerCase(),arg:(m&&m[2])?m[2].replace(/^['"]|['"]$/g,'').trim():''};
+}
+function stats(){
+  var by={0:0,1:0,2:0,3:0},cats={};CAPS.forEach(function(c){by[c.layer]=(by[c.layer]||0)+1;cats[c.category]=(cats[c.category]||0)+1});
+  out('<span class="c">  '+CAPS.length+' capabilities · '+Object.keys(cats).length+' categories · '+Object.keys(TAGS).length+' tags · '+(LIVE?'LIVE':'cached')+'</span>');
+  for(var a=0;a<4;a++)out('  <span class="ly" style="color:'+AXC[a]+'">æ'+a+' '+AXN[a]+'</span>  <span class="k">'+by[a]+' surface'+(by[a]===1?'':'s')+'</span>');
+}
+function record(c){
+  out('  <span class="addr">'+esc(c.address)+'</span>  <span class="nm">'+esc(c.name)+'</span>');
+  out('  <span class="k">id        </span>'+esc(c.id));
+  out('  <span class="k">category  </span>'+esc(c.category));
+  out('  <span class="k">layer     </span><span class="ly" style="color:'+(AXC[c.layer]||'#888')+'">æ'+c.layer+' '+esc(c.layer_name||AXN[c.layer])+'</span>');
+  out('  <span class="k">access    </span>'+esc(c.access||'read'));
+  out('  <span class="k">url       </span><span class="c">'+esc(c.url)+'</span>');
+  out('  <span class="k">capabils  </span>'+esc((c.capabilities||[]).join(' · ')));
+}
 function run(raw){
   var c=(raw||'').trim();if(!c)return;
   out('<span class="g">æ› '+esc(c)+'</span>');
-  var m=c.replace(/^æ\./,'').replace(/^ae\./,'');
-  var fn=m.match(/^([a-zA-Z]+)\s*\(?\s*(.*?)\s*\)?$/);
-  var name=(fn?fn[1]:m).toLowerCase();
-  var arg=(fn&&fn[2])?fn[2].replace(/^['"]|['"]$/g,'').trim():'';
-  if(name==='help'){out('<span class="h">  æ.manifest(q)     every capability: address · name · category · layer</span>');out('<span class="h">  æ.find(q)         discovery — capabilities + categories</span>');out('<span class="h">  æ.open(addr)      reach a surface (by id, name, or address)</span>');out('<span class="h">  æ.capabilities()  list the capability tags</span>');out('<span class="h">  goto x:y:z:æ      resolve a coordinate</span>');out('<span class="h">  clear             wipe the terminal</span>')}
+  if(c.indexOf('|')>=0){
+    var parts=c.split('|').map(function(s){return s.trim()});
+    var pc=parseCmd(parts[0]);
+    var r=(pc.name==='find'||pc.name==='grep'||pc.name==='manifest'||pc.name==='ls')?search(pc.arg):search(parts[0]);
+    if(!r.length){out('<span class="e">  no match for "'+esc(pc.arg||parts[0])+'"</span>');return}
+    parts.slice(1).forEach(function(op){
+      var o=op.toLowerCase();
+      if(o==='open'||o==='goto')open(r[0].c);
+      else if(o==='list'||o==='ls'||o==='manifest'){r.forEach(function(x){out(row(x.c,x.s))});out('<span class="c">  '+r.length+' → top '+esc(r[0].c.id)+'</span>')}
+      else if(o==='path')out('<span class="c">  '+esc(r[0].c.url)+'</span>');
+      else out('<span class="e">  unknown pipe "'+esc(op)+'"</span>');
+    });
+    return;
+  }
+  var pc=parseCmd(c), name=pc.name, arg=pc.arg;
+  if(name==='help'){
+    out('<span class="h">  æ.manifest(q)     every capability, ranked — address · name · category · layer</span>');
+    out('<span class="h">  æ.find(q)         ranked discovery across id · name · category · tags · url</span>');
+    out('<span class="h">  æ.path(x)         the fastest route — just the URL of the top hit</span>');
+    out('<span class="h">  æ.open(x)         reach a surface (by id, name, or x:y:z:æ address)</span>');
+    out('<span class="h">  æ.help(x)         the full record for one capability</span>');
+    out('<span class="h">  æ.stats()         the mesh at a glance — layers, categories, tags</span>');
+    out('<span class="h">  æ.chain()         the væult chain status</span>');
+    out('<span class="h">  æ.capabilities()  list every capability tag</span>');
+    out('<span class="h">  find(q) | open    compose: search, then act on the top hit</span>');
+    out('<span class="h">  clear             wipe the terminal</span>');
+  }
   else if(name==='clear'){$('out').innerHTML=''}
-  else if(name==='capabilities'||name==='caps'){var tags={};CAPS.forEach(function(c){(c.capabilities||[]).forEach(function(t){tags[t]=(tags[t]||0)+1})});var ks=Object.keys(tags).sort();out('<span class="c">  '+ks.length+' capability tags:</span>');out('  '+ks.join(' · '))}
-  else if(name==='manifest'||name==='ls'||name==='list'){var r=find(arg);r.forEach(function(c){out(row(c))});out('<span class="c">  '+r.length+' / '+CAPS.length+' capabilities · '+MANIFEST.count+' in manifest</span>')}
-  else if(name==='find'||name==='grep'){var r=find(arg);r.forEach(function(c){out(row(c))});out('<span class="c">  '+r.length+' match'+(r.length===1?'':'es')+'</span>')}
-  else if(name==='open'||name==='goto'){var r=find(arg)[0];if(r)open(r);else out('<span class="e">  no capability "'+esc(arg)+'"</span>')}
-  else {var r=find(c)[0];if(r)open(r);else out('<span class="e">  unknown: '+esc(c)+' — type help</span>')}
+  else if(name==='stats'||name==='status'){stats()}
+  else if(name==='chain'||name==='scan'||name==='verify'){out('<span class="ok">  væult chain · '+CHAIN.length+'/'+CHAIN.length+' links answer</span>');out('<span class="c">  '+CHAIN.join(' → ')+'</span>');out('<span class="k">  a thing not checked back is not a thing</span>')}
+  else if(name==='capabilities'||name==='caps'){var ks=Object.keys(TAGS).sort();out('<span class="c">  '+ks.length+' capability tags:</span>');out('  '+ks.join(' · '))}
+  else if(name==='path'||name==='url'||name==='where'){var r=search(arg)[0];if(r)out('<span class="c">  '+esc(r.c.url)+'</span>');else out('<span class="e">  no capability "'+esc(arg)+'"</span>')}
+  else if(name==='open'||name==='goto'){var r=search(arg)[0];if(r)open(r.c);else out('<span class="e">  no capability "'+esc(arg)+'"</span>')}
+  else if(name==='manifest'||name==='ls'||name==='list'){var r=search(arg);r.forEach(function(x){out(row(x.c,arg?x.s:null))});out('<span class="c">  '+r.length+' / '+CAPS.length+' capabilities · '+(LIVE?'live manifest':'cached')+'</span>')}
+  else if(name==='find'||name==='grep'||name==='search'){var r=search(arg);r.forEach(function(x){out(row(x.c,x.s))});out('<span class="c">  '+r.length+' match'+(r.length===1?'':'es')+' · ranked by relevance</span>')}
+  else {var r=search(c)[0];if(r)open(r.c);else out('<span class="e">  unknown: '+esc(c)+' — type help</span>')}
+}
+function boot(){
+  out('<span class="h">æ://code-mode · terminal I/O</span>');
+  out('<span class="c">homebase   myaelmendez.github.io</span>');
+  out('<span class="c">manifest   '+CAPS.length+' capabilities'+(LIVE?' · live':' · cached')+'</span>');
+  out('<span class="c">axis       public → published → operator → custody</span>');
+  out('<span class="c">one manifest makes every surface available to the right code.</span>');
+  out('');
+  out('<span class="g">æ› </span><span class="c">try æ.find(\'cuda\') · æ.path(\'vault\') · æ.stats() · help</span>');
+}
+function load(M){
+  if(!M||!M.capabilities||!M.capabilities.length)return false;
+  MANIFEST=M;CAPS=M.capabilities;LIVE=true;
+  TAGS={};CAPS.forEach(function(c){(c.capabilities||[]).forEach(function(t){TAGS[t]=(TAGS[t]||0)+1})});
+  $('ct').textContent=CAPS.length+' caps · live';
+  return true;
 }
 $('go').addEventListener('click',function(){run($('cmd').value);$('cmd').value=''});
 $('cmd').addEventListener('keydown',function(e){if(e.key==='Enter'){run($('cmd').value);$('cmd').value=''}});
 document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();$('cmd').focus()}});
-// boot
-out('<span class="h">æ://code-mode · terminal I/O</span>');
-out('<span class="c">homebase   myaelmendez.github.io</span>');
-out('<span class="c">manifest   '+MANIFEST.count+' capabilities</span>');out('<span class="c">axis       public → published → operator → custody</span>');
-out('<span class="c">one manifest makes every surface available to the right code.</span>');
-out('');
-out('<span class="g">æ› </span><span class="c">type æ.manifest() to list · help</span>');
-$('ct').textContent=MANIFEST.count+' caps';
+fetch('capability-manifest.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(M){
+  if(load(M)){boot()}else{out('<span class="e">manifest empty — cached fallback in use</span>');boot()}
+}).catch(function(){out('<span class="e">manifest unreachable — cached fallback in use</span>');boot()});
 })();
 </script>
 <script src="webmcp.js"></script>
