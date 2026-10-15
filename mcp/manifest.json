@@ -1,0 +1,38 @@
+{
+  "schema": "osw.aewidget.v1",
+  "id": "ae.micro",
+  "version": "0.1.0",
+  "display_name": "æ Micro · Virtual Agent Keypad",
+  "entry": "$mcp",
+  "principal": "HUMAN://principal",
+  "skills": [
+    "ae",
+    "startabusiness"
+  ],
+  "command_aliases": [
+    "$mcp",
+    "$⌨️"
+  ],
+  "capabilities": [
+    "build",
+    "discover",
+    "business",
+    "home",
+    "publish",
+    "witness"
+  ],
+  "commands": [
+    "talk",
+    "run",
+    "approve",
+    "pause",
+    "fork",
+    "aeQR"
+  ],
+  "transport": "chat-handoff",
+  "execution": "simulation",
+  "permissions": "human approval required",
+  "address": "aeqr://widget/mcp/codex-micro",
+  "status": "prototype",
+  "brand_notice": "Independent concept inspired by OpenAI × Work Louder Codex Micro; no affiliation or endorsement."
+}
