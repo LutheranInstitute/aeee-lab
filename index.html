@@ -79,6 +79,23 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
 .coord{transition:transform .22s,opacity .22s}
 .coord.dip{transform:scale(.94);opacity:.66}
 .hint{font-size:9px;color:var(--muted);letter-spacing:1px;padding-bottom:14px;opacity:.7;text-align:center}
+
+/* æPICO · additive onboarding and agentic cockpit */
+.aeportal{width:100%;border:1px solid rgba(168,255,193,.34);border-radius:17px;background:linear-gradient(140deg,rgba(10,31,17,.97),rgba(5,13,9,.94));padding:16px;margin:0 0 18px;box-shadow:0 14px 50px #0007}
+.aeportal h2{font:700 clamp(18px,5vw,24px) system-ui,sans-serif;color:#b3ffc8;letter-spacing:-.03em;margin:6px 0}
+.aeportal p{font:12px/1.6 system-ui,sans-serif;color:#c1d9c8;margin:5px 0 12px}
+.aeportal .eyebrow{font:700 10px ui-monospace,monospace;color:#a8ffc1;letter-spacing:.12em}
+.aeportal .ae-marquee{overflow:hidden;white-space:nowrap;border-block:1px solid #335d40;padding:8px 0;margin-bottom:13px}
+.aeportal .ae-track{display:inline-block;white-space:nowrap;font:700 10px ui-monospace,monospace;color:#a8ffc1;animation:aeportal-scroll 22s linear infinite}
+@keyframes aeportal-scroll{to{transform:translateX(-50%)}}
+.aeportal .ae-doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.aeportal .ae-link{display:flex;flex-direction:column;gap:4px;min-width:0;padding:12px;border:1px solid #3e6b49;border-radius:11px;background:#1a3423;text-decoration:none;transition:transform .18s,background .18s}
+.aeportal .ae-link:hover{transform:translateY(-2px);background:#254831}
+.aeportal .ae-link strong{font:700 13px system-ui,sans-serif;color:#f0fff4}
+.aeportal .ae-link small{font:11px/1.4 system-ui,sans-serif;color:#bedac5}
+.aeportal .ae-principal{font:700 11px system-ui,sans-serif;color:#a8ffc1;margin-top:12px;text-align:center}
+.aeportal a:focus-visible{outline:3px solid #ffd08c;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.aeportal *{animation:none!important;transition:none!important}.aeportal .ae-track{white-space:normal}}
 </style>
 </head>
 <body>
@@ -114,6 +131,20 @@ html,body{min-height:100%;background:var(--void);color:var(--ink);font-family:'J
       <span><i style="background:var(--purple)"></i>æ3 custody</span>
     </div>
   </div>
+
+  <section class="aeportal" aria-label="Agentic Environments onboarding">
+    <div class="ae-marquee" aria-label="Agentic environments symbolic ticker"><div class="ae-track">🫵 HUMAN://ROOT　 ⌘ CODEX://BUILD　 🦞 OPENCLAW://OPERATE　 📥 æQ://QUEUE　 📋 KÆNBÆN://REVIEW　 🧾 WITNESS://VERIFY　 🫵 HUMAN://ROOT　 ⌘ CODEX://BUILD　 🦞 OPENCLAW://OPERATE　 📥 æQ://QUEUE　 📋 KÆNBÆN://REVIEW　 🧾 WITNESS://VERIFY　</div></div>
+    <div class="eyebrow">#OSW · TWO ENTRANCES · ONE ENVIRONMENT</div>
+    <h2>$æ × $mcp · Welcome home</h2>
+    <p>Start with your intent. Explore agentic tools, create a forkable environment, and review every consequential action before execution. Independent prototype—not a connected agent control plane.</p>
+    <div class="ae-doors">
+      <a class="ae-link" href="./mcp/agents/"><strong>æ · Agentic Home</strong><small>⌘ Codex · 🦞 OpenClaw · intent composer</small></a>
+      <a class="ae-link" href="./mcp/"><strong>⌨️ $mcp · Keypad</strong><small>Discover · compose · human approval</small></a>
+      <a class="ae-link" href="./mcp/discover/"><strong>🔍 æPICO · Discover</strong><small>Nano emojis · capability labels · teleprompts</small></a>
+      <a class="ae-link" href="./mcp/kinetic/"><strong>✨ Kinetic Studio</strong><small>Tickers · color · breathing typography</small></a>
+    </div>
+    <div class="ae-principal">Many agents. One principal. 🫵</div>
+  </section>
   <div class="mesh" id="mesh"></div>
   <div class="hint">MOVE WITH WASD / ARROWS · ⌘K FOCUS · æ IS THE AUTHORITY AXIS YOU STEER BY</div>
 </div>
