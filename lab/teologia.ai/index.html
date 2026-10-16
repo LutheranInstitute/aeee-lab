@@ -6,7 +6,7 @@ body{margin:0;min-height:100vh;background:#050516;color:#e8e8f0;font:14px/1.5 ui
 main{width:min(94vw,600px);margin:0 auto;padding:26px 0 70px}
 .sym{font:800 clamp(28px,9vw,48px)/1.05 ui-monospace,monospace}.p{color:#00EAFF}.a{color:#D4AF37}
 .sub{color:#9aa0b8;margin:10px 0 18px}
-.cover{margin:4px 0 16px;border:1px solid #2a2f6a;border-radius:14px;overflow:hidden;background:#f6eedc;aspect-ratio:9/16;max-height:78vh}.cover img{width:100%;height:100%;object-fit:contain;display:block}.cap{color:#8f94aa;font-size:11px;margin:-10px 0 14px}
+.cover{margin:4px 0 16px;border:1px solid #2a2f6a;border-radius:14px;overflow:hidden;background:#f6eedc;aspect-ratio:9/16;max-height:78vh}.cover img{width:100%;height:100%;object-fit:contain;display:block}.cap{color:#8f94aa;font-size:11px;margin:-10px 0 14px}.car{margin:4px 0 16px}.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;border-radius:14px;scrollbar-width:none}.track::-webkit-scrollbar{display:none}.slide{flex:0 0 100%;scroll-snap-align:center;margin:0!important;display:block}.dots{display:flex;justify-content:center;gap:8px;margin:10px 0 6px}.dots button{width:8px;height:8px;border-radius:99px;border:0;background:#2a2f6a;padding:0;cursor:pointer;transition:width .2s,background .2s}.dots button[aria-current="true"]{width:22px;background:#D4AF37}.car .cap{margin:0 0 14px;text-align:center}
 svg{width:100%;height:auto;display:block;margin:6px 0 14px}
 .ln{stroke:#2a2f6a;stroke-width:1.5;fill:none;stroke-dasharray:4 5;animation:fl 3s linear infinite}@keyframes fl{to{stroke-dashoffset:-36}}
 .nd{fill:#0b0b24;stroke-width:2}.lb{font:700 13px ui-monospace,monospace;fill:#e8e8f0}.sm{font:11px ui-monospace,monospace;fill:#8f94aa}
@@ -20,7 +20,17 @@ footer{margin-top:22px;color:#667;font-size:12px}footer a{color:#B4FF2E}
 </style></head><body><main>
 <div class="sym"><span class="p">#ioa://</span><span class="a">teologia.ai</span></div>
 <p class="sub" data-t="sub"></p>
-<a class="cover" href="oso/" style="display:block"><img src="portada.svg" alt="Ley · Mateo 22:18 «¿Por qué me tentáis, hipócritas?» · Evangelio · 1 Tesalonicenses 1:1 «Gracia y paz sean a vosotros» (RVR1960), grabado al estilo de la Biblia del Oso (1569)"></a>
+<div class="car" role="region" aria-roledescription="carrusel" aria-label="Portada $✍️🐻">
+<div class="track" id="car">
+<a class="cover slide" href="oso/" aria-label="1 de 2 · clásica"><img src="portada.gif" alt="Ley · Mateo 22:18 «¿Por qué me tentáis, hipócritas?» · Evangelio · 1 Tesalonicenses 1:1 «Gracia y paz sean a vosotros» (RVR1960), grabado al estilo de la Biblia del Oso (1569)"></a>
+<a class="cover slide" href="oso/" aria-label="2 de 2 · nano SVG"><img src="portada.svg" alt="Ley · Mateo 22:18 «¿Por qué me tentáis, hipócritas?» · Evangelio · 1 Tesalonicenses 1:1 «Gracia y paz sean a vosotros» (RVR1960), grabado al estilo de la Biblia del Oso (1569) · versión nano SVG" loading="lazy"></a>
+</div>
+<div class="dots" id="dots"><button aria-label="Clásica" aria-current="true"></button><button aria-label="Nano SVG"></button></div>
+<div class="cap">🎠 <span id="carcap">1 / 2 · clásica (GIF)</span></div>
+</div>
+<script>(function(){var t=document.getElementById('car'),d=document.querySelectorAll('#dots button'),c=document.getElementById('carcap'),n=['1 / 2 · clásica (GIF)','2 / 2 · nano SVG · 2 KB'];
+d.forEach(function(b,i){b.onclick=function(){t.scrollTo({left:i*t.clientWidth,behavior:'smooth'})}});
+t.addEventListener('scroll',function(){var i=Math.round(t.scrollLeft/t.clientWidth);d.forEach(function(b,j){b.setAttribute('aria-current',j===i)});c.textContent=n[i]||n[0]},{passive:true});})();</script>
 <p class="cap">$✍️🐻 · Ley y Evangelio · RVR1960 · 16·10·2026</p>
 <svg viewBox="0 0 600 300" aria-hidden="true">
 <path class="ln" d="M300,150 L110,60"/><path class="ln" d="M300,150 L490,60"/><path class="ln" d="M300,150 L110,245"/><path class="ln" d="M300,150 L490,245"/><path class="ln" d="M300,150 L300,275" style="stroke:#333a7a"/>
