@@ -30,6 +30,9 @@ input{min-width:220px;cursor:text}
 .moods{margin-top:8px}
 .note{margin-top:18px;border-top:1.5px solid var(--ink);padding-top:10px;opacity:.85}
 code{background:rgba(0,0,0,.06);padding:0 4px}
+body.embed header,body.embed .controls,body.embed .note,body.embed .tick{display:none}
+body.embed main{padding:0;max-width:none}
+body.embed .stage{margin:0;border:0;max-height:none;height:100vh;aspect-ratio:auto;width:100%}
 @media (prefers-reduced-motion:reduce){.breathe{animation:none!important}}
 .breathe{animation:br 4.5s ease-in-out infinite;transform-origin:50% 55%}
 @keyframes br{50%{transform:scale(1.012) translateY(-1px)}}
@@ -122,7 +125,7 @@ function sync(){document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribu
 // parpadeo: redibujo instantáneo con ojos cerrados
 setInterval(()=>{if(mode!=='face'||mood==='dormido'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;if(anims.some(a=>a.playState==='running'))return;
  const m=MOODS[mood],old=m.ey;m.ey=.1;draw(false);setTimeout(()=>{m.ey=old;draw(false)},130)},4200);
-const q=new URLSearchParams(location.search);if(q.get('t')){mode='text';document.getElementById('intent').value=q.get('t')}if(MOODS[q.get('mood')])mood=q.get('mood');
+const q=new URLSearchParams(location.search);if(q.get('embed'))document.body.classList.add('embed');if(q.get('t')){mode='text';document.getElementById('intent').value=q.get('t')}if(MOODS[q.get('mood')])mood=q.get('mood');
 sync();draw();
 </script>
 </body>
