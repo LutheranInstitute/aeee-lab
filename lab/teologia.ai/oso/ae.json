@@ -74,5 +74,9 @@
     "dossiers": "MYaelMendez/SOVEREIGN teologia/",
     "mapped": "2026-10-16"
   },
-  "aeqr": "conceptual, not scannable"
+  "aeqr": "conceptual, not scannable",
+  "theme": {
+    "name": "woodcut",
+    "note": "Grabado en madera (xilografía) como la marca del oso de 1569: papel crema, tinta negra en relieve, rúbrica roja."
+  }
 }
