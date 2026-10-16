@@ -21,6 +21,11 @@ h2{font:800 14px Orbitron;color:var(--g);letter-spacing:.14em;margin:34px 0 10px
 .cf{display:inline-flex;align-items:baseline;font-family:"JetBrains Mono",monospace;font-weight:800;line-height:1;white-space:nowrap;vertical-align:baseline;color:inherit}
 .cf span{display:inline-block;transform-origin:50% 70%;transition:transform .25s,color .25s}
 .cf .nose{color:var(--g);margin:0 .02em}
+.cf.skin-ae{gap:.12em}
+.cf.skin-ae .nose{font-size:.8em}
+.cf.feliz.skin-ae .nose{transform:scaleX(1.25)}
+.cf.sorpresa.skin-ae .nose{transform:scale(1.4)}
+.cf.hold.skin-ae .nose{transform:scaleY(.6)}
 /* blink: the l's are the eyes */
 .cf .eye{animation:blink 4.2s infinite}
 .cf .eye.r{animation-delay:.04s}
@@ -77,15 +82,15 @@ a{color:var(--g)}
 <div class="lab">LAB · cli•llc TIENE CARA</div>
 <main>
 <div class="dim">&gt;_ æ://cli.llc/cara</div>
-<h1>cli•llc</h1>
-<p class="dim">Las c son mejillas, las l los ojos, el • la nariz. Un robot cuya cara cabe en la altura de una línea.</p>
+<h1>cli•llc · æææ</h1>
+<p class="dim">Dos caras: en cli•llc las c son mejillas, las l ojos y el • nariz; en æ æ æ los æ de afuera son ojos y el del centro, dorado, es la boca. Un robot cuya cara cabe en la altura de una línea.</p>
 
 <div class="stage" id="stage" title="tócalo"></div>
 <div class="moods" id="moods"></div>
 
 <h2>&gt;_ EN UNA LÍNEA</h2>
 <p class="line">Hermes recibió <b>[æ:008] ping</b> y el taller contestó <span class="cf pass" data-cf></span> PASS · mientras tanto Victus duerme <span class="cf dormido" data-cf></span> y el broker piensa <span class="cf pensando" data-cf></span>.</p>
-<p class="line" style="font-size:12px">Hasta en letra chica: <span class="cf feliz" data-cf></span> sigue vivo.</p>
+<p class="line" style="font-size:12px">Hasta en letra chica: <span class="cf feliz" data-cf></span> sigue vivo, y su hermano <span class="cf feliz" data-cf data-skin="ae"></span> también.</p>
 
 <h2>&gt;_ ESTADOS = MOVIMIENTO</h2>
 <p class="dim">Kinetic typography: el movimiento es el estado. Los recibos de Codæ Mail pueden traer su carita: <b>pass</b> cuando la puerta abre, <b>hold</b> cuando espera a Yæl, <b>trabajando</b> mientras corre, <b>dormido</b> si un nodo está caído.</p>
@@ -96,9 +101,10 @@ a{color:var(--g)}
 <div class="note">#opensourceware · sin imágenes, solo letras y CSS · respeta “reducir movimiento”. Favicon animado: <a href="face.svg">face.svg</a>. Evidence ≠ Authority.</div>
 </main>
 <script>
+const AE='<span class="eye">æ</span><span class="nose ae">æ</span><span class="eye r">æ</span>';
 const FACE='<span class="ch">c</span><span class="eye">l</span><span class="i">i</span><span class="nose">•</span><span class="i2">l</span><span class="eye r">l</span><span class="ch r">c</span>';
 // "cli•llc" es simétrico alrededor del •: c|c mejillas, l|l ojos, i|l junto a la nariz
-function face(el){el.innerHTML=FACE;el.setAttribute('aria-label','cli•llc');el.setAttribute('role','img')}
+function face(el,k){k=k||el.dataset.skin||'cli';el.innerHTML=k==='ae'?AE:FACE;el.classList.toggle('skin-ae',k==='ae');el.setAttribute('aria-label',k==='ae'?'æææ':'cli•llc');el.setAttribute('role','img')}
 document.querySelectorAll('[data-cf]').forEach(face);
 const stage=document.getElementById('stage');const big=document.createElement('span');big.className='cf';face(big);stage.appendChild(big);
 const MOODS=['neutral','feliz','pensando','trabajando','sorpresa','hold','pass','dormido'];
@@ -106,6 +112,9 @@ const box=document.getElementById('moods');
 function set(m){big.className='cf'+(m==='neutral'?'':' '+m);[...box.children].forEach(b=>b.classList.toggle('on',b.textContent===m))}
 MOODS.forEach(m=>{const b=document.createElement('button');b.textContent=m;b.onclick=()=>set(m);box.appendChild(b)});
 set('neutral');
+const sk=document.createElement('div');sk.className='moods';sk.style.marginBottom='10px';
+[['cli','cli•llc'],['ae','æ æ æ']].forEach(([k,t])=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{const m=big.className;face(big,k);big.className=m;big.classList.toggle('skin-ae',k==='ae');[...sk.children].forEach(x=>x.classList.toggle('on',x===b))};sk.appendChild(b)});
+box.before(sk);sk.children[1].click();
 let i=0;stage.onclick=()=>{i=(i+1)%MOODS.length;set(MOODS[i])};
 document.getElementById('snip').textContent=
 `<!-- 1. copia el <style> .cf de esta página -->
