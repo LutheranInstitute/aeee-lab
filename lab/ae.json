@@ -9,13 +9,15 @@
   "capabilities": [
     "partner_navigation",
     "global_language_welcome",
-    "agent_prompt"
+    "agent_prompt",
+    "opc_portal_zh"
   ],
   "network": "https://lutheraninstitute.github.io/bookstores/lab/ae.json",
   "related_surfaces": {
     "ioa": "https://lutheraninstitute.github.io/bookstores/lab/ioa/",
     "partners": "https://lutheraninstitute.github.io/bookstores/lab/partners/",
-    "gospel_agent": "https://lutheraninstitute.github.io/bookstores/lab/gospel/agent/llms.txt"
+    "gospel_agent": "https://lutheraninstitute.github.io/bookstores/lab/gospel/agent/llms.txt",
+    "opc": "https://lutheraninstitute.github.io/aeee-lab/lab/opc/"
   },
   "checkout": "none",
   "authority": {
@@ -36,5 +38,24 @@
     "source": "MYaelMendez/MYaelMendez.github.io@gh-pages index.html",
     "cloned": "2026-10-15"
   },
-  "motto": "Make something agents want."
+  "motto": "Make something agents want.",
+  "portals": {
+    "opc": {
+      "path": "lab/opc/",
+      "address": "æ^æ://#opc",
+      "audience": "one-person companies (一人公司), Chinese-first",
+      "languages": [
+        "zh",
+        "zh-Hant",
+        "en",
+        "es"
+      ],
+      "partners": [
+        "doola (affiliate)",
+        "Nous Portal (referral)",
+        "Hark Pro class"
+      ],
+      "status": "lab"
+    }
+  }
 }
