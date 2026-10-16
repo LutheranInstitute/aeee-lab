@@ -19,12 +19,14 @@ a{color:var(--blue)}img.qr{width:120px;background:#fff;border-radius:6px}
 </main><script>
 const L={feliz:'EN STOCK',pensando:'QUEDA POCO',hold:'AGOTADO · HOLD'};
 const mood=i=>i.stock<=0?'hold':i.stock<=i.min?'pensando':'feliz';
-const sku=(new URLSearchParams(location.search).get('sku')||decodeURIComponent(location.hash.slice(1))||'ae-001');
+const raw=(new URLSearchParams(location.search).get('sku')||decodeURIComponent(location.hash.slice(1))||'ae-001');
+const sku=/^[a-z]{2}-\d{3}$/.test(raw)?raw:null;
+const holdCard=(t)=>{const one=document.getElementById('one');one.innerHTML='<span class="state hold">HOLD</span><p></p><iframe src="../linea-ae/?embed=1&mood=hold" title="cara hold"></iframe>';one.querySelector('p').textContent=t};
 fetch('inventory.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
  const it=d.items.find(i=>i.sku===sku);const one=document.getElementById('one');
- if(!it){one.innerHTML=`<span class="state hold">SKU desconocido · HOLD</span><p>${sku} no está en este inventario.</p><iframe src="../linea-ae/?embed=1&mood=hold" title="cara hold"></iframe>`}
+ if(!it){holdCard(sku?'SKU desconocido: no está en este inventario.':'SKU inválido.')}
  else{const m=mood(it);one.innerHTML=`<div class="lab">æQR://inv/${it.sku}</div><div class="state ${m}">${L[m]}</div><p>${it.name} · stock ${it.stock} · mínimo ${it.min}</p><iframe src="../linea-ae/?embed=1&mood=${m}" title="cara ${m}"></iframe><p class="lab">actualizado ${d.updated}</p>`}
  const t=document.getElementById('all');
- d.items.forEach(i=>{const m=mood(i);t.insertAdjacentHTML('beforeend',`<tr><td><a href="?sku=${i.sku}">${i.sku}</a></td><td>${i.name}</td><td>${i.stock}</td><td class="${m}">${m}</td><td><img class="qr" src="badges/${i.sku}.png" alt="æQR ${i.sku}"></td></tr>`)});
-});
+ d.items.forEach(i=>{const m=mood(i);t.insertAdjacentHTML('beforeend',`<tr><td><a href="?sku=${i.sku}">${i.sku}</a></td><td>${i.name}</td><td>${i.stock}</td><td class="${m}">${L[m]}</td><td><img class="qr" src="badges/${i.sku}.png" alt="æQR ${i.sku}"></td></tr>`)});
+}).catch(()=>holdCard('No se pudo leer inventory.json · HOLD'));
 </script></body></html>
