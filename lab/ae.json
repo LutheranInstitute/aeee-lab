@@ -10,7 +10,8 @@
     "partner_navigation",
     "global_language_welcome",
     "agent_prompt",
-    "opc_portal_zh"
+    "opc_portal_zh",
+    "codae_mail"
   ],
   "network": "https://lutheraninstitute.github.io/bookstores/lab/ae.json",
   "related_surfaces": {
@@ -18,7 +19,8 @@
     "partners": "https://lutheraninstitute.github.io/bookstores/lab/partners/",
     "gospel_agent": "https://lutheraninstitute.github.io/bookstores/lab/gospel/agent/llms.txt",
     "opc": "https://lutheraninstitute.github.io/aeee-lab/lab/opc/",
-    "agentic_environments": "https://lutheraninstitute.github.io/aeee-lab/lab/env/"
+    "agentic_environments": "https://lutheraninstitute.github.io/aeee-lab/lab/env/",
+    "codae_mail": "https://lutheraninstitute.github.io/aeee-lab/lab/codae-mail/"
   },
   "checkout": "none",
   "authority": {
