@@ -27,6 +27,10 @@ button,a.btn{font:700 .95rem system-ui;padding:10px 12px;border-radius:10px;bord
 button.alt,a.alt{background:transparent;color:var(--ink)}
 .note{font-size:.8rem;color:#6b6252;margin-top:18px;line-height:1.4}
 .cp{font:12px ui-monospace,monospace;word-break:break-all;background:#efe6d2;padding:8px;border-radius:8px;display:none}
+.term{background:var(--board);color:var(--chalk);border-radius:12px;padding:10px;margin-top:14px;font:13px/1.45 ui-monospace,Menlo,monospace}
+.term pre{margin:0 0 6px;white-space:pre-wrap;max-height:180px;overflow:auto}
+.term form{display:flex;gap:6px;align-items:center}.term span{color:var(--y)}
+.term input{flex:1;background:transparent;border:0;border-bottom:1px solid #ffffff40;color:var(--chalk);font:inherit;padding:6px 2px;border-radius:0}
 footer{margin-top:22px;font-size:.8rem;text-align:center;color:#6b6252}
 </style></head>
 <body><main>
@@ -47,6 +51,9 @@ footer{margin-top:22px;font-size:.8rem;text-align:center;color:#6b6252}
 <input id="name" maxlength="40" autocomplete="off" placeholder="🫵">
 
 <div id="tasks"></div>
+<div class="term" aria-label="Terminal Digitus"><pre id="out">>_ digitus · escribe ayuda / type help</pre>
+<form id="tf"><span>>_</span><input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="digitus trazo 1" aria-label="comando"></form></div>
+
 
 <div class="row" style="margin-top:12px">
 <button id="save" data-es="Guardar mi línea (SVG)" data-en="Save my line (SVG)">Guardar mi línea (SVG)</button>
@@ -106,5 +113,26 @@ $("save").onclick=async()=>{const c=await checkpoint();const svg=$("art").cloneN
 $("reset").onclick=()=>{if(confirm(L==="es"?"¿Borrar tu línea en este teléfono?":"Erase your line on this phone?")){S={n:"",d:[]};save();render()}};
 $("ghost").setAttribute("d",$("line").getAttribute("d"));
 render();
+const out=$("out");function say(s){out.textContent+="\n"+s;out.scrollTop=out.scrollHeight}
+function run(line){let a=line.trim().split(/\s+/);if(a[0]==="digitus"||a[0]===">_")a.shift();const c=(a[0]||"").toLowerCase(),n=parseInt(a[1],10)-1;const es=L==="es";
+ say(">_ "+line);
+ const ok=i=>Number.isInteger(i)&&i>=0&&i<5;
+ switch(c){
+  case"ayuda":case"help":say(es?"nombre <tu nombre> · tareas · trazo <1-5> · deshacer <1-5> · prompt <1-5> · estado · guardar · regreso · idioma es|en · reiniciar":"name <your name> · tasks · stroke <1-5> · undo <1-5> · prompt <1-5> · status · save · resume · lang es|en · reset");break;
+  case"nombre":case"name":S.n=a.slice(1).join(" ");save();render();say("🫵 → "+name());break;
+  case"tareas":case"tasks":case"ls":T.forEach((t,i)=>say((S.d.includes(i)?"✓ ":"· ")+(i+1)+" "+t[L][0]));break;
+  case"trazo":case"stroke":if(!ok(n)){say(es?"usa: trazo 1-5":"use: stroke 1-5");break}if(!S.d.includes(n)){S.d=[...S.d,n].sort();save();render()}say("✓ "+(n+1)+" · "+S.d.length+"/5");break;
+  case"deshacer":case"undo":if(!ok(n))break;S.d=S.d.filter(x=>x!==n);save();render();say("↺ "+(n+1)+" · "+S.d.length+"/5");break;
+  case"prompt":if(!ok(n)){say("prompt 1-5");break}{const t=T[n].p[L].replace("{n}",name());navigator.clipboard&&navigator.clipboard.writeText(t).catch(()=>{});say(t)}break;
+  case"estado":case"status":say(name()+" · "+S.d.length+"/5 · "+$("tag").textContent.split("· ")[1]);break;
+  case"guardar":case"save":$("save").click();say(es?"SVG con checkpoint descargado":"SVG with checkpoint downloaded");break;
+  case"regreso":case"resume":$("resume").click();setTimeout(()=>say($("cp").textContent),300);break;
+  case"idioma":case"lang":if(a[1]==="es"||a[1]==="en"){L=a[1];localStorage.setItem("digitus.lang",L);render()}say("lang "+L);break;
+  case"reiniciar":case"reset":S={n:"",d:[]};save();render();say("∅");break;
+  default:say(es?"no conozco ese comando · ayuda":"unknown command · help")}
+}
+$("tf").addEventListener("submit",e=>{e.preventDefault();const v=$("cmd").value;if(v.trim())run(v);$("cmd").value=""});
+// addressable: ?run=trazo%203
+{const q=new URLSearchParams(location.search).get("run");if(q)setTimeout(()=>run(q),400)}
 </script>
 </body></html>
