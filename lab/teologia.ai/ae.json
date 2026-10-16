@@ -29,10 +29,15 @@
       "name": "L://teologia.ai/gospel_bookstore",
       "planned_domain": "gospel.teologia.ai",
       "manifest": "https://lutheraninstitute.github.io/bookstores/lab/teologia.ai/gospel_bookstore/ae.json"
+    },
+    {
+      "id": "catecismo",
+      "name": "Catecismo · ontología humana",
+      "planned_domain": "catecismo.teologia.ai",
+      "manifest": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/catecismo/ae.json"
     }
   ],
   "planned": [
-    "catecismo.teologia.ai · Catecismo Menor as a course environment",
     "ley-evangelio.teologia.ai · Law & Gospel of the day"
   ],
   "boundaries": [
@@ -42,5 +47,6 @@
   ],
   "agents_start_here": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/llms.txt",
   "parent": "https://lutheraninstitute.github.io/aeee-lab/lab/env/ae.json",
-  "motto": "Make something agents want."
+  "motto": "Make something agents want.",
+  "thesis": "Teología es una ontología humana: una cosmovisión y una forma de vida."
 }
