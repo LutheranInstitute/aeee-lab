@@ -13,6 +13,12 @@
   ],
   "environments": [
     {
+      "id": "oso",
+      "name": "Biblia del Oso · 1569",
+      "planned_domain": "oso.teologia.ai",
+      "manifest": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/oso/ae.json"
+    },
+    {
       "id": "escuela",
       "name": "Escuela de Teología",
       "planned_domain": "escuela.teologia.ai",
@@ -48,5 +54,6 @@
   "agents_start_here": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/llms.txt",
   "parent": "https://lutheraninstitute.github.io/aeee-lab/lab/env/ae.json",
   "motto": "Make something agents want.",
-  "thesis": "Teología es una ontología humana: una cosmovisión y una forma de vida."
+  "thesis": "Teología es una ontología humana: una cosmovisión y una forma de vida.",
+  "scripture_base": "Biblia del Oso (1569), dominio público; RVR1960 sólo en citas breves con su nombre."
 }
