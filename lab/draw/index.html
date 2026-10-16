@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>in_phone_dræwing · Digitus</title>
+<meta name="description" content="Dibuja con el dedo en tu teléfono. Todos somos desarrolladores. ✍️">
+<style>
+:root{--paper:#f6efdf;--ink:#16130f;--y:#f2c318;--b:#2b86d1;--g:#34a853}
+.chalk{--paper:#1d1f1c;--ink:#f1ede2}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,sans-serif;overscroll-behavior:none;transition:background .5s,color .5s}
+body{display:flex;flex-direction:column;height:100svh}
+header{padding:max(10px,env(safe-area-inset-top)) 14px 6px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+h1{margin:0;font:800 1.15rem ui-monospace,Menlo,monospace}h1 span{opacity:.6;font-weight:400}
+.sq{display:inline-flex;gap:3px}.sq i{width:10px;height:10px}
+#pad{flex:1;touch-action:none;display:block;width:100%}
+#pad path{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.hint{position:absolute;left:0;right:0;top:42%;text-align:center;opacity:.45;pointer-events:none;font:1rem ui-monospace,monospace}
+nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:8px 10px max(12px,env(safe-area-inset-bottom))}
+button{font:700 .9rem system-ui;padding:10px 12px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+button.main{background:var(--ink);color:var(--paper)}
+#w{accent-color:currentColor;width:70px}
+footer{font-size:.72rem;text-align:center;opacity:.7;padding:0 12px 6px}
+</style></head><body>
+<header><h1>📲✍️ in_phone_dræwing <span>· Digitus</span></h1><span class="sq"><i style="background:var(--y)"></i><i style="background:var(--b)"></i><i style="background:var(--g)"></i></span></header>
+<div style="position:relative;flex:1;display:flex"><svg id="pad" xmlns="http://www.w3.org/2000/svg"></svg><div class="hint" id="hint">dibuja con un dedo ✍️<br>draw with one finger</div></div>
+<nav>
+<button id="undo" aria-label="Deshacer">↶</button>
+<input id="w" type="range" min="1.5" max="9" step=".5" value="3" aria-label="Grosor">
+<button id="theme" aria-label="Tinta o tiza">◐</button>
+<button id="play" aria-label="Volver a dibujar">▶︎</button>
+<button id="clear" aria-label="Borrar">∅</button>
+<button id="save" class="main">Guardar SVG</button>
+</nav>
+<footer>Todos somos desarrolladores. ✍️ · Nada se envía: tu dibujo vive en este teléfono. · L:// Aprender · æ:// Construir · æQR:// Compartir</footer>
+<script>
+const pad=document.getElementById("pad"),root=document.documentElement,K="digitus.draw";
+let strokes=JSON.parse(localStorage.getItem(K)||"[]"),cur=null,pts=[];
+if(localStorage.getItem(K+".theme")==="chalk")root.classList.add("chalk");
+function size(){const r=pad.getBoundingClientRect();pad.setAttribute("viewBox",`0 0 ${r.width|0} ${r.height|0}`)}
+function smooth(p){if(p.length<2)return`M${p[0][0]} ${p[0][1]}l0.1 0`;let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const mx=(p[i][0]+p[i+1][0])/2,my=(p[i][1]+p[i+1][1])/2;d+=`Q${p[i][0]} ${p[i][1]} ${mx.toFixed(1)} ${my.toFixed(1)}`}const l=p[p.length-1];return d+`L${l[0]} ${l[1]}`}
+function el(s){const e=document.createElementNS("http://www.w3.org/2000/svg","path");e.setAttribute("d",s.d);e.style.strokeWidth=s.w;return e}
+function draw(){pad.innerHTML="";strokes.forEach(s=>pad.appendChild(el(s)));document.getElementById("hint").style.display=strokes.length?"none":""}
+function store(){localStorage.setItem(K,JSON.stringify(strokes))}
+function pt(e){const r=pad.getBoundingClientRect();return[+(e.clientX-r.left).toFixed(1),+(e.clientY-r.top).toFixed(1)]}
+pad.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"&&!e.isPrimary)return;pad.setPointerCapture(e.pointerId);pts=[pt(e)];cur={d:smooth(pts),w:+document.getElementById("w").value};const p=el(cur);pad.appendChild(p);cur.el=p;document.getElementById("hint").style.display="none"});
+pad.addEventListener("pointermove",e=>{if(!cur)return;const q=pt(e),l=pts[pts.length-1];if(Math.hypot(q[0]-l[0],q[1]-l[1])<1.5)return;pts.push(q);cur.d=smooth(pts);cur.el.setAttribute("d",cur.d)});
+function end(){if(!cur)return;strokes.push({d:cur.d,w:cur.w});cur=null;store()}
+pad.addEventListener("pointerup",end);pad.addEventListener("pointercancel",end);
+document.getElementById("undo").onclick=()=>{strokes.pop();store();draw()};
+document.getElementById("clear").onclick=()=>{if(!strokes.length||confirm("¿Borrar tu dibujo?")){strokes=[];store();draw()}};
+document.getElementById("theme").onclick=()=>{root.classList.toggle("chalk");localStorage.setItem(K+".theme",root.classList.contains("chalk")?"chalk":"ink")};
+document.getElementById("play").onclick=()=>{draw();let t=0;[...pad.children].forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;const dur=Math.max(.25,Math.min(2,L/400));p.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:dur*1000,delay:t*1000,fill:"forwards",easing:"ease-in-out"});t+=dur*.9})};
+document.getElementById("save").onclick=async()=>{const vb=pad.getAttribute("viewBox"),cs=getComputedStyle(root),ink=cs.getPropertyValue("--ink").trim(),paper=cs.getPropertyValue("--paper").trim();
+ const body={v:"aestate/0.1",app:"in_phone_draewing",strokes:strokes.length,t:new Date().toISOString()};
+ const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(JSON.stringify(strokes)));body.sha256=[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}"><metadata>${JSON.stringify(body)}</metadata><rect width="100%" height="100%" fill="${paper}"/><g fill="none" stroke="${ink}" stroke-linecap="round" stroke-linejoin="round">${strokes.map(s=>`<path d="${s.d}" stroke-width="${s.w}"/>`).join("")}</g></svg>`;
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));a.download="mi-linea.svg";a.click()};
+addEventListener("resize",size);size();draw();
+</script></body></html>
