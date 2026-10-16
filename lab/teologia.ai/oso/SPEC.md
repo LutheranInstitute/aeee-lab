@@ -70,6 +70,13 @@
 2. Repo propio (`LutheranInstitute/oso`) o dentro de `aeee-lab`.
 3. Qué facsímil es la base canónica (hay varios escaneos en archive.org).
 
+## 9b. Todas las lenguas
+Al vivir en el entorno, cualquier agente puede leer el Oso en cualquier idioma. Reglas:
+- La fuente es siempre el versículo 1569 verificado (`oso1569:LIB.cap.vers`); toda traducción lo cita.
+- Una traducción de agente se etiqueta `derivada · agente · no revisada`: es una ayuda de lectura, no una Biblia.
+- Una traducción revisada por hablantes humanos puede subir a `reviewed` por idioma, con su recibo.
+- Se prefiere enlazar traducciones existentes en dominio público del idioma destino antes que generar una nueva.
+
 ## 9. Tema
 Xilografía 1569: papel crema, tinta negra en relieve, rúbrica roja, marco tallado. El oso y la miel son la marca.
 
