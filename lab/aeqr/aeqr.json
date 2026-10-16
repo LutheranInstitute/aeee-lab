@@ -1,0 +1,19 @@
+{
+  "schema": "aeqr/0.1",
+  "id": "aeqr://lutheraninstitute/aeee-lab/lab/aeqr",
+  "kind": "inventory-badges",
+  "name": "æQR · inventario, un pixel a la vez",
+  "version": "0.1.0-lab",
+  "status": "simulación de laboratorio",
+  "location": {"repo": "LutheranInstitute/aeee-lab", "branch": "lab", "path": "lab/aeqr/", "render": "https://lutheraninstitute.github.io/aeee-lab/lab/aeqr/"},
+  "badges": [
+    {"id": "æQR://inv/ae-001", "target": "https://lutheraninstitute.github.io/aeee-lab/lab/aeqr/?sku=ae-001", "png": "badges/ae-001.png"},
+    {"id": "æQR://inv/ae-002", "target": "https://lutheraninstitute.github.io/aeee-lab/lab/aeqr/?sku=ae-002", "png": "badges/ae-002.png"},
+    {"id": "æQR://inv/ae-003", "target": "https://lutheraninstitute.github.io/aeee-lab/lab/aeqr/?sku=ae-003", "png": "badges/ae-003.png"}
+  ],
+  "context": {"state_source": "inventory.json", "qr_carries": "solo el SKU"},
+  "capabilities": [{"name": "read_stock", "risk": "low", "approval": "none"}, {"name": "update_stock", "risk": "medium", "approval": "commit revisado por el principal"}],
+  "authority": {"principal": "Yæl", "scan": "abre, nunca actúa", "inherits_to_forks": false},
+  "provenance": {"author": "Hark para Yæl", "license": "pendiente (MIT propuesta)"},
+  "witness": "cada cambio de stock es un commit con su SHA"
+}
