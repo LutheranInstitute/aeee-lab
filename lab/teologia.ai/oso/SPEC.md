@@ -3,6 +3,17 @@
 
 > De OCW a OSW: el patrimonio bíblico en español (1569) deja de ser un libro que se consulta y se vuelve un entorno que se lee, se cita, se corrige y se enseña, en público, con evidencia.
 
+## 0. Principio fundacional · Reina, 1569
+Casiodoro de Reina talló el texto él mismo, unos doce años, en el exilio, y lo publicó con su método abierto: en la «Amonestación del intérprete de los sacros libros al lector» declaró sus fuentes (texto masorético, la traducción latina de Sanctes Pagnino, la Biblia de Ferrara) y que siguió poco la Vulgata. Eso es OpenCourseWare en 1569.
+
+Por eso este entorno funciona igual:
+- **Fuentes declaradas.** Cada versículo dice de qué facsímil, qué página y qué OCR viene.
+- **Método a la vista.** Todo cambio es un commit público; nada se corrige en silencio.
+- **Cada corte cuenta.** Como en la xilografía, un trazo verificado es un compromiso: se firma con su recibo.
+- **El texto es de todos.** Dominio público entra, dominio público sale.
+
+> El oso fue la marca del impresor. El texto lo talló Reina. Nosotros abrimos el taller.
+
 ## 1. Por qué
 - **Dominio público.** El texto de 1569 (Casiodoro de Reina, Basilea) puede citarse y redistribuirse libremente. La RVR1960 no.
 - **Raíz luterana.** Reina terminó como pastor de la congregación luterana de habla francesa en Frankfurt (1593–1594).
