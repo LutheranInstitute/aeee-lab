@@ -109,7 +109,7 @@ document.querySelectorAll('[data-cf]').forEach(face);
 const stage=document.getElementById('stage');const big=document.createElement('span');big.className='cf';face(big);stage.appendChild(big);
 const MOODS=['neutral','feliz','pensando','trabajando','sorpresa','hold','pass','dormido'];
 const box=document.getElementById('moods');
-function set(m){big.className='cf'+(m==='neutral'?'':' '+m);[...box.children].forEach(b=>b.classList.toggle('on',b.textContent===m))}
+function set(m){const ae=big.classList.contains('skin-ae');big.className='cf'+(ae?' skin-ae':'')+(m==='neutral'?'':' '+m);[...box.children].forEach(b=>b.classList.toggle('on',b.textContent===m))}
 MOODS.forEach(m=>{const b=document.createElement('button');b.textContent=m;b.onclick=()=>set(m);box.appendChild(b)});
 set('neutral');
 const sk=document.createElement('div');sk.className='moods';sk.style.marginBottom='10px';
