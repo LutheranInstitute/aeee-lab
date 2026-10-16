@@ -55,5 +55,6 @@
   "parent": "https://lutheraninstitute.github.io/aeee-lab/lab/env/ae.json",
   "motto": "Make something agents want.",
   "thesis": "Teología es una ontología humana: una cosmovisión y una forma de vida.",
-  "scripture_base": "Biblia del Oso (1569), dominio público; RVR1960 sólo en citas breves con su nombre."
+  "scripture_base": "Biblia del Oso (1569), dominio público; RVR1960 sólo en citas breves con su nombre.",
+  "theme": "woodcut · xilografía 1569 (papel crema, tinta negra en relieve, rúbrica roja)"
 }
