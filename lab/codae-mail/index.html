@@ -66,6 +66,16 @@ a{color:var(--g)}
 <h2>&gt;_ RECIBO DE HERMES</h2>
 <pre id="rcpt">—</pre>
 
+<h2>&gt;_ #OSW · EL LENGUAJE æ ES TUYO</h2>
+<p>Codæ Mail es <b>#opensourceware</b>: no se democratiza solo el conocimiento, se democratiza la <b>agencia</b>. La gramática es abierta; cópiala, haz fork, ponle tu propio buzón y tu propio agente.</p>
+<pre>[æ:&lt;tarjeta&gt;] &lt;verbo&gt; &lt;objeto&gt; [#consulta|#preparar|#ejecutar]
+
+verbos: ping · status · read · summarize · draft · prepare · review · run
+recibo: &gt;_ recibo æ:&lt;tarjeta&gt;-&lt;aaaammdd&gt;-&lt;n&gt; · puerta PASS|HOLD|RECHAZADO · sha256</pre>
+<div class="row"><button id="copy">&gt;_ COPIAR GRAMÁTICA</button><a href="https://github.com/LutheranInstitute/aeee-lab/fork"><button class="ghost">🍴 FORK</button></a></div>
+<p style="color:var(--dim)">Se comparte: la gramática, las puertas, el recibo y este simulador. Nunca se comparte: buzones, contraseñas, listas de remitentes, ni la autoridad de nadie. Cada fork reclama su propio x0:y0:z0:æ0. <a href="OPENSOURCEWARE_BOUNDARY.md">Frontera OSW</a></p>
+<p style="color:var(--g)">Many humans. Many agents. One principal per environment.</p>
+
 <div class="note">
 Estados de tarjetas en esta simulación: 006 review · 007 triage · 008 triage (como en STATE.md hoy). Por eso un <i>#ejecutar</i> se detiene: solo corre en <i>ready</i>.<br>
 Reglas: <a href="SPEC.md">SPEC.md</a> · <a href="ae.json">ae.json</a> · <a href="llms.txt">llms.txt</a> · <a href="https://github.com/LutheranInstitute/Cli.llc/blob/main/cards/008-hermes-correo.md">tarjeta 008</a><br>
@@ -79,6 +89,7 @@ const CLASS={ping:"consulta",status:"consulta",read:"consulta",summarize:"consul
 const HUMAN=/\b(pag|pay|dinero|money|borra|delete|public|publish|merge|secret|secreto|firma|legal|contrato)/i;
 const SECRET=/(sk-[A-Za-z0-9]{8,}|ghp_[A-Za-z0-9]{8,}|password\s*[:=]|contraseña\s*[:=]|AKIA[0-9A-Z]{12,})/i;
 let n=0;
+copy.onclick=()=>{navigator.clipboard.writeText(document.querySelectorAll("pre")[0].innerText);copy.textContent=">_ COPIADA ✓"};
 document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{subj.value=b.dataset.s});
 async function sha(t){const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 send.onclick=async()=>{
