@@ -7,7 +7,7 @@
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
 main{max-width:1000px;margin:auto;padding:18px}h1{font:800 30px/1 "Arial Narrow",Impact,sans-serif;text-transform:uppercase;margin:0}
 .sub{opacity:.75;margin:4px 0 10px}.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:6px 0}
-button{font:inherit;border:1.5px solid var(--ink);background:var(--paper);padding:6px 10px;cursor:pointer;border-radius:0}
+button{font:inherit;color:var(--ink);-webkit-appearance:none;appearance:none;border:1.5px solid var(--ink);background:var(--paper);padding:6px 10px;cursor:pointer;border-radius:0}
 button[aria-pressed=true]{background:var(--ink);color:var(--paper)}input[type=range]{width:200px;accent-color:var(--ink)}
 .stage{position:relative;border:1.5px solid var(--ink);aspect-ratio:16/10;touch-action:none;cursor:grab;background:
  linear-gradient(rgba(44,90,160,.08) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(44,90,160,.08) 1px,transparent 1px) 0 0/24px 24px,var(--paper)}
@@ -76,13 +76,13 @@ let dim=1,ry=-.5,rx=-.12,spin=true,showPlane=true,mouthStart=0,mouthEnd=0,P=[];
 const R=260;
 function build(){const F=face(mode,0);const all=F.all.map(p=>[p[0]-CX,p[1]-CY-(mode==='triple'?10:0)]);
  const n=10;P=sample(all,n);mouthStart=F.li*n;mouthEnd=(F.li+F.mouth.length-1)*n;
- const M=MODES[mode];document.getElementById('grp').textContent=(mode==='triple'?'D₃ → eje z + 3 planos':'D₁ → plano x=0')}
+ const M=MODES[mode];document.getElementById('grp').textContent={triple:'D₃ → eje z + 3 planos',rot:'C₂ → eje z (giro 180°)',espejo:'D₁ → plano x=0'}[mode]}
 function to3(p){const [x,y]=p,s=dim;const a=x/R,b=y/R;
  const X3=R*Math.sin(a)*Math.cos(b*.85),Y3=R*Math.sin(b*.85),Z3=R*Math.cos(a)*Math.cos(b*.85)-R;
  return [x+(X3-x)*s,y+(Y3-y)*s,Z3*s]}
-function proj([x,y,z]){const cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);
- let X=x*cy+ (z+R*dim*.0)*sy*0 + z*sy, Z=-x*sy+z*cy; let Y=y*cx-Z*sx; Z=y*sx+Z*cx;
- const f=900/(900-Z);return [X*f,Y*f,Z]}
+function proj([x,y,z]){const cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);z+=R*dim; // girar alrededor del centro de la esfera
+ let X=x*cy+z*sy, Z=-x*sy+z*cy; let Y=y*cx-Z*sx; Z=y*sx+Z*cx;
+ const f=.78*1400/(1400-Z);return [X*f,Y*f,Z]}
 function seg(g,pts,col,w,op){const p=document.createElementNS(NS,'polyline');p.setAttribute('points',pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '));
  p.setAttribute('fill','none');p.setAttribute('stroke',col);p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');p.setAttribute('stroke-opacity',op);g.appendChild(p)}
 function render(){const g=document.getElementById('g'),wire=document.getElementById('wire'),sym=document.getElementById('sym');g.innerHTML='';wire.innerHTML='';sym.innerHTML='';
@@ -90,8 +90,8 @@ function render(){const g=document.getElementById('g'),wire=document.getElementB
  if(dim>.05){for(let k=-2;k<=2;k++){const pts=[];for(let t=0;t<=48;t++){const a=t/48*2*Math.PI,b=k*.35;pts.push(proj([R*Math.sin(a)*Math.cos(b)*dim,R*Math.sin(b)*dim,(R*Math.cos(a)*Math.cos(b)-R)*dim]))}seg(wire,pts,'#2c5aa0',1,.18*dim)}
   for(let k=0;k<6;k++){const pts=[];for(let t=0;t<=36;t++){const b=(t/36-.5)*Math.PI,a=k*Math.PI/6;pts.push(proj([R*Math.sin(a)*Math.cos(b)*dim,R*Math.sin(b)*dim,(R*Math.cos(a)*Math.cos(b)-R)*dim]))}seg(wire,pts,'#2c5aa0',1,.12*dim)}}
  // simetría: plano x=0 (D1) o eje z (D3)
- if(showPlane){if(mode==='triple'){const a=proj([0,0,40]),b=proj([0,0,-2*R*Math.max(dim,.02)-40]);seg(sym,[a,b],'#2c5aa0',1.6,.8);
-   [90,210,330].forEach(t=>{const r=t*Math.PI/180;const q=[[-1,0],[1,0]].map(([s])=>proj([s*220*Math.cos(r),s*220*Math.sin(r),0]));seg(sym,q,'#2c5aa0',1,.45)})}
+ if(showPlane){if(mode==='triple'||mode==='rot'){const a=proj([0,0,40]),b=proj([0,0,-2*R*Math.max(dim,.02)-40]);seg(sym,[a,b],'#2c5aa0',1.6,.8);
+   (mode==='rot'?[]:[90,210,330]).forEach(t=>{const r=t*Math.PI/180;const q=[[-1,0],[1,0]].map(([s])=>proj([s*220*Math.cos(r),s*220*Math.sin(r),0]));seg(sym,q,'#2c5aa0',1,.45)})}
   else{const c=[[0,-200,0],[0,200,0],[0,200,-2*R*dim],[0,-200,-2*R*dim],[0,-200,0]].map(proj);seg(sym,c,'#2c5aa0',1.2,.55)}}
  // la línea: un solo trazo, opacidad por profundidad
  const Q=P.map(to3).map(proj);const chunk=6;
