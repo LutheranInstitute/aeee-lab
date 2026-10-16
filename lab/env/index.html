@@ -49,7 +49,7 @@ function pick(){var s=localStorage.envL;if(s&&I[s])return s;var n=navigator.lang
 function j(u){return fetch(u,{cache:'no-cache'}).then(function(r){if(!r.ok)throw r.status;return r.json()})}
 var DATA=null;
 function load(){j('ae.json').then(function(root){return Promise.all(root.networks.map(function(n){return j(n.url).then(function(m){
- var kids=(m.environments||m.nodes||[]).map(function(e){return e.manifest});
+ var kids=(m.environments||m.nodes||[]).map(function(e){return e.manifest}).filter(function(u,i,a){return u&&a.indexOf(u)===i});
  if(!kids.length)return {n:n,items:[{url:n.url,m:m}]};
  return Promise.all(kids.map(function(u){return j(u).then(function(x){return {url:u,m:x}},function(){return {url:u,err:1}})})).then(function(items){return {n:n,items:items}})
 },function(){return {n:n,items:[{url:n.url,err:1}]}})}))}).then(function(d){DATA=d;render()})}
