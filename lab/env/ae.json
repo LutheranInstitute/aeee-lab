@@ -11,9 +11,30 @@
     "æ^æ^æ": "this index: every network, readable by any agent"
   },
   "networks": [
-    { "id": "aeee", "name": "æææ.com origin", "kind": "environment", "url": "https://lutheraninstitute.github.io/aeee-lab/lab/ae.json" },
-    { "id": "opc", "name": "#opc · 一人公司", "kind": "network", "url": "https://lutheraninstitute.github.io/aeee-lab/lab/opc/registry.json" },
-    { "id": "stores", "name": "L:// Red de tiendas", "kind": "network", "url": "https://lutheraninstitute.github.io/bookstores/lab/ae.json" }
+    {
+      "id": "aeee",
+      "name": "æææ.com origin",
+      "kind": "environment",
+      "url": "https://lutheraninstitute.github.io/aeee-lab/lab/ae.json"
+    },
+    {
+      "id": "opc",
+      "name": "#opc · 一人公司",
+      "kind": "network",
+      "url": "https://lutheraninstitute.github.io/aeee-lab/lab/opc/registry.json"
+    },
+    {
+      "id": "stores",
+      "name": "L:// Red de tiendas",
+      "kind": "network",
+      "url": "https://lutheraninstitute.github.io/bookstores/lab/ae.json"
+    },
+    {
+      "id": "teologia",
+      "name": "#ioa://teologia.ai",
+      "kind": "network",
+      "url": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/ae.json"
+    }
   ],
   "spec": "https://lutheraninstitute.github.io/aeee-lab/lab/env/ae.schema.json",
   "agents_start_here": "https://lutheraninstitute.github.io/aeee-lab/lab/env/llms.txt",
