@@ -1,0 +1,40 @@
+{
+  "schema": "ae.manifest/0.1",
+  "status": "lab",
+  "principal": "Yael Mendez",
+  "surface": "æææ.com",
+  "address": "x0:y0:z0:æ0",
+  "live": "https://myaelmendez.github.io/",
+  "lab": "https://lutheraninstitute.github.io/aeee-lab/lab/",
+  "capabilities": [
+    "partner_navigation",
+    "global_language_welcome",
+    "agent_prompt"
+  ],
+  "network": "https://lutheraninstitute.github.io/bookstores/lab/ae.json",
+  "related_surfaces": {
+    "ioa": "https://lutheraninstitute.github.io/bookstores/lab/ioa/",
+    "partners": "https://lutheraninstitute.github.io/bookstores/lab/partners/",
+    "gospel_agent": "https://lutheraninstitute.github.io/bookstores/lab/gospel/agent/llms.txt"
+  },
+  "checkout": "none",
+  "authority": {
+    "agents_may": [
+      "read",
+      "propose changes in lab/",
+      "open pull requests"
+    ],
+    "human_only": [
+      "merge to live",
+      "DNS",
+      "pricing",
+      "payments",
+      "partner agreements"
+    ]
+  },
+  "provenance": {
+    "source": "MYaelMendez/MYaelMendez.github.io@gh-pages index.html",
+    "cloned": "2026-10-15"
+  },
+  "motto": "Make something agents want."
+}
