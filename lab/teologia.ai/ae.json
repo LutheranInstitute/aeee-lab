@@ -1,0 +1,46 @@
+{
+  "schema": "ae.network/0.1",
+  "address": "#ioa://teologia.ai",
+  "name": "teologia.ai · theology as agentic environments",
+  "status": "lab",
+  "steward": "Yael Mendez",
+  "why_the_name": "'teologia' is the spelling in Portuguese, Italian, Catalan and Polish, and how Spanish speakers type teología: one word across Latin America, Brazil and Southern Europe.",
+  "languages": [
+    "es",
+    "pt",
+    "it",
+    "en"
+  ],
+  "environments": [
+    {
+      "id": "escuela",
+      "name": "Escuela de Teología",
+      "planned_domain": "escuela.teologia.ai",
+      "manifest": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/escuela/ae.json"
+    },
+    {
+      "id": "biblioteca",
+      "name": "Biblioteca",
+      "planned_domain": "biblioteca.teologia.ai",
+      "manifest": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/biblioteca/ae.json"
+    },
+    {
+      "id": "gospel",
+      "name": "L://teologia.ai/gospel_bookstore",
+      "planned_domain": "gospel.teologia.ai",
+      "manifest": "https://lutheraninstitute.github.io/bookstores/lab/teologia.ai/gospel_bookstore/ae.json"
+    }
+  ],
+  "planned": [
+    "catecismo.teologia.ai · Catecismo Menor as a course environment",
+    "ley-evangelio.teologia.ai · Law & Gospel of the day"
+  ],
+  "boundaries": [
+    "No agent speaks with church or institutional authority.",
+    "Scripture quoted with its translation named (RVR1960, KJV).",
+    "Doctrine, teaching and publication are human_only."
+  ],
+  "agents_start_here": "https://lutheraninstitute.github.io/aeee-lab/lab/teologia.ai/llms.txt",
+  "parent": "https://lutheraninstitute.github.io/aeee-lab/lab/env/ae.json",
+  "motto": "Make something agents want."
+}
