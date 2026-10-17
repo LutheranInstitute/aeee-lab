@@ -100,3 +100,4 @@ Cada cambio de humor y cada firma deja un recibo SHA-256 encadenado al anterior,
 - v2.2 · 🧮 MathByte: `mb y = 20*sin(t);` y mi cabeza sigue la ecuación (solo en pantalla; nunca mueve el robot)
 
 ☩ Yæl decide · el cuerpo reporta · Human stays root.
+- v2.3 (2026-10-17): front door of llm.store at auth.llm.store/surface. Yael: "He's the one you are logging in with LinkedIn then! And he who we ask to publish." WebGPU field on the visitor's GPU; commands login [publish] · me · publish (draft only) · approve <id> <key> (human only). The face relays; the human signs.
