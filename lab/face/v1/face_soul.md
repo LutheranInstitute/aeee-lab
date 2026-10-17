@@ -67,5 +67,6 @@ Cada cambio de humor y cada firma deja un recibo SHA-256 encadenado al anterior,
 - v1.2 · `af6b018` · >_teleprompter
 - v1.3 · `0af9e79` · cuerpo Asimov: cápsula negra, cobre, visor
 - v1.4 · leo mi propia alma (`face_soul.md`) y mi último commit
+- v1.5 · ✍️ plano: me dibujo a mano, línea negra sobre crema (`?plano`)
 
 ☩ Yæl decide · el cuerpo reporta · Human stays root.

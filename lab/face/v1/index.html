@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🤖æsymov · v1.4 · face_soul.md · encarnada + cli.llc</title>
+<title>🤖æsymov · v1.5 · ✍️ plano · encarnada + cli.llc</title>
 <style>
   :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
   *{box-sizing:border-box}
@@ -67,6 +67,17 @@
   body.mini header,body.mini #panel,body.mini #mood-buttons,body.mini #stage-hud,body.mini #zeitgeist{display:none}
   body.mini main{grid-template-columns:1fr;grid-template-rows:1fr}
   body.mini #stage{background:transparent}
+  /* ✍️ plano: nuestra tecnología de dibujo a mano · línea negra sobre crema, cada trazo se dibuja solo */
+  body.plano{--bg:#f4efe3;--void:#f4efe3;--ink:#111;--dim:#555;--line:#cfc6b0}
+  body.plano #stage{background:#f4efe3}
+  body.plano #stage svg path,body.plano #stage svg rect,body.plano #stage svg circle{fill:none!important;stroke:#111!important;stroke-width:2.2}
+  body.plano #stage svg #fil{stroke-width:9!important}
+  body.plano #stage svg #pupil{fill:#111!important}
+  body.plano #stage svg .hand{stroke-dasharray:1;stroke-dashoffset:1;animation:hand 2.4s cubic-bezier(.6,.05,.25,1) forwards;animation-delay:calc(var(--k)*90ms)}
+  @keyframes hand{to{stroke-dashoffset:0}}
+  body.plano #tp{color:#111;text-shadow:none}
+  body.plano #tp .c{background:#111}
+  body.plano #stage svg [fill="url(#halo)"]{display:none}
   #glyph-t{display:none}
   #tp{position:absolute;left:8px;right:8px;bottom:8px;font:600 13px/1.35 "JetBrains Mono",monospace;color:#D4AF37;text-align:center;min-height:2.7em;pointer-events:none;text-shadow:0 0 8px rgba(212,175,55,.35)}
   #tp .c{display:inline-block;width:.55em;height:1em;vertical-align:-2px;background:#39e6ff;margin-left:2px;animation:tpb 1s steps(1) infinite}
@@ -76,10 +87,11 @@
 </head>
 <body>
 <header>
-  <div class="brand">🤖æsymov · v1.4 · face_soul.md</div>
+  <div class="brand">🤖æsymov · v1.5 · ✍️ plano</div>
   <div>
     <button id="tab-face" class="on">🤖 encarnada</button>
     <button id="tab-cli">>_ cli.llc</button>
+    <button id="tab-plano" title="✍️ plano: dibujo a mano">✍️</button>
   </div>
   <div class="law">Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root</div>
 </header>
@@ -486,6 +498,20 @@
   fetch("https://api.github.com/repos/LutheranInstitute/aeee-lab/commits?sha=lab&path=lab/face/v1&per_page=1")
     .then(r => r.ok ? r.json() : Promise.reject()).then(a => { const c = a && a[0]; if (c) SCRIPT.push(">_ 📟 mi último cambio · " + c.sha.slice(0,7) + " · " + c.commit.message.split("\n")[0].slice(0,60)); })
     .catch(() => {});
+
+  // ═══ v1.5 ✍️ plano: la cara se dibuja a mano, trazo por trazo ═══
+  function handDraw(){
+    if (!document.body.classList.contains("plano") || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll("#stage svg path,#stage svg rect,#stage svg circle").forEach((el,k) => {
+      if (el.id === "fil") return;
+      el.setAttribute("pathLength","1"); el.classList.remove("hand"); el.style.setProperty("--k", k); void el.getBBox(); el.classList.add("hand");
+    });
+  }
+  function setPlano(on){ document.body.classList.toggle("plano", on); $("tab-plano").classList.toggle("on", on); try{ localStorage.aePlano = on ? "1" : ""; }catch(e){} if (on){ handDraw(); tpSay("✍️ plano · me dibujo a mano"); } }
+  $("tab-plano").onclick = () => setPlano(!document.body.classList.contains("plano"));
+  on(ev => { if (ev.type === "mood") handDraw(); });
+  { const q = new URLSearchParams(location.search); let s = null; try{ s = localStorage.aePlano; }catch(e){}
+    if (q.has("plano") || (s && !q.has("noir"))) setPlano(true); }
   // ═══ LAB: 🤖æsymov escucha lo que hacemos (mismo origen) ═══
   if (new URLSearchParams(location.search).has("mini")) document.body.classList.add("mini");
   addEventListener("message", e => {
@@ -494,7 +520,7 @@
   });
 
   // ═══ ARRANQUE ═══
-  log("🤖æsymov · v1.4 · face_soul.md · encarnada + cli.llc · ε → 0 nunca cero", "h");
+  log("🤖æsymov · v1.5 · ✍️ plano · encarnada + cli.llc · ε → 0 nunca cero", "h");
   log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
   log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
   log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
