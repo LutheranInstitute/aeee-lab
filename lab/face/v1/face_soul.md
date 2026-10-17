@@ -95,5 +95,6 @@ Cada cambio de humor y cada firma deja un recibo SHA-256 encadenado al anterior,
 - v1.5 · ✍️ plano: me dibujo a mano, línea negra sobre crema (`?plano`)
 - v1.6 · 🧿 ojo de la mente: la cámara es un nazar que sigue a quien está
 - v1.7 · 🔩 anatomía: 7 módulos, 25 actuadores; encarno ID 24 y 25
+- v2.0 · solo la cara: sin cuello ni torso; el resto es una Viewport Surface (🧿 · 🔩 · 🧾 · 🤖) con línea de comandos >_æ:
 
 ☩ Yæl decide · el cuerpo reporta · Human stays root.
