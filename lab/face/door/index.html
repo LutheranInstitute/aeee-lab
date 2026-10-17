@@ -26,20 +26,24 @@ svg{width:min(62vw,40vh);height:auto;touch-action:none;position:relative}
 .note{font-size:12px;opacity:.6;margin-top:10px;text-align:center;position:relative;max-width:26em}
 #tag{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font-size:11px;opacity:.5}
 [hidden]{display:none!important}
+#face.door{cursor:pointer}#face.door #visor{stroke:#0a66c2;stroke-width:3.5;animation:vz 2.4s ease-in-out infinite}@keyframes vz{50%{stroke-opacity:.35}}
+#face:focus-visible{outline:2px solid #fff;outline-offset:6px;border-radius:50%}
+#inmark{transition:opacity .45s}#fil{transition:opacity .45s}
 .nz{transform-origin:120px 42px;animation:nz 4s ease-in-out infinite}@keyframes nz{50%{transform:scale(1.18);opacity:.15}}
-@media (prefers-reduced-motion:reduce){.nz{animation:none}#frame{transition:none}}
+@media (prefers-reduced-motion:reduce){.nz,#face.door #visor{animation:none}#frame{transition:none}}
 </style>
 </head>
 <body>
 <div id="st">
   <div id="grid"></div><div id="frame"></div><div id="hud"></div>
-  <svg id="face" viewBox="40 6 160 252" role="img" aria-label="æsymov">
+  <svg id="face" viewBox="40 6 160 252" role="img" aria-label="æsymov" tabindex="-1">
     <defs><radialGradient id="halo"><stop offset="0" id="h0" stop-color="#00f3ff" stop-opacity=".22"/><stop offset="1" stop-color="#00f3ff" stop-opacity="0"/></radialGradient></defs>
     <g id="head">
       <circle cx="120" cy="132" r="118" fill="url(#halo)"/>
       <path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/>
       <path d="M60 70 Q66 30 120 28" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="10" stroke-linecap="round"/>
-      <rect x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#b87333" stroke-width="2.5"/>
+      <rect id="visor" x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#b87333" stroke-width="2.5"/>
+      <g id="inmark" opacity="0"><rect x="101" y="109" width="38" height="38" rx="7" fill="#0a66c2"/><text x="120" y="138" text-anchor="middle" font-family="-apple-system,system-ui,Helvetica,Arial,sans-serif" font-weight="800" font-size="27" fill="#fff">in</text></g>
       <path id="fil" d="" fill="none" stroke="#00f3ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M52 176 Q60 232 120 240 Q180 232 188 176" fill="none" stroke="#b87333" stroke-opacity=".55" stroke-width="2"/>
       <g fill="#b87333"><circle cx="54" cy="128" r="3"/><circle cx="186" cy="128" r="3"/><circle cx="86" cy="208" r="2.2"/><circle cx="154" cy="208" r="2.2"/></g>
@@ -50,7 +54,7 @@ svg{width:min(62vw,40vh);height:auto;touch-action:none;position:relative}
   </svg>
   <div id="cap"></div>
   <div id="bar"><i id="fill"></i></div>
-  <div class="row" id="door"><button class="btn li" id="in"><b>in</b><span id="inL"></span></button></div>
+  <div class="row" id="door" hidden><button class="btn li" id="in"><b>in</b><span id="inL"></span></button></div>
   <p class="note" id="promise"></p>
   <div class="row" id="after" hidden><button class="btn" id="again"></button><button class="btn" id="out"></button></div>
   <div id="tag"></div>
@@ -113,13 +117,17 @@ function demo(){
 }
 /* LinkedIn door */
 async function me(){if(!LIVE)return null;try{const r=await fetch("/me",{credentials:"same-origin",headers:{Accept:"application/json"}});const j=await r.json();return j.signed_in?j:null;}catch{return null;}}
-function door(msg){$("door").hidden=false;$("after").hidden=true;$("bar").style.visibility="hidden";mood("sleep");look(0,10);
-  cap(msg?msg[0]:"Entra con LinkedIn para despertarme.",msg?msg[1]:"Sign in with LinkedIn to wake me.");
+function face(on){const f=$("face");f.classList.toggle("door",on);$("inmark").setAttribute("opacity",on?1:0);$("fil").style.opacity=on?0:"";
+  if(on){f.setAttribute("role","button");f.setAttribute("tabindex","0");f.setAttribute("aria-label",tr("Entrar con LinkedIn · toca la cara de æsymov","Sign in with LinkedIn · tap æsymov's face"));}
+  else{f.setAttribute("role","img");f.setAttribute("tabindex","-1");f.setAttribute("aria-label","æsymov");}}
+function door(msg){face(true);$("after").hidden=true;$("bar").style.visibility="hidden";mood("sleep");look(0,10);
+  cap(msg?msg[0]+" Toca mi visor.":"Toca mi visor: entra con LinkedIn.",msg?msg[1]+" Tap my visor.":"Tap my visor: sign in with LinkedIn.");
   $("promise").hidden=false;$("promise").textContent=tr("Solo leemos tu nombre y email. Nunca publicamos por ti. Nada se guarda al salir.","We only read your name and email. We never post for you. Nothing is kept when you leave.");}
-function inside(){$("door").hidden=true;$("promise").hidden=true;witness({op:"signin"});demo();}
+function inside(){face(false);$("promise").hidden=true;witness({op:"signin"});demo();}
 $("inL").textContent=tr("Entrar con LinkedIn","Sign in with LinkedIn");
 $("again").textContent=tr("↻ Otra vez · 8s","↻ Replay · 8s");$("out").textContent=tr("Salir","Sign out");
-$("in").onclick=()=>{if(LIVE){location.href="/linkedin/login?next=simple";return;}ME={name:"Ana Demo"};inside();};
+const signin=()=>{if(!$("face").classList.contains("door"))return;mood("work");if(LIVE){location.href="/linkedin/login?next=simple";return;}ME={name:"Ana Demo"};inside();};
+$("face").addEventListener("click",signin);$("face").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();signin();}});$("in").onclick=signin;
 $("again").onclick=demo;
 $("out").onclick=async()=>{if(LIVE)try{await fetch("/logout",{method:"POST",credentials:"same-origin"});}catch{}ME=null;door(["Saliste. No guardamos nada.","Signed out. Nothing kept."]);};
 requestAnimationFrame(frame);witness({op:"boot"});
