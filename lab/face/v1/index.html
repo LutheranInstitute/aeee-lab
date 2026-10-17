@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🤖æsymov · v1.3 >_teleprompter · cuerpo Asimov · encarnada + cli.llc</title>
+<title>🤖æsymov · v1.4 · face_soul.md · encarnada + cli.llc</title>
 <style>
   :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
   *{box-sizing:border-box}
@@ -76,7 +76,7 @@
 </head>
 <body>
 <header>
-  <div class="brand">🤖æsymov · v1.3 >_teleprompter · cuerpo Asimov</div>
+  <div class="brand">🤖æsymov · v1.4 · face_soul.md</div>
   <div>
     <button id="tab-face" class="on">🤖 encarnada</button>
     <button id="tab-cli">>_ cli.llc</button>
@@ -476,6 +476,16 @@
     tpEl.textContent = s; const c = document.createElement("span"); c.className = "c"; tpEl.appendChild(c);
   }, 45);
   on(ev => { if (ev.type === "mood" && ev.why && ev.why !== "human") tpSay(ev.why.replace(/^lab:\s*/,"")); });
+
+  // ═══ v1.4 face_soul.md: 🤖æsymov lee su propio repo ═══
+  fetch("face_soul.md", {cache:"no-store"}).then(r => r.ok ? r.text() : Promise.reject(r.status)).then(md => {
+    const sec = md.split(/^## /m).find(s => s.startsWith("Mi voz")) || "";
+    const lines = sec.split("\n").filter(l => l.startsWith("> ")).map(l => ">_ " + l.slice(2).trim());
+    if (lines.length){ SCRIPT.length = 0; SCRIPT.push(...lines); tpSay("📖 leí mi face_soul.md · " + lines.length + " líneas"); }
+  }).catch(() => tpSay("❄️ sin face_soul.md · uso mi guion de fábrica"));
+  fetch("https://api.github.com/repos/LutheranInstitute/aeee-lab/commits?sha=lab&path=lab/face/v1&per_page=1")
+    .then(r => r.ok ? r.json() : Promise.reject()).then(a => { const c = a && a[0]; if (c) SCRIPT.push(">_ 📟 mi último cambio · " + c.sha.slice(0,7) + " · " + c.commit.message.split("\n")[0].slice(0,60)); })
+    .catch(() => {});
   // ═══ LAB: 🤖æsymov escucha lo que hacemos (mismo origen) ═══
   if (new URLSearchParams(location.search).has("mini")) document.body.classList.add("mini");
   addEventListener("message", e => {
@@ -484,7 +494,7 @@
   });
 
   // ═══ ARRANQUE ═══
-  log("🤖æsymov · v1.3 >_teleprompter · cuerpo Asimov · encarnada + cli.llc · ε → 0 nunca cero", "h");
+  log("🤖æsymov · v1.4 · face_soul.md · encarnada + cli.llc · ε → 0 nunca cero", "h");
   log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
   log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
   log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
