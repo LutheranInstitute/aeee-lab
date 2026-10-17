@@ -1,6 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>💡 æ · cara foco · LAB</title>
+<title>💡 æ · cara foco v2 · LAB</title>
 <style>
 html,body{margin:0;height:100%;background:#05060a;color:#D4AF37;font:12px "JetBrains Mono",monospace;display:grid;place-items:center}
 svg{width:min(80vw,46vh);height:auto;overflow:visible}
@@ -17,6 +17,7 @@ svg{width:min(80vw,46vh);height:auto;overflow:visible}
  <path id="glass" class="ink" d="M70 200 C70 170 30 150 30 100 A70 70 0 1 1 170 100 C170 150 130 170 130 200 Z" style="fill:rgba(57,230,255,.04)"/>
  <path class="ink" d="M72 212 H128 M74 224 H126 M76 236 H124 M84 248 Q100 262 116 248"/>
  <path class="ink" d="M86 200 V180 M114 200 V180"/>
+ <path class="ink" d="M78 38 L66 12 M122 38 L134 12"/><circle class="ink" cx="64" cy="8" r="5"/><circle class="ink" cx="136" cy="8" r="5"/>
  <path id="fil" class="ink" d=""/>
 </svg>
 <div id="tag">💡 æ · <span id="m">think</span> · read-only · Human stays root</div>
@@ -24,7 +25,7 @@ svg{width:min(80vw,46vh);height:auto;overflow:visible}
 // 💡 cara foco · el filamento es una sola línea dorada (ojos + boca), anclada a los soportes.
 // Moods æ.face/0.1: hold > lost > tired > sleep > think > ready > work. Read-only, autoridad æ1.
 const F={ // una línea continua: soporte izq → ojo izq → ojo der → boca → soporte der
- think:{c:"#39e6ff",d:"M86 180 L70 95 Q78 82 86 95 Q92 82 114 92 Q122 82 130 95 L114 180 M80 135 Q100 128 120 135"},
+ think:{c:"#39e6ff",d:"M86 180 L74 100 L100 118 L74 136 M106 138 L130 138 L114 180"},
  ready:{c:"#7CFC9A",d:"M86 180 L70 92 Q78 78 86 92 Q100 70 114 92 Q122 78 130 92 L114 180 M78 128 Q100 150 122 128"},
  work: {c:"#D4AF37",d:"M86 180 L70 95 L86 88 L114 88 L130 95 L114 180 M76 130 Q100 158 124 130"},
  sleep:{c:"#4060ff",d:"M86 180 L70 100 Q78 106 86 100 Q100 104 114 100 Q122 106 130 100 L114 180 M88 138 Q100 142 112 138"},
