@@ -97,5 +97,6 @@ Cada cambio de humor y cada firma deja un recibo SHA-256 encadenado al anterior,
 - v1.7 · 🔩 anatomía: 7 módulos, 25 actuadores; encarno ID 24 y 25
 - v2.0 · solo la cara: sin cuello ni torso; el resto es una Viewport Surface (🧿 · 🔩 · 🧾 · 🤖) con línea de comandos >_æ:
 - v2.1 · consciente del viewport: siento giro, zoom, teclado, tu dedo, si te vas y si se cae la red; me canso a los 8 s y me duermo a los 30 s
+- v2.2 · 🧮 MathByte: `mb y = 20*sin(t);` y mi cabeza sigue la ecuación (solo en pantalla; nunca mueve el robot)
 
 ☩ Yæl decide · el cuerpo reporta · Human stays root.
