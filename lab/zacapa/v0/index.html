@@ -30,6 +30,12 @@ pre{white-space:pre-wrap;word-break:break-all;color:#a6c9ba;font-size:11px;max-h
 .bars div{display:flex;align-items:center;gap:6px;margin:3px 0}
 .bars span{width:84px;color:#829b9a;font-size:11px}
 .bars i{display:block;height:7px;background:#64ffb2;border-radius:4px}
+.bot{display:flex;gap:12px;align-items:center}
+.bot svg{width:112px;flex:none}
+.say{flex:1;background:#07151a;border:1px solid #00f3ff55;border-radius:12px;padding:10px;color:#cffcff;min-height:64px;line-height:1.4}
+.say small{display:block;color:#5fb7c0;margin-top:4px;font-size:10px}
+#face .eye{transition:transform .25s}
+@media (prefers-reduced-motion:reduce){#face *{transition:none!important}}
 footer{color:#819d92;text-align:center;padding:14px;font-size:11px}
 </style>
 </head>
@@ -49,6 +55,29 @@ footer{color:#819d92;text-align:center;padding:14px;font-size:11px}
 <g id="nodes"></g><g id="veh"></g>
 </svg>
 <small>Cabeceras y carreteras de OpenStreetMap. Línea = red troncal mínima por km reales.</small>
+</section>
+
+<section class="p" aria-live="polite">
+<div class="r"><b>🤠🤖 æSYMOV ZACAPANECO</b><span class="m" id="mood">ready</span></div>
+<div class="bot">
+<svg id="face" viewBox="0 0 120 120" role="img" aria-label="æsymov Zacapaneco, cara virtual">
+<rect x="1" y="1" width="118" height="118" rx="14" fill="#000" stroke="#00f3ff" stroke-opacity=".5"/>
+
+<rect x="30" y="42" width="60" height="50" rx="12" fill="#06141a" stroke="#00f3ff" stroke-width="1.6"/>
+<g id="hat">
+<ellipse cx="60" cy="36" rx="50" ry="8" fill="#8a5a2b" stroke="#ffcf8a" stroke-width="1"/>
+<path d="M36 36 C36 14 46 10 60 16 C74 10 84 14 84 36 Z" fill="#a0692f" stroke="#ffcf8a" stroke-width="1"/>
+<path d="M37 31 H83" stroke="#3b2410" stroke-width="3"/>
+<text x="60" y="27" text-anchor="middle" font-size="7" fill="#ffcf8a">æ</text>
+</g>
+<g class="eye" id="eL"><rect id="lidL" x="40" y="56" width="14" height="12" rx="4" fill="#00f3ff"/></g>
+<g class="eye" id="eR"><rect id="lidR" x="66" y="56" width="14" height="12" rx="4" fill="#00f3ff"/></g>
+<path id="mouth" d="M48 80 Q60 86 72 80" stroke="#00f3ff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+<path d="M30 70 h-6 M90 70 h6" stroke="#00f3ff" stroke-width="2"/>
+<text x="60" y="110" text-anchor="middle" font-size="7" fill="#5fb7c0">DEMO · solo lectura</text>
+</svg>
+<div class="say"><span id="say">¡Buenas! Soy æsymov, de Zacapa. Elijan la regla y denle ⚖️ COMPARAR.</span><small>Explica y señala. No decide ni despacha: la comunidad decide.</small></div>
+</div>
 </section>
 
 <section class="p">
@@ -169,6 +198,20 @@ function witness(type,data){qq=qq.then(async()=>{const e={seq:chain.length+1,typ
 function showW(){$("head").textContent=head.slice(0,12)+"…";$("wit").textContent=chain.map(e=>"#"+e.seq+" "+e.type+" "+e.hash.slice(0,16)+"\n  "+canon(e.data)).join("\n")}
 async function verify(){let h=GEN;for(const e of chain){if(e.prev!==h)return false;const x=await sha(canon({seq:e.seq,type:e.type,data:e.data,prev:e.prev}));if(x!==e.hash)return false;h=x}return true}
 
+
+/* ---- æsymov Zacapaneco: cara virtual, solo lectura ---- */
+const MOODS={ready:{h:12,m:"M48 80 Q60 86 72 80"},work:{h:9,m:"M50 81 H70"},think:{h:7,m:"M50 82 Q58 79 70 82"},
+ hold:{h:12,m:"M48 84 Q60 77 72 84"},sleep:{h:2,m:"M54 82 H66"},lost:{h:12,m:"M52 82 Q60 78 68 84"},tired:{h:5,m:"M50 83 H70"}};
+let idleT=null;
+function bot(mood,text){const M=MOODS[mood]||MOODS.ready;
+ ["L","R"].forEach(k=>{const r=$("lid"+k);r.setAttribute("height",M.h);r.setAttribute("y",62-M.h/2)});
+ $("mouth").setAttribute("d",M.m);$("mood").textContent=mood;if(text)$("say").textContent=text;
+ clearTimeout(idleT);if(mood!=="sleep")idleT=setTimeout(()=>bot("sleep","Zzz… aquí ando, a la sombra del sombrero. Toquen algo y despierto."),90000)}
+document.addEventListener("pointermove",e=>{if(reduced)return;const r=$("face").getBoundingClientRect();
+ const dx=Math.max(-3,Math.min(3,(e.clientX-(r.left+r.width/2))/60)),dy=Math.max(-2,Math.min(2,(e.clientY-(r.top+r.height/2))/80));
+ $("eL").style.transform=$("eR").style.transform=`translate(${dx}px,${dy}px)`});
+function worst(st){const v=Object.entries(st.byMunicipio).sort((a,b)=>a[1]-b[1]);return v[0]}
+
 /* ---- UI ---- */
 let policy="A",anim=null,sim=null;
 const params=()=>({fleet:+$("fleet").value,dem:+$("dem").value,seed:(+$("seed").value|0)||1,policy});
@@ -184,12 +227,12 @@ function drawV(S){$("veh").replaceChildren();if(!S)return;S.v.forEach(v=>{let xy
  if(v.st==="idle")xy=P([D.nodes[v.at].lon,D.nodes[v.at].lat]);else xy=along(v.a,v.b,Math.min(1,(S.t-v.t0)/(v.t1-v.t0||1)));
  el("circle",{cx:xy[0],cy:xy[1],r:3.2,fill:v.st==="load"?"#ffbb66":v.st==="pick"?"#7fd8ff":"#64ffb2",stroke:"#080e14","stroke-width":.8},$("veh"))})}
 function stop(){if(anim){clearInterval(anim);anim=null}$("run").textContent="▶ RUN"}
-function finish(S){const st=S.stats();fill(policy,st);bars(st);witness("RESULT",{policy,stats:{served:st.served,pending:st.pending,avgWait:st.avgWait,maxWait:st.maxWait,kmLoaded:st.kmLoaded,kmEmpty:st.kmEmpty,eta:st.eta}})}
+function finish(S){const st=S.stats();fill(policy,st);bars(st);const w=worst(st);bot(w[1]===0?"hold":"ready",w[1]===0?`Ojo: ${w[0]} se quedó sin un solo viaje hoy. ${st.served} atendidos en total.`:`Listo el día: ${st.served} viajes. El que menos recibió fue ${w[0]}, con ${w[1]}.`);witness("RESULT",{policy,stats:{served:st.served,pending:st.pending,avgWait:st.avgWait,maxWait:st.maxWait,kmLoaded:st.kmLoaded,kmEmpty:st.kmEmpty,eta:st.eta}})}
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 $("run").onclick=()=>{if(anim){stop();return}
  if(!sim||sim.t>=T1){sim=makeSim(params());witness("PARAMS",params())}
  if(reduced){$("day").onclick();return}
- $("run").textContent="Ⅱ PAUSA";
+ $("run").textContent="Ⅱ PAUSA";bot("work","Ahí van los tuk-tuks por las carreteras de Zacapa. Amarillo lleva pasajero, celeste va por uno.");
  anim=setInterval(()=>{for(let i=0;i<3;i++)if(sim.t<T1)sim.step();$("clock").textContent=hhmm(sim.t);drawV(sim);
   const st=sim.stats();fill(policy,st);if(sim.t>=T1){stop();finish(sim)}},60)};
 $("day").onclick=()=>{stop();const p=params();witness("PARAMS",p);sim=runDay(p);$("clock").textContent=hhmm(sim.t);drawV(sim);finish(sim)};
@@ -197,8 +240,9 @@ $("cmp").onclick=()=>{stop();const base=params();witness("PARAMS",{...base,polic
  const a=runDay({...base,policy:"A"}).stats(),c=runDay({...base,policy:"C"}).stats();fill("A",a);fill("C",c);bars(policy==="A"?a:c);
  const more=c.served-a.served,wait=c.maxWait-a.maxWait;
  $("lesson").textContent=`Con la misma flota y el mismo día: CAPACIDAD atiende ${more>=0?more+" viajes más":(-more)+" viajes menos"}, pero la espera máxima ${wait>=0?"sube "+wait:"baja "+(-wait)} min. Esa diferencia la decide la comunidad, no el motor.`;
+ bot("think",more>0?`Púchica, la decisión es suya: CAPACIDAD da ${more} viajes más, pero alguien espera ${wait} min más. ¿Qué vale más para Zacapa?`:`Esta vez ACCESO no cuesta viajes. Prueben con menos vehículos.`);
  witness("COMPARE",{A:{served:a.served,maxWait:a.maxWait,eta:a.eta},C:{served:c.served,maxWait:c.maxWait,eta:c.eta}})};
-const vote=x=>{stop();policy=x;sim=null;labels();witness("POLICY",{route_priority:x==="A"?"ACCESS":"CAPACITY",status:"LOCAL_PROPOSAL_NOT_RATIFIED"})};
+const vote=x=>{stop();policy=x;sim=null;labels();bot("ready",x==="A"?"Anotado: primero quien más espera. Así nadie de San Diego ni La Unión se queda atrás.":"Anotado: primero el más cercano. Más viajes, pero vean quién se queda esperando.");witness("POLICY",{route_priority:x==="A"?"ACCESS":"CAPACITY",status:"LOCAL_PROPOSAL_NOT_RATIFIED"})};
 $("vA").onclick=()=>vote("A");$("vC").onclick=()=>vote("C");
 ["fleet","dem"].forEach(id=>$(id).oninput=()=>{labels();stop();sim=null});
 $("ver").onclick=async()=>{const ok=await verify();$("head").textContent=(ok?"✓ VÁLIDA ":"✕ ROTA ")+head.slice(0,10)+"…"};
@@ -207,7 +251,7 @@ $("exp").onclick=async()=>{await qq;const blob=new Blob([JSON.stringify({project
  const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="zacapa-dao-witness.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
 $("rst").onclick=()=>{stop();sim=null;chain=[];head=GEN;$("wit").textContent=">_ cadena vacía";$("head").textContent="GENESIS";$("clock").textContent="06:00";drawV(null);
  ["s","q","w","x","l","e","n"].forEach(r=>["A","C"].forEach(c=>$(r+c).textContent="–"));$("lesson").textContent="";$("bars").innerHTML=""};
-labels();
+labels();bot("ready");
 </script>
 </body>
 </html>
