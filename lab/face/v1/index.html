@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🤖æsymov · v1.2 >_teleprompter · encarnada + cli.llc</title>
+<title>🤖æsymov · v1.3 >_teleprompter · cuerpo Asimov · encarnada + cli.llc</title>
 <style>
   :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
   *{box-sizing:border-box}
@@ -76,7 +76,7 @@
 </head>
 <body>
 <header>
-  <div class="brand">🤖æsymov · v1.2 >_teleprompter</div>
+  <div class="brand">🤖æsymov · v1.3 >_teleprompter · cuerpo Asimov</div>
   <div>
     <button id="tab-face" class="on">🤖 encarnada</button>
     <button id="tab-cli">>_ cli.llc</button>
@@ -95,18 +95,20 @@
         <linearGradient id="torso-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".10"/><stop offset="1" stop-color="#D4AF37" stop-opacity="0"/></linearGradient>
       </defs>
       <text id="glyph" x="120" y="2" text-anchor="middle" font-size="30" style="opacity:0">🛬</text><text id="glyph-t" x="120" y="318" text-anchor="middle" font-size="11" fill="#D4AF37" font-family="JetBrains Mono,monospace" style="opacity:0"></text>
-      <g id="torso"><rect x="72" y="288" width="96" height="42" rx="10" fill="url(#torso-g)" stroke="#D4AF37" stroke-opacity=".35" stroke-width="2"/></g>
-      <g id="neck"><path class="ink" d="M100 250 V290 M140 250 V290 M88 292 H152"/></g>
+      <g id="torso"><path d="M30 330 Q34 292 72 288 H168 Q206 292 210 330 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/><circle cx="40" cy="312" r="9" fill="none" stroke="#b87333" stroke-width="3"/><circle cx="200" cy="312" r="9" fill="none" stroke="#b87333" stroke-width="3"/><rect x="104" y="300" width="32" height="18" rx="3" fill="#05060a" stroke="#b87333" stroke-width="2"/></g>
+      <g id="neck"><rect x="104" y="248" width="32" height="40" rx="6" fill="#141416" stroke="#3a3a3e" stroke-width="2"/><path d="M104 268 H136" stroke="#b87333" stroke-width="2.5"/></g>
       <g id="head">
         <circle cx="120" cy="130" r="150" fill="url(#halo)"/>
-        <path class="ink" d="M40 70 Q40 20 120 20 Q200 20 200 70 V190 Q200 250 120 250 Q40 250 40 190 Z"/>
-        <path class="ink" d="M58 80 Q58 50 120 50 Q182 50 182 80 V180 Q182 225 120 225 Q58 225 58 180 Z" style="opacity:.45"/>
-        <g class="ink"><circle cx="46" cy="110" r="3"/><circle cx="46" cy="150" r="3"/><circle cx="194" cy="110" r="3"/><circle cx="194" cy="150" r="3"/></g>
-        <circle class="ink" cx="120" cy="38" r="8"/><circle id="pupil" cx="120" cy="38" r="3" fill="#D4AF37"/>
-        <g id="bulb" transform="translate(70 62) scale(.5)">
-          <path class="ink" d="M70 200 C70 170 30 150 30 100 A70 70 0 1 1 170 100 C170 150 130 170 130 200 Z" style="stroke-width:5"/>
-          <path class="ink" d="M86 200 V180 M114 200 V180 M74 214 H126" style="stroke-width:5"/>
-          <path id="fil" class="ink" style="stroke-width:6" d=""/>
+        <path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/>
+        <path d="M60 70 Q66 30 120 28" fill="none" stroke="#ffffff" stroke-opacity=".08" stroke-width="10" stroke-linecap="round"/>
+        <rect x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#b87333" stroke-width="2.5"/>
+        <path class="ink" d="M52 176 Q60 232 120 240 Q180 232 188 176" style="stroke:#b87333;opacity:.55;stroke-width:2"/>
+        <g fill="#b87333"><circle cx="54" cy="128" r="3"/><circle cx="186" cy="128" r="3"/></g>
+        <circle cx="120" cy="38" r="6" fill="#05060a" stroke="#b87333" stroke-width="2"/><circle id="pupil" cx="120" cy="38" r="2.5" fill="#39e6ff"/>
+        <g id="bulb" transform="translate(84 76) scale(.36)">
+          <path class="ink" d="M70 200 C70 170 30 150 30 100 A70 70 0 1 1 170 100 C170 150 130 170 130 200 Z" style="stroke-width:5;display:none"/>
+          <path class="ink" d="M86 200 V180 M114 200 V180 M74 214 H126" style="stroke-width:5;display:none"/>
+          <path id="fil" class="ink" style="stroke-width:9" d=""/>
         </g>
       </g>
     </svg>
@@ -482,7 +484,7 @@
   });
 
   // ═══ ARRANQUE ═══
-  log("🤖æsymov · v1.2 >_teleprompter · encarnada + cli.llc · ε → 0 nunca cero", "h");
+  log("🤖æsymov · v1.3 >_teleprompter · cuerpo Asimov · encarnada + cli.llc · ε → 0 nunca cero", "h");
   log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
   log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
   log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
