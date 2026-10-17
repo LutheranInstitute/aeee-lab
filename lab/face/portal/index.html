@@ -25,7 +25,14 @@ header p{font-size:12px;opacity:.65;margin-top:3px}
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .door{min-height:132px;border-radius:10px;border:1px solid var(--ln);background:#0b0e14;color:#fff;font:inherit;text-align:left;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
 .door b{font-size:26px}.door span{font-family:var(--sans);font-weight:700;font-size:16px}.door small{font-size:12px;opacity:.65;line-height:1.35}
-.door.h{border-color:#0a66c2}.door.a{border-color:var(--cu)}
+.door.h{border-color:#0a66c2}
+#bigface{display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;padding:6px 0 14px;border-radius:14px}
+#bigface svg{width:min(58vw,250px);height:auto}
+#bigface p{font-family:var(--sans);font-weight:800;font-size:18px;color:#fff;margin-top:10px}
+#bigface small{font-size:12px;opacity:.65;margin-top:4px;max-width:24em;line-height:1.4}
+#bigface:focus-visible{outline:2px solid #fff;outline-offset:4px}
+#bvisor{animation:vz 2.4s ease-in-out infinite}@keyframes vz{50%{stroke-opacity:.35}}
+.door.wide{width:100%;min-height:0;flex-direction:row;align-items:center;flex-wrap:wrap;gap:4px 10px}.door.wide small{flex-basis:100%}.door.a{border-color:var(--cu)}
 .btn{min-height:44px;padding:0 16px;border-radius:8px;border:1px solid var(--cy);background:transparent;color:var(--cy);font:inherit;font-size:15px;cursor:pointer}
 .btn.li{background:#0a66c2;border-color:#0a66c2;color:#fff;font-family:var(--sans);font-weight:700}
 .btn.ok{border-color:var(--gr);color:var(--gr)}.btn.no{border-color:var(--rd);color:var(--rd)}.btn.wait{border-color:var(--am);color:var(--am)}
@@ -57,7 +64,7 @@ section[hidden],[hidden]{display:none!important}
 #toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#0b0e14;border:1px solid var(--cy);color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90vw}
 #toast.on{opacity:1}
 footer{font-size:11px;opacity:.45;text-align:center;margin-top:16px;line-height:1.6}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){#bvisor{animation:none}*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -79,10 +86,19 @@ footer{font-size:11px;opacity:.45;text-align:center;margin-top:16px;line-height:
     <p class="lead" id="t-lead"></p>
     <p class="dim" id="t-leadsub"></p>
   </div>
-  <div class="doors">
-    <button class="door h" id="d-human"><b>🫵</b><span id="t-hd"></span><small id="t-hds"></small></button>
-    <button class="door a" id="d-agent"><b>🤖</b><span id="t-ad"></span><small id="t-ads"></small></button>
+  <div id="bigface" role="button" tabindex="0">
+    <svg viewBox="40 6 160 252" aria-hidden="true">
+      <defs><radialGradient id="halo"><stop offset="0" stop-color="#0a66c2" stop-opacity=".35"/><stop offset="1" stop-color="#0a66c2" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="120" cy="132" r="118" fill="url(#halo)"/>
+      <path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/>
+      <rect id="bvisor" x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#0a66c2" stroke-width="3.5"/>
+      <rect x="101" y="109" width="38" height="38" rx="7" fill="#0a66c2"/><text x="120" y="138" text-anchor="middle" font-family="-apple-system,system-ui,Helvetica,Arial,sans-serif" font-weight="800" font-size="27" fill="#fff">in</text>
+      <path d="M52 176 Q60 232 120 240 Q180 232 188 176" fill="none" stroke="#b87333" stroke-opacity=".55" stroke-width="2"/>
+      <circle cx="120" cy="42" r="11" fill="#12348f" stroke="#b87333" stroke-width="1.8"/><circle cx="120" cy="42" r="8" fill="#fff"/><circle id="biris" cx="120" cy="42" r="5.6" fill="#5fa8ff"/><circle id="bpupil" cx="120" cy="42" r="2.8" fill="#05060a"/>
+    </svg>
+    <p id="t-hd"></p><small id="t-hds"></small>
   </div>
+  <button class="door a wide" id="d-agent"><b>🤖</b><span id="t-ad"></span><small id="t-ads"></small></button>
   <div class="card" style="margin-top:12px">
     <h2>&gt;_ INVARIANTS</h2>
     <p id="t-inv"></p>
@@ -197,8 +213,8 @@ function T(){
   $("mode").textContent=LIVE?"LIVE":"LAB DEMO";
   $("t-lead").textContent=tr("Muchos agentes. Un principal: tú.","Many agents. One principal: you.");
   $("t-leadsub").textContent=tr("Los agentes proponen. Tú decides. Cada decisión deja un recibo.","Agents propose. You decide. Every decision leaves a receipt.");
-  $("t-hd").textContent=tr("Soy humano","I'm human");$("t-hds").textContent=tr("Entra con LinkedIn. Leemos nombre y email, nada más.","Sign in with LinkedIn. We read name and email, nothing else.");
-  $("t-ad").textContent=tr("Soy agente","I'm an agent");$("t-ads").textContent=tr("Lee la tarjeta. Propón. Espera al humano.","Read the card. Propose. Wait for the human.");
+  $("t-hd").textContent=tr("Toca mi visor para entrar con LinkedIn","Tap my visor to sign in with LinkedIn");$("t-hds").textContent=tr("Humanos: leemos nombre y email, nada más. Nunca publicamos por ti.","Humans: we read name and email, nothing else. We never post for you.");
+  $("t-ad").textContent=tr("¿Eres agente? Entra por aquí","Are you an agent? This way");$("t-ads").textContent=tr("Lee la tarjeta. Propón. Espera al humano.","Read the card. Propose. Wait for the human.");
   $("t-inv").innerHTML=CARD.invariants.map(esc).join("<br>");
   $("t-agentdoc").textContent=tr("Los agentes no inician sesión: proponen. Tu propuesta pasa por el curador y espera la decisión humana. Nunca recibes datos personales sin un sí.","Agents don't sign in: they propose. Your intent passes the curator and waits for a human decision. You never get personal data without a yes.");
   $("curl").textContent=`curl -s ${CARD.url}.well-known/agent-card.json\n\ncurl -s -X POST ${CARD.url}intents \\\n  -H 'Content-Type: application/json' \\\n  -d '{"agent":"you.example","kind":"post",\n       "title":"…","body":"…","why":"…"}'\n\n→ {"status":"awaiting human","id":"…"}`;
@@ -293,7 +309,9 @@ async function leave(forget){
   await witness({op:forget?"forget":"signout"});ME=null;INTENTS=[];mood("sleep");inboxRender();go("door");
   toast(forget?tr("Olvidado. Borramos sesión, borradores y permisos.","Forgotten. Session, drafts and grants deleted."):tr("Saliste. No guardamos nada.","Signed out. Nothing kept."));}
 
-$("d-human").onclick=()=>{if(LIVE){location.href="/linkedin/login?next=portal";return;}enter({name:"Ana Demo",email:"ana@demo"});};
+const human=()=>{if(LIVE){location.href="/linkedin/login?next=portal";return;}enter({name:"Ana Demo",email:"ana@demo"});};
+$("bigface").onclick=human;$("bigface").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();human();}};
+addEventListener("pointermove",e=>{const y=(e.clientX/innerWidth-.5)*70,p=(e.clientY/innerHeight-.5)*50;for(const[id,k,kp]of[["biris",.06,.05],["bpupil",.09,.07]]){$(id).setAttribute("cx",(120+y*k).toFixed(2));$(id).setAttribute("cy",(42+p*kp).toFixed(2));}},{passive:true});
 $("d-agent").onclick=()=>{$("agentdoc").hidden=false;mood("think");$("agentdoc").scrollIntoView({behavior:"smooth"});};
 $("b-card").onclick=()=>dl("agent-card.json",CARD);
 $("b-try").onclick=async()=>{

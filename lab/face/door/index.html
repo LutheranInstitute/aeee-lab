@@ -56,7 +56,7 @@ svg{width:min(62vw,40vh);height:auto;touch-action:none;position:relative}
   <div id="bar"><i id="fill"></i></div>
   <div class="row" id="door" hidden><button class="btn li" id="in"><b>in</b><span id="inL"></span></button></div>
   <p class="note" id="promise"></p>
-  <div class="row" id="after" hidden><button class="btn" id="again"></button><button class="btn" id="out"></button></div>
+  <div class="row" id="after" hidden><button class="btn" id="again"></button><button class="btn" id="out"></button><button class="btn" id="portal"></button></div>
   <div id="tag"></div>
 </div>
 <script>
@@ -128,7 +128,7 @@ $("inL").textContent=tr("Entrar con LinkedIn","Sign in with LinkedIn");
 $("again").textContent=tr("↻ Otra vez · 8s","↻ Replay · 8s");$("out").textContent=tr("Salir","Sign out");
 const signin=()=>{if(!$("face").classList.contains("door"))return;mood("work");if(LIVE){location.href="/linkedin/login?next=simple";return;}ME={name:"Ana Demo"};inside();};
 $("face").addEventListener("click",signin);$("face").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();signin();}});$("in").onclick=signin;
-$("again").onclick=demo;
+$("again").onclick=demo;$("portal").textContent=tr("Portal →","Portal →");$("portal").onclick=()=>{location.href=LIVE?"/portal":"../portal/";};
 $("out").onclick=async()=>{if(LIVE)try{await fetch("/logout",{method:"POST",credentials:"same-origin"});}catch{}ME=null;door(["Saliste. No guardamos nada.","Signed out. Nothing kept."]);};
 requestAnimationFrame(frame);witness({op:"boot"});
 (async()=>{const q=new URLSearchParams(location.search),si=q.get("signin");if(si)history.replaceState(null,"",location.pathname);
