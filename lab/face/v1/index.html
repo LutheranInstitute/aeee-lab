@@ -64,6 +64,9 @@
   #panel .card .st{float:right}
   .st-todo{color:var(--dim)} .st-review{color:var(--warn)} .st-running{color:var(--ink)} .st-done{color:var(--ok)} .st-blocked{color:var(--no)}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  body.mini header,body.mini #panel,body.mini #mood-buttons,body.mini #stage-hud,body.mini #zeitgeist{display:none}
+  body.mini main{grid-template-columns:1fr;grid-template-rows:1fr}
+  body.mini #stage{background:transparent}
 </style>
 </head>
 <body>
@@ -424,6 +427,13 @@
   }
   $("tab-face").onclick = () => setTab("face");
   $("tab-cli").onclick = () => setTab("cli");
+
+  // ═══ LAB: æsymov.osw escucha lo que hacemos (mismo origen) ═══
+  if (new URLSearchParams(location.search).has("mini")) document.body.classList.add("mini");
+  addEventListener("message", e => {
+    if (e.origin !== location.origin || !e.data || !MOODS.includes(e.data.mood)) return;
+    if (e.data.mood !== target.mood) setMood(e.data.mood, "lab: " + String(e.data.why||"").slice(0,40));
+  });
 
   // ═══ ARRANQUE ═══
   log("💡 Asimov 1 · v1.0 · encarnada + cli.llc", "h");

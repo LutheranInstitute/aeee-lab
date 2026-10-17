@@ -6,7 +6,8 @@ h1{color:var(--gold);font-size:20px;margin:.2em 0}h2{color:var(--gold);font-size
 .law{color:var(--dim);font-size:11px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
 .c{border:1px solid var(--line);border-radius:8px;padding:10px 12px}.c b{color:var(--gold)}.ok{color:var(--ok)}.wa{color:var(--warn)}.d{color:var(--dim)}
 pre{border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;color:var(--dim)}a{color:var(--gold)}
-iframe{width:100%;height:62vh;border:1px solid var(--line);border-radius:8px;background:#05060a}</style></head><body>
+iframe{width:100%;height:62vh;border:1px solid var(--line);border-radius:8px;background:#05060a}#ae{position:fixed;right:10px;bottom:10px;width:120px;height:150px;border:1px solid var(--line);border-radius:14px;background:#05060aee;z-index:9;overflow:hidden}
+#ae iframe{width:100%;height:118px;border:0;background:transparent}#ae div{font-size:9.5px;color:var(--gold);text-align:center;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}</style></head><body>
 <div class="law">>_ LAB · noindex · Evidence ≠ Authority · Human stays root</div>
 <h1>in · Laboratorio de la oportunidad LinkedIn</h1>
 <p>La tesis: LinkedIn es la puerta principal. Quien entra ya dice quién es; el Asimov 1 💡 lo recibe; la cita 1:1 lo pone en marcha; AiPODCAST📻me lo acompaña.</p>
@@ -77,4 +78,15 @@ iframe{width:100%;height:62vh;border:1px solid var(--line);border-radius:8px;bac
 <p class="d">Simulación (DEMO). La cara encarnada + cli.llc de Yæl, la misma máquina que recibirá al visitante.</p>
 <iframe src="../face/v1/" title="Asimov 1 v1.0"></iframe>
 <p class="d">Sin afiliación con LinkedIn ni Menlo. Producción intacta.</p>
+<div id="ae" aria-live="polite"><iframe src="../face/v1/?mini" title="æsymov.osw"></iframe><div id="ae-say">æsymov.osw · leyendo</div></div>
+<script>
+(()=>{const f=document.querySelector('#ae iframe'),say=document.getElementById('ae-say');
+const map=[["Activos","ready","activos verificados"],["Por solicitar","think","¿qué API pedimos?"],["Flujo","work","embudo en marcha"],["Autoridad","hold","Human stays root"],["Páginas","think","7 páginas, Super admin"],["Grupo","work","#IOA → conversación"],["Cli.llc","work","doola global · DAOLLC local"],["Pendientes","tired","4 pendientes"],["Recepción","ready","aquí recibo al visitante"]];
+const send=(m,w)=>{f.contentWindow&&f.contentWindow.postMessage({mood:m,why:w},location.origin);say.textContent="æsymov.osw · "+w};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target.textContent,r=map.find(x=>t.includes(x[0]));if(r)send(r[1],r[2])}),{rootMargin:"0px 0px -60% 0px"});
+document.querySelectorAll('h2').forEach(x=>io.observe(x));
+document.addEventListener('click',e=>{const a=e.target.closest('a');if(a)send('work','abriendo '+(a.textContent||'enlace').trim().slice(0,22))});
+let idle;const wake=()=>{clearTimeout(idle);idle=setTimeout(()=>send('sleep','descansando'),45000)};['scroll','pointermove','keydown'].forEach(ev=>addEventListener(ev,wake,{passive:true}));wake();
+f.addEventListener('load',()=>send('think','leyendo el laboratorio'));})();
+</script>
 </body></html>
