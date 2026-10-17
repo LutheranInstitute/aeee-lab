@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>🤖æsymov_face · Viewport Surface v2</title>
+<title>🤖æsymov_face · Viewport Surface v2.1</title>
 <style>
 :root{--cy:#00f3ff;--cu:#b87333;--bg:#000;--u:1px;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -22,6 +22,8 @@ nav button.on{background:rgba(0,243,255,.12);border-color:var(--cy)}
 #v-face.on{display:flex;align-items:center;justify-content:center;position:relative}
 #v-face svg{height:100%;max-width:100%;touch-action:none}
 #mood-tag{position:absolute;top:0;left:0;font-size:max(11px,calc(var(--u)*3));opacity:.85}
+#hud{position:absolute;top:0;right:0;text-align:right;white-space:pre-wrap;font-size:max(9px,calc(var(--u)*2.2));opacity:.6;max-width:60%}
+#cap{position:absolute;bottom:calc(var(--u)*4);left:0;right:0;text-align:center;color:#fff;font-size:max(11px,calc(var(--u)*3))}
 #hash-tag{position:absolute;bottom:0;left:0;right:0;font-size:max(9px,calc(var(--u)*2.2));opacity:.55;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 h1{font-size:max(20px,calc(var(--u)*7));letter-spacing:.06em;margin:calc(var(--u)*2) 0}
 h2{font-size:max(13px,calc(var(--u)*3.6));margin:calc(var(--u)*2.5) 0 calc(var(--u)*1);color:#fff}
@@ -78,7 +80,7 @@ body.agent #wrap{display:none}body.agent #agent{display:block}
         </g>
       </g>
     </svg>
-    <div id="hash-tag"></div>
+    <div id="hud"></div><div id="cap" aria-live="polite"></div><div id="hash-tag"></div>
   </section>
 
   <div id="log" aria-live="polite"></div>
@@ -92,7 +94,7 @@ body.agent #wrap{display:none}body.agent #agent{display:block}
   "schema":"æ.face/0.1",
   "id":"aeqr://lutheraninstitute/aeee-lab/lab/face/v1",
   "name":"æsymov_face",
-  "version":"2.0",
+  "version":"2.1",
   "body":"Asimov 1 · Menlo · solo la cara (módulo 700)",
   "eye":"🧿 ojo de la mente: mira, protege, no se apropia",
   "authority":{"level":"æ1","mode":"read-only","label":"DEMO","agents_may":["read","cite","relay"],"human_only":["accept","sign","price","transfer","move the robot"]},
@@ -108,7 +110,7 @@ body.agent #wrap{display:none}body.agent #agent{display:block}
     [23,"cintura yaw","A"],[24,"cuello yaw","E"],[25,"cuello pitch","E"]
   ],
   "source":"https://docs.menlo.ai/asimov/1/build/assembly-preparations",
-  "lineage":["v1.1 glifo","v1.2 >_teleprompter","v1.3 Asimov de Menlo","v1.4 face_soul.md","v1.5 ✍️ plano","v1.6 🧿 ojo de la mente","v1.7 🔩 anatomía","v2.0 solo la cara · Viewport Surface"]
+  "lineage":["v1.1 glifo","v1.2 >_teleprompter","v1.3 Asimov de Menlo","v1.4 face_soul.md","v1.5 ✍️ plano","v1.6 🧿 ojo de la mente","v1.7 🔩 anatomía","v2.0 solo la cara · Viewport Surface","v2.1 consciente del viewport"]
 }
 </script>
 <script>
@@ -176,7 +178,7 @@ const FIL={
 const POSTURE={hold:[0,0],lost:[14,-6],tired:[0,10],sleep:[0,16],think:[-6,-4],ready:[0,-3],work:[0,4]};
 const TAU={motor:.18,mood:.9};
 const tgt={mood:"think",yaw:0,pitch:0,glow:1}, st={yaw:0,pitch:0,glow:1};
-let finger=null, drift=null, raf=0, last=0;
+let finger=null, fingerT=0, drift=null, raf=0, last=0;
 const ease=(x,t,dt,tau)=>x+(t-x)*(1-Math.exp(-dt/tau));
 function paintMood(){
   const [d,c]=FIL[tgt.mood];
@@ -194,7 +196,12 @@ async function face(m,why="human",react=false){
 function frame(t){
   const dt=Math.min(.05,(t-(last||t))/1000)||.016; last=t;
   const p=POSTURE[tgt.mood];
-  const ty=finger?finger[0]:p[0], tp=finger?finger[1]:p[1];
+  const here=finger&&performance.now()-fingerT<3000&&!reduce&&tgt.mood!=="sleep";
+  let ty=here?finger[0]:p[0], tp=here?finger[1]:p[1];
+  if(!reduce&&!here){ty+=Math.sin(t/1400)*2;tp+=Math.sin(t/1100+1)*1.2;}
+  if(kick&&t<kick.u){ty+=kick.y;tp+=kick.p;}
+  aw=ease(aw,score(),dt,TAU.mood);
+  $("hud").textContent=`${ratio()} · ${innerWidth}×${innerHeight} @${Math.min(3,devicePixelRatio||1)}x · ${orient}\nzoom ${(vv?vv.scale:1).toFixed(2)} · finger ${here?"✓":"—"} · aw ${Math.round(aw*100)}%\nyaw ${st.yaw.toFixed(0)}° · pitch ${st.pitch.toFixed(0)}°`;
   const tg=tgt.mood==="sleep"?.25:tgt.mood==="work"?(.75+.25*Math.abs(Math.sin(t/90))):1;
   st.yaw=ease(st.yaw,ty,dt,TAU.motor); st.pitch=ease(st.pitch,tp,dt,TAU.motor); st.glow=ease(st.glow,tg,dt,TAU.mood);
   $("head").setAttribute("transform",`rotate(${(st.yaw*.12).toFixed(2)} 120 140) translate(0 ${(st.pitch*.25).toFixed(2)})`);
@@ -204,8 +211,34 @@ function frame(t){
   raf=requestAnimationFrame(frame);
 }
 function loop(on){ if(on&&!raf){last=0;raf=requestAnimationFrame(frame);} if(!on&&raf){cancelAnimationFrame(raf);raf=0;} }
+
+/* ── 4b · Viewport awareness (from the æsymov Viewport Face page) ── */
+const vv=window.visualViewport, DK=matchMedia("(prefers-color-scheme: dark)");
+let orient=innerWidth>innerHeight?"landscape":"portrait", zoomed=false, kb=false, rz=0, kick=null, aw=0, idleLv=0, t0=performance.now(), back=0;
+const ratio=()=>innerWidth>innerHeight?"16:9":"9:16";
+function sense(m,why,line){ if(line) $("cap").textContent=line; face(m,"viewport: "+why); }
+function score(){const r=[innerWidth>0,!!devicePixelRatio,!!vv,performance.now()-fingerT<3000,!document.hidden,document.hasFocus(),navigator.onLine,true,true];return r.filter(Boolean).length/r.length;}
+function aware(){return{size:{w:innerWidth,h:innerHeight},dpr:devicePixelRatio||1,orientation:orient,ratio:ratio(),
+  visualViewport:vv?{scale:+vv.scale.toFixed(2),height:Math.round(vv.height),keyboard:kb}:null,
+  pointer:{present:performance.now()-fingerT<3000,idleMs:Math.round(performance.now()-(fingerT||t0))},
+  hidden:document.hidden,focus:document.hasFocus(),reducedMotion:reduce,colorScheme:DK.matches?"dark":"light",online:navigator.onLine,
+  mood:tgt.mood,awareness:Math.round(aw*100)};}
+addEventListener("resize",()=>{const o=innerWidth>innerHeight?"landscape":"portrait";
+  if(o!==orient){orient=o;kick={y:o==="landscape"?14:0,p:o==="portrait"?-8:0,u:performance.now()+700};sense("think","orientation","giraste el mundo · you turned the world");clearTimeout(back);back=setTimeout(()=>sense("ready","orientation settled","listo · ready"),1400);return;}
+  if(zoomed||kb)return; if(!kick||performance.now()>kick.u+700){ if(tgt.mood!=="work") sense("work","resize","me estiran · resizing"); clearTimeout(rz); rz=setTimeout(()=>sense("ready","resize end","listo · ready"),250);} });
+if(vv) vv.addEventListener("resize",()=>{const z=vv.scale>1.05;
+  if(z!==zoomed){zoomed=z;z?sense("hold","pinch zoom","me acercas · close-up"):sense("think","zoom reset","vuelvo a escala · back to scale");return;}
+  const k=!z&&vv.height<.75*innerHeight; if(k!==kb){kb=k;k?sense("think","keyboard","te escucho · listening"):sense("ready","keyboard closed","listo · ready");}});
+document.addEventListener("visibilitychange",()=>{ if(document.hidden){clearTimeout(back);sense("sleep","hidden","a oscuras · lights out");}
+  else {fingerT=0;t0=performance.now();idleLv=0;sense("lost","visible","¿quién está? · who's there?");clearTimeout(back);back=setTimeout(()=>sense("think","returned","pensando · thinking"),1500);} });
+addEventListener("offline",()=>sense("lost","offline","sin red · offline"));
+addEventListener("online",()=>sense("ready","online","red de vuelta · back online"));
+setInterval(()=>{ if(document.hidden||!navigator.onLine||zoomed||kb||cur!==3) return; const i=performance.now()-(fingerT||t0);
+  if(i>30000&&idleLv<2){idleLv=2;sense("sleep","absent 30s","me duermo · going to sleep");}
+  else if(i>8000&&idleLv<1){idleLv=1;sense("tired","absent 8s","¿sigues ahí? · still there?");} },500);
 const fv=$("v-face");
-fv.addEventListener("pointermove",e=>{const r=fv.getBoundingClientRect();finger=[((e.clientX-r.left)/r.width-.5)*60,((e.clientY-r.top)/r.height-.5)*40];});
+fv.addEventListener("pointermove",e=>{const r=fv.getBoundingClientRect();finger=[((e.clientX-r.left)/r.width-.5)*60,((e.clientY-r.top)/r.height-.5)*40];fingerT=performance.now();if(idleLv){idleLv=0;sense("ready","presence","te veo · I see you");}});
+fv.addEventListener("pointerdown",e=>fv.dispatchEvent(new PointerEvent("pointermove",e)));
 fv.addEventListener("pointerleave",()=>finger=null);
 fv.addEventListener("pointerup",e=>{if(e.pointerType!=="mouse")finger=null;});
 
@@ -246,13 +279,14 @@ function renderWit(){
 const logEl=$("log"); const hist=[]; let hi=0;
 function log(s,cls){const d=document.createElement("div");if(cls)d.className=cls;d.textContent=s;logEl.appendChild(d);while(logEl.children.length>5)logEl.firstChild.remove();}
 const C={
-  help(){log("help · cover · ls · anatomy · id <n> · module <n> · face [humor|1-7] · moods · receipts · whoami · agent · clear");},
+  help(){log("help · cover · ls · anatomy · aware · id <n> · module <n> · face [humor|1-7] · moods · receipts · whoami · agent · clear");},
   cover(){mode(0);}, anatomy(){mode(1);}, receipts(){mode(2);log(chain.length+" recibos · cabeza "+prev.slice(0,12));},
   ls(){log(D.modules.map(m=>m.join(" ")).join(" · "));},
   moods(){log(MOODS.map((m,i)=>(i+1)+" "+m).join(" · "));},
   async face(a){ if(!a){mode(3);return log("humor: "+tgt.mood);} const m=MOODS[+a-1]||a; if(await face(m,"cli: face")){mode(3);log("→ "+m);} else {log("humor inválido: "+a,"err");face("hold","cli: error",true);} },
   async id(a){ const x=D.actuators.find(r=>r[0]===+a); if(!x){log("no existe ID "+a+" · son 1–25","err");return face("hold","cli: id inválido",true);} log(`ID ${x[0]} · ${x[1]} · ${D.actuator_types[x[2]]}`+(x[0]>=24?" · lo encarno":"")); face("work","cli: id "+x[0],true); },
   async module(a){ const m=D.modules.find(r=>r[0]===String(a)); if(!m){log("módulos: 100–700","err");return face("hold","cli: módulo inválido",true);} log(m.join(" · ")); face("work","cli: módulo "+m[0],true); },
+  aware(){mode(3);log(JSON.stringify(aware()));},
   whoami(){log("tú: el humano, root. yo: æsymov_face, æ1, solo lectura. Humans decide · agents relay.");},
   agent(){document.body.classList.toggle("agent");},
   clear(){logEl.textContent="";}
@@ -282,12 +316,12 @@ $("agent").textContent=[
  "Source: "+D.source, "Lineage: "+D.lineage.join(" → "), "", ">_æ: "+D.doctrine, "", "(agent toggles back to the surface)"
 ].join("\n");
 $("agent").addEventListener("click",()=>document.body.classList.remove("agent"));
-window.AESYMOV={run,mode,face:m=>face(m,"agent"),get mood(){return tgt.mood},data:D,chain};
+window.AESYMOV={run,mode,face:m=>face(m,"agent"),get mood(){return tgt.mood},aware,data:D,chain};
 
 const q=new URLSearchParams(location.search);
 if(q.has("agent")) document.body.classList.add("agent");
 paintMood(); witness({op:"boot",from:"GENESIS",to:"think",why:"boot"});
-log("🧿 æsymov_face v2.0 · escribe help");
+log("🧿 æsymov_face v2.1 · escribe help");
 if(q.has("face")) mode(3);
 })();
 </script>
