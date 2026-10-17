@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>💡 Asimov 1 · v1.0 · encarnada + cli.llc</title>
+<title>🤖æsymov · v1.1 · encarnada + cli.llc</title>
 <style>
   :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
   *{box-sizing:border-box}
@@ -71,7 +71,7 @@
 </head>
 <body>
 <header>
-  <div class="brand">💡 Asimov 1 · v1.0</div>
+  <div class="brand">🤖æsymov · v1.1</div>
   <div>
     <button id="tab-face" class="on">🤖 encarnada</button>
     <button id="tab-cli">>_ cli.llc</button>
@@ -89,6 +89,7 @@
         <radialGradient id="halo"><stop offset="0" stop-color="var(--c)" stop-opacity="var(--a)"/><stop offset="1" stop-color="var(--c)" stop-opacity="0"/></radialGradient>
         <linearGradient id="torso-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".10"/><stop offset="1" stop-color="#D4AF37" stop-opacity="0"/></linearGradient>
       </defs>
+      <text id="glyph" x="120" y="2" text-anchor="middle" font-size="30" style="opacity:0">🛬</text><text id="glyph-t" x="120" y="318" text-anchor="middle" font-size="11" fill="#D4AF37" font-family="JetBrains Mono,monospace" style="opacity:0"></text>
       <g id="torso"><rect x="72" y="288" width="96" height="42" rx="10" fill="url(#torso-g)" stroke="#D4AF37" stroke-opacity=".35" stroke-width="2"/></g>
       <g id="neck"><path class="ink" d="M100 250 V290 M140 250 V290 M88 292 H152"/></g>
       <g id="head">
@@ -428,7 +429,20 @@
   $("tab-face").onclick = () => setTab("face");
   $("tab-cli").onclick = () => setTab("cli");
 
-  // ═══ LAB: æsymov.osw escucha lo que hacemos (mismo origen) ═══
+
+  // ═══ v1.1 ↺ iteración asintótica: el glifo del ciclo de vida converge, nunca salta ═══
+  const GLYPH = {hold:["🔐","AUTHORIZE · Human stays root"],lost:["🛬","ARRIVE · ¿quién está?"],tired:["📖","ARCHIVE · descansa la memoria"],sleep:["❄️","MOLT · en pausa"],think:["🗳️","EVALUATE · Evidence ≠ Authority"],ready:["💧","INSTANTIATE · listo"],work:["🦞","EXECUTE · en obra"]};
+  const gEl = $("glyph"), gT = $("glyph-t"); let gA = 0, gS = .6, gMood = null, gPrev = performance.now();
+  (function gTick(now){
+    const dt = Math.min(.1,(now-gPrev)/1000); gPrev = now;
+    if (state.mood !== gMood){ gMood = state.mood; const g = GLYPH[gMood]||GLYPH.lost; gEl.textContent = g[0]; gT.textContent = g[0]+" "+g[1]; gA = 0; gS = .6; }
+    gA = asymptote(gA, 1, dt, TAU.mood); gS = asymptote(gS, 1, dt, TAU.motor*2);
+    const bob = Math.sin(now/900)*2*(1-gA*.5);
+    gEl.style.opacity = gA.toFixed(3); gT.style.opacity = (gA*.85).toFixed(3);
+    gEl.setAttribute("transform", `translate(120 ${bob.toFixed(2)}) scale(${gS.toFixed(3)}) translate(-120 0)`);
+    requestAnimationFrame(gTick);
+  })(gPrev);
+  // ═══ LAB: 🤖æsymov escucha lo que hacemos (mismo origen) ═══
   if (new URLSearchParams(location.search).has("mini")) document.body.classList.add("mini");
   addEventListener("message", e => {
     if (e.origin !== location.origin || !e.data || !MOODS.includes(e.data.mood)) return;
@@ -436,7 +450,7 @@
   });
 
   // ═══ ARRANQUE ═══
-  log("💡 Asimov 1 · v1.0 · encarnada + cli.llc", "h");
+  log("🤖æsymov · v1.1 · encarnada + cli.llc · ε → 0 nunca cero", "h");
   log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
   log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
   log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
