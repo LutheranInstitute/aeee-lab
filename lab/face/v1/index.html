@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🤖æsymov · v1.1 · encarnada + cli.llc</title>
+<title>🤖æsymov · v1.2 >_teleprompter · encarnada + cli.llc</title>
 <style>
   :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
   *{box-sizing:border-box}
@@ -67,11 +67,16 @@
   body.mini header,body.mini #panel,body.mini #mood-buttons,body.mini #stage-hud,body.mini #zeitgeist{display:none}
   body.mini main{grid-template-columns:1fr;grid-template-rows:1fr}
   body.mini #stage{background:transparent}
+  #glyph-t{display:none}
+  #tp{position:absolute;left:8px;right:8px;bottom:8px;font:600 13px/1.35 "JetBrains Mono",monospace;color:#D4AF37;text-align:center;min-height:2.7em;pointer-events:none;text-shadow:0 0 8px rgba(212,175,55,.35)}
+  #tp .c{display:inline-block;width:.55em;height:1em;vertical-align:-2px;background:#39e6ff;margin-left:2px;animation:tpb 1s steps(1) infinite}
+  @keyframes tpb{50%{opacity:0}}
+  body.mini #tp{font-size:11px;bottom:2px}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">🤖æsymov · v1.1</div>
+  <div class="brand">🤖æsymov · v1.2 >_teleprompter</div>
   <div>
     <button id="tab-face" class="on">🤖 encarnada</button>
     <button id="tab-cli">>_ cli.llc</button>
@@ -105,6 +110,7 @@
         </g>
       </g>
     </svg>
+    <div id="tp" aria-live="polite"></div>
     <div id="zeitgeist"><div id="zg-clip"></div><div id="zg-clip2"></div><div id="zg-track"></div></div>
   </div>
 
@@ -442,6 +448,32 @@
     gEl.setAttribute("transform", `translate(120 ${bob.toFixed(2)}) scale(${gS.toFixed(3)}) translate(-120 0)`);
     requestAnimationFrame(gTick);
   })(gPrev);
+
+  // ═══ v1.2 >_teleprompter: 🤖æsymov lee el guion en voz de terminal ═══
+  const SCRIPT = [
+    ">_ 🛬 ARRIVE · Bienvenido. Aquí el humano es root.",
+    ">_ 💧 INSTANTIATE · Se abre un entorno. Nadie hereda tu autoridad.",
+    ">_ 🦞 EXECUTE · Muchos agentes proponen. Uno decide.",
+    ">_ 🧶 PRESERVE · El contexto viaja. La autoridad no.",
+    ">_ 🗳️ EVALUATE · Evidence ≠ Authority.",
+    ">_ 🔐 AUTHORIZE · Solo la firma de Yæl publica.",
+    ">_ 📟 WITNESS · Cada cambio deja recibo SHA-256.",
+    ">_ 📖 ARCHIVE · Lo aprendido vuelve a empezar. ↺",
+    ">_ agentic_environments^privateclient.ai",
+    ">_ Make something agents want."
+  ];
+  const tpEl = $("tp"), tpQ = []; let tpI = 0, tpLine = "", tpPos = 0, tpHold = 0;
+  const tpSay = t => { tpQ.unshift(">_ " + String(t).replace(/^>_\s*/,"")); tpPos = tpLine.length; tpHold = 0; };
+  const RMq = matchMedia("(prefers-reduced-motion: reduce)");
+  setInterval(() => {
+    if (tpPos >= tpLine.length){
+      if (tpHold++ < 55 && tpLine) return;
+      tpLine = tpQ.length ? tpQ.shift() : SCRIPT[tpI++ % SCRIPT.length]; tpPos = RMq.matches ? tpLine.length : 0; tpHold = 0;
+    } else tpPos = Math.min(tpLine.length, tpPos + 1);
+    const s = Array.from(tpLine).slice(0, tpPos).join("");
+    tpEl.textContent = s; const c = document.createElement("span"); c.className = "c"; tpEl.appendChild(c);
+  }, 45);
+  on(ev => { if (ev.type === "mood" && ev.why && ev.why !== "human") tpSay(ev.why.replace(/^lab:\s*/,"")); });
   // ═══ LAB: 🤖æsymov escucha lo que hacemos (mismo origen) ═══
   if (new URLSearchParams(location.search).has("mini")) document.body.classList.add("mini");
   addEventListener("message", e => {
@@ -450,7 +482,7 @@
   });
 
   // ═══ ARRANQUE ═══
-  log("🤖æsymov · v1.1 · encarnada + cli.llc · ε → 0 nunca cero", "h");
+  log("🤖æsymov · v1.2 >_teleprompter · encarnada + cli.llc · ε → 0 nunca cero", "h");
   log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
   log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
   log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
