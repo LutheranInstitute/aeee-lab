@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🤖æsymov · v1.5 · ✍️ plano · encarnada + cli.llc</title>
+<title>🤖æsymov · v1.6 · 🧿 ojo de la mente · encarnada + cli.llc</title>
 <style>
   :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
   *{box-sizing:border-box}
@@ -70,14 +70,17 @@
   /* ✍️ plano: nuestra tecnología de dibujo a mano · línea negra sobre crema, cada trazo se dibuja solo */
   body.plano{--bg:#f4efe3;--void:#f4efe3;--ink:#111;--dim:#555;--line:#cfc6b0}
   body.plano #stage{background:#f4efe3}
-  body.plano #stage svg path,body.plano #stage svg rect,body.plano #stage svg circle{fill:none!important;stroke:#111!important;stroke-width:2.2}
+  body.plano #stage svg path,body.plano #stage svg rect,body.plano #stage svg circle:not(#nazar circle){fill:none!important;stroke:#111!important;stroke-width:2.2}
   body.plano #stage svg #fil{stroke-width:9!important}
-  body.plano #stage svg #pupil{fill:#111!important}
   body.plano #stage svg .hand{stroke-dasharray:1;stroke-dashoffset:1;animation:hand 2.4s cubic-bezier(.6,.05,.25,1) forwards;animation-delay:calc(var(--k)*90ms)}
   @keyframes hand{to{stroke-dashoffset:0}}
   body.plano #tp{color:#111;text-shadow:none}
   body.plano #tp .c{background:#111}
   body.plano #stage svg [fill="url(#halo)"]{display:none}
+  /* 🧿 ojo de la mente */
+  #nazar .nz-halo{transform-origin:120px 42px;animation:nz 4s ease-in-out infinite}
+  @keyframes nz{50%{transform:scale(1.18);opacity:.15}}
+  body.plano #stage svg #nazar circle{stroke:#111!important}
   #glyph-t{display:none}
   #tp{position:absolute;left:8px;right:8px;bottom:8px;font:600 13px/1.35 "JetBrains Mono",monospace;color:#D4AF37;text-align:center;min-height:2.7em;pointer-events:none;text-shadow:0 0 8px rgba(212,175,55,.35)}
   #tp .c{display:inline-block;width:.55em;height:1em;vertical-align:-2px;background:#39e6ff;margin-left:2px;animation:tpb 1s steps(1) infinite}
@@ -87,7 +90,7 @@
 </head>
 <body>
 <header>
-  <div class="brand">🤖æsymov · v1.5 · ✍️ plano</div>
+  <div class="brand">🤖æsymov · v1.6 · 🧿 ojo de la mente</div>
   <div>
     <button id="tab-face" class="on">🤖 encarnada</button>
     <button id="tab-cli">>_ cli.llc</button>
@@ -116,7 +119,7 @@
         <rect x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#b87333" stroke-width="2.5"/>
         <path class="ink" d="M52 176 Q60 232 120 240 Q180 232 188 176" style="stroke:#b87333;opacity:.55;stroke-width:2"/>
         <g fill="#b87333"><circle cx="54" cy="128" r="3"/><circle cx="186" cy="128" r="3"/></g>
-        <circle cx="120" cy="38" r="6" fill="#05060a" stroke="#b87333" stroke-width="2"/><circle id="pupil" cx="120" cy="38" r="2.5" fill="#39e6ff"/>
+        <g id="nazar"><circle class="nz-halo" cx="120" cy="42" r="15" fill="none" stroke="#3a6fe0" stroke-width="1.5" opacity=".5"/><circle class="nz" cx="120" cy="42" r="11" fill="#12348f" stroke="#b87333" stroke-width="1.8"/><circle class="nz" cx="120" cy="42" r="8" fill="#ffffff"/><circle class="nz" id="iris" cx="120" cy="42" r="5.6" fill="#5fa8ff"/><circle id="pupil" cx="120" cy="42" r="2.8" fill="#05060a"/></g>
         <g id="bulb" transform="translate(84 76) scale(.36)">
           <path class="ink" d="M70 200 C70 170 30 150 30 100 A70 70 0 1 1 170 100 C170 150 130 170 130 200 Z" style="stroke-width:5;display:none"/>
           <path class="ink" d="M86 200 V180 M114 200 V180 M74 214 H126" style="stroke-width:5;display:none"/>
@@ -320,8 +323,9 @@
     const hscale = Math.max(.7, Math.cos(state.neck_yaw));
     $("head").setAttribute("transform",
       `translate(${(120-120*hscale + (y*0.6)).toFixed(1)} ${(p*1.1).toFixed(1)}) scale(${hscale.toFixed(3)} 1) rotate(${(p*0.35).toFixed(1)} 120 250)`);
-    $("pupil").setAttribute("cx", (120 + y*0.15).toFixed(1));
-    $("pupil").setAttribute("cy", (38 + p*0.12).toFixed(1));
+    { const ix=(120 + y*0.06).toFixed(1), iy=(42 + p*0.05).toFixed(1); $("iris").setAttribute("cx", ix); $("iris").setAttribute("cy", iy); }
+    $("pupil").setAttribute("cx", (120 + y*0.09).toFixed(1));
+    $("pupil").setAttribute("cy", (42 + p*0.07).toFixed(1));
     const r = document.documentElement.style;
     r.setProperty("--c", c);
     r.setProperty("--a", state.battery === null ? "0.06" : (0.15 + 0.5*clamp01(state.battery/100)).toFixed(2));
@@ -520,7 +524,7 @@
   });
 
   // ═══ ARRANQUE ═══
-  log("🤖æsymov · v1.5 · ✍️ plano · encarnada + cli.llc · ε → 0 nunca cero", "h");
+  log("🤖æsymov · v1.6 · 🧿 ojo de la mente · encarnada + cli.llc · ε → 0 nunca cero", "h");
   log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
   log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
   log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
