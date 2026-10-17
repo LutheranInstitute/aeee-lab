@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>💡 Asimov 1 · v1.0 · encarnada + cli.llc</title>
+<style>
+  :root{--bg:#0b0a08;--void:#05060a;--ink:#e8e2d0;--dim:#9a927c;--gold:#D4AF37;--gold-dim:#8a6f2e;--line:#2a251a;--ok:#7bbf6a;--warn:#d49238;--no:#c05a4a;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:13px/1.5 var(--mono)}
+  body{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+  header{border-bottom:1px solid var(--line);padding:8px 14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;flex-shrink:0}
+  header .brand{color:var(--gold);font-weight:bold}
+  header .law{color:var(--dim);font-size:11px}
+  header button{background:transparent;border:1px solid var(--gold-dim);color:var(--gold);border-radius:6px;padding:2px 10px;cursor:pointer;font:11px var(--mono)}
+  header button.on{background:#1a1508;border-color:var(--gold)}
+
+  main{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:0}
+  @media(max-width:900px){main{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) minmax(0,42vh)}}
+
+  /* ═══ VISTA ENCARNADA ═══ */
+  #stage{position:relative;display:flex;flex-direction:column;min-height:0;background:var(--void)}
+  #stage .ink{fill:none;stroke:#D4AF37;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  svg{width:100%;height:100%;flex:1;overflow:visible;display:block;min-height:0}
+  #zeitgeist{position:absolute;bottom:0;left:0;width:100%;height:20px;overflow:hidden;border-top:1px solid var(--line);background:rgba(5,6,10,.7);font-size:10.5px;letter-spacing:.06em;flex-shrink:0}
+  #zg-track{display:inline-flex;white-space:nowrap;will-change:transform;align-items:center;height:20px}
+  .zg-item{padding:0 3.2em;display:inline-flex;gap:.7em;align-items:center}
+  .zg-item b{color:var(--zc,#39e6ff);font-weight:normal}
+  .zg-item .h{color:#5a4a1a}
+  #zg-clip{position:absolute;top:0;left:0;width:70px;height:100%;pointer-events:none;background:linear-gradient(90deg,var(--void),transparent);z-index:2}
+  #zg-clip2{position:absolute;top:0;right:0;width:70px;height:100%;pointer-events:none;background:linear-gradient(-90deg,var(--void),transparent);z-index:2}
+  #stage-hud{position:absolute;top:8px;left:10px;opacity:.55;white-space:pre;font-size:10.5px;pointer-events:none}
+  #mood-buttons{position:absolute;top:8px;right:10px;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+  .mb{background:rgba(5,6,10,.55);border:1px solid #5a4a1a;color:#D4AF37;border-radius:7px;padding:3px 9px;cursor:pointer;font:10.5px var(--mono)}
+  .mb.on{border-color:#D4AF37;background:#1a1508}
+
+  /* ═══ VISTA CLI ═══ */
+  #cli{display:flex;flex-direction:column;min-height:0;background:var(--bg)}
+  #log{flex:1;overflow-y:auto;padding:10px 14px;font-size:12px;min-height:0}
+  #log .line{margin:1px 0;white-space:pre-wrap;word-break:break-word}
+  #log .in{color:var(--ink)} #log .in::before{content:"$ ";color:var(--gold)}
+  #log .sys{color:var(--dim)} #log .sys::before{content:"· ";color:var(--gold-dim)}
+  #log .ok{color:var(--ok)} #log .err{color:var(--no)} #log .ev{color:var(--warn)}
+  #log .grant{color:var(--ok);font-weight:bold}
+  #log .dim{opacity:.6}
+  #log .h{color:var(--gold);border-top:1px dashed var(--line);margin-top:8px;padding-top:6px}
+  form{display:flex;border-top:1px solid var(--line);flex-shrink:0}
+  form::before{content:">_";color:var(--gold);padding:8px 0 8px 14px;font-weight:bold}
+  input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font:13px var(--mono);padding:8px 8px}
+  input::placeholder{color:var(--dim);opacity:.5}
+
+  /* ═══ PANEL ═══ */
+  #panel{border-left:1px solid var(--line);padding:10px 14px;overflow-y:auto;font-size:11px;min-height:0}
+  @media(max-width:900px){#panel{border-left:0;border-top:1px solid var(--line)}}
+  #panel h3{margin:14px 0 4px;color:var(--gold);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:3px}
+  #panel .row{display:flex;justify-content:space-between;gap:8px;margin:2px 0;color:var(--dim)}
+  #panel .row b{color:var(--ink);font-weight:normal;text-align:right}
+  #panel .row b.on{color:var(--ok)} #panel .row b.off{color:var(--no)}
+  #panel .bar{height:6px;border:1px solid var(--line);margin:2px 0 8px;position:relative}
+  #panel .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--gold);transition:width .3s}
+  #panel .card{border:1px solid var(--line);border-radius:6px;padding:5px 8px;margin:4px 0;cursor:pointer}
+  #panel .card:hover{border-color:var(--gold-dim)}
+  #panel .card .id{color:var(--gold-dim)}
+  #panel .card .st{float:right}
+  .st-todo{color:var(--dim)} .st-review{color:var(--warn)} .st-running{color:var(--ink)} .st-done{color:var(--ok)} .st-blocked{color:var(--no)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">💡 Asimov 1 · v1.0</div>
+  <div>
+    <button id="tab-face" class="on">🤖 encarnada</button>
+    <button id="tab-cli">>_ cli.llc</button>
+  </div>
+  <div class="law">Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root</div>
+</header>
+
+<main>
+  <!-- ═══ ENCARNADA ═══ -->
+  <div id="stage">
+    <div id="stage-hud"></div>
+    <div id="mood-buttons"></div>
+    <svg viewBox="-40 -20 320 340" role="img" aria-label="Cara Asimov 1: casco, cámara monocular, cuatro micrófonos, foco con filamento de humor">
+      <defs>
+        <radialGradient id="halo"><stop offset="0" stop-color="var(--c)" stop-opacity="var(--a)"/><stop offset="1" stop-color="var(--c)" stop-opacity="0"/></radialGradient>
+        <linearGradient id="torso-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".10"/><stop offset="1" stop-color="#D4AF37" stop-opacity="0"/></linearGradient>
+      </defs>
+      <g id="torso"><rect x="72" y="288" width="96" height="42" rx="10" fill="url(#torso-g)" stroke="#D4AF37" stroke-opacity=".35" stroke-width="2"/></g>
+      <g id="neck"><path class="ink" d="M100 250 V290 M140 250 V290 M88 292 H152"/></g>
+      <g id="head">
+        <circle cx="120" cy="130" r="150" fill="url(#halo)"/>
+        <path class="ink" d="M40 70 Q40 20 120 20 Q200 20 200 70 V190 Q200 250 120 250 Q40 250 40 190 Z"/>
+        <path class="ink" d="M58 80 Q58 50 120 50 Q182 50 182 80 V180 Q182 225 120 225 Q58 225 58 180 Z" style="opacity:.45"/>
+        <g class="ink"><circle cx="46" cy="110" r="3"/><circle cx="46" cy="150" r="3"/><circle cx="194" cy="110" r="3"/><circle cx="194" cy="150" r="3"/></g>
+        <circle class="ink" cx="120" cy="38" r="8"/><circle id="pupil" cx="120" cy="38" r="3" fill="#D4AF37"/>
+        <g id="bulb" transform="translate(70 62) scale(.5)">
+          <path class="ink" d="M70 200 C70 170 30 150 30 100 A70 70 0 1 1 170 100 C170 150 130 170 130 200 Z" style="stroke-width:5"/>
+          <path class="ink" d="M86 200 V180 M114 200 V180 M74 214 H126" style="stroke-width:5"/>
+          <path id="fil" class="ink" style="stroke-width:6" d=""/>
+        </g>
+      </g>
+    </svg>
+    <div id="zeitgeist"><div id="zg-clip"></div><div id="zg-clip2"></div><div id="zg-track"></div></div>
+  </div>
+
+  <!-- ═══ CLI ═══ -->
+  <div id="cli" hidden>
+    <div id="log"></div>
+    <form onsubmit="return false"><input id="cmd" placeholder="comando… (help)" autocomplete="off" spellcheck="false"/></form>
+  </div>
+
+  <!-- ═══ PANEL COMPARTIDO ═══ -->
+  <div id="panel">
+    <h3>Humor</h3>
+    <div class="row"><span>estado</span><b id="pm-mood">—</b></div>
+    <div class="row"><span>ε (convergencia)</span><b id="pm-err">—</b></div>
+    <h3>Cuerpo</h3>
+    <div class="row"><span>neck yaw</span><b id="pm-yaw">—</b></div>
+    <div class="row"><span>neck pitch</span><b id="pm-pitch">—</b></div>
+    <div class="row"><span>audio</span><b id="pm-audio">—</b></div>
+    <div class="row"><span>batería</span><b id="pm-bat">—</b></div>
+    <h3>Awareness</h3>
+    <div class="row"><span>viewport</span><b id="pm-vp">—</b></div>
+    <div class="row"><span>persona</span><b id="pm-person">—</b></div>
+    <div class="row"><span>conciencia</span><b id="pm-aw">0%</b></div>
+    <div class="bar"><i id="pm-awbar" style="width:0%"></i></div>
+    <h3>#opc</h3>
+    <div id="opc-rows"></div>
+    <h3>Tablero</h3>
+    <div id="board"></div>
+    <h3>Testigos</h3>
+    <div class="row"><span>recibos</span><b id="pm-receipts">0</b></div>
+    <div class="row"><span>último</span><b id="pm-last-r" style="font-size:9px">—</b></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ═══════════════════════════════════════════════════════════
+  //  NÚCLEO COMPARTIDO — una sola máquina, dos superficies
+  //  La cara encarnada y el terminal CLI leen y escriben
+  //  el mismo estado. Fuente única de verdad: este objeto.
+  // ═══════════════════════════════════════════════════════════
+  const MOODS = ["hold","lost","tired","sleep","think","ready","work"];
+  const NAMES = {hold:"retener",lost:"perdido",tired:"cansado",sleep:"dormido",think:"pensando",ready:"listo",work:"trabajando"};
+  const FIL = {
+    think: ["#39e6ff","M86 180 L74 100 L100 118 L74 136 M106 138 L130 138 L114 180"],
+    ready: ["#7CFC9A","M86 180 L70 92 Q78 78 86 92 Q100 70 114 92 Q122 78 130 92 L114 180 M78 128 Q100 150 122 128"],
+    work:  ["#D4AF37","M86 180 L70 95 L86 88 L114 88 L130 95 L114 180 M76 130 Q100 {M} 124 130"],
+    sleep: ["#4060ff","M86 180 L70 100 Q78 106 86 100 Q100 104 114 100 Q122 106 130 100 L114 180 M88 138 Q100 142 112 138"],
+    tired: ["#ffb347","M86 180 L70 98 Q78 92 86 98 Q100 96 114 98 Q122 92 130 98 L114 180 M82 142 Q100 132 118 142"],
+    lost:  ["#888888","M86 180 L74 92 L66 100 M74 100 L66 92 M86 96 Q100 110 114 96 L126 92 L134 100 M126 100 L134 92 L114 180 M84 140 Q92 132 100 140 Q108 148 116 140"],
+    hold:  ["#ff3355","M86 180 L66 90 L86 100 L100 88 L114 100 L134 90 L114 180 M78 140 L90 132 L100 142 L110 132 L122 140"]
+  };
+  const ZG = {
+    think:["el pensamiento es el único motor que no consume batería","∂(comprensión)/∂t > 0 · aprender es converger","toda pregunta bien hecha ya es media respuesta"],
+    ready:["la aguja no pregunta cuándo coser — ya está en la mano","listo no es rápido: es haber quitado todo lo demás","la preparación es la mitad invisible del servicio"],
+    work:["del hilo a la aguja · de la intención al servicio","servir es la única prueba de la fe que se puede medir","Manos de Amor: la fe se hace visible en lo concreto"],
+    sleep:["dormir también es mantenimiento — el cuerpo escribe memoria","en reposo el error ε no crece: se conserva","la noche carga la batería del que sirve de día"],
+    tired:["el cansancio es evidencia, no derrota","cansado ≠ perdido · quédate en la ruta","el que se cansa sirviendo, sirvió"],
+    lost:["sin authority el estado es honesto: gris","lost no es un fallo: es un estado declarado","recalculando ruta · el norte no se mueve, uno sí"],
+    hold:["retener es una decisión activa, no una pausa","lo que se retiene, se protege · la autoridad no se propaga","aguantar la mano es también un servicio"]
+  };
+  const POSTURE = {
+    hold:{yaw:0,pitch:-0.06}, lost:{yaw:0,pitch:0.10}, tired:{yaw:0.12,pitch:0.14},
+    sleep:{yaw:-0.18,pitch:0.22}, think:{yaw:0.25,pitch:-0.04},
+    ready:{yaw:0,pitch:-0.10}, work:{yaw:-0.10,pitch:-0.14}
+  };
+  const TAU = { motor:0.18, mood:0.9 };
+  const clamp01 = x => Math.max(0, Math.min(1, x));
+  function asymptote(y,x,dt,tau){ return y + (x-y)*(1-Math.exp(-dt/tau)); }
+
+  const target = { mood:"think", neck_yaw:0, neck_pitch:0, audio:0, battery:null };
+  const state  = { mood:"think", neck_yaw:0, neck_pitch:0, audio:0, battery:null };
+
+  // Tablero cli.llc: los 7 humores como tarjetas
+  const CARDS = MOODS.map((m,i)=>({ id:String(i+1).padStart(3,"0"), name:NAMES[m], mood:m, st:"todo" }));
+  CARDS[4].st = "running";
+
+  // ═══ EVENT BUS — toda transición emite, ambas superficies escuchan ═══
+  const listeners = [];
+  function emit(ev){ listeners.forEach(fn => fn(ev)); }
+  function on(fn){ listeners.push(fn); }
+
+  // ═══ TESTIGO — cadena SHA-256 real (Web Crypto), génesis anclada ═══
+  const chain = [];
+  async function witness(event){
+    const prev = chain.length ? chain[chain.length-1].hash : "GENESIS";
+    let canonical;
+    try {
+      canonical = JSON.stringify(event, Object.keys(event).sort());
+    } catch(e){ canonical = String(event); }
+    const hash = await crypto.subtle.digest("SHA-256",
+      new TextEncoder().encode(prev + "|" + canonical));
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    chain.push({ hash: hex, event });
+    return hex;
+  }
+
+  // ═══ AWARENESS ═══
+  let vp = { w: innerWidth, h: innerHeight, dpr: devicePixelRatio||1 };
+  const onVP = () => { vp = { w: innerWidth, h: innerHeight, dpr: devicePixelRatio||1 }; };
+  addEventListener("resize", onVP);
+  if (window.visualViewport) visualViewport.addEventListener("resize", onVP);
+  const ptr = { x:0, y:0, t:-1e9 };
+  addEventListener("pointermove", e => { ptr.x=e.clientX; ptr.y=e.clientY; ptr.t=performance.now(); }, {passive:true});
+  addEventListener("pointerdown", e => { ptr.x=e.clientX; ptr.y=e.clientY; ptr.t=performance.now(); }, {passive:true});
+  const personPresent = () => performance.now() - ptr.t < 3000;
+  function personAim(){
+    const r = document.querySelector("#stage svg").getBoundingClientRect();
+    const px = r.left + r.width*0.5, py = r.top + r.height*0.17;
+    const dx = (ptr.x-px)/Math.max(r.width,1), dy = (ptr.y-py)/Math.max(r.height,1);
+    return { yaw: Math.max(-0.55,Math.min(0.55,dx*2.2)), pitch: Math.max(-0.38,Math.min(0.38,dy*2.0)) };
+  }
+  let savedMood = null;
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden){ savedMood = target.mood; setMood("sleep", "tab oculto — nadie mira"); }
+    else if (savedMood){ const s = savedMood; savedMood = null; last = performance.now(); setMood(s, "tab visible — resincroniza"); }
+  });
+
+  const PROBES = [
+    ["viewport", ()=>"verified"], ["pointer", ()=> "verified"],
+    ["touch", ()=> matchMedia("(pointer: coarse)").matches ? "verified" : "absent"],
+    ["dpr", ()=> "verified"], ["reduced-motion", ()=> "verified"],
+    ["color-scheme", ()=> "verified"], ["network", ()=> "verified"],
+    ["webcrypto", ()=> (typeof crypto!=="undefined" && crypto.subtle) ? "verified" : "absent"],
+    ["fullscreen", ()=> document.documentElement.requestFullscreen ? "verified" : "absent"],
+    ["battery-api", ()=> navigator.getBattery ? "verified" : "absent"],
+    ["camera", ()=> "entry"], ["microphone", ()=> "entry"]
+  ];
+  const opc = PROBES.map(([n])=>({ name:n, state:"dim" }));
+  let aw = 0, awDisplay = 0;
+  PROBES.forEach(([n, fn], i) => setTimeout(() => {
+    opc[i].state = fn(); aw = (i+1)/PROBES.length;
+    emit({ type:"probe", name:n, state:opc[i].state });
+  }, 300 + i*280));
+
+  // ═══ CAMBIO DE HUMOR — única puerta, con testigo ═══
+  async function setMood(m, why){
+    const prev = target.mood;
+    target.mood = m;
+    const hash = await witness({ op:"mood", from:prev, to:m, why:why||"human" });
+    emit({ type:"mood", from:prev, to:m, why:why||"human", hash });
+  }
+
+  // ═══ ZEITGEIST ticker (encarnada) ═══
+  const zgTrack = $("zg-track");
+  let zgOffset = 0, zgHalf = 1;
+  function zgBuild(mood){
+    const lines = (ZG[mood] || ZG.lost).map(t => `<span class="zg-item"><span class="h">#zeitgeist</span> <b>${t}</b></span>`);
+    const half = lines.join("");
+    zgTrack.innerHTML = half + half;
+    zgHalf = zgTrack.scrollWidth/2 || 1;
+    zgOffset = zgOffset % zgHalf;
+  }
+  zgBuild("think");
+
+  // ═══ RELOJ ASINTÓTICO ═══
+  let last = performance.now(), acc = 0; const STEP = 1/60;
+  function tick(now){
+    let dt = (now-last)/1000; last = now;
+    if (dt > 0.25) dt = 0.25;
+    acc += dt;
+    while (acc >= STEP){
+      const h = STEP, t = now/1000;
+      if (!reduced){
+        const p = POSTURE[target.mood] || POSTURE.think;
+        const person = personPresent() ? personAim() : null;
+        target.neck_yaw   = person ? person.yaw   : p.yaw  + .30*Math.sin(t*.7);
+        target.neck_pitch = person ? person.pitch : p.pitch + .12*Math.sin(t*1.1+1);
+        target.audio = target.mood === "work" ? Math.abs(Math.sin(t*9)) : (target.mood==="sleep"?.02:0);
+      }
+      state.neck_yaw   = asymptote(state.neck_yaw, target.neck_yaw, h, TAU.motor);
+      state.neck_pitch = asymptote(state.neck_pitch, target.neck_pitch, h, TAU.motor);
+      state.audio      = asymptote(state.audio, target.audio, h, TAU.mood);
+      awDisplay        = asymptote(awDisplay, aw, h, 0.6);
+      acc -= STEP;
+    }
+    state.mood = target.mood;
+    state.battery = target.battery;
+    if (!reduced){ zgOffset = (zgOffset + dt*28) % zgHalf; zgTrack.style.transform = `translateX(${-zgOffset}px)`; }
+    drawFace(); drawPanel();
+    requestAnimationFrame(tick);
+  }
+
+  // ═══ DIBUJO: encarnada ═══
+  function drawFace(){
+    const key = FIL[state.mood] ? state.mood : "lost";
+    const [c, d] = FIL[key];
+    $("fil").setAttribute("d", d.replace("{M}", (140 + state.audio*30).toFixed(0)));
+    const y = state.neck_yaw*57.3, p = state.neck_pitch*57.3;
+    const hscale = Math.max(.7, Math.cos(state.neck_yaw));
+    $("head").setAttribute("transform",
+      `translate(${(120-120*hscale + (y*0.6)).toFixed(1)} ${(p*1.1).toFixed(1)}) scale(${hscale.toFixed(3)} 1) rotate(${(p*0.35).toFixed(1)} 120 250)`);
+    $("pupil").setAttribute("cx", (120 + y*0.15).toFixed(1));
+    $("pupil").setAttribute("cy", (38 + p*0.12).toFixed(1));
+    const r = document.documentElement.style;
+    r.setProperty("--c", c);
+    r.setProperty("--a", state.battery === null ? "0.06" : (0.15 + 0.5*clamp01(state.battery/100)).toFixed(2));
+    r.setProperty("--zc", c);
+    const err = Math.abs(target.neck_yaw-state.neck_yaw)+Math.abs(target.neck_pitch-state.neck_pitch);
+    $("stage-hud").textContent =
+      `yaw ${y.toFixed(0)}° pitch ${p.toFixed(0)}° · ε ${err.toFixed(3)} rad\n`+
+      `awareness ${(awDisplay*100|0)}% · persona ${personPresent()?"presente":"—"} · ${state.battery===null?"bat —":("bat "+(state.battery|0)+"%")}\n`+
+      "DEMO (simulación) · read-only æ1 · Human stays root";
+    document.querySelectorAll(".mb").forEach(b => b.classList.toggle("on", b.dataset.m === key));
+  }
+
+  // ═══ DIBUJO: panel compartido ═══
+  function drawPanel(){
+    const y = state.neck_yaw*57.3, p = state.neck_pitch*57.3;
+    const err = Math.abs(target.neck_yaw-state.neck_yaw)+Math.abs(target.neck_pitch-state.neck_pitch);
+    $("pm-mood").textContent = NAMES[state.mood];
+    $("pm-err").textContent = err.toFixed(3)+" rad";
+    $("pm-yaw").textContent = state.neck_yaw.toFixed(3);
+    $("pm-pitch").textContent = state.neck_pitch.toFixed(3);
+    $("pm-audio").textContent = (state.audio*100|0)+"%";
+    $("pm-bat").textContent = state.battery===null ? "— (sin telemetría)" : state.battery+"%";
+    $("pm-vp").textContent = `${vp.w}×${vp.h} · dpr ${vp.dpr.toFixed(1)}`;
+    $("pm-person").textContent = personPresent() ? "presente" : "—";
+    $("pm-person").className = personPresent() ? "on" : "";
+    $("pm-aw").textContent = (awDisplay*100|0)+"%";
+    $("pm-awbar").style.width = (awDisplay*100)+"%";
+    $("opc-rows").innerHTML = opc.map(o =>
+      `<div class="row"><span>${o.name}</span><b class="${o.state==="verified"?"on":o.state==="absent"?"off":""}">${o.state}</b></div>`).join("");
+    $("board").innerHTML = CARDS.map(c =>
+      `<div class="card" data-m="${c.mood}"><span class="id">${c.id}</span> <span class="st st-${c.st}">${c.st}</span> ${c.name}</div>`).join("");
+    $("pm-receipts").textContent = chain.length;
+    $("pm-last-r").textContent = chain.length ? chain[chain.length-1].hash.slice(0,16)+"…" : "—";
+    // clic en tarjeta = pedir ese humor
+    document.querySelectorAll("#board .card").forEach(el => el.onclick = () => setMood(el.dataset.m, "panel: tarjeta clic"));
+  }
+
+  // ═══ CLI — la superficie administrativa ═══
+  const logEl = $("log"), cmd = $("cmd");
+  function log(text, cls){
+    const d = document.createElement("div");
+    d.className = "line" + (cls ? " "+cls : "");
+    d.textContent = text;
+    logEl.appendChild(d);
+    while (logEl.children.length > 400) logEl.removeChild(logEl.firstChild);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  const CMDS = {
+    help(){ log("comandos: help · mood <1-7|nombre> · status · board · sign <NNN> · zeitgeist · receipts · clear"); },
+    async mood(arg){
+      const m = MOODS[+arg-1] || (NAMES[arg] ? arg : null);
+      if (!m) return log(`mood inválido: ${arg} — usa 1-7 o nombre`, "err");
+      await setMood(m, "cli: mood");
+      log(`mood → ${m} (${NAMES[m]})`, "ok");
+    },
+    status(){ log(`mood ${state.mood} · ε ${(Math.abs(target.neck_yaw-state.neck_yaw)+Math.abs(target.neck_pitch-state.neck_pitch)).toFixed(3)} · aw ${(awDisplay*100|0)}% · persona ${personPresent()?"presente":"—"} · recibos ${chain.length}`, "sys"); },
+    board(){ CARDS.forEach(c => log(`${c.id} ${c.name.padEnd(10)} ${c.st}`, "sys")); },
+    async sign(arg){
+      if (!arg) return log("uso: sign <NNN> — la firma de Yæl concede done, this-act-only", "err");
+      const c = CARDS.find(c => c.id === arg);
+      if (!c) return log(`tarjeta ${arg} no existe`, "err");
+      if (c.st === "done") return log(`${arg} ya está done`, "dim");
+      c.st = "done";
+      const hash = await witness({ op:"grant", card:arg, by:"yæl", note:"this-act-only, no se propaga" });
+      emit({ type:"grant", card:arg, hash });
+      log(`YÆL FIRMA ${arg} · ${c.name} → done · receipt ${hash.slice(0,16)}…`, "grant");
+    },
+    zeitgeist(){ (ZG[state.mood]||ZG.lost).forEach(l => log(`#zeitgeist ${l}`, "dim")); },
+    receipts(){
+      log(`cadena de testigos: ${chain.length} recibo(s), génesis anclada`, "sys");
+      chain.slice(-5).forEach(r => log(`  ${r.hash.slice(0,24)}… ${r.event.op}${r.event.to?(" "+r.event.to):""}${r.event.card?(" "+r.event.card):""}`, "dim"));
+    },
+    clear(){ logEl.innerHTML = ""; }
+  };
+  const HISTORY = []; let hIdx = -1;
+  function run(raw){
+    const line = raw.trim(); if (!line) return;
+    log(line, "in"); HISTORY.unshift(line); hIdx = -1;
+    const [c, ...rest] = line.split(/\s+/);
+    const fn = CMDS[c.toLowerCase()];
+    if (fn) fn(rest.join(" ")); else log(`comando desconocido: ${c} — prueba help`, "err");
+  }
+  cmd.addEventListener("keydown", e => {
+    if (e.key === "Enter"){ run(cmd.value); cmd.value = ""; }
+    else if (e.key === "ArrowUp"){ if (hIdx < HISTORY.length-1) cmd.value = HISTORY[++hIdx]; e.preventDefault(); }
+    else if (e.key === "ArrowDown"){ if (hIdx > 0) cmd.value = HISTORY[--hIdx]; else { cmd.value = ""; hIdx = -1; } e.preventDefault(); }
+  });
+
+  // ═══ BUS → CLI: toda transición se registra ═══
+  on(ev => {
+    if (ev.type === "probe") log(`#opc ${ev.name} → ${ev.state}`, ev.state === "verified" ? "ok" : "dim");
+    if (ev.type === "mood"){
+      zgBuild(ev.to);
+      const c = CARDS.find(c => c.mood === ev.to);
+      log(`mood ${ev.from} → ${ev.to} (${ev.why}) · receipt ${ev.hash.slice(0,16)}…`, "ev");
+      if (c && c.st !== "done"){ c.st = "running"; log(`tarjeta ${c.id} → running`, "dim"); }
+      else if (c && c.st === "done"){ log(`tarjeta ${c.id} ya firmada (done) — el humor se muestra pero la tarjeta queda`, "dim"); }
+    }
+  });
+
+  // ═══ ENCARNADA: botones de humor (piden, el bus con testigo concede) ═══
+  MOODS.forEach((m,i) => {
+    const b = document.createElement("button");
+    b.className = "mb"; b.dataset.m = m;
+    b.textContent = `${i+1} ${NAMES[m]}`;
+    b.onclick = () => setMood(m, "encarnada: botón");
+    $("mood-buttons").appendChild(b);
+  });
+  addEventListener("keydown", e => {
+    if (document.activeElement === cmd) return;
+    const i = +e.key;
+    if (i >= 1 && i <= 7) setMood(MOODS[i-1], "encarnada: teclado");
+  });
+
+  // ═══ PESTAÑAS ═══
+  let tab = "face";
+  function setTab(t){
+    tab = t;
+    $("stage").hidden = t !== "face";
+    $("cli").hidden = t !== "cli";
+    $("tab-face").classList.toggle("on", t === "face");
+    $("tab-cli").classList.toggle("on", t === "cli");
+  }
+  $("tab-face").onclick = () => setTab("face");
+  $("tab-cli").onclick = () => setTab("cli");
+
+  // ═══ ARRANQUE ═══
+  log("💡 Asimov 1 · v1.0 · encarnada + cli.llc", "h");
+  log("una máquina, dos superficies: la cara encarna, el terminal administra", "sys");
+  log("Yæl decide · el cuerpo reporta · Evidence ≠ Authority · Human stays root", "sys");
+  log("cambios de humor y firmas dejan recibo SHA-256 en cadena — receipts", "dim");
+  log("escribe help para ver comandos", "dim");
+  state.neck_yaw = -0.6; state.neck_pitch = 0.3;
+  witness({ op:"genesis", note:"Human stays root" }).then(h => log(`testigo génesis: ${h.slice(0,24)}…`, "dim"));
+  setTab("face");
+  requestAnimationFrame(t => { last = t; requestAnimationFrame(tick); });
+})();
+</script>
+</body>
+</html>
