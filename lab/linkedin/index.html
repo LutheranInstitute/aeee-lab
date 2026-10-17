@@ -102,12 +102,19 @@ iframe{width:100%;height:62vh;border:1px solid var(--line);border-radius:8px;bac
 <div id="ae" aria-live="polite"><iframe src="../face/v1/?mini" title="æsymov.osw"></iframe><div id="ae-say">æsymov.osw · leyendo</div></div>
 <script>
 (()=>{const f=document.querySelector('#ae iframe'),say=document.getElementById('ae-say');
-const map=[["Activos","ready","activos verificados"],["Por solicitar","think","¿qué API pedimos?"],["Flujo","work","embudo en marcha"],["Autoridad","hold","Human stays root"],["Páginas","think","7 páginas, Super admin"],["Grupo","work","#IOA → conversación"],["Cli.llc","work","doola global · DAOLLC local"],["Pendientes","tired","4 pendientes"],["Recepción","ready","aquí recibo al visitante"]];
+const map=[["Activos","ready","🛬 ARRIVE · activos verificados"],["Acceso API","think","🔐 VERIFY · llaves en væult"],["Por solicitar","think","🗳️ JUDGE · ¿qué API pedimos?"],["Flujo","work","🦞 MOLT · el ciclo corre"],["Autoridad","hold","🔐 AUTHORIZE · Human stays root"],["Páginas","think","🧶 PERSIST · 7 páginas"],["Grupo","work","🦞 #IOA → conversación"],["Cli.llc","work","🦞 doola · DAOLLC"],["Pendientes","tired","❄️ pendientes"],["Recepción","ready","📟 WITNESS · aquí recibo"]];
 const send=(m,w)=>{f.contentWindow&&f.contentWindow.postMessage({mood:m,why:w},location.origin);say.textContent="æsymov.osw · "+w};
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target.textContent,r=map.find(x=>t.includes(x[0]));if(r)send(r[1],r[2])}),{rootMargin:"0px 0px -60% 0px"});
 document.querySelectorAll('h2').forEach(x=>io.observe(x));
 document.addEventListener('click',e=>{const a=e.target.closest('a');if(a)send('work','abriendo '+(a.textContent||'enlace').trim().slice(0,22))});
 let idle;const wake=()=>{clearTimeout(idle);idle=setTimeout(()=>send('sleep','descansando'),45000)};['scroll','pointermove','keydown'].forEach(ev=>addEventListener(ev,wake,{passive:true}));wake();
-f.addEventListener('load',()=>send('think','leyendo el laboratorio'));})();
+
+/* ↺ iteración: æsymov escucha al micro-kernel BÆSIC (mismo origen, solo lectura; el archivo congelado no se toca) */
+const kb=document.querySelector('iframe[src="ael-basic/"]');
+if(kb)kb.addEventListener('load',()=>{try{const d=kb.contentDocument,st=d.getElementById('state'),lg=d.getElementById('log');
+const R={"ACTIVE":["ready","💧 ACTIVE · el kernel despierta"],"PAUSED":["sleep","❄️ PAUSED · muda en pausa"],"ARCHIVED":["tired","📖 ARCHIVED · solo 🛬 lo reabre"]};
+new MutationObserver(()=>{const t=st.textContent;for(const k in R)if(t.includes(k)){send(R[k][0],R[k][1]);break}}).observe(st,{childList:true,characterData:true,subtree:true});
+new MutationObserver(()=>{const t=lg.textContent;if(t.includes('COPIED'))send('work','📟 recibo copiado · fork libre');else if(t.includes('REJECTED'))send('hold','🗳️ rechazado · archivado')}).observe(lg,{childList:true,characterData:true,subtree:true});}catch(e){}});
+f.addEventListener('load',()=>send('think','🛬 ARRIVE · leyendo el lab'));})();
 </script>
 </body></html>
