@@ -20,14 +20,24 @@ iframe{width:100%;height:62vh;border:1px solid var(--line);border-radius:8px;bac
 <div class="c"><b>Trayectoria</b><br>Productor de Telemundo.com · banca privada (BBVA Compass, Banorte, Lone Star) · desarrollo económico (McAllen, La Gloria)</div>
 </div>
 
+<h2>Acceso API · oportunidades · 2026-10-16</h2>
+<div class="grid">
+<div class="c"><b>Llaves</b><br><span class="ok">Client ID ✓</span> · <span class="ok">Client Secret en væult ✓</span><br><span class="wa">regenerar el secreto al montar el servidor</span></div>
+<div class="c"><b>1 · Entrar con LinkedIn</b><br>identidad real (nombre, foto, email verificado) en llm.store · reservas sin formularios ni spam · filtro <i>nunca alumnos</i> por email</div>
+<div class="c"><b>2 · Publicar en tu perfil</b><br>~8,500 seguidores · texto, imagen, video y enlaces · borrador → <b>firma de Yæl</b> → publica · cada post con recibo SHA-256</div>
+<div class="c"><b>3 · Ya, sin servidor</b><br>token de 60 días desde el generador OAuth del portal → væult → Hark publica con firma mientras se monta el login</div>
+<div class="c"><b>4 · Producimos en público</b><br>cada pieza de Tumblr (Estanzuela Pixel 🪡, Manos de Amor) cruza a LinkedIn con firma · Evidence ≠ Authority</div>
+<div class="c"><b>5 · Las 7 páginas</b><br>Community Management API va en una <b>app aparte</b> (debe ser su único producto) · email de empresa verificado y entidad legal · Dev tier: 500 llamadas / 24 h</div>
+</div>
+
 <h2>Por solicitar (opcional)</h2>
 <div class="grid">
-<div class="c"><b>Community Management API</b><br><span class="d">publicar y medir en la página de LLM.store</span></div>
+<div class="c"><b>Community Management API</b><br><span class="d">publicar y medir como las páginas · app nueva, solo este producto</span></div>
 <div class="c"><b>Events Management / Live Events</b><br><span class="d">el streaming global multilingüe</span></div>
 </div>
 
 <h2>Flujo · As above | so below</h2>
-<pre>visitante ──▶ [ Entrar con LinkedIn ] ──OIDC──▶ droplet (secreto en væult, nunca en repo)
+<pre>visitante ──▶ [ Entrar con LinkedIn ] ──OIDC──▶ servidor (Hermes→llm.store o Supabase · secreto en væult, nunca en repo)
                                               │
      perfil: nombre · titular · foto · email  ▼
          Asimov 1 💡 mood: think → ready   ──▶  cita 1:1 (Cal.com + Stripe)
@@ -72,7 +82,7 @@ iframe{width:100%;height:62vh;border:1px solid var(--line);border-radius:8px;bac
 <p class="d">Ambos embudos terminan en la cita 1:1. Solo público externo, nunca alumnos.</p>
 
 <h2>Pendientes</h2>
-<p><span class="wa">●</span> Token de DigitalOcean para el droplet · <span class="wa">●</span> redirect URL en la app · <span class="wa">●</span> página de reservas · <span class="wa">●</span> primer post (borrador → firma)</p>
+<p><span class="ok">●</span> Client ID + secreto · <span class="wa">●</span> elegir servidor: Hermes→llm.store o Supabase · <span class="wa">●</span> redirect URL en la app · <span class="wa">●</span> token de 60 días para publicar · <span class="wa">●</span> página de reservas · <span class="wa">●</span> primer post (borrador → firma)</p>
 
 <h2>Recepción · Asimov 1 v1.0</h2>
 <p class="d">Simulación (DEMO). La cara encarnada + cli.llc de Yæl, la misma máquina que recibirá al visitante.</p>
