@@ -29,6 +29,8 @@ section.on{display:flex}
 h1{font:700 clamp(20px,6.2vw,30px)/1.2 system-ui,-apple-system,Segoe UI,sans-serif;text-align:center;margin:5% 0 2%}
 h2{font:700 20px/1.25 system-ui,-apple-system,sans-serif;margin:6px 0 10px}
 .sub{color:var(--dim);text-align:center;font-size:13px}
+.pcm{width:1.1em;height:1.1em;vertical-align:-.2em;color:var(--c)}
+.big .pcm{width:72px;height:72px}
 .kick{color:var(--c);text-align:center;font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
 .promise{list-style:none;margin:auto 0 8px;font-size:12px;color:var(--dim);display:grid;gap:6px}
 .promise li::before{content:"🧿 "}
@@ -112,7 +114,7 @@ a{color:var(--c)}
  </section>
  <!-- 3 · receipt -->
  <section id="s3">
-  <div class="big">✓</div>
+  <div class="big"><svg class="pcm" viewBox="0 0 24 24" aria-label="Private Client check" role="img"><path d="M3 12 L7.5 17 L12 12 M17 3 V17" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <h1 data-en="Posted. You approved it." data-es="Publicado. Tú lo aprobaste."></h1>
   <div class="rc" id="rc"></div>
   <div class="row"><a class="btn li" id="view" target="_blank" rel="noopener" style="text-decoration:none"><span data-en="View on LinkedIn" data-es="Ver en LinkedIn"></span></a></div>
@@ -200,17 +202,21 @@ function drawCard(){const c=document.createElement("canvas");c.width=1080;c.heig
  x.fillStyle="#fff";x.textAlign="center";const lh=fs*1.28,y0=790-((ls.length-1)*lh)/2;ls.forEach((l,i)=>x.fillText(l,540,y0+i*lh));
  x.fillStyle="#00f3ff";x.font="500 36px system-ui,sans-serif";x.fillText("— "+ME.name,540,Math.min(1080,y0+ls.length*lh+30));
  x.save();x.translate(540,1170);x.rotate(-0.05);x.strokeStyle="#0a66c2";x.lineWidth=6;x.beginPath();x.roundRect(-330,-52,660,104,18);x.stroke();
- x.fillStyle="#4c9be8";x.font="800 42px system-ui,sans-serif";x.fillText("I APPROVE THIS MESSAGE",0,15);x.restore();
+ let sf=40;x.font=`800 ${sf}px system-ui,sans-serif`;while(x.measureText("I APPROVE THIS MESSAGE").width>520&&sf>24){sf-=2;x.font=`800 ${sf}px system-ui,sans-serif`}
+ const tw=x.measureText("I APPROVE THIS MESSAGE").width,mw=56,gap=22,x0=-(mw+gap+tw)/2;
+ x.save();x.translate(x0-4,-40);x.scale(2.6,2.6);x.strokeStyle="#00f3ff";x.lineWidth=2.6;x.lineCap="round";x.lineJoin="round";x.stroke(new Path2D("M3 12 L7.5 17 L12 12 M17 3 V17"));x.restore();
+ x.fillStyle="#4c9be8";x.textAlign="left";x.fillText("I APPROVE THIS MESSAGE",x0+mw+gap,sf*0.36);x.textAlign="center";x.restore();
  x.fillStyle="#7d9a9e";x.font="400 26px ui-monospace,Menlo,monospace";
  x.fillText(($("ai").checked?"AI-assisted · human-reviewed · ":"human-reviewed · ")+"privateclient.ai/r/"+(RID||"············"),540,1285);
  return c.toDataURL("image/png");}
+const PCM='<svg class="pcm" viewBox="0 0 24 24" aria-label="Private Client check" role="img"><path d="M3 12 L7.5 17 L12 12 M17 3 V17" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 let kt=0;$("kl").oninput=()=>{clearTimeout(kt);kt=setTimeout(()=>{CARD=drawCard();$("cardImg").src=CARD},150)};
 async function review(){const t=$("tx").value.trim();$("toCheck").disabled=true;
  const r=await API.prepare({text:t,ai_assisted:$("ai").checked}).catch(()=>({status:0,...localCheck(t)}));$("toCheck").disabled=false;
  CK=r.checks?r:localCheck(t);RID=r.status===200?r.rid:null;
  $("pv").textContent=t;$("ft").textContent=footer(RID);$("nm").textContent=ME.name;$("av").textContent=ME.name[0];
  if(!$("kl").value)$("kl").value=keyLine(t);CARD=drawCard();$("cardImg").src=CARD;$("cardImg").alt=$("kl").value;
- $("ck").innerHTML="";for(const c of CK.checks){const li=document.createElement("li");li.className=c.level;li.textContent=(c.level==="ok"?"✓ ":c.level==="warn"?"⚠ ":"✕ ")+c[L];$("ck").appendChild(li)}
+ $("ck").innerHTML="";for(const c of CK.checks){const li=document.createElement("li");li.className=c.level;li.textContent=(c.level==="warn"?"⚠ ":c.level==="ok"?" ":"✕ ")+c[L];if(c.level==="ok")li.insertAdjacentHTML("afterbegin",PCM);$("ck").appendChild(li)}
  const h=document.createElement("li");h.className="ok";h.textContent="🧿 "+tr("Private Client checked it. You decide.","Private Client lo revisó. Tú decides.");$("ck").appendChild(h);
  $("hold").disabled=!(CK.ok&&RID);show(2);}
 $("toCheck").onclick=review;$("edit").onclick=()=>{$("kl").value="";show(1)};
