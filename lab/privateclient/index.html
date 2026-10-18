@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>PC:// LAB · Private Client, assembled</title>
+<style>
+:root{--bg:#000;--ink:#e9f6f7;--dim:#7d9a9e;--c:#00f3ff;--line:#12383b;--ok:#3ee08f;--sim:#ffcf5c}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+body{background-image:linear-gradient(rgba(0,243,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,243,255,.05) 1px,transparent 1px);background-size:40px 40px}
+main{max-width:620px;margin:0 auto;padding:20px 16px 64px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}
+.top b{color:var(--ink);font-size:15px}
+.tag{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:11px;letter-spacing:.08em;color:var(--c)}
+h1{font-size:30px;line-height:1.15;margin:22px 0 6px}
+h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin:40px 0 12px;font-family:ui-monospace,Menlo,monospace}
+p.lead{color:var(--dim);margin:0}
+.stage{margin-top:22px;border:1px solid var(--c);border-radius:18px;padding:16px;background:rgba(0,10,12,.7);text-align:center}
+.face{display:block;width:150px;height:160px;margin:0 auto}
+.stage b{display:block;font-size:18px;margin-top:4px}.stage span{color:var(--dim);font-size:14px}
+.cards{display:grid;gap:10px}
+a.card,.card{display:block;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(3,16,18,.85);color:var(--ink);text-decoration:none}
+a.card:hover{border-color:var(--c)}
+.card .h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card b{font-size:16px}.card span.d{display:block;color:var(--dim);font-size:14px;margin-top:2px}
+.st{font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.live{color:var(--ok)}.lab{color:var(--c)}.sim{color:var(--sim)}.off{color:var(--dim)}
+.sub{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:13px}.sub a{color:var(--c)}
+ol.path{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+ol.path li{position:relative;padding:0 0 16px 18px}
+ol.path li:before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:#000;border:2px solid var(--line)}
+ol.path li.done:before{border-color:var(--ok);background:var(--ok)}
+ol.path li.now:before{border-color:var(--c)}
+ol.path small{display:block;color:var(--dim);font-size:13px}
+.canon{display:grid;gap:8px}
+.canon div{border-left:2px solid var(--c);padding:2px 0 2px 12px;font-size:15px}
+.left{font-size:14px;color:var(--dim)}.left b{color:var(--ink);font-weight:600}
+pre{white-space:pre-wrap;font-size:12px;color:var(--dim);border:1px dashed var(--line);border-radius:12px;padding:12px}
+footer{margin-top:44px;font-size:12px;color:var(--dim);text-align:center}
+footer a{color:var(--c)}
+</style></head>
+<body><main>
+<div class="top"><b class="mono">&gt;_PrivateClient</b><span class="tag mono">LAB · PC://</span></div>
+
+<h1>Private Client, assembled.</h1>
+<p class="lead">Everything we built in public for Private Client, gathered from myaelmendez.github.io into one theme. Each piece waits here until it runs on privateclient.ai.</p>
+
+<section class="stage" aria-label="Private Client">
+<svg class="face" viewBox="0 0 240 260" role="img" aria-label="æsymov face">
+ <path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/>
+ <rect x="66" y="92" width="108" height="56" rx="26" fill="#030a0b" stroke="#00f3ff" stroke-width="2.5"/>
+ <path d="M88 120H106M134 120H152" stroke="#00f3ff" stroke-width="4" stroke-linecap="round"/>
+ <path d="M100 196Q120 206 140 196" fill="none" stroke="#00f3ff" stroke-width="3" stroke-linecap="round"/>
+ <path d="M52 176Q60 232 120 240Q180 232 188 176" fill="none" stroke="#b87333" stroke-opacity=".55" stroke-width="2"/>
+ <circle cx="120" cy="40" r="12" fill="none" stroke="#3a6fe0" stroke-width="1.5"/><circle cx="120" cy="40" r="4" fill="#00f3ff"/>
+</svg>
+<b>You're the principal.</b>
+<span>LinkedIn is your trusted network. Private Client lets through only what you meant to say.</span>
+</section>
+
+<h2>Live on privateclient.ai</h2>
+<div class="cards">
+ <a class="card" href="https://privateclient.ai/"><div class="h"><b>I approve this message</b><span class="st live">● live</span></div>
+  <span class="d">Sign in with LinkedIn, write, hold to approve, post to your own feed. The card carries an æQR to its receipt.</span></a>
+ <a class="card" href="https://privateclient.ai/labs"><div class="h"><b>pc://labs/ · signed archive</b><span class="st live">● live</span></div>
+  <span class="d">Every approved card with a receipt anyone can check against the exact words.</span></a>
+</div>
+
+<h2>In the LAB, from the origin</h2>
+<div class="cards">
+ <div class="card"><div class="h"><b>æQR</b><span class="st lab">○ lab</span></div>
+  <span class="d">A QR is an address, not permission. Decoded back through two real decoders before it ships.</span>
+  <div class="sub mono"><a href="./aeqr/">open</a><a href="https://github.com/MYaelMendez/aeqr">repo</a></div></div>
+ <div class="card"><div class="h"><b>væult</b><span class="st lab">○ lab</span></div>
+  <span class="d">Local secret custody: scrypt → AES-256-GCM, QR air-gap. The tool is open; the secrets are not.</span>
+  <div class="sub mono"><a href="./vaeult/">tool</a><a href="./vaeult/app.html">app</a><a href="./vaeult/layers.html">layers</a></div></div>
+ <div class="card"><div class="h"><b>Terminal &gt;_æ|</b><span class="st sim">◌ simulation</span></div>
+  <span class="d">The command prompt as a scripted demo. Becomes the owner console once it's wired to the droplet.</span>
+  <div class="sub mono"><a href="./terminal/">open</a></div></div>
+</div>
+
+<h2>Path to the droplet</h2>
+<ol class="path">
+ <li class="done"><b>Approve</b><small>Sign-in, hold, post, receipt. Live Oct 18, 2026.</small></li>
+ <li class="done"><b>æQR on every card</b><small>Scans to the receipt for people, the ae.manifest for agents.</small></li>
+ <li class="now"><b>æQR registry</b><small>Stable IDs for receipts, faces and pages, served from privateclient.ai.</small></li>
+ <li><b>væult</b><small>Runs fully in the browser, so it can be served as-is. Secrets never touch the server.</small></li>
+ <li><b>Owner console</b><small>The terminal, wired to the owner inbox: agents leave intents, you decide.</small></li>
+</ol>
+
+<h2>Canon</h2>
+<div class="canon">
+ <div>Many agents. One principal.</div>
+ <div>Evidence ≠ Authority. Supervision informs, the human decides.</div>
+ <div>A QR is an address, not permission.</div>
+ <div>The tool is open. The secrets are not.</div>
+</div>
+
+<h2>Left at the origin</h2>
+<p class="left"><b>Compute</b> belongs to llm.store, not Private Client. <b>Hermes secret bridge</b> stays with Hermes. <b>Omnibox</b> is retired: it promised an OAuth and WorldID login that never existed, and the real LinkedIn sign-in replaces it.</p>
+
+<h2>For agents</h2>
+<pre id="agent" class="mono"></pre>
+
+<footer class="mono">$ay$hip$ign · you say, we ship, you sign<br>source: myaelmendez.github.io · <a href="../aesimov/">$æsimov LAB</a></footer>
+</main>
+<script>
+const LAB={schema:"ae.lab/0.1",id:"pc-lab",principal:"HUMAN://ROOT",identity:"PRIVATECLIENT://",live:{approve:"https://privateclient.ai/",labs:"https://privateclient.ai/labs",receipt:"https://privateclient.ai/r/{rid}"},
+ lab:{aeqr:"./aeqr/",vaeult:{tool:"./vaeult/",app:"./vaeult/app.html",layers:"./vaeult/layers.html"},terminal:{href:"./terminal/",status:"simulation"}},
+ retired:["omnibox"],left_at_origin:["compute (llm.store)","hermes secret bridge"],authority:{agents_may:["draft","read","verify"],human_only:["approve","publish"]}};
+document.getElementById("agent").textContent=JSON.stringify(LAB,null,1);window.PC_LAB=LAB;
+</script>
+</body></html>
