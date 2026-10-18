@@ -47,6 +47,9 @@ textarea:focus{border-color:var(--c)}
 .card .av{width:40px;height:40px;border-radius:50%;background:var(--li);color:#fff;display:grid;place-items:center;font-weight:700}
 .card .nm{font-weight:600}.card .tm{font-size:12px;color:#666}
 .card pre{white-space:pre-wrap;word-wrap:break-word;font:inherit}
+.card img{width:100%;border-radius:8px;margin-top:10px;display:block;background:#000}
+.kl{width:100%;min-height:44px;margin-top:10px;background:#06191b;border:1px solid #1d4a4e;border-radius:12px;color:var(--ink);font:16px system-ui,sans-serif;padding:0 12px}
+.kl:focus{border-color:var(--c);outline:none}
 .card .foot{color:#666;font-size:13px;margin-top:10px;border-top:1px solid #eee;padding-top:8px;white-space:pre-wrap}
 .checks{list-style:none;margin:12px 0;font-size:13px;display:grid;gap:6px;overflow:auto}
 .checks li{display:flex;gap:8px}.checks .ok{color:var(--ok)}.checks .warn{color:var(--warn)}.checks .stop{color:var(--stop)}
@@ -98,7 +101,8 @@ a{color:var(--c)}
  <section id="s2">
   <h2 data-en="Here's how it will look." data-es="Así se verá."></h2>
   <div class="card"><div class="who"><div class="av" id="av">A</div><div><div class="nm" id="nm"></div><div class="tm" data-en="Now · 🌐" data-es="Ahora · 🌐"></div></div></div>
-   <pre id="pv"></pre><div class="foot" id="ft"></div></div>
+   <pre id="pv"></pre><div class="foot" id="ft"></div><img id="cardImg" alt=""></div>
+  <input class="kl" id="kl" maxlength="140" aria-label="Card line">
   <ul class="checks" id="ck"></ul>
   <button class="hold" id="hold"><i id="fill"></i><span data-en="Hold · I approve this message" data-es="Mantén · Yo apruebo este mensaje"></span></button>
   <button class="btn ghost" id="edit" style="margin-top:10px;min-height:44px" data-en="← Edit" data-es="← Editar"></button>
@@ -118,10 +122,11 @@ a{color:var(--c)}
 "use strict";
 const $=id=>document.getElementById(id);
 const LIVE=["privateclient.ai","www.privateclient.ai","auth.llm.store"].includes(location.hostname);
-let L=(navigator.language||"en").startsWith("es")?"es":"en",ME=null,LAST=null,DEMO_N=0;
+let L=(navigator.language||"en").startsWith("es")?"es":"en",ME=null,LAST=null,DEMO_N=0,DEMO_P=null,RID=null,CARD=null;
 const tr=(en,es)=>L==="es"?es:en;
 function paint(){document.documentElement.lang=L;$("lang").textContent=L==="es"?"EN":"ES";
  document.querySelectorAll("[data-en]").forEach(e=>e.textContent=e.dataset[L]);
+ $("kl").placeholder=tr("Line for your card","Frase para tu tarjeta");
  $("tx").placeholder=tr("What do you want to say? Write it, or paste what your AI drafted.","¿Qué quieres decir? Escríbelo o pega lo que tu IA redactó.");
  if(ME)$("hello").textContent=tr(`Hi ${ME.name.split(" ")[0]}. What's the message?`,`Hola ${ME.name.split(" ")[0]}. ¿Cuál es el mensaje?`);
  $("tag0").textContent=LIVE?"privateclient.ai · 🧿 guarded":tr("LAB DEMO · no LinkedIn calls","LAB DEMO · sin llamadas a LinkedIn");}
@@ -148,14 +153,16 @@ function localCheck(t){const o=[],add=(level,code,en,es)=>o.push({level,code,en,
 async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 const API=LIVE?{
  me:()=>fetch("/me",{credentials:"same-origin"}).then(r=>r.json()),
+ prepare:b=>fetch("/prepare",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(async r=>({status:r.status,...await r.json()})),
  check:t=>fetch("/check",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:t})}).then(r=>r.json()),
  sign:b=>fetch("/sign",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(async r=>({status:r.status,...await r.json()})),
  out:()=>fetch("/logout",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"})
 }:{
  me:async()=>sessionStorage.pc_demo?{signed_in:true,name:"Ana Demo",can_post:true}:{signed_in:false},
  check:async t=>localCheck(t),
- sign:async b=>{const t=Math.floor(Date.now()/1e3),ts=await sha(b.text),rid=(await sha(JSON.stringify({ai:b.ai_assisted,t,text_sha:ts,who:"demo"}))).slice(0,12);
-  return{status:200,rid,t,text_sha:ts,ai_assisted:b.ai_assisted,post:"urn:li:share:DEMO"+(++DEMO_N),url:null,verify:"https://privateclient.ai/r/"+rid,demo:true}},
+ prepare:async b=>{const c=localCheck(b.text);if(!c.ok)return{status:422,...c};const rid=(await sha(b.text+Date.now()+Math.random())).slice(0,12);DEMO_P={rid,text:b.text,ai:b.ai_assisted};return{status:200,rid,verify:"https://privateclient.ai/r/"+rid,...c}},
+ sign:async b=>{const t=Math.floor(Date.now()/1e3),ts=await sha(DEMO_P.text),cs=b.image?await sha(b.image):null;
+  return{status:200,rid:b.rid,t,text_sha:ts,card_sha:cs,ai_assisted:DEMO_P.ai,post:"urn:li:share:DEMO"+(++DEMO_N),url:null,verify:"https://privateclient.ai/r/"+b.rid,demo:true}},
  out:async()=>{delete sessionStorage.pc_demo}
 };
 function signin(){$("face").classList.remove("pulse");
@@ -168,12 +175,42 @@ const footer=rid=>"— "+tr("I approve this message.","I approve this message.")
 $("tx").oninput=()=>{const n=$("tx").value.trim().length;$("cnt").textContent=n+" / 2800";$("cnt").style.color=n>2800?"var(--stop)":""};
 $("paste").onclick=async()=>{try{const t=await navigator.clipboard.readText();if(t){$("tx").value+=t;$("tx").oninput()}}catch(e){$("tx").focus()}};
 let CK=null;
-async function review(){const t=$("tx").value;CK=await API.check(t).catch(()=>localCheck(t));
- $("pv").textContent=t.trim();$("ft").textContent=footer();$("nm").textContent=ME.name;$("av").textContent=ME.name[0];
+const keyLine=t=>{const f=(t.trim().split(/\n/)[0].match(/^.*?[.!?](\s|$)/)||[t.trim().split(/\n/)[0]])[0].trim();return f.length>140?f.slice(0,137).trimEnd()+"…":f};
+/* the signed card · 1080×1350 (4:5, LinkedIn feed) */
+const FACE=["M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z","M52 176 Q60 232 120 240 Q180 232 188 176"];
+function wrap(x,t,w){const out=[];let line="";for(const word of t.split(/\s+/)){const tst=line?line+" "+word:word;if(x.measureText(tst).width>w&&line){out.push(line);line=word}else line=tst}if(line)out.push(line);return out}
+function drawCard(){const c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d");
+ x.fillStyle="#000";x.fillRect(0,0,1080,1350);x.strokeStyle="rgba(0,243,255,.08)";x.lineWidth=1;
+ for(let i=0;i<=1080;i+=54){x.beginPath();x.moveTo(i,0);x.lineTo(i,1350);x.stroke()}for(let j=0;j<=1350;j+=54){x.beginPath();x.moveTo(0,j);x.lineTo(1080,j);x.stroke()}
+ x.strokeStyle="#00f3ff";x.lineWidth=3;x.strokeRect(24,24,1032,1302);
+ x.fillStyle="#e9f6f7";x.font="700 40px ui-monospace,Menlo,monospace";x.fillText(">_PrivateClient",64,104);
+ x.fillStyle="#7d9a9e";x.font="400 24px ui-monospace,Menlo,monospace";x.fillText("powered by llm.store",64,142);
+ x.save();x.translate(540-120*1.5,170);x.scale(1.5,1.5);
+ x.fillStyle="#141416";x.strokeStyle="#3a3a3e";x.lineWidth=2;const hd=new Path2D(FACE[0]);x.fill(hd);x.stroke(hd);
+ x.fillStyle="#030a0b";x.strokeStyle="#00f3ff";x.lineWidth=2.5;x.beginPath();x.roundRect(66,92,108,56,26);x.fill();x.stroke();
+ x.lineCap="round";x.lineWidth=4;x.beginPath();x.moveTo(88,120);x.lineTo(106,120);x.moveTo(134,120);x.lineTo(152,120);x.shadowColor="#00f3ff";x.shadowBlur=12;x.stroke();x.shadowBlur=0;
+ x.lineWidth=3;x.beginPath();x.moveTo(100,196);x.quadraticCurveTo(120,206,140,196);x.stroke();
+ x.strokeStyle="rgba(184,115,51,.55)";x.lineWidth=2;x.stroke(new Path2D(FACE[1]));
+ x.strokeStyle="#3a6fe0";x.lineWidth=1.5;x.beginPath();x.arc(120,40,12,0,7);x.stroke();x.fillStyle="#00f3ff";x.beginPath();x.arc(120,40,4,0,7);x.fill();x.restore();
+ const line=($("kl").value||keyLine($("tx").value)).trim();let fs=66,ls;
+ do{x.font=`700 ${fs}px system-ui,-apple-system,Segoe UI,sans-serif`;ls=wrap(x,"“"+line+"”",920);fs-=4}while(ls.length>5&&fs>34);
+ x.fillStyle="#fff";x.textAlign="center";const lh=fs*1.28,y0=790-((ls.length-1)*lh)/2;ls.forEach((l,i)=>x.fillText(l,540,y0+i*lh));
+ x.fillStyle="#00f3ff";x.font="500 36px system-ui,sans-serif";x.fillText("— "+ME.name,540,Math.min(1080,y0+ls.length*lh+30));
+ x.save();x.translate(540,1170);x.rotate(-0.05);x.strokeStyle="#0a66c2";x.lineWidth=6;x.beginPath();x.roundRect(-330,-52,660,104,18);x.stroke();
+ x.fillStyle="#4c9be8";x.font="800 42px system-ui,sans-serif";x.fillText("I APPROVE THIS MESSAGE",0,15);x.restore();
+ x.fillStyle="#7d9a9e";x.font="400 26px ui-monospace,Menlo,monospace";
+ x.fillText(($("ai").checked?"AI-assisted · human-reviewed · ":"human-reviewed · ")+"privateclient.ai/r/"+(RID||"············"),540,1285);
+ return c.toDataURL("image/png");}
+let kt=0;$("kl").oninput=()=>{clearTimeout(kt);kt=setTimeout(()=>{CARD=drawCard();$("cardImg").src=CARD},150)};
+async function review(){const t=$("tx").value.trim();$("toCheck").disabled=true;
+ const r=await API.prepare({text:t,ai_assisted:$("ai").checked}).catch(()=>({status:0,...localCheck(t)}));$("toCheck").disabled=false;
+ CK=r.checks?r:localCheck(t);RID=r.status===200?r.rid:null;
+ $("pv").textContent=t;$("ft").textContent=footer(RID);$("nm").textContent=ME.name;$("av").textContent=ME.name[0];
+ if(!$("kl").value)$("kl").value=keyLine(t);CARD=drawCard();$("cardImg").src=CARD;$("cardImg").alt=$("kl").value;
  $("ck").innerHTML="";for(const c of CK.checks){const li=document.createElement("li");li.className=c.level;li.textContent=(c.level==="ok"?"✓ ":c.level==="warn"?"⚠ ":"✕ ")+c[L];$("ck").appendChild(li)}
  const h=document.createElement("li");h.className="ok";h.textContent="🧿 "+tr("Private Client checked it. You decide.","Private Client lo revisó. Tú decides.");$("ck").appendChild(h);
- $("hold").disabled=!CK.ok;show(2);}
-$("toCheck").onclick=review;$("edit").onclick=()=>show(1);
+ $("hold").disabled=!(CK.ok&&RID);show(2);}
+$("toCheck").onclick=review;$("edit").onclick=()=>{$("kl").value="";show(1)};
 
 /* hold-to-approve, 1.2 s */
 let t0=0,raf=0,busy=false;const HOLD=1200;
@@ -183,14 +220,14 @@ function up(){if(busy)return;cancelAnimationFrame(raf);$("fill").style.width="0"
 $("hold").addEventListener("pointerdown",down);["pointerup","pointerleave","pointercancel"].forEach(ev=>$("hold").addEventListener(ev,up));
 $("hold").onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&!e.repeat)down(e)};$("hold").onkeyup=up;
 async function approve(held){busy=true;navigator.vibrate&&navigator.vibrate([20,40,20]);$("hold").querySelector("span").textContent=tr("Posting…","Publicando…");
- const r=await API.sign({text:$("tx").value.trim(),ai_assisted:$("ai").checked,held_ms:Math.round(held)}).catch(()=>({status:0}));
+ const r=await API.sign({rid:RID,image:CARD,alt:$("kl").value,held_ms:Math.round(held)}).catch(()=>({status:0}));
  busy=false;$("fill").style.width="0";paint();
  if(r.status!==200){$("ck").insertAdjacentHTML("afterbegin",`<li class="stop">✕ ${r.error||(r.checks?tr("Checks failed on the server.","La revisión falló en el servidor."):tr("Nothing was posted. Try again.","No se publicó nada. Intenta de nuevo."))}</li>`);return}
  LAST=r;const when=new Date(r.t*1e3).toLocaleString(L);
- $("rc").innerHTML="";[[tr("Receipt","Recibo"),r.rid],[tr("Approved","Aprobado"),when],[tr("Text SHA-256","SHA-256 del texto"),r.text_sha],[tr("AI-assisted","Con IA"),r.ai_assisted?tr("yes · human-reviewed","sí · revisado por humano"):tr("no","no")],[tr("Verify","Verificar"),r.verify.replace("https://","")]].forEach(([k,v])=>{const d=document.createElement("div");d.innerHTML="<b></b> ";d.firstChild.textContent=k;d.append(v);$("rc").appendChild(d)});
+ $("rc").innerHTML="";[[tr("Receipt","Recibo"),r.rid],[tr("Approved","Aprobado"),when],[tr("Text SHA-256","SHA-256 del texto"),r.text_sha],[tr("Card SHA-256","SHA-256 de la tarjeta"),r.card_sha||"—"],[tr("AI-assisted","Con IA"),r.ai_assisted?tr("yes · human-reviewed","sí · revisado por humano"):tr("no","no")],[tr("Verify","Verificar"),r.verify.replace("https://","")]].forEach(([k,v])=>{const d=document.createElement("div");d.innerHTML="<b></b> ";d.firstChild.textContent=k;d.append(v);$("rc").appendChild(d)});
  if(r.demo){const d=document.createElement("div");d.textContent=tr("LAB DEMO: nothing was posted to LinkedIn.","LAB DEMO: no se publicó nada en LinkedIn.");$("rc").appendChild(d)}
  $("view").style.display=r.url?"":"none";if(r.url)$("view").href=r.url;
- $("tx").value="";$("tx").oninput();show(3);}
+ $("tx").value="";$("kl").value="";RID=null;$("tx").oninput();show(3);}
 $("again").onclick=()=>show(1);
 async function out(){await API.out();ME=null;$("face").classList.add("pulse");show(0);paint()}
 $("out1").onclick=out;$("out3").onclick=out;
