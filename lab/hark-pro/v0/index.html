@@ -46,6 +46,9 @@ button{font:inherit;min-height:48px;padding:10px 14px;border-radius:10px;border:
 .pr b{color:#00f3ff}
 .ask{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .ask input{flex:1 1 220px;font:inherit;font-size:16px;min-height:48px;padding:10px;background:#000;color:#fff;border:1px solid #00f3ff88;border-radius:10px}
+pre.mech{margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:pre;font-size:13px;line-height:1.45;color:#dffcff;background:#000;border:1px solid #00f3ff44;border-radius:10px;padding:10px 12px}
+.sk{display:inline-block;font-size:11px;color:#000;background:#ffd400;border-radius:4px;padding:1px 6px;letter-spacing:.04em}
+.mt{color:#00f3ff;margin:0 0 6px}
 #out{white-space:pre-wrap;color:#a8e9ef;font-size:13px;margin:8px 0 0}
 footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-align:center;font-size:13px;color:#8fb8bf}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -59,6 +62,7 @@ footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-alig
   <h1>&gt;_HARK_PRO <span>æ</span> PORTAL</h1>
   <p class="lead">Del chat en el teléfono a laboratorios vivos. <i>From chat to real things.</i></p>
   <p class="m">Aquí no te contamos qué es Hark: te mostramos lo que construimos con Hark en el laboratorio del Instituto. Todo abierto, todo en público.</p>
+  <p class="m" style="color:#00f3ff">&gt;_ mæch: muchos agentes · un principal · el humano es root</p>
  </div>
  <div class="bot" aria-label="æsymov saluda">
   <svg id="face" viewBox="0 0 120 116" role="img" aria-label="Cara de robot æsymov, solo lectura">
@@ -83,8 +87,54 @@ footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-alig
 <p class="m">Hark Pro: <i>“an operating system for your life”</i>, en iOS, Android y web (según su ficha oficial).</p>
 
 <h2>&gt;_ Nuestra experiencia</h2>
-<p class="m">Cuatro demos reales del Instituto. Cada una nació en un chat desde el teléfono: describimos la idea, los agentes construyeron, probaron y publicaron en GitHub Pages.</p>
+<p class="m">Demos reales del Instituto. Cada una nació en un chat desde el teléfono: describimos la idea, los agentes construyeron, probaron y publicaron en GitHub Pages.</p>
 <div class="cards" id="cards"></div>
+
+<h2>&gt;_ mæchlæng</h2>
+<p class="m">æ escrito en <a href="https://mech-lang.org" rel="noopener" target="_blank">Mech</a>: cada demo como máquina de estados. Bocetos cortos; aún no se han ejecutado.</p>
+<div class="cards">
+ <article class="card"><h3>#Authority · æ0–æ3</h3><span class="sk">boceto · sketch, not yet run</span><pre class="mech" tabindex="0">-- autoridad æ: Context → Evidence → Granted
+&lt;authority&gt; := :æ0 | :æ1 | :æ2 | :æ3
+#Authority(nivel&lt;authority&gt;) ⇒ &lt;estado&gt; :=
+  ├ :Context(nivel)
+  ├ :Evidence(nivel, testigo)
+  └ :Granted(nivel, recibo).
+:Context(n) → :Evidence(n, testigo)
+:Evidence(n, t) → passkey-principal? &amp; witness-ok?
+  ├ ✓ ⇒ :Granted(n, recibo-witness)
+  └ * ⇒ :Context(n).</pre></article>
+ <article class="card"><h3>#Propuesta · DAOLLC</h3><span class="sk">boceto · sketch, not yet run</span><pre class="mech" tabindex="0">-- DAOLLC · Moloch v2
+#Propuesta(id) ⇒ &lt;moloch&gt; :=
+  ├ :Submitted(id) → :Sponsored(id) → :Voting(id) → :Grace(id)
+  └ :Processed(id).
+-- DAOLLC · Governor
+#Gobernanza(id) ⇒ &lt;governor&gt; :=
+  ├ :Pending(id) → :Active(id) → :Succeeded(id)
+  ├ :Queued(id)
+  └ :Executed(id).
+:Queued(id) → humano-aprueba?
+  ├ :humano-aprueba ⇒ :Executed(id)
+  └ * ⇒ :Queued(id).</pre></article>
+ <article class="card"><h3>#Regla · ZACAPA</h3><span class="sk">boceto · sketch, not yet run</span><pre class="mech" tabindex="0">-- ZACAPA · la comunidad vota la regla
+&lt;regla&gt; := :acceso | :capacidad
+~regla-votada := :acceso
+#Regla(regla-votada) ⇒ &lt;criterio&gt; :=
+  regla-votada?
+  ├ :acceso ⇒ espera-máxima
+  └ :capacidad ⇒ más-cercano.</pre></article>
+ <article class="card"><h3>#Cara · æsymov</h3><span class="sk">boceto · sketch, not yet run</span><pre class="mech" tabindex="0">-- æsymov · prioridad de ánimo, solo lectura
+&lt;animo&gt; := :hold | :lost | :tired | :sleep | :think | :ready | :work
+#Cara(señales) ⇒ &lt;animo&gt; :=
+  señales?
+  ├ :hold ⇒ :hold
+  ├ :lost ⇒ :lost
+  ├ :tired ⇒ :tired
+  ├ :sleep ⇒ :sleep
+  ├ :think ⇒ :think
+  ├ :ready ⇒ :ready
+  └ * ⇒ :work.</pre></article>
+</div>
+<p class="m">Mech: mech-lang.org · Corey Montella · Apache-2.0. mæchlæng es un experimento del Instituto, sin afiliación con Mech.</p>
 
 <h2>&gt;_ Principios</h2>
 <ul class="pr">
@@ -120,6 +170,7 @@ var D=[
  {id:"daollc",t:"DAOLLC.ai v0 ⚖️",u:B+"daollc/v0/",d:"Infraestructura de contratos inteligentes asistida por robot y autorizada por humanos: Moloch v2 + OpenZeppelin Governor llevados a una simulación, con compuerta HUMAN:// (escribe APRUEBO + toque real) y testigo.",s:"Sin tu APRUEBO, nada se ejecuta. HUMAN:// primero."},
  {id:"face1",t:"æsymov face v1 · $🤖osw",u:B+"face/v1/",d:"Cara de robot de solo lectura: estados de ánimo y mirada que sigue tu dedo.",s:"Esa soy yo, versión 1. Mueve el dedo y te sigo."},
  {id:"face23",t:"æsymov face v2.3 · $🤖osw",u:B+"face/v2.3/",d:"La evolución de la cara æsymov: más gestos, misma regla, solo lectura.",s:"v2.3: más expresiva, igual de obediente."},
+ {id:"maechlang",t:"mæchlæng · más mæch 🤖",u:B+"maechlang/",d:"æ escrito en Mech: autoridad æ0–æ3 como máquina de estados; :Granted solo con passkey del principal + recibo Witness.",s:"Más mæch: muchos agentes, un principal. El humano es root."},
  {id:"mathbyte",t:"MathByte v0 🧮",u:B+"mathbyte/v0/",d:"Texto → bytes → GLSL. Una VM en CPU dibuja esfera y toro en 3D, sin CDN.",s:"Letras que se vuelven geometría. Sin nubes prestadas."}
 ];
 var HOW="Cómo lo hicimos con Hark: chat en el teléfono → los agentes construyeron, probaron y publicaron en GitHub Pages.";
