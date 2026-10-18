@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#000000">
+<title>mæchlæng + HARK_PRO æ · unified · LAB v1</title>
+<style>
+*{box-sizing:border-box}
+html{background:#000}
+body{margin:0;color:#dffcff;font:15px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+background:#000 linear-gradient(#00f3ff12 1px,transparent 1px) 0 0/100% 32px,linear-gradient(90deg,#00f3ff12 1px,transparent 1px) 0 0/32px 100%}
+main{max-width:820px;margin:auto;padding:18px 16px 40px}
+a{color:#00f3ff}
+.tag{display:inline-block;border:1px solid #00f3ff;color:#00f3ff;border-radius:4px;padding:2px 8px;font-size:12px;letter-spacing:.08em}
+h1,h2{font-family:Impact,"Arial Narrow Bold","Roboto Condensed","Helvetica Neue",sans-serif;font-stretch:condensed;text-transform:uppercase;letter-spacing:.02em;line-height:1;margin:0}
+h1{font-size:clamp(36px,9.5vw,70px);color:#fff;margin-top:10px}
+h1 span{color:#00f3ff}
+h2{font-size:28px;color:#fff;margin:38px 0 10px;border-bottom:1px solid #00f3ff55;padding-bottom:6px}
+h3{margin:0 0 4px;font-size:17px;color:#00f3ff}
+.hero{padding:16px 0 10px;border-bottom:1px solid #00f3ff55}
+.lead{font-size:17px;color:#fff;margin:12px 0 4px}
+.mech-l{color:#00f3ff;font-size:16px;margin:6px 0}
+.m{color:#8fb8bf;font-size:13px}
+.ev{display:inline-block;margin-top:6px;border:1px solid #ffd400;color:#ffd400;border-radius:6px;padding:4px 10px;font-weight:700}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:6px 12px;border:1px solid #00f3ff66;border-radius:8px;text-decoration:none;font-size:13px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:44px;padding:10px 16px;border:1.5px solid #00f3ff;border-radius:10px;color:#00f3ff;text-decoration:none;font-weight:700;background:#001418}
+.btn.p{background:#00f3ff;color:#000}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,pre:focus-visible{outline:3px solid #fff;outline-offset:2px}
+button{font:inherit;min-height:48px;min-width:44px;padding:10px 14px;border-radius:10px;border:1px solid #00f3ff88;background:#001418;color:#dffcff;cursor:pointer}
+button.p{background:#00f3ff;color:#000;font-weight:700}
+select,input[type=text]{font:inherit;font-size:16px;min-height:48px;padding:8px 10px;background:#000;color:#fff;border:1px solid #00f3ff88;border-radius:10px}
+input[type=range]{width:180px;min-height:44px;accent-color:#00f3ff}
+.ck{display:flex;align-items:center;gap:10px;min-height:48px;margin:2px 0;cursor:pointer}
+.ck input{width:24px;height:24px;accent-color:#00f3ff;flex:none}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.sim{border:1px solid #00f3ff55;border-radius:14px;padding:14px;background:#020b0fcc}
+.grid2{display:grid;gap:14px}
+@media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
+.states{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.st{flex:1;min-width:100px;border:1px solid #00f3ff55;border-radius:10px;padding:10px;text-align:center;color:#5fb7c0;transition:background .2s,color .2s}
+.st.on{background:#00f3ff;color:#000;font-weight:700}
+pre.code{margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:pre;font-size:13px;line-height:1.5;color:#dffcff;background:#000;border:1px solid #00f3ff44;border-radius:10px;padding:10px 0}
+pre.code span{display:block;padding:0 12px;border-left:3px solid transparent}
+pre.code span.hl{background:#00f3ff26;border-left-color:#00f3ff;color:#fff}
+pre.code span.no{background:#ff3b6b1f;border-left-color:#ff3b6b}
+pre.mech{margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:pre;font-size:13px;line-height:1.45;color:#dffcff;background:#000;border:1px solid #00f3ff44;border-radius:10px;padding:10px 12px}
+.sk{display:inline-block;font-size:11px;color:#000;background:#ffd400;border-radius:4px;padding:1px 6px;letter-spacing:.04em;align-self:flex-start}
+.log{white-space:pre-wrap;color:#a8e9ef;font-size:12.5px;margin:8px 0 0;max-height:260px;overflow:auto;border-top:1px dashed #00f3ff44;padding-top:8px}
+.rc{font-size:12px;word-break:break-all;color:#ffd400;margin:6px 0 0}
+.cards{display:grid;gap:14px}
+.card{border:1px solid #00f3ff55;border-radius:14px;padding:14px;background:#020b0fcc;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0}
+.how{font-size:13px;color:#a8e9ef;border-left:2px solid #00f3ff;padding-left:8px}
+.pv{position:relative;aspect-ratio:9/12;max-height:420px;border:1px dashed #00f3ff55;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000}
+.pv iframe{width:100%;height:100%;border:0;background:#000}
+#fsvg{width:100%;max-width:240px;border:1px solid #00f3ff55;border-radius:14px;background:#000;color:#00f3ff;display:block}
+#fmood{font:900 32px/1 Impact,"Arial Narrow",sans-serif;text-transform:uppercase;color:#fff;margin:8px 0 2px}
+#fjson{font-size:12px;white-space:pre-wrap;word-break:break-all;color:#8fb8bf;border-top:1px dashed #00f3ff44;padding-top:8px;margin-top:8px}
+.pr{display:grid;gap:8px;padding:0;margin:0;list-style:none}
+.pr li{border:1px solid #00f3ff33;border-radius:10px;padding:10px 12px;background:#020b0fcc}
+.pr b{color:#00f3ff}
+.ask{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.ask input{flex:1 1 220px}
+#out{white-space:pre-wrap;color:#a8e9ef;font-size:13px;margin:8px 0 0}
+footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-align:center;font-size:13px;color:#8fb8bf}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+ <span class="tag">LAB · simulación · v1</span>
+ <h1>HARK_PRO <span>æ</span> × mæchlæng</h1>
+ <p class="lead">Hark Pro es el agente. mæchlæng es el lenguaje de su autoridad.</p>
+ <p class="mech-l">&gt;_ mæch: muchos agentes · un principal · el humano es root</p>
+ <span class="ev">Evidence ≠ Authority</span>
+ <p class="m">Los agentes traen contexto y evidencia. Solo la persona principal concede æ2 y æ3, con passkey y recibo Witness.</p>
+ <div class="cta">
+  <a class="btn p" href="https://hark.com/download" rel="noopener" target="_blank">&gt;_ Descarga Hark</a>
+  <a class="btn" href="https://apps.apple.com/us/app/hark-pro/id6772362941" rel="noopener" target="_blank"> App Store</a>
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.hark.android" rel="noopener" target="_blank">▶ Google Play</a>
+  <a class="btn" href="https://hark.com" rel="noopener" target="_blank">🌐 Web</a>
+ </div>
+ <nav class="nav" aria-label="Secciones">
+  <a href="#auth">#Authority</a><a href="#face">#Face · Asimov</a><a href="#demos">Demos como mæch</a><a href="#turno">Tu turno</a><a href="#principios">Principios</a>
+ </nav>
+</header>
+
+<h2 id="auth">&gt;_ #Authority · en vivo</h2>
+<p class="m">Un agente de la lista pide un nivel de autoridad. Paso a paso, la petición recorre <b>:Context → :Evidence → :Granted</b>. La línea del código que se ejecuta se ilumina.</p>
+<div class="sim">
+ <div class="grid2">
+  <div>
+   <div class="row"><label for="agent">Agente</label> <select id="agent"><option>hark-pro</option><option>hermes</option><option>codex</option></select></div>
+   <div class="row"><label for="req">Pide</label> <select id="req"><option value="0">æ0 · public</option><option value="1">æ1 · published</option><option value="2">æ2 · operator</option><option value="3" selected>æ3 · custody</option></select></div>
+   <div class="states" aria-live="polite"><div class="st" id="s-ctx">:Context</div><div class="st" id="s-ev">:Evidence</div><div class="st" id="s-gr">:Granted</div></div>
+   <label class="ck"><input type="checkbox" id="pk"> pk · passkey de la persona principal (yæl)</label>
+   <label class="ck"><input type="checkbox" id="wr"> wr · recibo Witness (SHA-256)</label>
+   <p class="rc" id="rc">Witness: sin recibo.</p>
+   <div class="row"><button id="step" class="p" type="button">→ paso</button><button id="auto" type="button">▶ auto</button><button id="reset" type="button">↺ reiniciar</button></div>
+  </div>
+  <div>
+   <pre class="code" id="acode" tabindex="0" aria-label="Código mæch de #Authority"></pre>
+   <p class="m" style="margin:6px 0 0"><span class="sk">boceto · sketch, not yet run</span></p>
+  </div>
+ </div>
+ <div class="log" id="alog" aria-live="polite"></div>
+</div>
+<p class="m">El recibo Witness es un hash SHA-256 real (crypto.subtle) encadenado desde GENESIS: cada evento firma el anterior. Simulación en JavaScript del boceto; no es el runtime de Mech. Fuente: <a href="../../maechlang/authority.mec">maechlang/authority.mec</a>.</p>
+
+<h2 id="face">&gt;_ #Face · Asimov</h2>
+<p class="m">La cara del robot lee lo que el Asimov reporta y elige un ánimo; nunca lo controla (autoridad æ1). Las reglas van de arriba abajo: la seguridad gana. La regla que decide se ilumina.</p>
+<div class="sim">
+ <div class="grid2">
+  <div>
+   <svg id="fsvg" viewBox="0 0 200 200" role="img" aria-label="Cara æ del Asimov, solo lectura"><g id="fg" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></g></svg>
+   <div id="fmood">—</div>
+   <div class="row"><label for="fmd">modo</label> <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select></div>
+   <label class="ck"><input type="checkbox" id="far"> ar · armed</label>
+   <label class="ck"><input type="checkbox" id="fft"> ft · faulted (alerta crítica)</label>
+   <label class="ck"><input type="checkbox" id="fst"> ag &gt; 0.5 s · sin estado fresco</label>
+   <div class="row"><label for="fsc">sc · batería</label> <input type="range" id="fsc" min="0" max="100" value="80"> <span id="fscv">80</span>%</div>
+  </div>
+  <div>
+   <pre class="code" id="fcode" tabindex="0" aria-label="Código mæch de #Face"></pre>
+   <p class="m" style="margin:6px 0 0"><span class="sk">boceto · sketch, not yet run</span></p>
+   <div id="fjson"></div>
+  </div>
+ </div>
+</div>
+<p class="m">Mismas reglas que <a href="../../maechlang/face.mec">face.mec</a> y el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae" rel="noopener" target="_blank">ae/face.py</a> (rama ae-face). Nota: el modo FAULT_DAMP del robot se lee como :hold (en el SDK es el nombre del modo; en mæch va entre comillas, no es identificador).</p>
+
+<h2 id="demos">&gt;_ Demos como mæch</h2>
+<p class="m">Cada demo del laboratorio, junto a su boceto Mech: la forma de su autoridad. Todas nacieron en un chat con Hark desde el teléfono.</p>
+<div class="cards" id="cards"></div>
+
+<h2 id="turno">&gt;_ Tu turno</h2>
+<p class="m">Escribe qué te gustaría construir. Te devolvemos un prompt para Hark que también pide la máquina de estados mæch de su autoridad. Nada sale de esta página.</p>
+<div class="ask">
+ <label for="idea" class="m" style="width:100%">Tu idea</label>
+ <input id="idea" type="text" placeholder="ej. un mapa de mi comunidad que vote rutas" autocomplete="off">
+ <button id="mk" class="p" type="button">&gt;_ Armar prompt</button>
+ <button id="cp" type="button">Copiar</button>
+</div>
+<pre id="out" aria-live="polite"></pre>
+
+<h2 id="principios">&gt;_ Principios</h2>
+<ul class="pr">
+ <li><b>Evidence ≠ Authority.</b> La supervisión informa; el humano decide.</li>
+ <li><b>Muchos agentes · un principal.</b> hark-pro, hermes y codex proponen; yæl concede.</li>
+ <li><b>Humans decide, agents relay.</b> Los agentes llevan y traen; la firma es humana.</li>
+ <li><b>Make something agents want.</b></li>
+ <li><b>point your agents at me 🪡</b></li>
+ <li><b>Todos somos desarrolladores. ✍️</b></li>
+</ul>
+
+<h2>&gt;_ Créditos</h2>
+<ul class="pr">
+ <li><b>Mech</b> · <a href="https://mech-lang.org" rel="noopener" target="_blank">mech-lang.org</a> · Corey Montella · Apache-2.0 · beta. mæchlæng es un experimento del Instituto, sin afiliación con Mech.</li>
+ <li><b>boceto · sketch, not yet run on a Mech runtime.</b> Los simuladores son JavaScript que imita los bocetos.</li>
+ <li><b>Sintaxis mæch:</b> kebab-case, sin guiones bajos; <code>├ … └ ….</code>, <code>→</code> transición, <code>⇒</code> final, <code>--</code> comentario.</li>
+ <li><b>Aviso:</b> página independiente del Instituto Luterano Latinoamericano; no es un sitio oficial de Hark.</li>
+</ul>
+
+<footer>
+ <p><a class="btn" href="https://buymeacoffee.com/daollc" rel="noopener" target="_blank">☕ Apoya al Instituto</a></p>
+ <p><a href="../v0/">← portal v0</a> · <a href="../../maechlang/">mæchlæng</a></p>
+ <p>Instituto Luterano Latinoamericano · æ LAB · Yæl Méndez · <i>Make something agents want.</i></p>
+ <p>LAB · simulación · v1 · noindex</p>
+</footer>
+</main>
+<script>
+(function(){
+"use strict";
+/*ENGINE*/
+var AGENTS=["hark-pro","hermes","codex"],PRINCIPAL="yæl";
+// one step of #Authority. s: null|"ctx"|"ev"|"gr"; r: 0..3; pk,wr: bool
+function authStep(s,r,pk,wr){
+ if(s===null)return{s:"ctx",b:"entry"};
+ if(s==="ctx")return r<2?{s:"gr",b:"ctx-lo"}:{s:"ev",b:"ctx-hi"};
+ if(s==="ev")return(pk===true&&wr===true)?{s:"gr",b:"ev-ok"}:{s:"ev",b:"ev-wait"};
+ return{s:"gr",b:"done"};
+}
+function faceMood(md,ar,ft,stale,sc){
+ if(ft||md==="FAULT_DAMP")return{m:"hold",b:"ft"};
+ if(stale)return{m:"lost",b:"ag"};
+ if(sc<20)return{m:"tired",b:"sc"};
+ if(md==="DAMP")return{m:"sleep",b:"damp"};
+ if(md==="STAND")return ar?{m:"ready",b:"ready"}:{m:"think",b:"think"};
+ return{m:"work",b:"work"};
+}
+/*END*/
+if(typeof document==="undefined"){module.exports={authStep:authStep,faceMood:faceMood,AGENTS:AGENTS,PRINCIPAL:PRINCIPAL};return;}
+var $=function(id){return document.getElementById(id);};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function renderCode(pre,L){pre.textContent="";L.forEach(function(l){var s=el("span","",l[0]||" ");if(l[1])s.setAttribute("data-b",l[1]);pre.appendChild(s);});}
+function hl(pre,b,bad){[].forEach.call(pre.children,function(s){var on=s.getAttribute("data-b")===b;s.classList.toggle("hl",on&&!bad);s.classList.toggle("no",on&&!!bad);});
+}
+
+/* ---------- #Authority ---------- */
+var AC=[
+ ["-- mæchlæng · #Authority · Hark Pro æ v1"],
+ ["<authority> := :æ0 | :æ1 | :æ2 | :æ3"],
+ [""],
+ ['agents := {"hark-pro", "hermes", "codex"}'],
+ ['principal := "yæl"'],
+ [""],
+ ["#Authority(req<u8>) ⇒ <u8> :="],
+ ["  ├ :Context(req<u8>)"],
+ ["  ├ :Evidence(req<u8>, pk<bool>, wr<bool>)"],
+ ["  └ :Granted(level<u8>)."],
+ [""],
+ ["#Authority(req<u8>) → :Context(req)","entry"],
+ ["  :Context(r)"],
+ ["    ├ r < 2u8 → :Granted(r)                 -- æ0 public, æ1 published","ctx-lo"],
+ ["    └ r > 1u8 → :Evidence(r, false, false)  -- æ2 operator, æ3 custody","ctx-hi"],
+ ["  :Evidence(r, pk, wr)"],
+ ["    ├ pk && wr → :Granted(r)   -- passkey + recibo Witness","ev-ok"],
+ ["    └ * → :Evidence(r, pk, wr) -- espera; ningún agente concede","ev-wait"],
+ ["  :Granted(l) ⇒ l","done"],
+ ["."]
+];
+var acode=$("acode"),alog=$("alog"),rc=$("rc");
+renderCode(acode,AC);
+var st=null,receipt=null,chain=[],head=null,busy=false;
+var HASH=!!(window.crypto&&crypto.subtle&&window.TextEncoder);
+function sha(t){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return("0"+x.toString(16)).slice(-2);}).join("");});}
+function witness(evt){ // h(n) = sha256(h(n-1) + "|" + evento)
+ if(!HASH)return Promise.resolve(null);
+ var p=head?Promise.resolve(head):sha("GENESIS").then(function(g){chain=[{e:"GENESIS",h:g}];return g;});
+ return p.then(function(prev){var line=JSON.stringify(evt);return sha(prev+"|"+line).then(function(h){head=h;chain.push({e:line,h:h});return h;});});
+}
+function log(t){alog.textContent+=t+"\n";alog.scrollTop=alog.scrollHeight;}
+function setS(s){["ctx","ev","gr"].forEach(function(k){$("s-"+k).classList.toggle("on",k===s);});}
+function lvl(){return +$("req").value;}
+function ag(){return $("agent").value;}
+function wrOk(){return $("wr").checked&&!!receipt;}
+$("wr").addEventListener("change",function(){
+ if(!$("wr").checked){receipt=null;rc.textContent="Witness: sin recibo.";return;}
+ if(!HASH){rc.textContent="Witness: este navegador no ofrece crypto.subtle; sin recibo no hay :Granted.";$("wr").checked=false;return;}
+ rc.textContent="Witness: firmando…";
+ witness({t:"witness",agente:ag(),principal:PRINCIPAL,req:"æ"+lvl(),pk:$("pk").checked,at:new Date().toISOString()}).then(function(h){receipt=h;rc.textContent="Witness #"+(chain.length-1)+": "+h;});
+});
+function step(){
+ if(busy)return;busy=true;
+ var r=lvl(),pk=$("pk").checked,wr=wrOk(),n=authStep(st,r,pk,wr),msg;
+ if(n.b==="entry")msg=ag()+" pide æ"+r+" → #Authority("+r+"u8) → :Context("+r+")";
+ else if(n.b==="ctx-lo")msg=":Context ├ r < 2u8 → :Granted(æ"+r+")  · un agente puede";
+ else if(n.b==="ctx-hi")msg=":Context └ r > 1u8 → :Evidence(æ"+r+", false, false)  · requiere a "+PRINCIPAL;
+ else if(n.b==="ev-ok")msg=":Evidence ├ pk && wr → :Granted(æ"+r+")  · passkey + Witness ✓";
+ else if(n.b==="ev-wait")msg=":Evidence └ * → :Evidence  ✗ espera: falta "+[!pk?"pk (passkey)":"",!wr?"wr (Witness)":""].filter(Boolean).join(" + ");
+ else msg=":Granted ⇒ æ"+r;
+ st=n.s;setS(st);hl(acode,n.b,n.b==="ev-wait");
+ witness({t:"step",agente:ag(),req:"æ"+r,rama:n.b,estado:n.s}).then(function(h){log(msg+(h?"\n   witness "+h.slice(0,16)+"…":""));busy=false;},function(){log(msg);busy=false;});
+ return n;
+}
+var timer=null;
+function stopAuto(){if(timer){clearInterval(timer);timer=null;$("auto").textContent="▶ auto";}}
+$("step").onclick=function(){stopAuto();step();};
+$("auto").onclick=function(){
+ if(timer){stopAuto();return;}
+ $("auto").textContent="⏸ pausa";
+ timer=setInterval(function(){var n=step();if(n&&(n.b==="done"||n.b==="ev-wait"))stopAuto();},900);
+};
+function reset(){stopAuto();st=null;setS(null);hl(acode,"__");alog.textContent="";receipt=null;$("wr").checked=false;rc.textContent="Witness: sin recibo.";log("cadena Witness desde GENESIS · principal "+PRINCIPAL+" · agentes {"+AGENTS.join(", ")+"}");}
+$("reset").onclick=reset;
+$("req").addEventListener("change",reset);$("agent").addEventListener("change",reset);
+reset();
+
+/* ---------- #Face ---------- */
+var FC=[
+ ["<mood> := :hold | :lost | :tired | :sleep | :think | :ready | :work"],
+ [""],
+ ["#Face(md, ar, ft, ag, sc) → :Read(md, ar, ft, ag, sc)"],
+ ["  :Read(md, ar, ft, ag, sc)"],
+ ['    ├ ft ∨ md ⩵ "FAULT_DAMP" → :Show(:hold)  -- fault latched',"ft"],
+ ["    ├ ag > 0.5 → :Show(:lost)              -- no fresh state","ag"],
+ ["    ├ sc < 20 → :Show(:tired)              -- battery low","sc"],
+ ['    ├ md ⩵ "DAMP" → :Show(:sleep)',"damp"],
+ ['    ├ md ⩵ "STAND" && ¬ar → :Show(:think)',"think"],
+ ['    ├ md ⩵ "STAND" && ar → :Show(:ready)',"ready"],
+ ['    └ md ⩵ "MOVE" → :Show(:work)',"work"],
+ ["  :Show(m) ⇒ m"],
+ ["."]
+];
+var fcode=$("fcode");renderCode(fcode,FC);
+var F={hold:"M60 70l20 20M80 70l-20 20M120 70l20 20M140 70l-20 20|M60 140h80",lost:"M60 80h20M120 80h20|M70 140q30 -10 60 0",tired:"M58 82q12 8 24 0M118 82q12 8 24 0|M70 142h60",sleep:"M58 80q12 10 24 0M118 80q12 10 24 0|M85 140q15 6 30 0",think:"M70 72v18M130 72v18|M75 140h40",ready:"M70 70v22M130 70v22|M65 132q35 22 70 0",work:"M60 80q10 -14 20 0M120 80q10 -14 20 0|M60 128q40 34 80 0"};
+var MEANS={hold:"fault latched",lost:"no fresh state",tired:"battery low",sleep:"DAMP",think:"STAND, not armed",ready:"STAND, armed",work:"MOVE"};
+var NS="http://www.w3.org/2000/svg";
+function frender(){
+ var md=$("fmd").value,ar=$("far").checked,ft=$("fft").checked,sl=$("fst").checked,sc=+$("fsc").value;$("fscv").textContent=sc;
+ var r=faceMood(md,ar,ft,sl,sc),p=F[r.m].split("|"),g=$("fg");g.textContent="";
+ p.forEach(function(d){var e=document.createElementNS(NS,"path");e.setAttribute("d",d);g.appendChild(e);});
+ var t=document.createElementNS(NS,"text");t.setAttribute("x","100");t.setAttribute("y","40");t.setAttribute("text-anchor","middle");t.setAttribute("font-size","22");t.setAttribute("stroke","none");t.setAttribute("fill","currentColor");t.setAttribute("font-family","monospace");t.textContent="æ æ æ";g.appendChild(t);
+ $("fmood").textContent=":"+r.m;hl(fcode,r.b);
+ $("fjson").textContent=JSON.stringify({schema:"ae.face/0.1",who:"asimov",authority:"æ1",mood:r.m,means:MEANS[r.m],mode:md,armed:ar,battery:sc,stale:sl});
+}
+["fmd","far","fft","fst","fsc"].forEach(function(id){$(id).addEventListener("input",frender);$(id).addEventListener("change",frender);});frender();
+
+/* ---------- Demos como mæch ---------- */
+var B="https://lutheraninstitute.github.io/aeee-lab/lab/";
+var SK={
+ regla:"-- ZACAPA · la comunidad vota la regla\n<regla> := :acceso | :capacidad\n~regla-votada := :acceso\n#Regla(regla-votada) ⇒ <criterio> :=\n  regla-votada?\n  ├ :acceso ⇒ espera-máxima\n  └ :capacidad ⇒ más-cercano.",
+ propuesta:"-- DAOLLC · Moloch v2\n#Propuesta(id) ⇒ <moloch> :=\n  ├ :Submitted(id) → :Sponsored(id) → :Voting(id) → :Grace(id)\n  └ :Processed(id).\n-- DAOLLC · Governor\n#Gobernanza(id) ⇒ <governor> :=\n  ├ :Pending(id) → :Active(id) → :Succeeded(id)\n  ├ :Queued(id)\n  └ :Executed(id).\n:Queued(id) → humano-aprueba?\n  ├ :humano-aprueba ⇒ :Executed(id)\n  └ * ⇒ :Queued(id).",
+ cara:"-- æsymov · prioridad de ánimo, solo lectura\n<animo> := :hold | :lost | :tired | :sleep | :think | :ready | :work\n#Cara(señales) ⇒ <animo> :=\n  señales?\n  ├ :hold ⇒ :hold\n  ├ :lost ⇒ :lost\n  ├ :tired ⇒ :tired\n  ├ :sleep ⇒ :sleep\n  ├ :think ⇒ :think\n  ├ :ready ⇒ :ready\n  └ * ⇒ :work.",
+ authority:"-- autoridad æ: Context → Evidence → Granted\n<authority> := :æ0 | :æ1 | :æ2 | :æ3\n#Authority(req<u8>) → :Context(req)\n  :Context(r)\n    ├ r < 2u8 → :Granted(r)\n    └ r > 1u8 → :Evidence(r, false, false)\n  :Evidence(r, pk, wr)\n    ├ pk && wr → :Granted(r)\n    └ * → :Evidence(r, pk, wr)\n  :Granted(l) ⇒ l\n.",
+ bytes:"-- MathByte · texto → bytes → GLSL (autoridad æ0: todo público)\n#Byte(texto<string>) ⇒ <forma> :=\n  ├ :Texto(texto) → :Bytes(texto) → :Shader(texto)\n  └ :Forma(texto).\n:Shader(t) → forma-pedida?\n  ├ :esfera ⇒ :Forma(:esfera)\n  └ * ⇒ :Forma(:toro)."
+};
+var D=[
+ {t:"ZACAPA.DAO v0 🤠🤖",u:B+"zacapa/v0/",k:"regla",n:"#Regla",d:"Geolocalización real para Zacapa, Guatemala: 11 cabeceras, matriz de carreteras OSM/OSRM; la comunidad vota la regla ACCESO vs CAPACIDAD, simulación determinista y testigo SHA-256.",h:"Le pedimos a Hark el mapa y la votación; los agentes armaron la matriz de rutas, probaron la simulación y publicaron. La regla la elige la comunidad, no el agente."},
+ {t:"DAOLLC.ai v0 ⚖️",u:B+"daollc/v0/",k:"propuesta",n:"#Propuesta · #Gobernanza",d:"Moloch v2 + OpenZeppelin Governor en simulación, con compuerta HUMAN:// (escribe APRUEBO + toque real) y testigo.",h:"Hark tradujo los contratos a estados; nada pasa a :Executed sin el APRUEBO humano."},
+ {t:"æsymov face v1 · $🤖osw",u:B+"face/v1/",k:"cara",n:"#Cara",d:"Cara de robot de solo lectura: estados de ánimo y mirada que sigue tu dedo.",h:"Describimos la cara en un chat; Hark la dibujó con una sola línea y la conectó a las reglas de ánimo."},
+ {t:"æsymov face v2.3 · $🤖osw",u:B+"face/v2.3/",k:"cara",n:"#Cara",d:"La evolución de la cara æsymov: más gestos, misma regla, solo lectura.",h:"Iteramos versión a versión desde el teléfono; la regla de prioridad no cambió: la seguridad gana."},
+ {t:"MathByte v0 🧮",u:B+"mathbyte/v0/",k:"bytes",n:"#Byte",d:"Texto → bytes → GLSL. Una VM en CPU dibuja esfera y toro en 3D, sin CDN.",h:"Hark escribió la VM y el shader, los probó en el navegador y los publicó sin nubes prestadas."},
+ {t:"mæchlæng · más mæch 🤖",u:B+"maechlang/",k:"authority",n:"#Authority",d:"æ escrito en Mech: autoridad æ0–æ3 como máquina de estados; :Granted solo con passkey del principal + recibo Witness.",h:"Hark propuso la sintaxis; yæl fijó la regla: pk && wr o espera."}
+];
+var C=$("cards");
+D.forEach(function(d){
+ var c=el("article","card");c.appendChild(el("h3","",d.t));c.appendChild(el("p","",d.d));
+ c.appendChild(el("p","mt m",d.n));
+ var pre=el("pre","mech",SK[d.k]);pre.tabIndex=0;pre.setAttribute("aria-label","Boceto mæch "+d.n);c.appendChild(pre);
+ c.appendChild(el("span","sk","boceto · sketch, not yet run"));
+ c.appendChild(el("p","how","Cómo lo hicimos con Hark: "+d.h));
+ var pv=el("div","pv"),lb=el("button","","▶ Cargar vista previa");lb.type="button";lb.setAttribute("aria-label","Cargar vista previa de "+d.t);
+ lb.onclick=function(){var f=document.createElement("iframe");f.src=d.u;f.loading="lazy";f.title=d.t;f.setAttribute("sandbox","allow-scripts allow-same-origin");pv.textContent="";pv.appendChild(f);};
+ pv.appendChild(lb);c.appendChild(pv);
+ var r=el("div","row"),a=el("a","btn p","Abrir demo ↗");a.href=d.u;a.target="_blank";a.rel="noopener";r.appendChild(a);c.appendChild(r);
+ C.appendChild(c);
+});
+
+/* ---------- Tu turno ---------- */
+var idea=$("idea"),out=$("out");
+function kebab(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").split("-").slice(0,3).join("-")||"mi-idea";}
+function mk(){var v=(idea.value||"").trim()||"una demo para mi comunidad",k=kebab(v);
+ out.textContent="Hark, quiero construir: "+v+".\n"+
+ "Hazlo en una sola página, sin CDN, accesible en el teléfono.\n"+
+ "Regla: Evidence ≠ Authority. Los agentes proponen; yo decido.\n"+
+ "Escribe también la máquina de estados mæch de su autoridad (#Authority de "+k+"): quién propone, qué evidencia trae y quién concede (yo, con passkey + recibo Witness), con :Context → :Evidence → :Granted y el guard ├ pk && wr → :Granted(r) / └ * → :Evidence(r, pk, wr).\n"+
+ "Sintaxis Mech: kebab-case, sin guiones bajos, ├ … └ …., → y ⇒, comentarios con --. Márcalo como boceto sin ejecutar.\n"+
+ "Pruébalo y publícalo en GitHub Pages en un repo público. ✍️";}
+$("mk").onclick=mk;
+idea.addEventListener("keydown",function(e){if(e.key==="Enter")mk();});
+$("cp").onclick=function(){if(!out.textContent)mk();var b=$("cp");
+ function ok(){b.textContent="Copiado ✓";setTimeout(function(){b.textContent="Copiar";},1600);}
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(out.textContent).then(ok,function(){});}
+ else{var r=document.createRange();r.selectNodeContents(out);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy");ok();}catch(e){}}};
+})();
+</script>
+</body>
+</html>
