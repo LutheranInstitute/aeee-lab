@@ -77,7 +77,38 @@ pre.code span.chg{background:rgba(57,230,255,.16);border-left-color:var(--cy)}
 .rx.blip{animation:blip .5s ease-out}@keyframes blip{0%{box-shadow:0 0 0 0 var(--acc)}100%{box-shadow:0 0 0 12px transparent}}
 .log{white-space:pre-wrap;font-size:13px;margin-top:10px;max-height:240px;overflow:auto;border-top:2px dashed var(--ink);padding-top:8px}
 .rc{font-size:12px;word-break:break-all}
+
+.fxtop{--fx-ink:var(--ink);--fx-line:var(--ink)}
+body[data-t=u] .fxgrid,body[data-t=u] .fxlab{border-color:rgba(212,175,55,.55)}
+/* ── #Face · Asimov · demo arriba (runtime/aesymov-face.js + Mech) ── */
+.fxtop{padding:6px 0 4px}
+.fxtop h2{margin:0}
+.fxhead{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;margin:0 0 8px}
+.fxlab{border:2px solid var(--fx-ink);padding:2px 8px;font-weight:700;font-size:12px;letter-spacing:.06em}
+.fxgrid{display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);gap:10px;align-items:start;border:2px solid var(--fx-line);border-radius:var(--fx-r,0);padding:10px;touch-action:pan-y}
+.fxface{text-align:center;min-width:0}
+.aeface{width:100%;height:auto;max-height:min(52vh,540px);display:block;margin:0 auto;touch-action:pan-y;user-select:none}
+.fxtop #fmood{font:900 clamp(24px,7vw,40px)/1 Impact,"Arial Narrow",sans-serif;text-transform:uppercase;margin:6px 0 2px;color:var(--fx-ink)}
+.fxmeans{font-size:12px;line-height:1.3;opacity:.85}
+.fxctl{display:flex;flex-direction:column;gap:2px;min-width:0}
+.fxctl .fxl{font-size:12px;line-height:1.3;margin:2px 0 0}
+.fxctl select{width:100%;min-height:44px;font-size:16px}
+.fxctl label.ck{display:flex;align-items:center;gap:10px;min-height:44px;margin:0;cursor:pointer}
+.fxctl label.ck input{width:24px;height:24px;flex:none}
+.fxctl input[type=range]{width:100%;min-height:44px;margin:0}
+#ftour{width:100%;min-height:44px;font-size:16px;font-weight:700;margin-top:4px}
+.fxst{margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.fxst .sk{margin:0}.fxst .rc{margin:0}
+.fxtop pre.code{margin-top:8px}
+.fxgrid[data-mood=hold] .aeface,.fxgrid[data-mood=work] .aeface{filter:drop-shadow(0 0 10px rgba(255,140,40,.35))}
+.aenz{transform-origin:120px 42px;animation:aenz 4s ease-in-out infinite}@keyframes aenz{50%{transform:scale(1.18);opacity:.15}}
+@media(min-width:760px){.fxgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;padding:16px}.aeface{max-height:min(62vh,520px)}}
+@media(max-width:640px){.fxv{display:none}}
+@media(prefers-reduced-motion:reduce){.aenz{animation:none!important}}
+
+@media(max-width:640px){header{min-height:0;padding:14px 5vw 10px}header .lab{display:none}h1{font-size:clamp(40px,12vw,64px)}h1 br{display:none}header .tag{font-size:13px;margin-top:6px}.tags{display:none}.stack{margin:8px 0 0}.ufo{top:12px}#line{height:70%}main{padding-top:12px}}
+@media(max-width:640px) and (max-height:760px){header .tag{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}#line path,#fg path{stroke-dashoffset:0}.k{opacity:1;transform:none}}
+.fxn{font-size:13px;line-height:1.45;margin:8px 0}
 </style></head>
 <body data-t="u">
 <header>
@@ -95,12 +126,33 @@ pre.code span.chg{background:rgba(57,230,255,.16);border-left-color:var(--cy)}
 </svg>
 </header>
 <main>
-<nav class="nav"><a href="#auth">#Authority</a><a href="#face">#Face · Asimov</a><a href="#fuentes">Fuentes</a></nav>
-<h2>Qué es</h2>
-<p>mæchlang escribe el eje de autoridad æ0–æ3 en <a href="https://mech-lang.org">Mech</a>, un lenguaje declarativo y reactivo donde los datos, sus relaciones y sus estados son el programa. Los agentes pueden avanzar contexto y evidencia; solo la persona principal concede æ2 y æ3.</p>
-<p><b>mæchlæng no es estático.</b> Esta página trae el runtime real de Mech (wasm, Version 0.3.5, vendorizado en <a href="runtime/">runtime/</a>, sin CDN). Cada vez que cambias una entrada, el programa <code>.mec</code> completo se vuelve a ejecutar en Mech y el estado cambia al instante: Δ input → Δ estado. Cada cambio deja un recibo Witness SHA-256.</p>
-<p>Mech es de Corey Montella, Apache-2.0, beta. mæchlæng no está afiliado al proyecto Mech.</p>
-
+<section id="face" class="fxtop" aria-labelledby="fxh">
+ <div class="fxhead"><h2 id="fxh">&gt;_ #Face · Asimov<span class="fxv"> · en vivo</span></h2><span class="fxlab">DEMO · LAB · æ1<span class="fxv"> · solo lectura</span></span></div>
+ <div class="fxgrid" id="fxbox" data-mood="think">
+  <div class="fxface">
+   <svg id="aeface" class="aeface" viewBox="40 6 160 252" role="img" aria-label="æsymov: solo la cara del Asimov 1. Casco negro, visor de cobre, filamento de ánimo y ojo de la mente 🧿 arriba. Solo lectura."><defs><radialGradient id="aeface-halo"><stop offset="0" data-k="h0" stop-color="#00f3ff" stop-opacity=".22"/><stop offset="1" stop-color="#00f3ff" stop-opacity="0"/></radialGradient></defs><g data-k="head"><circle cx="120" cy="132" r="118" fill="url(#aeface-halo)"/><path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/><path d="M60 70 Q66 30 120 28" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="10" stroke-linecap="round"/><rect x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#b87333" stroke-width="2.5"/><path data-k="fil" d="M96 128 C106 108 116 148 126 128 S140 112 146 128" fill="none" stroke="#00f3ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M52 176 Q60 232 120 240 Q180 232 188 176" fill="none" stroke="#b87333" stroke-opacity=".55" stroke-width="2"/><g fill="#b87333"><circle cx="54" cy="128" r="3"/><circle cx="186" cy="128" r="3"/><circle cx="86" cy="208" r="2.2"/><circle cx="154" cy="208" r="2.2"/></g><g data-k="nazar"><circle class="aenz" cx="120" cy="42" r="15" fill="none" stroke="#3a6fe0" stroke-width="1.5" opacity=".5"/><circle cx="120" cy="42" r="11" fill="#12348f" stroke="#b87333" stroke-width="1.8"/><circle cx="120" cy="42" r="8" fill="#fff"/><circle data-k="iris" cx="120" cy="42" r="5.6" fill="#5fa8ff"/><circle data-k="pupil" cx="120" cy="42" r="2.8" fill="#05060a"/></g></g></svg>
+   <div id="fmood" class="fxmood" aria-live="polite">:think</div>
+   <div id="fmeans" class="fxmeans">pensando · STAND sin armar</div>
+  </div>
+  <div class="fxctl">
+   <label for="fmd" class="fxl">md · modo</label>
+   <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select>
+   <label class="ck"><input type="checkbox" id="far"> armed · ar</label>
+   <label class="ck"><input type="checkbox" id="fft"> fault · ft</label>
+   <label class="ck"><input type="checkbox" id="fst"> stale · ag &gt; 0.5 s</label>
+   <label for="fsc" class="fxl">battery · sc <b><span id="fscv">80</span>%</b></label>
+   <input type="range" id="fsc" min="0" max="100" value="80">
+   <button id="ftour" type="button" aria-pressed="false">▶ demo</button>
+  </div>
+ </div>
+ <p class="fxst"><span class="sk" id="fbadge">espejo JS · aún no ejecutado en Mech en este navegador</span> <span class="rc" id="frc">Witness: sin recibo.</span></p>
+ <p class="fxn">Cambias una entrada → Mech vuelve a ejecutar <a href="face.mec">face.mec</a> completo → la cara va, con easing asintótico (τ 0.18 s / 0.9 s), al ánimo que Mech eligió; la regla ganadora se ilumina y cada cambio deja un recibo Witness SHA-256. La cara sigue tu dedo o puntero. ▶ demo recorre los 7 ánimos: hold · lost · tired · sleep · think · ready · work. <b>Solo lectura (autoridad æ1): la cara muestra, nunca mueve un robot.</b> Las reglas van de arriba abajo: la seguridad gana.</p>
+ <pre class="code" id="fcode" tabindex="0" aria-label="Programa Mech de #Face, con las entradas actuales"></pre>
+ <div id="fjson"></div>
+ <div class="log" id="flog"></div>
+ <p class="fxn">Mismas reglas que el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae" rel="noopener" target="_blank">ae/face.py</a> (rama ae-face). La cara es 🤖æsymov_face (<a href="../face/v1/">lab/face/v1</a>). FAULT_DAMP es el nombre del modo en el SDK; en mæch va entre comillas. El borrador ampliado <a href="face-v2.mec">face-v2.mec</a> sigue siendo un boceto sin ejecutar. Mech © Corey Montella, Apache-2.0, beta; mæchlæng no está afiliado.</p>
+</section>
+<nav class="nav"><a href="#face">#Face · Asimov</a><a href="#auth">#Authority</a><a href="#que">Qué es</a><a href="#fuentes">Fuentes</a></nav>
 <h2 id="auth">#Authority · en vivo</h2>
 <div class="eng"><span id="eng">motor: espejo JS · cargando runtime Mech…</span> <button id="loadmech" type="button" hidden>cargar runtime Mech (2.4 MB)</button></div>
 <p class="rx" id="rx" aria-live="polite">reactivo: Δ input → Δ estado</p>
@@ -118,23 +170,10 @@ pre.code span.chg{background:rgba(57,230,255,.16);border-left-color:var(--cy)}
 </div>
 <p><small>Este es el programa completo, <a href="authority.mec">authority.mec</a>. Las cuatro líneas de <code>⟦inputs⟧</code> cambian con tus controles y Mech vuelve a ejecutar todo: la rama activa se ilumina (en rojo, la espera). Hasta que el runtime carga, un espejo en JavaScript con las mismas reglas da el estado; después manda Mech y el espejo solo verifica. Ningún agente concede æ2/æ3 sin <code>pk &amp;&amp; wr</code>.</small></p>
 
-<h2 id="face">#Face · Asimov · en vivo</h2>
-<p>La cara del robot en mæchlæng. Lee lo que el Asimov reporta y elige un ánimo; nunca lo controla (autoridad æ1). Las reglas van de arriba abajo, así que la seguridad gana.</p>
-<div class="sim facebox">
- <div><svg id="fsvg" viewBox="0 0 200 200" role="img" aria-label="cara æ del Asimov, solo lectura"><g id="fg" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></g></svg><div id="fmood">—</div></div>
- <div>
-  <div class="row"><label for="fmd">md · modo</label> <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select></div>
-  <label class="ck"><input type="checkbox" id="far"> ar · armed</label>
-  <label class="ck"><input type="checkbox" id="fft"> ft · faulted (alerta crítica)</label>
-  <label class="ck"><input type="checkbox" id="fst"> ag &gt; 0.5 s · sin estado fresco</label>
-  <div class="row"><label for="fsc">sc · batería</label> <input type="range" id="fsc" min="0" max="100" value="80"> <span id="fscv">80</span>%</div>
-  <pre class="code" id="fcode" tabindex="0" aria-label="Programa Mech de #Face, con las entradas actuales"></pre>
-  <span class="sk" id="fbadge">espejo JS · aún no ejecutado en Mech en este navegador</span>
-  <div id="fjson"></div>
-  <div class="log" id="flog"></div>
- </div>
-</div>
-<p><small>Programa completo: <a href="face.mec">face.mec</a>, mismas reglas que el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae">ae/face.py</a> (rama ae-face). El borrador ampliado <a href="face-v2.mec">face-v2.mec</a> sigue siendo un boceto sin ejecutar.</small></p>
+<h2 id="que">Qué es</h2>
+<p>mæchlang escribe el eje de autoridad æ0–æ3 en <a href="https://mech-lang.org">Mech</a>, un lenguaje declarativo y reactivo donde los datos, sus relaciones y sus estados son el programa. Los agentes pueden avanzar contexto y evidencia; solo la persona principal concede æ2 y æ3.</p>
+<p><b>mæchlæng no es estático.</b> Esta página trae el runtime real de Mech (wasm, Version 0.3.5, vendorizado en <a href="runtime/">runtime/</a>, sin CDN). Cada vez que cambias una entrada, el programa <code>.mec</code> completo se vuelve a ejecutar en Mech y el estado cambia al instante: Δ input → Δ estado. Cada cambio deja un recibo Witness SHA-256.</p>
+<p>Mech es de Corey Montella, Apache-2.0, beta. mæchlæng no está afiliado al proyecto Mech.</p>
 
 <h2>Una regla de Mech</h2>
 <p>Mech no admite guiones bajos en identificadores: <code>agentic_environments</code> → <code>agentic-environments</code>. Sí admite Unicode: <code>:æ0</code>, <code>→</code>, <code>⇒</code>, <code>⩵</code>, <code>¬</code>, <code>∨</code>, <code>∈</code>.</p>
@@ -145,6 +184,7 @@ pre.code span.chg{background:rgba(57,230,255,.16);border-left-color:var(--cy)}
 </main>
 <footer>$æ · mæchlæng · LAB · noindex · Mech © Corey Montella, Apache-2.0 · sin afiliación · Human stays root. · Make something agents want. · #makesomethingagentswant 🏹 #ioa</footer>
 <script src="runtime/maech-run.js"></script>
+<script src="runtime/aesymov-face.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 document.querySelectorAll(".stack i").forEach(i=>i.onclick=()=>{if(i.dataset.t==="r")return;document.body.dataset.t=i.dataset.t;try{localStorage.maechT=i.dataset.t}catch(e){}});
@@ -154,6 +194,6 @@ try{if(localStorage.maechT)document.body.dataset.t=localStorage.maechT}catch(e){
 (function(){const h=$("h1");let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();[...c.textContent].forEach(ch=>{const sp=document.createElement("span");sp.className="k";sp.textContent=ch;sp.style.animationDelay=(i++*70)+"ms";f.appendChild(sp)});c.replaceWith(f)}else if(c.nodeName!=="BR")walk(c)})};walk(h)})();
 let rot=null;const TH=["y","b","g","u"];
 document.querySelectorAll(".stack i").forEach(i=>i.addEventListener("click",()=>{clearInterval(rot);if(i.dataset.t==="r"){let k=0;document.body.dataset.t=TH[0];rot=setInterval(()=>{document.body.dataset.t=TH[++k%TH.length]},4000)}}));
-MaechRun.mount({base:"runtime/"});
+AesymovFace.boot({base:"runtime/"});
 </script>
 </body></html>

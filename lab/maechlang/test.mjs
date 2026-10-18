@@ -41,4 +41,11 @@ assert.strictEqual(f('DAMP', false, false, 0.05, 80), 'sleep'); assert.strictEqu
 assert.strictEqual(f('STAND', true, false, 0.05, 80), 'ready'); assert.strictEqual(f('MOVE', true, false, 0.05, 80), 'work');
 // the unknown-mode arm runs in Mech too
 const xu = M.run(M.withInputs(M.FACE_SRC, M.faceInputs('WALK', true, false, 0.05, 80))); assert.strictEqual(M.parseFace(xu.out), 'lost');
+// ▶ demo tour: every step makes Mech choose its mood, and the tour covers all 7 moods
+const AF = createRequire(import.meta.url)(D + 'runtime/aesymov-face.js');
+assert.deepStrictEqual(AF.TOUR.map(s => s.m).sort(), [...AF.MOODS].sort(), 'tour must cover all 7 moods');
+for (const s of AF.TOUR) { const v = s.v, ag = v.st ? 0.9 : 0.05;
+  const x = M.run(M.withInputs(M.FACE_SRC, M.faceInputs(v.md, v.ar, v.ft, ag, v.sc))); ms += x.ms; n++;
+  assert.strictEqual(M.parseFace(x.out), s.m, 'tour step ' + s.m); assert.ok(AF.FIL[s.m] && AF.POSTURE[s.m] && AF.ES[s.m]); }
+assert.ok(/viewBox="40 6 160 252"/.test(AF.svg()), 'æsymov face svg');
 console.log(`ALL TESTS PASS · real Mech runtime ${ver} · ${n} programs run · avg ${(ms / n).toFixed(1)} ms/run`);

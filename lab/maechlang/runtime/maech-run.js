@@ -252,19 +252,25 @@ function mount(o) {
     var b = faceBranch(m, ag);
     renderCode(F.code, "face", src, [b], "", changed);
     badge("fbadge", how, ms);
-    var g = $("fg"); g.textContent = "";
-    FP[m].split("|").forEach(function (dd) { var e = d.createElementNS(NS, "path"); e.setAttribute("d", dd); g.appendChild(e); });
-    var t = d.createElementNS(NS, "text"); t.setAttribute("x", "100"); t.setAttribute("y", "40"); t.setAttribute("text-anchor", "middle"); t.setAttribute("font-size", "22"); t.setAttribute("stroke", "none"); t.setAttribute("fill", "currentColor"); t.setAttribute("font-family", "monospace"); t.textContent = "æ æ æ"; g.appendChild(t);
-    $("fmood").textContent = ":" + m;
+    var g = $("fg");
+    if (g) {
+      g.textContent = "";
+      FP[m].split("|").forEach(function (dd) { var e = d.createElementNS(NS, "path"); e.setAttribute("d", dd); g.appendChild(e); });
+      var t = d.createElementNS(NS, "text"); t.setAttribute("x", "100"); t.setAttribute("y", "40"); t.setAttribute("text-anchor", "middle"); t.setAttribute("font-size", "22"); t.setAttribute("stroke", "none"); t.setAttribute("fill", "currentColor"); t.setAttribute("font-family", "monospace"); t.textContent = "æ æ æ"; g.appendChild(t);
+    }
+    if ($("fmood")) $("fmood").textContent = ":" + m;
     var rec = { schema: "ae.face/0.1", who: "asimov", authority: "æ1", mood: m, means: MEANS[m], mode: md, armed: ar, faulted: ft, battery: sc, stale: ag > 0.5, motor: how === "mech" ? "mech " + version : "espejo-js" };
     $("fjson").textContent = JSON.stringify(rec);
     pulse("reactivo: Δ " + reason + " → :" + m);
+    // hook: the big æsymov face (runtime/aesymov-face.js) animates to the mood Mech chose
+    if (typeof o.onFace === "function") { try { o.onFace({ mood: m, branch: b, how: how, ms: ms, rec: rec, reason: reason }); } catch (eh) {} }
     if (!receipt) return;
     var key = [md, ar, ft, ag, sc].join("|");
     if (key === fLast && reason !== "runtime Mech listo") return;
     fLast = key;
     W.append({ t: "face", mood: m, mode: md, armed: ar, faulted: ft, stale: ag > 0.5, battery: sc, rama: b, motor: rec.motor, at: new Date().toISOString() }).then(function (w) {
       log(F.log, "Δ " + reason + " ⇒ :" + m + " (" + MEANS[m] + ")" + (how === "mech" ? " · Mech " + ms + " ms" : " · espejo JS") + (w ? " · witness #" + w.n + " " + w.h.slice(0, 16) + "…" : ""));
+      if ($("frc")) $("frc").textContent = w ? "Witness #" + w.n + " · " + w.h.slice(0, 24) + "…" : "Witness: sin crypto.subtle en este navegador";
     });
   }
   var FN = { fmd: "md", far: "ar", fft: "ft", fst: "ag", fsc: "sc" };

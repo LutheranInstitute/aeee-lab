@@ -72,6 +72,35 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
 .eng{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px;color:#8fb8bf;margin:6px 0}
 .rx{display:inline-block;border:1px solid #ffd400;color:#ffd400;border-radius:8px;padding:6px 12px;font-weight:700;margin:4px 0 10px}
 .rx.blip{animation:blip .5s ease-out}@keyframes blip{0%{box-shadow:0 0 0 0 #ffd400aa}100%{box-shadow:0 0 0 12px transparent}}
+
+.fxtop{--fx-ink:#fff;--fx-line:#00f3ff55;--fx-r:14px;margin-top:22px}
+.fxtop h2{font-size:28px;border:0;padding:0}
+.fxlab{border-color:#ffd400!important;color:#ffd400;border-radius:4px;border-width:1px!important}
+.fxgrid{background:#020b0fcc;border-width:1px!important}
+/* ── #Face · Asimov · demo arriba (runtime/aesymov-face.js + Mech) ── */
+.fxtop{padding:6px 0 4px}
+.fxtop h2{margin:0}
+.fxhead{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;margin:0 0 8px}
+.fxlab{border:2px solid var(--fx-ink);padding:2px 8px;font-weight:700;font-size:12px;letter-spacing:.06em}
+.fxgrid{display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);gap:10px;align-items:start;border:2px solid var(--fx-line);border-radius:var(--fx-r,0);padding:10px;touch-action:pan-y}
+.fxface{text-align:center;min-width:0}
+.aeface{width:100%;height:auto;max-height:min(52vh,540px);display:block;margin:0 auto;touch-action:pan-y;user-select:none}
+.fxtop #fmood{font:900 clamp(24px,7vw,40px)/1 Impact,"Arial Narrow",sans-serif;text-transform:uppercase;margin:6px 0 2px;color:var(--fx-ink)}
+.fxmeans{font-size:12px;line-height:1.3;opacity:.85}
+.fxctl{display:flex;flex-direction:column;gap:2px;min-width:0}
+.fxctl .fxl{font-size:12px;line-height:1.3;margin:2px 0 0}
+.fxctl select{width:100%;min-height:44px;font-size:16px}
+.fxctl label.ck{display:flex;align-items:center;gap:10px;min-height:44px;margin:0;cursor:pointer}
+.fxctl label.ck input{width:24px;height:24px;flex:none}
+.fxctl input[type=range]{width:100%;min-height:44px;margin:0}
+#ftour{width:100%;min-height:44px;font-size:16px;font-weight:700;margin-top:4px}
+.fxst{margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.fxst .sk{margin:0}.fxst .rc{margin:0}
+.fxtop pre.code{margin-top:8px}
+.fxgrid[data-mood=hold] .aeface,.fxgrid[data-mood=work] .aeface{filter:drop-shadow(0 0 10px rgba(255,140,40,.35))}
+.aenz{transform-origin:120px 42px;animation:aenz 4s ease-in-out infinite}@keyframes aenz{50%{transform:scale(1.18);opacity:.15}}
+@media(min-width:760px){.fxgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;padding:16px}.aeface{max-height:min(62vh,520px)}}
+@media(max-width:640px){.fxv{display:none}}
+@media(prefers-reduced-motion:reduce){.aenz{animation:none!important}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -91,10 +120,36 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
   <a class="btn" href="https://hark.com" rel="noopener" target="_blank">🌐 Web</a>
  </div>
  <nav class="nav" aria-label="Secciones">
-  <a href="#auth">#Authority</a><a href="#face">#Face · Asimov</a><a href="#demos">Demos como mæch</a><a href="#turno">Tu turno</a><a href="#principios">Principios</a>
+  <a href="#face">#Face · Asimov</a><a href="#auth">#Authority</a><a href="#demos">Demos como mæch</a><a href="#turno">Tu turno</a><a href="#principios">Principios</a>
  </nav>
 </header>
 
+<section id="face" class="fxtop" aria-labelledby="fxh">
+ <div class="fxhead"><h2 id="fxh">&gt;_ #Face · Asimov<span class="fxv"> · en vivo</span></h2><span class="fxlab">DEMO · LAB · æ1<span class="fxv"> · solo lectura</span></span></div>
+ <div class="fxgrid" id="fxbox" data-mood="think">
+  <div class="fxface">
+   <svg id="aeface" class="aeface" viewBox="40 6 160 252" role="img" aria-label="æsymov: solo la cara del Asimov 1. Casco negro, visor de cobre, filamento de ánimo y ojo de la mente 🧿 arriba. Solo lectura."><defs><radialGradient id="aeface-halo"><stop offset="0" data-k="h0" stop-color="#00f3ff" stop-opacity=".22"/><stop offset="1" stop-color="#00f3ff" stop-opacity="0"/></radialGradient></defs><g data-k="head"><circle cx="120" cy="132" r="118" fill="url(#aeface-halo)"/><path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/><path d="M60 70 Q66 30 120 28" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="10" stroke-linecap="round"/><rect x="66" y="96" width="108" height="64" rx="30" fill="#05060a" stroke="#b87333" stroke-width="2.5"/><path data-k="fil" d="M96 128 C106 108 116 148 126 128 S140 112 146 128" fill="none" stroke="#00f3ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M52 176 Q60 232 120 240 Q180 232 188 176" fill="none" stroke="#b87333" stroke-opacity=".55" stroke-width="2"/><g fill="#b87333"><circle cx="54" cy="128" r="3"/><circle cx="186" cy="128" r="3"/><circle cx="86" cy="208" r="2.2"/><circle cx="154" cy="208" r="2.2"/></g><g data-k="nazar"><circle class="aenz" cx="120" cy="42" r="15" fill="none" stroke="#3a6fe0" stroke-width="1.5" opacity=".5"/><circle cx="120" cy="42" r="11" fill="#12348f" stroke="#b87333" stroke-width="1.8"/><circle cx="120" cy="42" r="8" fill="#fff"/><circle data-k="iris" cx="120" cy="42" r="5.6" fill="#5fa8ff"/><circle data-k="pupil" cx="120" cy="42" r="2.8" fill="#05060a"/></g></g></svg>
+   <div id="fmood" class="fxmood" aria-live="polite">:think</div>
+   <div id="fmeans" class="fxmeans">pensando · STAND sin armar</div>
+  </div>
+  <div class="fxctl">
+   <label for="fmd" class="fxl">md · modo</label>
+   <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select>
+   <label class="ck"><input type="checkbox" id="far"> armed · ar</label>
+   <label class="ck"><input type="checkbox" id="fft"> fault · ft</label>
+   <label class="ck"><input type="checkbox" id="fst"> stale · ag &gt; 0.5 s</label>
+   <label for="fsc" class="fxl">battery · sc <b><span id="fscv">80</span>%</b></label>
+   <input type="range" id="fsc" min="0" max="100" value="80">
+   <button id="ftour" type="button" aria-pressed="false">▶ demo</button>
+  </div>
+ </div>
+ <p class="fxst"><span class="sk" id="fbadge">espejo JS · aún no ejecutado en Mech en este navegador</span> <span class="rc" id="frc">Witness: sin recibo.</span></p>
+ <p class="m">Cambias una entrada → Mech vuelve a ejecutar <a href="../../maechlang/face.mec">face.mec</a> completo → la cara va, con easing asintótico (τ 0.18 s / 0.9 s), al ánimo que Mech eligió; la regla ganadora se ilumina y cada cambio deja un recibo Witness SHA-256. La cara sigue tu dedo o puntero. ▶ demo recorre los 7 ánimos: hold · lost · tired · sleep · think · ready · work. <b>Solo lectura (autoridad æ1): la cara muestra, nunca mueve un robot.</b> Las reglas van de arriba abajo: la seguridad gana.</p>
+ <pre class="code" id="fcode" tabindex="0" aria-label="Programa Mech de #Face, con las entradas actuales"></pre>
+ <div id="fjson"></div>
+ <div class="log" id="flog"></div>
+ <p class="m">Mismas reglas que el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae" rel="noopener" target="_blank">ae/face.py</a> (rama ae-face). La cara es 🤖æsymov_face (<a href="../../maechlang/../face/v1/">lab/face/v1</a>). FAULT_DAMP es el nombre del modo en el SDK; en mæch va entre comillas. El borrador ampliado <a href="../../maechlang/face-v2.mec">face-v2.mec</a> sigue siendo un boceto sin ejecutar. Mech © Corey Montella, Apache-2.0, beta; mæchlæng no está afiliado.</p>
+</section>
 <h2 id="auth">&gt;_ #Authority · en vivo</h2>
 <p class="m"><b>mæchlæng no es estático.</b> Mech es reactivo: cambias una entrada y la máquina entera se vuelve a evaluar al instante en el runtime real de Mech, dentro de tu navegador. <b>:Context → :Evidence → :Granted</b>; la rama activa se ilumina y cada cambio deja un recibo Witness.</p>
 <div class="eng"><span id="eng">motor: espejo JS · cargando runtime Mech…</span> <button id="loadmech" type="button" hidden>cargar runtime Mech (2.4 MB)</button></div>
@@ -118,29 +173,6 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
  <div class="log" id="alog"></div>
 </div>
 <p class="m">El código de arriba es el programa completo (<a href="../../maechlang/authority.mec">maechlang/authority.mec</a>): las líneas de <code>⟦inputs⟧</code> cambian con tus controles y Mech lo vuelve a ejecutar entero. Runtime: Mech wasm Version 0.3.5, vendorizado en <a href="../../maechlang/runtime/">maechlang/runtime/</a>, sin CDN. Antes de que cargue, un espejo JavaScript con las mismas reglas da el estado; después manda Mech y el espejo solo verifica. El recibo Witness es SHA-256 real (crypto.subtle) encadenado desde GENESIS: <code>h(n) = sha256(h(n-1) + "|" + evento)</code>, uno por cambio.</p>
-
-<h2 id="face">&gt;_ #Face · Asimov · en vivo</h2>
-<p class="m">La cara del robot lee lo que el Asimov reporta y elige un ánimo; nunca lo controla (autoridad æ1). Las reglas van de arriba abajo: la seguridad gana. Mueve cualquier control: Mech re-evalúa y la regla que decide se ilumina.</p>
-<div class="sim">
- <div class="grid2">
-  <div>
-   <svg id="fsvg" viewBox="0 0 200 200" role="img" aria-label="Cara æ del Asimov, solo lectura"><g id="fg" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></g></svg>
-   <div id="fmood">—</div>
-   <div class="row"><label for="fmd">modo</label> <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select></div>
-   <label class="ck"><input type="checkbox" id="far"> ar · armed</label>
-   <label class="ck"><input type="checkbox" id="fft"> ft · faulted (alerta crítica)</label>
-   <label class="ck"><input type="checkbox" id="fst"> ag &gt; 0.5 s · sin estado fresco</label>
-   <div class="row"><label for="fsc">sc · batería</label> <input type="range" id="fsc" min="0" max="100" value="80"> <span id="fscv">80</span>%</div>
-  </div>
-  <div>
-   <pre class="code" id="fcode" tabindex="0" aria-label="Código mæch de #Face"></pre>
-   <p class="m" style="margin:6px 0 0"><span class="sk" id="fbadge">espejo JS · aún no ejecutado en Mech en este navegador</span></p>
-   <div id="fjson"></div>
-   <div class="log" id="flog"></div>
-  </div>
- </div>
-</div>
-<p class="m">Mismas reglas que <a href="../../maechlang/face.mec">face.mec</a> y el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae" rel="noopener" target="_blank">ae/face.py</a> (rama ae-face). Nota: el modo FAULT_DAMP del robot se lee como :hold (en el SDK es el nombre del modo; en mæch va entre comillas, no es identificador).</p>
 
 <h2 id="demos">&gt;_ Demos como mæch</h2>
 <p class="m">Cada demo del laboratorio, junto a su boceto Mech: la forma de su autoridad. Todas nacieron en un chat con Hark desde el teléfono.</p>
@@ -182,6 +214,7 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
 </footer>
 </main>
 <script src="../../maechlang/runtime/maech-run.js"></script>
+<script src="../../maechlang/runtime/aesymov-face.js"></script>
 <script>
 (function(){
 "use strict";
@@ -235,7 +268,7 @@ $("cp").onclick=function(){if(!out.textContent)mk();var b=$("cp");
  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(out.textContent).then(ok,function(){});}
  else{var r=document.createRange();r.selectNodeContents(out);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy");ok();}catch(e){}}};
 })();
-MaechRun.mount({base:"../../maechlang/runtime/"});
+AesymovFace.boot({base:"../../maechlang/runtime/"});
 </script>
 </body>
 </html>
