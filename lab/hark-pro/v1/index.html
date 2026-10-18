@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#000000">
+<link rel="alternate" type="application/json" href="../../maechlang/agent.json" title="mæchlæng agent manifest">
+<link rel="alternate" type="text/plain" href="../../maechlang/llms.txt" title="llms.txt">
 <title>mæchlæng + HARK_PRO æ · unified · LAB v1 · Mech en vivo</title>
 <style>
 *{box-sizing:border-box}
@@ -102,6 +104,7 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
 @media(max-width:640px){.fxv{display:none}}
 @media(prefers-reduced-motion:reduce){.aenz{animation:none!important}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+.agstrip .agl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.agstrip .agl a{min-height:44px;display:inline-flex;align-items:center}
 </style>
 </head>
 <body>
@@ -120,7 +123,7 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
   <a class="btn" href="https://hark.com" rel="noopener" target="_blank">🌐 Web</a>
  </div>
  <nav class="nav" aria-label="Secciones">
-  <a href="#face">#Face · Asimov</a><a href="#auth">#Authority</a><a href="#demos">Demos como mæch</a><a href="#turno">Tu turno</a><a href="#principios">Principios</a>
+  <a href="#face">#Face · Asimov</a><a href="#auth">#Authority</a><a href="#demos">Demos como mæch</a><a href="#turno">Tu turno</a><a href="#principios">Principios</a><a href="#agentes">🤖 para agentes</a>
  </nav>
 </header>
 
@@ -198,6 +201,12 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
  <li><b>Todos somos desarrolladores. ✍️</b></li>
 </ul>
 
+<section id="agentes" class="agstrip" aria-labelledby="agh">
+ <h2 id="agh">&gt;_ 🤖 para agentes</h2>
+ <p>Hark Pro es un agente; esta página también es para agentes. Mismos programas Mech, misma regla: los agentes traen evidencia, solo la persona principal concede æ2/æ3 con <code>pk &amp;&amp; wr</code>. En consola: <code>await MAECH.ready; await MAECH.face({md: "STAND", armed: true})</code>. pk aquí es simulado: un <code>:Granted</code> del LAB es demo, no autoridad.</p>
+ <p class="agl"><a class="btn" href="../../maechlang/llms.txt">llms.txt</a><a class="btn" href="../../maechlang/agent.json">agent.json</a><a class="btn" href="../../maechlang/?agent">?agent</a><span>point your agents at me 🪡</span></p>
+</section>
+
 <h2>&gt;_ Créditos</h2>
 <ul class="pr">
  <li><b>Mech</b> · <a href="https://mech-lang.org" rel="noopener" target="_blank">mech-lang.org</a> · Corey Montella · Apache-2.0 · beta. mæchlæng es un experimento del Instituto, sin afiliación con Mech.</li>
@@ -215,6 +224,7 @@ pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
 </main>
 <script src="../../maechlang/runtime/maech-run.js"></script>
 <script src="../../maechlang/runtime/aesymov-face.js"></script>
+<script src="../../maechlang/runtime/maech-agent.js"></script>
 <script>
 (function(){
 "use strict";

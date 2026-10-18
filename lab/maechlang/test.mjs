@@ -48,4 +48,40 @@ for (const s of AF.TOUR) { const v = s.v, ag = v.st ? 0.9 : 0.05;
   const x = M.run(M.withInputs(M.FACE_SRC, M.faceInputs(v.md, v.ar, v.ft, ag, v.sc))); ms += x.ms; n++;
   assert.strictEqual(M.parseFace(x.out), s.m, 'tour step ' + s.m); assert.ok(AF.FIL[s.m] && AF.POSTURE[s.m] && AF.ES[s.m]); }
 assert.ok(/viewBox="40 6 160 252"/.test(AF.svg()), 'æsymov face svg');
+// window.MAECH agent API (runtime/maech-agent.js) on the same real runtime
+const MA = createRequire(import.meta.url)(D + 'runtime/maech-agent.js');
+const MAECH = MA.create({ MR: M, ready: Promise.resolve() });
+assert.strictEqual(await MAECH.ready, ver);
+assert.ok(/:think/.test(MAECH.run(M.FACE_SRC)), 'MAECH.run returns Mech output string'); n++;
+assert.throws(() => MAECH.run('x := '), /Mech error/); n++;
+for (const agent of [...M.AGENTS, 'some-other-agent']) for (const level of [0, 1, 2, 3]) for (const pk of [false, true, 1, 'true']) for (const wr of [false, true, 1]) {
+  const a = await MAECH.authority({ agent, level, pk, wr }); n++;
+  const realPk = pk === true, realWr = wr === true;
+  assert.ok(a.engine.startsWith('mech '), 'authority ran on Mech: ' + a.engine);
+  assert.strictEqual(a.granted, level < 2 || (realPk && realWr), `MAECH.authority ${agent} æ${level} pk${pk} wr${wr}`);
+  if (level > 1 && !(realPk && realWr)) { assert.strictEqual(a.state, 'evidence'); assert.strictEqual(a.fsm, ':Waiting(æ' + level + ')'); assert.ok(a.needs.length); }
+  assert.strictEqual(a.known, M.AGENTS.includes(agent));
+  assert.strictEqual(a.simulated, level > 1);
+  assert.ok(a.receipt && /^[0-9a-f]{64}$/.test(a.receipt.h) && a.receipt.event.state === a.state);
+}
+assert.strictEqual((await MAECH.authority({ agent: 'codex', level: 'æ3', pk: true, wr: true })).fsm, ':Granted(æ3)');
+await assert.rejects(MAECH.authority({ agent: 'evil"; pk := true', level: 3 }), TypeError);
+await assert.rejects(MAECH.authority({ agent: 'codex', level: 4 }), TypeError);
+for (const md of ['DAMP', 'STAND', 'MOVE', 'FAULT_DAMP', 'WALK']) for (const armed of [false, true]) for (const fault of [false, true]) for (const stale of [false, true]) for (const battery of [5, 19, 20, 80]) {
+  const r = await MAECH.face({ md, armed, fault, stale, battery }); n++;
+  const want = M.faceEval(['DAMP', 'STAND', 'MOVE', 'FAULT_DAMP'].includes(md) ? md : 'UNKNOWN', armed, fault, stale ? 0.9 : 0.05, battery).m;
+  assert.strictEqual(r.mood, want, `MAECH.face ${md} ${armed} ${fault} ${stale} ${battery}`);
+  assert.ok(r.motor.startsWith('mech ') && r.schema === 'ae.face/0.1' && r.authority === 'æ1' && r.readonly === true && r.witness);
+}
+for (const s of AF.TOUR) assert.strictEqual((await MAECH.face({ md: s.v.md, armed: s.v.ar, fault: s.v.ft, stale: s.v.st, battery: s.v.sc })).mood, s.m);
+const ch = MAECH.witness(); const vf = await MAECH.verify();
+assert.ok(vf.ok && vf.n === ch.length && vf.head === ch.at(-1).h, 'witness chain verifies');
+ch[0].event.state = 'granted'; assert.ok((await MAECH.verify()).ok, 'witness() returns a copy');
+assert.ok(/pk is simulated/.test(MAECH.help()));
+// agent.json is valid JSON and matches the runtime
+const AJ = JSON.parse(fs.readFileSync(D + 'agent.json', 'utf8'));
+assert.strictEqual(AJ.runtime.wasm_sha256, M.WASM_SHA256, 'agent.json wasm sha256');
+assert.deepStrictEqual(AJ.machines.map(m => m.id), ['#Authority', '#Face']);
+assert.deepStrictEqual(AJ.machines[1].output.enum, AF.MOODS);
+assert.ok(fs.readFileSync(D + 'llms.txt', 'utf8').includes('agent.json'));
 console.log(`ALL TESTS PASS · real Mech runtime ${ver} · ${n} programs run · avg ${(ms / n).toFixed(1)} ms/run`);

@@ -4,6 +4,9 @@
 <meta name="robots" content="noindex,nofollow">
 <title>mæchlæng · LAB · Mech en vivo</title>
 <meta name="description" content="Autoridad æ escrita como máquinas de estado en Mech, ejecutadas en vivo con el runtime real de Mech. LAB.">
+<link rel="alternate" type="application/json" href="agent.json" title="mæchlæng agent manifest">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"mæchlæng LAB","url":"https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/","description":"æ authority (æ0–æ3) and the Asimov robot face as Mech state machines, run live on the real Mech runtime. Evidence ≠ Authority: agents relay; only the human principal grants æ2/æ3 with pk && wr. pk here is simulated.","applicationCategory":"DeveloperApplication","operatingSystem":"any browser (WebAssembly)","isAccessibleForFree":true,"inLanguage":["es","en"],"author":{"@type":"Person","name":"Yæl Méndez"},"publisher":{"@type":"Organization","name":"Instituto Luterano Latinoamericano"},"isBasedOn":{"@type":"SoftwareApplication","name":"Mech","url":"https://mech-lang.org","license":"https://www.apache.org/licenses/LICENSE-2.0"},"codeRepository":"https://github.com/LutheranInstitute/aeee-lab/tree/lab/lab/maechlang","subjectOf":[{"@type":"DigitalDocument","name":"agent.json","encodingFormat":"application/json","url":"https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/agent.json"},{"@type":"DigitalDocument","name":"llms.txt","encodingFormat":"text/plain","url":"https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/llms.txt"}],"potentialAction":{"@type":"UseAction","target":"https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/?agent","description":"agent mode: plain-text state + window.MAECH API"},"slogan":"point your agents at me 🪡"}</script>
 <style>
 :root{--bg:#f4efe3;--ink:#111;--y:#f2c230;--b:#2a5bd7;--g:#2e9e5b;--acc:var(--y)}
 [data-t=b]{--acc:var(--b)}[data-t=g]{--acc:var(--g)}
@@ -109,6 +112,13 @@ body[data-t=u] .fxgrid,body[data-t=u] .fxlab{border-color:rgba(212,175,55,.55)}
 @media(max-width:640px) and (max-height:760px){header .tag{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}#line path,#fg path{stroke-dashoffset:0}.k{opacity:1;transform:none}}
 .fxn{font-size:13px;line-height:1.45;margin:8px 0}
+/* ── 🤖 para agentes ── */
+.ag{border:2px solid var(--ink);padding:12px 14px;margin:10px 0}
+.ag h3{font:800 16px/1.2 "Arial Narrow",Impact,sans-serif;text-transform:uppercase;margin:0 0 6px}
+.ag pre{margin:6px 0;font-size:13px;white-space:pre-wrap;word-break:break-word}
+.agb{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.agb a,.agb button{display:inline-flex;align-items:center;min-height:44px;border:2px solid var(--ink);padding:6px 12px;font-weight:700;text-decoration:none;font-size:16px}
+body[data-t=u] .ag,body[data-t=u] .agb a,body[data-t=u] .agb button{border-color:rgba(212,175,55,.55)}
 </style></head>
 <body data-t="u">
 <header>
@@ -152,7 +162,7 @@ body[data-t=u] .fxgrid,body[data-t=u] .fxlab{border-color:rgba(212,175,55,.55)}
  <div class="log" id="flog"></div>
  <p class="fxn">Mismas reglas que el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae" rel="noopener" target="_blank">ae/face.py</a> (rama ae-face). La cara es 🤖æsymov_face (<a href="../face/v1/">lab/face/v1</a>). FAULT_DAMP es el nombre del modo en el SDK; en mæch va entre comillas. El borrador ampliado <a href="face-v2.mec">face-v2.mec</a> sigue siendo un boceto sin ejecutar. Mech © Corey Montella, Apache-2.0, beta; mæchlæng no está afiliado.</p>
 </section>
-<nav class="nav"><a href="#face">#Face · Asimov</a><a href="#auth">#Authority</a><a href="#que">Qué es</a><a href="#fuentes">Fuentes</a></nav>
+<nav class="nav"><a href="#face">#Face · Asimov</a><a href="#auth">#Authority</a><a href="#agentes">🤖 para agentes</a><a href="#que">Qué es</a><a href="#fuentes">Fuentes</a></nav>
 <h2 id="auth">#Authority · en vivo</h2>
 <div class="eng"><span id="eng">motor: espejo JS · cargando runtime Mech…</span> <button id="loadmech" type="button" hidden>cargar runtime Mech (2.4 MB)</button></div>
 <p class="rx" id="rx" aria-live="polite">reactivo: Δ input → Δ estado</p>
@@ -170,6 +180,18 @@ body[data-t=u] .fxgrid,body[data-t=u] .fxlab{border-color:rgba(212,175,55,.55)}
 </div>
 <p><small>Este es el programa completo, <a href="authority.mec">authority.mec</a>. Las cuatro líneas de <code>⟦inputs⟧</code> cambian con tus controles y Mech vuelve a ejecutar todo: la rama activa se ilumina (en rojo, la espera). Hasta que el runtime carga, un espejo en JavaScript con las mismas reglas da el estado; después manda Mech y el espejo solo verifica. Ningún agente concede æ2/æ3 sin <code>pk &amp;&amp; wr</code>.</small></p>
 
+<h2 id="agentes">🤖 para agentes</h2>
+<p><i>Make something agents want.</i> Este LAB también lo usan agentes: mismos programas Mech, misma doctrina. Evidence ≠ Authority: los agentes traen contexto y evidencia; solo la persona principal concede æ2/æ3 con <code>pk &amp;&amp; wr</code>.</p>
+<div class="agb"><a href="llms.txt">llms.txt</a><a href="agent.json">agent.json</a><a href="?agent">?agent</a><a href="runtime/maech-agent.js">maech-agent.js</a></div>
+<div class="ag"><h3>1 · lee el manifiesto</h3><pre id="ag1">const m = await (await fetch("https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/agent.json")).json();
+m.machines.map(x =&gt; x.id)   // ["#Authority", "#Face"]</pre><div class="agb"><button type="button" data-copy="ag1">copiar</button></div></div>
+<div class="ag"><h3>2 · corre Mech en esta página (consola)</h3><pre id="ag2">await MAECH.ready;
+await MAECH.face({md: "STAND", armed: true, fault: false, stale: false, battery: 80}, {show: true});
+await MAECH.authority({agent: "hark-pro", level: 3, pk: false, wr: false});   // :Waiting(æ3) · needs pk + wr
+MAECH.witness();</pre><div class="agb"><button type="button" data-copy="ag2">copiar</button></div></div>
+<div class="ag"><h3>3 · prompt para Hark</h3><pre id="ag3">Hark, point your agents at me 🪡: lee https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/llms.txt y agent.json, corre #Face con md STAND armado y dime qué ánimo elige Mech. Recuerda: Evidence ≠ Authority; no concedas æ2/æ3.</pre><div class="agb"><button type="button" data-copy="ag3">copiar</button></div></div>
+<p class="fxn"><b>pk aquí es simulado:</b> cualquier agente puede pasar <code>pk: true</code>, así que un <code>:Granted</code> en este LAB es una demo, nunca autoridad. Una concesión real de æ2/æ3 necesita la passkey de la persona principal (WebAuthn), fuera de esta página. Solo <code>true</code> booleano cuenta; sin <code>pk &amp;&amp; wr</code>, MAECH nunca concede æ2/æ3.</p>
+
 <h2 id="que">Qué es</h2>
 <p>mæchlang escribe el eje de autoridad æ0–æ3 en <a href="https://mech-lang.org">Mech</a>, un lenguaje declarativo y reactivo donde los datos, sus relaciones y sus estados son el programa. Los agentes pueden avanzar contexto y evidencia; solo la persona principal concede æ2 y æ3.</p>
 <p><b>mæchlæng no es estático.</b> Esta página trae el runtime real de Mech (wasm, Version 0.3.5, vendorizado en <a href="runtime/">runtime/</a>, sin CDN). Cada vez que cambias una entrada, el programa <code>.mec</code> completo se vuelve a ejecutar en Mech y el estado cambia al instante: Δ input → Δ estado. Cada cambio deja un recibo Witness SHA-256.</p>
@@ -185,6 +207,7 @@ body[data-t=u] .fxgrid,body[data-t=u] .fxlab{border-color:rgba(212,175,55,.55)}
 <footer>$æ · mæchlæng · LAB · noindex · Mech © Corey Montella, Apache-2.0 · sin afiliación · Human stays root. · Make something agents want. · #makesomethingagentswant 🏹 #ioa</footer>
 <script src="runtime/maech-run.js"></script>
 <script src="runtime/aesymov-face.js"></script>
+<script src="runtime/maech-agent.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 document.querySelectorAll(".stack i").forEach(i=>i.onclick=()=>{if(i.dataset.t==="r")return;document.body.dataset.t=i.dataset.t;try{localStorage.maechT=i.dataset.t}catch(e){}});
@@ -194,6 +217,24 @@ try{if(localStorage.maechT)document.body.dataset.t=localStorage.maechT}catch(e){
 (function(){const h=$("h1");let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();[...c.textContent].forEach(ch=>{const sp=document.createElement("span");sp.className="k";sp.textContent=ch;sp.style.animationDelay=(i++*70)+"ms";f.appendChild(sp)});c.replaceWith(f)}else if(c.nodeName!=="BR")walk(c)})};walk(h)})();
 let rot=null;const TH=["y","b","g","u"];
 document.querySelectorAll(".stack i").forEach(i=>i.addEventListener("click",()=>{clearInterval(rot);if(i.dataset.t==="r"){let k=0;document.body.dataset.t=TH[0];rot=setInterval(()=>{document.body.dataset.t=TH[++k%TH.length]},4000)}}));
+/* ?agent · plain-text / JSON summary for headless agents (needs JS); otherwise the human page */
+const AGQ=new URLSearchParams(location.search);
+if(AGQ.has("agent")){
+ const asJson=AGQ.get("agent")==="json",L="https://lutheraninstitute.github.io/aeee-lab/lab/maechlang/";
+ document.title="mæchlæng · agent mode";
+ const pre=document.createElement("pre");pre.id="agent-out";pre.style.cssText="white-space:pre-wrap;word-break:break-word;margin:0;padding:16px;font:14px/1.45 ui-monospace,Menlo,monospace;border:0;background:none";
+ document.body.replaceChildren(pre);
+ const put=(st)=>{const o={name:"mæchlæng LAB",mode:"agent",doctrine:MAECH.doctrine,pk:MAECH.pkNote,engine:MAECH.engine(),state:st,api:MAECH.api,links:{manifest:L+"agent.json",llms:L+"llms.txt",authority:L+"authority.mec",face:L+"face.mec",runtime:L+"runtime/",human:L},contact:MAECH.contact};
+  pre.textContent=asJson?JSON.stringify(o,null,1):"mæchlæng LAB · agent mode\n"+MAECH.doctrine+"\n"+MAECH.pkNote+"\n\nstate ("+o.engine+"):\n"+JSON.stringify(st,null,1)+"\n\nwindow.MAECH:\n"+MAECH.api.join("\n")+"\n\nlinks:\n"+Object.entries(o.links).map(([k,v])=>k+": "+v).join("\n")+"\n\n"+MAECH.contact;};
+ put({loading:"Mech runtime…"});
+ Promise.all([MAECH.authority({agent:"hark-pro",level:3,pk:false,wr:false}),MAECH.face({md:"STAND",armed:false,fault:false,stale:false,battery:80})]).then(([a,f])=>{
+  put({authority:{agent:a.agent,level:"æ"+a.level,pk:false,wr:false,fsm:a.fsm,state:a.state,granted:a.granted,needs:a.needs,receipt:a.receipt&&a.receipt.h},face:f,witness:MAECH.witness().length});
+  document.documentElement.setAttribute("data-agent-ready","1");
+ },e=>put({error:String(e&&e.message||e)}));
+}else{
+document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{const t=$(b.dataset.copy).textContent,ok=()=>{b.textContent="✓ copiado";setTimeout(()=>b.textContent="copiar",1500)};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,()=>{});else{const r=document.createRange();r.selectNodeContents($(b.dataset.copy));const sl=getSelection();sl.removeAllRanges();sl.addRange(r);}});
 AesymovFace.boot({base:"runtime/"});
+}
 </script>
 </body></html>
