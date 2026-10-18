@@ -68,6 +68,7 @@ pre{white-space:pre-wrap;word-break:break-all;font-size:11.5px;color:var(--dim);
 footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--dim);text-align:center}footer a{color:var(--c)}
 @media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}.right{grid-column:1/-1}}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.stage{position:static}}
+.gifopt{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:10px;cursor:pointer}
 </style></head>
 <body>
 <div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span style="display:flex;gap:8px;align-items:center"><button class="mode" id="mode" type="button" aria-label="Day or night"></button><span class="tag mono" id="tagline">LAB · TEMPLATE STUDIO</span></span></div>
@@ -113,6 +114,8 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
    <div class="btns" id="p-acts">
     <button class="btn primary" id="p-sign" type="button">Sign in with LinkedIn to post</button>
     <button class="btn primary" id="p-review" type="button" hidden>Review for posting</button>
+    <label class="gifopt"><input type="checkbox" id="p-gif"> Animated card (GIF): words type in, then the stamp and æQR land</label>
+    <img id="p-gifprev" alt="Animated card preview" hidden style="width:100%;max-width:360px;border:1px solid currentColor;margin-top:8px">
     <a class="btn primary" id="p-open" hidden>Post from privateclient.ai</a>
    </div>
    <button class="hold" id="p-hold" type="button" hidden><i id="p-fill"></i><span>Hold · I approve this message</span></button>
@@ -234,7 +237,34 @@ function qr(x,y,s,seed,ink,paper){ g.fillStyle=paper; g.fillRect(x-8,y-8,s*9+16,
 let MODE=localStorage.getItem('pc.studio.mode')||(matchMedia('(prefers-color-scheme: light)').matches?'day':'night');
 function tid(){ return T.domain&&/\/visitor$/.test(T.id)?T.domain+'/visitor':T.id; }
 function fromLine(){ if(VISITOR) return T.domain?`— ${VISITOR} · from ${T.domain}`:`— ${VISITOR}`; return T.domain&&T.domain!==T.brand.name?`— ${T.brand.name} · from ${T.domain}`:''; }
-let RID=null, QRROWS=null;
+let RID=null, QRROWS=null, AT=1;  /* AT: animation time 0→1; 1 = the still card */
+/* æGIF: tiny animated GIF89a encoder (shared 256-colour palette, LZW). frames: [{data:Uint8ClampedArray RGBA, delay:cs}] */
+function aeGIF(w,h,frames){
+  const hist=new Map(); const step=Math.max(1,Math.floor(frames.length/4));
+  for(let f=frames.length-1;f>=0;f-=step){ const d=frames[f].data; for(let i=0;i<d.length;i+=4*3){ const k=(d[i]>>3)<<10|(d[i+1]>>3)<<5|(d[i+2]>>3); hist.set(k,(hist.get(k)||0)+1);} }
+  const top=[...hist.entries()].sort((a,b)=>b[1]-a[1]).slice(0,256).map(e=>e[0]);
+  const pal=top.map(k=>[((k>>10)&31)*8+4,((k>>5)&31)*8+4,(k&31)*8+4]); while(pal.length<256) pal.push([0,0,0]);
+  const lut=new Uint8Array(32768); const exact=new Map(top.map((k,i)=>[k,i]));
+  for(let k=0;k<32768;k++){ if(exact.has(k)){lut[k]=exact.get(k);continue;} const r=((k>>10)&31)*8+4,g=((k>>5)&31)*8+4,b=(k&31)*8+4; let bi=0,bd=1e9;
+    for(let i=0;i<top.length;i++){ const p=pal[i],dd=(p[0]-r)**2*2+(p[1]-g)**2*4+(p[2]-b)**2*3; if(dd<bd){bd=dd;bi=i;} } lut[k]=bi; }
+  const out=[]; const B=b=>out.push(b&255), W16=v=>{B(v);B(v>>8)}, S=s=>{for(const c of s)B(c.charCodeAt(0))};
+  S('GIF89a'); W16(w); W16(h); B(0xF7); B(0); B(0); pal.forEach(p=>{B(p[0]);B(p[1]);B(p[2])});
+  S('\x21\xFF\x0BNETSCAPE2.0'); B(3); B(1); W16(0); B(0);
+  for(const fr of frames){ const d=fr.data, n=w*h, idx=new Uint8Array(n);
+    for(let i=0,j=0;i<n;i++,j+=4) idx[i]=lut[(d[j]>>3)<<10|(d[j+1]>>3)<<5|(d[j+2]>>3)];
+    B(0x21);B(0xF9);B(4);B(0);W16(fr.delay);B(0);B(0);
+    B(0x2C);W16(0);W16(0);W16(w);W16(h);B(0); B(8);
+    // LZW
+    const bytes=[]; let cur=0,bits=0; const emit=(code,size)=>{cur|=code<<bits;bits+=size;while(bits>=8){bytes.push(cur&255);cur>>=8;bits-=8;}};
+    const CLR=256,EOI=257; let size=9,next=258,dict=new Map(); emit(CLR,size); let pre=idx[0];
+    for(let i=1;i<n;i++){ const c=idx[i], key=pre<<8|c, v=dict.get(key);
+      if(v!==undefined){pre=v;continue;} emit(pre,size);
+      if(next<4096){ dict.set(key,next++); if(next>(1<<size)&&size<12) size++; } else { emit(CLR,size); dict=new Map(); size=9; next=258; }
+      pre=c; }
+    emit(pre,size); emit(EOI,size); if(bits>0) bytes.push(cur&255);
+    for(let i=0;i<bytes.length;i+=255){ const ch=bytes.slice(i,i+255); B(ch.length); for(const x of ch) B(x); } B(0); }
+  B(0x3B); return new Uint8Array(out); }
+
 function qrReal(x,y,size,ink,paper){ const n=QRROWS.length, m=Math.floor(size/(n+4)), q=m*2; g.fillStyle=paper; g.fillRect(x,y,m*n+2*q,m*n+2*q);
   g.fillStyle=ink; QRROWS.forEach((row,r)=>{ for(let c=0;c<n;c++) if(row[c]==='1') g.fillRect(x+q+c*m,y+q+r*m,m,m); }); }
 function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
@@ -251,22 +281,24 @@ function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
   // words
   const bandTop=st==='line'?H-250:H-330; const avail=bandTop-430;
   let size=104, lines; do{ lines=wrap(words||' ',W-144,`600 ${size}px ${SANS}`); size-=2; }while(lines.length*size*1.32>avail&&size>26); size+=2;
-  g.fillStyle=ink; g.font=`600 ${size}px ${SANS}`; const y0=236+44+size; lines.forEach((l,i)=>g.fillText(l,72,y0+i*size*1.32));
-  const fy=y0+(lines.length-1)*size*1.32+size*.55+48, fl=fromLine(); if(fl&&fy<bandTop-80){ g.fillStyle=col==='#f4efe3'?ink:col; if(st!=='terminal'&&!night) g.fillStyle=ink; g.font=`600 30px ${MONO}`; g.fillText(fl,72,fy); }
+  g.fillStyle=ink; g.font=`600 ${size}px ${SANS}`; const y0=236+44+size; let left=Math.ceil(lines.join('').length*Math.min(1,AT/.6)), cur=null;
+  lines.forEach((l,i)=>{ const part=l.slice(0,Math.max(0,left)), y=y0+i*size*1.32; if(part) g.fillText(part,72,y); if(cur===null&&left<=l.length) cur=[72+g.measureText(part).width+8,y]; left-=l.length; });
+  if(AT<.6&&cur&&Math.floor(AT*40)%2===0) g.fillRect(cur[0],cur[1]-size*.78,size*.09,size*.9);
+  const fy=y0+(lines.length-1)*size*1.32+size*.55+48, fl=AT>=.66?fromLine():''; if(fl&&fy<bandTop-80){ g.fillStyle=col==='#f4efe3'?ink:col; if(st!=='terminal'&&!night) g.fillStyle=ink; g.font=`600 30px ${MONO}`; g.fillText(fl,72,fy); }
   if(b.tagline){ g.fillStyle=sub; g.font=`italic 400 28px ${SANS}`; g.fillText(b.tagline,72,bandTop-36); }
   // band: the aggregate meets terminal here
   if(st==='line'){ g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(72,bandTop); g.lineTo(W-72,bandTop); g.stroke();
-    g.fillStyle=ink; g.font=`700 30px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',72,bandTop+70);
+    g.fillStyle=ink; g.font=`700 30px ${MONO}`; g.fillText(AT<.8?'>_ checking…':'v| I APPROVED THIS MESSAGE',72,bandTop+70);
     g.font=`400 24px ${MONO}`; g.fillStyle=sub; g.fillText(`${b.signature}  ·  ${tid()}@${T.version}  ·  ${RID?'receipt '+RID:'receipt pending'}`,72,bandTop+116);
-    if(QRROWS) qrReal(W-72-184,bandTop+16,184,'#111','#fff'); else qr(W-72-9*13,bandTop+40,13,T.id+words,ink,paper); }
+    if(AT<.86){} else if(QRROWS) qrReal(W-72-184,bandTop+16,184,'#111','#fff'); else qr(W-72-9*13,bandTop+40,13,T.id+words,ink,paper); }
   else { g.fillStyle=band; g.fillRect(0,bandTop,W,H-bandTop);
     if(st==='aggregate'){ g.strokeStyle='rgba(0,243,255,.08)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,bandTop);g.lineTo(i,H);g.stroke();} }
     g.strokeStyle=col; g.lineWidth=3; g.beginPath(); g.moveTo(0,bandTop); g.lineTo(W,bandTop); g.stroke();
     face(150,bandTop+165,1.55,col);
-    g.fillStyle=col; let vs=34; do{ g.font=`700 ${vs}px ${MONO}`; vs-=1; }while(g.measureText('v| I APPROVED THIS MESSAGE').width>W-72-(QRROWS?236:130)-260&&vs>20); g.fillText('v| I APPROVED THIS MESSAGE',260,bandTop+120);
+    g.fillStyle=col; let vs=34; do{ g.font=`700 ${vs}px ${MONO}`; vs-=1; }while(g.measureText('v| I APPROVED THIS MESSAGE').width>W-72-(QRROWS?236:130)-260&&vs>20); g.fillText(AT<.8?'>_ checking…':'v| I APPROVED THIS MESSAGE',260,bandTop+120);
     g.fillStyle='#e9f6f7'; g.font=`500 28px ${MONO}`; g.fillText(b.signature+'  '+b.handle,260,bandTop+172);
     g.fillStyle='#7d9a9e'; g.font=`400 21px ${MONO}`; g.fillText(`${tid()}@${T.version}`,260,bandTop+216); g.fillText(`${T.approvers} human hold${T.approvers>1?'s':''} · ${RID?'receipt '+RID:'receipt pending'}`,260,bandTop+248);
-    if(QRROWS) qrReal(W-72-220,bandTop+56,220,'#000','#fff'); else qr(W-72-9*13,bandTop+90,13,T.id+words,'#000','#e9f6f7'); }
+    if(AT<.86){} else if(QRROWS) qrReal(W-72-220,bandTop+56,220,'#000','#fff'); else qr(W-72-9*13,bandTop+90,13,T.id+words,'#000','#e9f6f7'); }
   g.fillStyle=night?'#3a5a5e':'#8a8478'; g.font=`400 18px ${MONO}`; g.fillText(QRROWS?'SIGNED ONLY WHEN HELD · scan the æQR to verify · privateclient.ai/r/'+RID:(night?'NIGHT':'DAY')+' · PREVIEW · NOT SIGNED · æQR conceptual until issued',72,H-28); }
 
 let LAST={};
@@ -298,7 +330,7 @@ function isVisitor(){ return /\/visitor$/.test(T.id); }
 function draft(){ const {_key,...t}=T; return {k:T._key,t,w:words,v:VISITOR}; }
 function b64e(o){ return btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(o)))); }
 function b64d(x){ return JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(x),c=>c.charCodeAt(0)))); }
-function unseal(){ RID=null; QRROWS=null; $('#p-hold').hidden=true; }
+function unseal(){ RID=null; QRROWS=null; GIFB=null; $('#p-gifprev').hidden=true; $('#p-hold').hidden=true; }
 function paintPost(ck){ const red=ck.some(c=>c[0]==='no'), ok=!red&&words.trim()&&T.approvers===1&&(!isVisitor()||VISITOR);
   $('#p-open').hidden=LIVE; $('#p-sign').hidden=!LIVE||!!(ME&&ME.can_post); $('#p-review').hidden=!LIVE||!(ME&&ME.can_post)||!!RID;
   $('#p-review').disabled=!ok; $('#p-hold').hidden=!RID; $('#p-hold').disabled=!RID||POSTING;
@@ -311,15 +343,25 @@ $('#p-review').onclick=async()=>{ const ck=checks(); if(ck.some(c=>c[0]==='no'))
   const r=await api('/prepare',{text:words.trim(),ai_assisted:$('#f-ai').checked,template:T.id+'@'+T.version,template_sha:tsha}).catch(()=>({status:0}));
   if(r.status!==200){ $('#p-msg').textContent=r.error||(r.checks?r.checks.filter(c=>c.level==='stop').map(c=>c.en).join(' '):'Could not reach Private Client. Nothing was posted.'); $('#p-review').disabled=false; return; }
   RID=r.rid; QRROWS=r.qr; const warn=(r.checks||[]).filter(c=>c.level==='warn').map(c=>'⚠ '+c.en);
-  $('#p-msg').textContent=(warn.length?warn.join(' '):'Checked.')+' Receipt '+RID+' reserved for 15 minutes.'; draw(); paintPost(checks()); guide(checks()); };
+  $('#p-msg').textContent=(warn.length?warn.join(' '):'Checked.')+' Receipt '+RID+' reserved for 15 minutes.'; draw(); await buildGif(); paintPost(checks()); guide(checks()); };
 let h0=0, hraf=0; const HOLD=1200;
 function hstep(){ const p=Math.min(1,(performance.now()-h0)/HOLD); $('#p-fill').style.width=p*100+'%'; if(p<1) hraf=requestAnimationFrame(hstep); else postIt(performance.now()-h0); }
 function hdown(e){ if($('#p-hold').disabled||POSTING) return; e.preventDefault(); h0=performance.now(); hraf=requestAnimationFrame(hstep); navigator.vibrate&&navigator.vibrate(10); }
 function hup(){ if(POSTING) return; cancelAnimationFrame(hraf); $('#p-fill').style.width='0'; }
 $('#p-hold').addEventListener('pointerdown',hdown); ['pointerup','pointerleave','pointercancel'].forEach(ev=>$('#p-hold').addEventListener(ev,hup));
 $('#p-hold').onkeydown=e=>{ if((e.key==='Enter'||e.key===' ')&&!e.repeat) hdown(e); }; $('#p-hold').onkeyup=hup;
+let GIFB=null;
+function frames(){ const sc=document.createElement('canvas'); sc.width=720; sc.height=900; const sg=sc.getContext('2d'), out=[], N=30;
+  for(let f=0;f<=N;f++){ AT=f/N; draw(); sg.drawImage(cv,0,0,720,900); out.push({data:sg.getImageData(0,0,720,900).data,delay:f===N?400:(f>=24?14:7)}); }
+  AT=1; draw(); return out; }
+async function buildGif(){ GIFB=null; const im=$('#p-gifprev'); if(!$('#p-gif').checked){ im.hidden=true; return; }
+  $('#p-msg').textContent+=' Drawing the animated card…'; await new Promise(r=>setTimeout(r,30));
+  GIFB=aeGIF(720,900,frames()); if(GIFB.length>5e6){ GIFB=null; $('#p-msg').textContent+=' Too big for a GIF; the still card will post.'; return; }
+  im.src=URL.createObjectURL(new Blob([GIFB],{type:'image/gif'})); im.hidden=false; $('#p-msg').textContent=$('#p-msg').textContent.replace(' Drawing the animated card…',` Animated card ready (${(GIFB.length/1e6).toFixed(1)} MB).`); }
+function b64bytes(u8){ let s=''; for(let i=0;i<u8.length;i+=32768) s+=String.fromCharCode.apply(null,u8.subarray(i,i+32768)); return btoa(s); }
+$('#p-gif').onchange=()=>{ if(RID) buildGif(); };
 async function postIt(held){ POSTING=true; $('#p-hold').querySelector('span').textContent='Posting…'; draw();
-  const r=await api('/sign',{rid:RID,image:cv.toDataURL('image/png'),alt:(words.trim().split('\n')[0]||T.brand.name).slice(0,200),held_ms:Math.round(held)}).catch(()=>({status:0}));
+  const r=await api('/sign',{rid:RID,image:GIFB?'data:image/gif;base64,'+b64bytes(GIFB):cv.toDataURL('image/png'),alt:(words.trim().split('\n')[0]||T.brand.name).slice(0,200),held_ms:Math.round(held)}).catch(()=>({status:0}));
   POSTING=false; $('#p-fill').style.width='0'; $('#p-hold').querySelector('span').textContent='Hold · I approve this message';
   if(r.status!==200){ $('#p-msg').textContent='✕ '+(r.error||'Nothing was posted. Hold again.'); if(r.status===409) unseal(); paintPost(checks()); return; }
   const rc=$('#p-rc'); rc.hidden=false; rc.innerHTML='';
