@@ -5,6 +5,16 @@
 <title>Template Studio · @yaelmendez · PC:// LAB</title>
 <style>
 :root{--bg:#000;--ink:#e9f6f7;--dim:#7d9a9e;--c:#00f3ff;--line:#12383b;--ok:#3ee08f;--no:#ff5a6a;--wait:#ffcf5c}
+:root[data-mode=day]{--bg:#f4efe3;--ink:#111;--dim:#5d5850;--c:#0a6f78;--line:#d6cfbf;--ok:#1d8a52;--no:#c3283a;--wait:#9a6a00}
+:root[data-mode=day] body{background-image:linear-gradient(rgba(17,17,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.05) 1px,transparent 1px)}
+:root[data-mode=day] .panel{background:rgba(255,253,247,.92)}
+:root[data-mode=day] input,:root[data-mode=day] select,:root[data-mode=day] textarea{background:#fffdf7}
+:root[data-mode=day] .presets button,:root[data-mode=day] .seg button,:root[data-mode=day] .btn{background:#fffdf7}
+.mode{min-height:44px;min-width:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 13px ui-monospace,Menlo,monospace;cursor:pointer}
+.btn.primary{background:var(--c);color:var(--bg);border-color:var(--c)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.sub{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.sub ol{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--dim)}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
 body{background-image:linear-gradient(rgba(0,243,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,243,255,.05) 1px,transparent 1px);background-size:40px 40px}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
@@ -43,7 +53,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 @media(max-width:760px){.grid{grid-template-columns:1fr}.stage{position:static}}
 </style></head>
 <body>
-<div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span class="tag mono">LAB · TEMPLATE STUDIO</span></div>
+<div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span style="display:flex;gap:8px;align-items:center"><button class="mode" id="mode" type="button" aria-label="Day or night"></button><span class="tag mono">LAB · TEMPLATE STUDIO</span></span></div>
 <header class="head">
  <h1>Your template is <em>your platform.</em></h1>
  <p class="lead">Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
@@ -87,7 +97,15 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
   <button class="btn" id="dl-png" type="button">Download preview</button>
   <button class="btn" id="copy" type="button">Copy</button>
  </div>
- <p class="note">Saved in this browser only. A template goes live when you publish it through privateclient.ai, not from here.</p>
+ <div class="sub">
+  <h2>Submit for review</h2>
+  <label for="f-by">Submitted by</label><input id="f-by" placeholder="your name or handle">
+  <label><input id="f-own" type="checkbox" style="width:auto;min-height:0;margin-right:8px">I hold the rights to this name, look and wording.</label>
+  <div class="btns"><button class="btn primary" id="submit" type="button" disabled>Submit template</button></div>
+  <p class="note" id="sub-why"></p>
+  <ol><li>Opens a review issue on GitHub with this manifest and its hash, signed in as you.</li><li>Æsimov checks it; a human reviewer approves or asks for changes.</li><li>Only approved templates can be used on privateclient.ai.</li></ol>
+ </div>
+ <p class="note">Your draft is saved in this browser. Nothing is published from this page.</p>
 </section>
 </div>
 <footer class="mono">LAB DEMO · nothing is posted · <a href="../aesimov/">æsimov verifies templates</a> · <a href="../">PC:// LAB</a></footer>
@@ -161,27 +179,29 @@ function qr(x,y,s,seed,ink,paper){ g.fillStyle=paper; g.fillRect(x-8,y-8,s*9+16,
     if(f){ const rr=r%6, cc=c%6; on=!(rr===1&&cc===1); } else { h=(h*1103515245+12345)>>>0; on=(h>>16)&1; }
     if(on){g.fillStyle=ink; g.fillRect(x+c*s,y+r*s,s,s);} } }
 
-function draw(){ const b=T.brand, col=b.color, st=b.style;
-  const paper=st==='terminal'?'#000':'#f4efe3', ink=st==='terminal'?'#e9f6f7':'#111';
+let MODE=localStorage.getItem('pc.studio.mode')||(matchMedia('(prefers-color-scheme: light)').matches?'day':'night');
+function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
+  const paper=st==='terminal'?(night?'#000':'#eef7f7'):(night?'#121110':'#f4efe3'), ink=st==='terminal'?(night?'#e9f6f7':'#04282b'):(night?'#f4efe3':'#111');
+  const band=night?'#000':'#111', sub=st==='terminal'?(night?'#7d9a9e':'#4c6a6e'):(night?'#a59f93':'#666');
   g.clearRect(0,0,W,H); g.fillStyle=paper; g.fillRect(0,0,W,H);
   if(st==='terminal'){ g.strokeStyle='rgba(0,243,255,.07)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,0);g.lineTo(i,H);g.stroke();} for(let j=0;j<H;j+=54){g.beginPath();g.moveTo(0,j);g.lineTo(W,j);g.stroke();} }
   // header
   if(st!=='terminal') squares(72,72,46); else { g.strokeStyle=col; g.lineWidth=3; g.strokeRect(72,72,46,46); g.fillStyle=col; g.font=`700 28px ${MONO}`; g.fillText('>_',78,105); }
   g.fillStyle=ink; g.font=`900 64px ${SANS}`; g.fillText(b.name.toUpperCase(),146,122);
-  g.fillStyle=st==='terminal'?col:'#555'; g.font=`500 30px ${MONO}`; g.fillText(b.handle,148,166);
+  g.fillStyle=st==='terminal'?col:sub; g.font=`500 30px ${MONO}`; g.fillText(b.handle,148,166);
   crown(W-104,104,1.6,st==='terminal'?col:ink,b.crown);
   g.strokeStyle=ink; g.globalAlpha=.85; g.lineWidth=2; g.beginPath(); g.moveTo(72,236); g.lineTo(W-72,236); g.stroke(); g.globalAlpha=1;
   // words
   const bandTop=st==='line'?H-250:H-330; const avail=bandTop-300;
   let size=58, lines; do{ lines=wrap(words||' ',W-144,`600 ${size}px ${SANS}`); size-=2; }while(lines.length*size*1.32>avail&&size>26); size+=2;
   g.fillStyle=ink; g.font=`600 ${size}px ${SANS}`; lines.forEach((l,i)=>g.fillText(l,72,320+i*size*1.32));
-  if(b.tagline){ g.fillStyle=st==='terminal'?'#7d9a9e':'#666'; g.font=`italic 400 28px ${SANS}`; g.fillText(b.tagline,72,bandTop-36); }
+  if(b.tagline){ g.fillStyle=sub; g.font=`italic 400 28px ${SANS}`; g.fillText(b.tagline,72,bandTop-36); }
   // band: the aggregate meets terminal here
-  if(st==='line'){ g.strokeStyle='#111'; g.lineWidth=2; g.beginPath(); g.moveTo(72,bandTop); g.lineTo(W-72,bandTop); g.stroke();
-    g.fillStyle='#111'; g.font=`700 30px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',72,bandTop+70);
-    g.font=`400 24px ${MONO}`; g.fillStyle='#555'; g.fillText(`${b.signature}  ·  ${T.id}@${T.version}  ·  receipt pending`,72,bandTop+116);
-    qr(W-72-9*13,bandTop+40,13,T.id+words,'#111','#f4efe3'); }
-  else { g.fillStyle='#000'; g.fillRect(0,bandTop,W,H-bandTop);
+  if(st==='line'){ g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(72,bandTop); g.lineTo(W-72,bandTop); g.stroke();
+    g.fillStyle=ink; g.font=`700 30px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',72,bandTop+70);
+    g.font=`400 24px ${MONO}`; g.fillStyle=sub; g.fillText(`${b.signature}  ·  ${T.id}@${T.version}  ·  receipt pending`,72,bandTop+116);
+    qr(W-72-9*13,bandTop+40,13,T.id+words,ink,paper); }
+  else { g.fillStyle=band; g.fillRect(0,bandTop,W,H-bandTop);
     if(st==='aggregate'){ g.strokeStyle='rgba(0,243,255,.08)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,bandTop);g.lineTo(i,H);g.stroke();} }
     g.strokeStyle=col; g.lineWidth=3; g.beginPath(); g.moveTo(0,bandTop); g.lineTo(W,bandTop); g.stroke();
     face(150,bandTop+165,1.55,col);
@@ -189,11 +209,17 @@ function draw(){ const b=T.brand, col=b.color, st=b.style;
     g.fillStyle='#e9f6f7'; g.font=`500 28px ${MONO}`; g.fillText(b.signature+'  '+b.handle,260,bandTop+172);
     g.fillStyle='#7d9a9e'; g.font=`400 21px ${MONO}`; g.fillText(`${T.id}@${T.version}`,260,bandTop+216); g.fillText(`${T.approvers} human hold${T.approvers>1?'s':''} · receipt pending`,260,bandTop+248);
     qr(W-72-9*13,bandTop+90,13,T.id+words,'#000','#e9f6f7'); }
-  g.fillStyle=st==='terminal'?'#3a5a5e':'#9a948a'; g.font=`400 18px ${MONO}`; g.fillText('PREVIEW · NOT SIGNED · æQR conceptual until issued',72,H-28); }
+  g.fillStyle=night?'#3a5a5e':'#8a8478'; g.font=`400 18px ${MONO}`; g.fillText((night?'NIGHT':'DAY')+' · PREVIEW · NOT SIGNED · æQR conceptual until issued',72,H-28); }
 
+let LAST={};
+async function gate(ck,m,txt){ const why=[]; if(ck.some(c=>c[0]==='no')) why.push('fix the red checks'); if(!$('#f-by').value.trim()) why.push('add who is submitting');
+  if(!$('#f-own').checked) why.push('confirm you hold the rights'); if(T.example) why.push('example templates are fictional and cannot be submitted');
+  $('#submit').disabled=why.length>0; $('#sub-why').textContent=why.length?'To submit: '+why.join(' · ')+'.':'Ready. Nothing is published until a human approves it.'; LAST={m,txt}; }
+function applyMode(){ document.documentElement.dataset.mode=MODE; $('#mode').textContent=MODE==='night'?'☾ night':'☀ day'; $('#mode').setAttribute('aria-pressed',String(MODE==='day')); }
 let tmr; async function update(){ read(); draw();
   const ck=checks(); $('#checks').innerHTML=ck.map(([s,t])=>`<li class="${s}">${s==='ok'?'✓':s==='no'?'×':'…'} ${t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</li>`).join('');
   const m=manifest(), txt=JSON.stringify(m,null,1); $('#json').textContent=txt; $('#sha').textContent='sha256 '+await sha(txt);
+  gate(ck,m,txt);
   const {_key,...t}=T; localStorage.setItem('pc.studio.'+T._key,JSON.stringify({t:{...t},w:words}));
   window.PC_STUDIO={manifest:m,checks:ck}; }
 const soon=()=>{clearTimeout(tmr); tmr=setTimeout(update,120);};
@@ -205,6 +231,14 @@ const save=(blob,name)=>{const a=document.createElement('a'); a.href=URL.createO
 $('#dl-json').onclick=()=>save(new Blob([$('#json').textContent],{type:'application/json'}),T.id.replace('/','__')+'.ae.template.json');
 $('#dl-png').onclick=()=>cv.toBlob(b=>save(b,T.id.replace('/','__')+'-preview.png'));
 $('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#json').textContent); $('#copy').textContent='Copied';}catch(e){$('#copy').textContent='Select the text';} setTimeout(()=>$('#copy').textContent='Copy',1500);};
+$('#mode').onclick=()=>{MODE=MODE==='night'?'day':'night'; localStorage.setItem('pc.studio.mode',MODE); applyMode(); draw();};
+$('#f-own').addEventListener('change',soon);
+$('#submit').onclick=async()=>{ if($('#submit').disabled) return; const h=await sha(LAST.txt);
+  const title=`template: ${T.id}@${T.version} (${T.brand.handle||T.brand.name})`;
+  const body=['### ae.template/0.1 submission','',`- template: \`${T.id}@${T.version}\``,`- sha256: \`${h}\``,`- submitted by: ${$('#f-by').value.trim()}`,'- rights: submitter confirms they hold the rights to this name, look and wording','- agents_may: draft · human_only: approve, publish','','```json',LAST.txt,'```','','_Sent from PC:// LAB Template Studio. A human reviewer approves; nothing is published by submitting._'].join('\n');
+  const url='https://github.com/LutheranInstitute/aeee-lab/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
+  window.open(url,'_blank','noopener'); $('#sub-why').textContent=`Review issue opened for ${T.id}@${T.version} · sha256 ${h.slice(0,12)}…`; };
+applyMode();
 load('yael');
 })();
 </script>
