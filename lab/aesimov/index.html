@@ -90,8 +90,9 @@ footer{margin-top:44px;font-size:12px;color:var(--dim);text-align:center}
  <div class="card"><b>Code was never the bottleneck.</b><span>DNS, a callback URL, SSH, and a snapshot are what stand between the LAB and privateclient.ai.</span></div>
 </div>
 
-<h2>The loop</h2>
-<div class="loop"><span>Yæl names</span><i>→</i><span>Hark builds in LAB</span><i>→</i><span>verify live</span><i>→</i><span>Yæl tries it</span><i>→</i><span>Yæl approves</span><i>→</i><span>receipt</span></div>
+<h2>Our method · $ay$hip$ign ♫</h2>
+<p class="lead" style="margin-bottom:10px">Saying, shipping, signing. Every step leaves a receipt.</p>
+<div class="loop"><span><b>$ay</b> · Yæl names it</span><i>→</i><span><b>$hip</b> · Hark builds in the LAB, verified live</span><i>→</i><span><b>$ign</b> · Yæl tries it and approves</span><i>→</i><span>receipt ✓ commit</span></div>
 
 <h2>Next experiments</h2>
 <div class="cards" id="next">
@@ -125,7 +126,7 @@ FACES.forEach(f=>{const b=document.createElement("button");b.textContent=f.n;b.d
 show(FACES.find(f=>"#"+f.id===location.hash)||FACES[0]);
 document.querySelectorAll("#next input").forEach(i=>{const k="aesimov-lab-"+i.id;try{i.checked=localStorage.getItem(k)==="1";i.onchange=()=>localStorage.setItem(k,i.checked?"1":"0")}catch(e){}});
 const AGENT={schema:"ae.lab/0.1",lab:"$æsimov",product:">_PrivateClient powered by llm.store",
- promise:"You write. I check. You approve.",signature:"I approve this message",check_mark:"v| (a vertical >_)",
+ promise:"You write. I check. You approve.",method:"$ay$hip$ign (say → ship → sign; saying shipping signing)",signature:"I approve this message",check_mark:"v| (a vertical >_)",
  faces:FACES.map(f=>({name:f.n,role:f.r,color:f.c})),
  authority:{publish:"human_only (hold 1.2 s)",agents_may:["propose drafts","read receipts"]},
  status:"LAB demo; not deployed; nothing posts from this page"};
