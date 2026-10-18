@@ -94,14 +94,16 @@ principal := "yæl"
 
 #Authority(req&lt;u8&gt;) ⇒ &lt;u8&gt; :=
   ├ :Context(req&lt;u8&gt;)
-  ├ :Evidence(req&lt;u8&gt;)
+  ├ :Evidence(req&lt;u8&gt;, pk&lt;bool&gt;, wr&lt;bool&gt;)
   └ :Granted(level&lt;u8&gt;).
 
 #Authority(req&lt;u8&gt;) → :Context(req)
   :Context(r)
     ├ r &lt; 2u8 → :Granted(r)     -- æ0 public, æ1 published
-    └ r &gt; 1u8 → :Evidence(r)    -- æ2 operator, æ3 custody
-  :Evidence(r) → :Granted(r)     -- only after passkey + Witness receipt
+    └ r &gt; 1u8 → :Evidence(r, false, false)  -- æ2 operator, æ3 custody
+  :Evidence(r, pk, wr)
+    ├ pk &amp;&amp; wr → :Granted(r)        -- passkey de la persona principal + recibo Witness
+    └ * → :Evidence(r, pk, wr)      -- espera; ningún agente concede æ2/æ3
   :Granted(l) ⇒ l
 .
 
@@ -160,8 +162,8 @@ const set=s=>{["ctx","ev","gr"].forEach(k=>$("s-"+k).classList.toggle("on",k===s
 const log=t=>$("log").textContent+=t+"\n";
 $("step").onclick=()=>{const r=+$("req").value;
  if(!st){set("ctx");log("#Authority("+r+"u8) → :Context("+r+")");return}
- if(st==="ctx"){if(r<2){set("gr");log(":Context → :Granted(æ"+r+")  agentes pueden");}else{set("ev");log(":Context → :Evidence(æ"+r+")  requiere a la persona principal");}return}
- if(st==="ev"){if($("pk").checked&&$("wt").checked){set("gr");log(":Evidence → :Granted(æ"+r+")  passkey + Witness ✓");}else log("✗ bloqueado: falta "+(!$("pk").checked?"passkey ":"")+(!$("wt").checked?"Witness":""));return}
+ if(st==="ctx"){if(r<2){set("gr");log(":Context → :Granted(æ"+r+")  agentes pueden");}else{set("ev");log(":Context → :Evidence(æ"+r+", pk, wr)  requiere a la persona principal");}return}
+ if(st==="ev"){if($("pk").checked&&$("wt").checked){set("gr");log(":Evidence ├ pk && wr → :Granted(æ"+r+")  passkey + Witness ✓");}else log("└ * → :Evidence  ✗ bloqueado: falta "+(!$("pk").checked?"passkey ":"")+(!$("wt").checked?"Witness":""));return}
  log(":Granted ⇒ æ"+r)};
 $("reset").onclick=()=>{set(null);$("log").textContent=""};
 document.querySelectorAll(".stack i").forEach(i=>i.onclick=()=>{if(i.dataset.t==="r")return;document.body.dataset.t=i.dataset.t;try{localStorage.maechT=i.dataset.t}catch(e){}});

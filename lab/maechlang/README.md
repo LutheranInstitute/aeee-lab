@@ -8,3 +8,7 @@
 - `index.html`: explainer + browser simulation (a simulation, not the Mech runtime).
 - Rule inherited from Mech: kebab-case, no underscores (`agentic-environments`).
 - Sources: https://xn--l-3fa.net/mech-lang · https://docs.mech-lang.org/guides/mech-in-fifteen-minutes.html
+
+## Lineage
+
+- 2026-10-17: guard explícito pk && wr en `#Authority` (`:Evidence(r, pk, wr)`; sin passkey + Witness, espera).
