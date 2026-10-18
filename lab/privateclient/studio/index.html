@@ -70,7 +70,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 @media(max-width:760px){.grid{grid-template-columns:1fr}.stage{position:static}}
 </style></head>
 <body>
-<div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span style="display:flex;gap:8px;align-items:center"><button class="mode" id="mode" type="button" aria-label="Day or night"></button><span class="tag mono">LAB · TEMPLATE STUDIO</span></span></div>
+<div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span style="display:flex;gap:8px;align-items:center"><button class="mode" id="mode" type="button" aria-label="Day or night"></button><span class="tag mono" id="tagline">LAB · TEMPLATE STUDIO</span></span></div>
 <header class="head">
  <h1>Your template is <em>your platform.</em></h1>
  <p class="lead">Every domain can carry a template for its visitors. Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
@@ -139,7 +139,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
   <p class="note" id="sub-why"></p>
   <ol><li>Opens a review issue on GitHub with this manifest and its hash, signed in as you.</li><li>Æsimov checks it; a human reviewer approves or asks for changes.</li><li>Only approved templates can be used on privateclient.ai.</li></ol>
  </div>
- <p class="note">Your draft is saved in this browser. Nothing is published from this page.</p>
+ <p class="note" id="savenote">Your draft is saved in this browser. Nothing is published from this page.</p>
 </section>
 </div>
 <aside class="guide" id="guide" aria-live="polite">
@@ -148,7 +148,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
   <g id="geyes" stroke-width="3.6"><path d="M-14 0H-6M6 0H14"/></g><path d="M-9 36Q0 42 9 36" stroke-width="2"/></g></svg>
  <div><b class="mono" id="gname">Private_client_æsymov</b><p id="gsay"></p><button class="btn" id="ggo" type="button">Show me</button></div>
 </aside>
-<footer class="mono">LAB DEMO · nothing is posted · <a href="../aesimov/">æsimov verifies templates</a> · <a href="../">PC:// LAB</a></footer>
+<footer class="mono" id="foot">LAB DEMO · nothing is posted · <a href="../aesimov/">æsimov verifies templates</a> · <a href="../">PC:// LAB</a></footer>
 
 <script>
 (()=>{
@@ -326,6 +326,8 @@ async function postIt(held){ POSTING=true; $('#p-hold').querySelector('span').te
   [[r.url,'Open your post'],[r.verify,'Verify receipt']].forEach(([u,t])=>{ if(!u) return; const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='noopener'; a.textContent=t+' ↗'; const d=document.createElement('div'); d.appendChild(a); rc.appendChild(d); });
   $('#p-msg').textContent='Done. Your words are on your feed; the card carries the receipt.'; unseal(); words=''; $('#f-words').value=''; update(); }
 async function boot(){ let d=null;
+  if(LIVE){ $('#tagline').textContent='TEMPLATE STUDIO'; $('#savenote').textContent='Your draft is saved in this browser. Only your hold posts, and only to your own feed.';
+    $('#foot').innerHTML='Only your hold posts · <a href="/">privateclient.ai</a> · <a href="https://lutheraninstitute.github.io/aeee-lab/lab/privateclient/aesimov/">æsimov verifies templates</a>'; document.querySelector('.top a').setAttribute('href','/'); }
   if(location.hash.startsWith('#d=')){ try{ d=b64d(location.hash.slice(3)); }catch(e){} history.replaceState(null,'',location.pathname); }
   if(!d&&LIVE){ try{ d=JSON.parse(localStorage.getItem('pc.studio.draft')||'null'); }catch(e){} }
   localStorage.removeItem('pc.studio.draft');
