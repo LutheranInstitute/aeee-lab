@@ -15,7 +15,18 @@
 .btn[disabled]{opacity:.45;cursor:not-allowed}
 .sub{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
 .sub ol{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--dim)}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}
+.stepsbar{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px;font-size:12px}
+.stepsbar span{border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--dim)}
+.stepsbar span.done{color:var(--ok);border-color:var(--ok)}.stepsbar span.now{color:var(--c);border-color:var(--c)}
+.choose h2{font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin:14px 0 0}
+.guide{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;gap:12px;align-items:flex-end;max-width:360px;padding:12px 14px;border:1px solid var(--c);border-radius:18px;background:var(--bg);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.guide p{margin:4px 0 8px;font-size:14px}.guide b{font-size:12px;color:var(--c)}
+#geyes{transition:transform .35s}
+.hl{outline:2px solid var(--c);outline-offset:4px;border-radius:12px;transition:outline-color .3s}
+@media(prefers-reduced-motion:reduce){#geyes{transition:none}}
+@media(max-width:760px){.guide{left:12px;right:12px;max-width:none}}
+footer{padding-bottom:140px}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
 body{background-image:linear-gradient(rgba(0,243,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,243,255,.05) 1px,transparent 1px);background-size:40px 40px}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
 .top{display:flex;justify-content:space-between;align-items:center;max-width:1240px;margin:0 auto;padding:14px 16px;font-size:13px;color:var(--dim)}
@@ -57,20 +68,23 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 <header class="head">
  <h1>Your template is <em>your platform.</em></h1>
  <p class="lead">Every domain can carry a template for its visitors. Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
+ <div class="stepsbar mono" id="stepsbar"><span data-s="1">1 Choose</span><span data-s="2">2 Design</span><span data-s="3">3 Rules</span><span data-s="4">4 Compose</span><span data-s="5">5 Submit</span></div>
+ <section id="sec1" class="choose"><h2 class="mono">1 · Choose a template</h2>
  <div class="presets" id="presets" aria-label="Templates"></div>
+ <label for="f-domain">Or a domain template for its visitors</label><select id="f-domain" style="max-width:340px"><option value="">Pick a domain…</option></select></section>
 </header>
 
 <div class="grid">
-<section class="panel" aria-label="Design">
- <h2>Design</h2>
+<section class="panel" aria-label="Design" id="sec2">
+ <h2>2 · Design</h2>
  <div class="row"><div><label for="f-name">Name</label><input id="f-name"></div><div><label for="f-handle">Handle</label><input id="f-handle"></div></div>
  <label for="f-tagline">Tagline</label><input id="f-tagline">
  <div class="row"><div><label for="f-color">Color</label><input id="f-color" type="color"></div>
-  <div><label for="f-crown">Crown</label><select id="f-crown"><option value="check">v| check</option><option value="sun">sun</option><option value="door">door</option><option value="moon">moon</option><option value="week">week ring</option><option value="qr">QR square</option></select></div></div>
+  <div><label for="f-crown">Crown</label><select id="f-crown"><option value="check">v| check</option><option value="sun">sun</option><option value="door">door</option><option value="moon">moon</option><option value="week">week ring</option><option value="qr">QR square</option><option value="prompt">&gt;_ prompt</option><option value="wave">sound wave</option><option value="molt">molt</option></select></div></div>
  <label>Style</label>
  <div class="seg" id="f-style"><button type="button" data-v="aggregate">Aggregate</button><button type="button" data-v="line">Line</button><button type="button" data-v="terminal">Terminal</button></div>
  <label for="f-sig">Signature</label><input id="f-sig" class="mono">
- <h2 style="margin-top:18px">Rules</h2>
+ <h2 style="margin-top:18px" id="sec3">3 · Rules</h2>
  <div class="row"><div><label for="f-max">Max characters</label><input id="f-max" type="number" min="50" max="3000" step="50"></div>
   <div><label for="f-appr">Human approvers</label><select id="f-appr"><option value="1">1</option><option value="2">2</option></select></div></div>
  <label for="f-req">Required phrases (one per line)</label><textarea id="f-req" style="min-height:60px"></textarea>
@@ -79,9 +93,10 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 </section>
 
 <section class="stage" aria-label="Preview">
- <div class="panel">
-  <h2>Card preview · not signed</h2>
+ <div class="panel" id="sec4">
+  <h2>4 · Compose · preview, not signed</h2>
   <canvas id="card" width="1080" height="1350" role="img" aria-label="Card preview"></canvas>
+  <label for="f-visitor" id="l-visitor">Your name (shown on the from line)</label><input id="f-visitor" placeholder="e.g. Ana R.">
   <label for="f-words">Your words</label>
   <textarea id="f-words" maxlength="3000"></textarea>
   <ul class="checks" id="checks" aria-live="polite"></ul>
@@ -97,8 +112,8 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
   <button class="btn" id="dl-png" type="button">Download preview</button>
   <button class="btn" id="copy" type="button">Copy</button>
  </div>
- <div class="sub">
-  <h2>Submit for review</h2>
+ <div class="sub" id="sec5">
+  <h2>5 · Submit for review</h2>
   <label for="f-by">Submitted by</label><input id="f-by" placeholder="your name or handle">
   <label><input id="f-own" type="checkbox" style="width:auto;min-height:0;margin-right:8px">I hold the rights to this name, look and wording.</label>
   <div class="btns"><button class="btn primary" id="submit" type="button" disabled>Submit template</button></div>
@@ -108,13 +123,19 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
  <p class="note">Your draft is saved in this browser. Nothing is published from this page.</p>
 </section>
 </div>
+<aside class="guide" id="guide" aria-live="polite">
+ <svg viewBox="-40 -70 80 135" width="58" height="96" aria-hidden="true"><g id="gface" fill="none" stroke-linecap="round" stroke-width="2.4">
+  <path d="M-34-20Q-34-64 0-64Q34-64 34-20L34 26Q34 58 0 60Q-34 58-34 26Z"/><rect x="-26" y="-14" width="52" height="28" rx="14"/>
+  <g id="geyes" stroke-width="3.6"><path d="M-14 0H-6M6 0H14"/></g><path d="M-9 36Q0 42 9 36" stroke-width="2"/></g></svg>
+ <div><b class="mono" id="gname">Private_client_æsymov</b><p id="gsay"></p><button class="btn" id="ggo" type="button">Show me</button></div>
+</aside>
 <footer class="mono">LAB DEMO · nothing is posted · <a href="../aesimov/">æsimov verifies templates</a> · <a href="../">PC:// LAB</a></footer>
 
 <script>
 (()=>{
 const $=s=>document.querySelector(s);
 const PRESETS={
- yael:{id:"yaelmendez/signature",version:"1.0.0",brand:{name:"Yæl Méndez",handle:"@yaelmendez",tagline:"Make something agents want.",color:"#f2d16b",crown:"sun",style:"aggregate",signature:">_æ:"},
+ yael:{id:"yaelmendez/signature",version:"1.0.0",domain:"yæl.com",brand:{name:"Yæl Méndez",handle:"@yaelmendez",tagline:"Make something agents want.",color:"#f2d16b",crown:"sun",style:"aggregate",signature:">_æ:"},
   rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,
   sample:"Every word I publish, I approved.\n\nMany agents. One principal. Point your agents at me 🪡 #opensourceware"},
  pc:{id:"privateclient/default",version:"1.0.0",brand:{name:"Private Client",handle:"privateclient.ai",tagline:"Only what you meant to say.",color:"#00f3ff",crown:"check",style:"terminal",signature:"v|"},
@@ -129,20 +150,22 @@ const PRESETS={
   rules:{max_len:1200,required_phrases:["No es asesoría financiera."],banned_words:["garantizado","sin riesgo"]},approvers:2,
   sample:"Tres preguntas antes de invertir este trimestre. No es asesoría financiera."}
 };
-const LABELS={yael:"@yaelmendez · Yæl.com",pc:"Private Client",aestore:"æ.store",llmstore:"llm.store",aeee:"æææ.com",despacho:"Despacho Ejemplo · white-label"};
-let T=null, words="";
+const DOMAINS={"xn--6ca.me": {"id": "xn--6ca.me/visitor", "version": "0.1.0", "domain": "æ.me", "brand": {"name": "æ.me", "handle": "æ.me", "tagline": "Me, the human principal.", "color": "#d4af37", "crown": "sun", "style": "aggregate", "signature": "æ.me"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "I'm the one who signs. Agents only draft."}, "xn--6ca.net": {"id": "xn--6ca.net/visitor", "version": "0.1.0", "domain": "æ.net", "brand": {"name": "æ.net", "handle": "æ.net", "tagline": "The network of agentic environments.", "color": "#00c2a8", "crown": "qr", "style": "terminal", "signature": "æ.net"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "My environment just joined the network."}, "xn--l-3fa.net": {"id": "xn--l-3fa.net/visitor", "version": "0.1.0", "domain": "æl.net", "brand": {"name": "æl.net", "handle": "æl.net", "tagline": "Agentic Electronic Language Netqorks.", "color": "#7cc4ff", "crown": "prompt", "style": "aggregate", "signature": "æl://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Today I learned to speak to my agents in æl."}, "xn--sovreign-c0a.com": {"id": "xn--sovreign-c0a.com/visitor", "version": "0.1.0", "domain": "soværeign.com", "brand": {"name": "soværeign.com", "handle": "soværeign.com", "tagline": "Your environment. Your authority.", "color": "#d4af37", "crown": "door", "style": "aggregate", "signature": "æ://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "My compute, my rules, my receipt."}, "commandprompt.ai": {"id": "commandprompt.ai/visitor", "version": "0.1.0", "domain": "commandprompt.ai", "brand": {"name": "commandprompt.ai", "handle": "commandprompt.ai", "tagline": "Language is input. Intent is power.", "color": "#39ff88", "crown": "prompt", "style": "terminal", "signature": ">_"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "One prompt, one plan, one human yes."}, "cli.llc": {"id": "cli.llc/visitor", "version": "0.1.0", "domain": "cli.llc", "brand": {"name": "cli.llc", "handle": "cli.llc", "tagline": "Cli in, llc out.", "color": "#ffcf5c", "crown": "prompt", "style": "terminal", "signature": ">_llc"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "I typed my company into existence today."}, "daollc.ai": {"id": "daollc.ai/visitor", "version": "0.1.0", "domain": "daollc.ai", "brand": {"name": "daollc.ai", "handle": "daollc.ai", "tagline": "The organization. Agents propose, members decide.", "color": "#a78bfa", "crown": "check", "style": "aggregate", "signature": "HUMAN://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Proposal 001: members decide, agents draft."}, "teologia.ai": {"id": "teologia.ai/visitor", "version": "0.1.0", "domain": "teologia.ai", "brand": {"name": "teologia.ai", "handle": "teologia.ai", "tagline": "The school. Por gracia es dado.", "color": "#c9a227", "crown": "sun", "style": "line", "signature": "teologia.ai"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Lo que aprendí esta semana, en mis palabras."}, "xn--teologa-ova.org": {"id": "xn--teologa-ova.org/visitor", "version": "0.1.0", "domain": "teología.org", "brand": {"name": "teología.org", "handle": "teología.org", "tagline": "Teología abierta, en comunidad.", "color": "#c9a227", "crown": "sun", "style": "line", "signature": "teología.org"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Una pregunta que me acompaña esta semana."}, "teologia.live": {"id": "teologia.live/visitor", "version": "0.1.0", "domain": "teologia.live", "brand": {"name": "teologia.live", "handle": "teologia.live", "tagline": "Clases en vivo, en comunidad.", "color": "#ff5a6a", "crown": "wave", "style": "aggregate", "signature": "● live"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Hoy en clase descubrí algo nuevo."}, "zacapa.ai": {"id": "zacapa.ai/visitor", "version": "0.1.0", "domain": "zacapa.ai", "brand": {"name": "zacapa.ai", "handle": "zacapa.ai", "tagline": "The place. A live pilot.", "color": "#e07a3a", "crown": "sun", "style": "line", "signature": "zacapa.ai"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "What changed in our town this month."}, "neuromitosis.com": {"id": "neuromitosis.com/visitor", "version": "0.1.0", "domain": "neuromitosis.com", "brand": {"name": "neuromitosis.com", "handle": "neuromitosis.com", "tagline": "Ideas that divide and multiply.", "color": "#ff6ad5", "crown": "qr", "style": "terminal", "signature": "neuro://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "One idea I'm splitting into two today."}, "aipodcast.me": {"id": "aipodcast.me/visitor", "version": "0.1.0", "domain": "aipodcast.me", "brand": {"name": "aipodcast.me", "handle": "aipodcast.me", "tagline": "Your episode, in your words.", "color": "#ffb020", "crown": "wave", "style": "aggregate", "signature": "● rec"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "This week's episode in one line."}, "iaamano.com": {"id": "iaamano.com/visitor", "version": "0.1.0", "domain": "iaamano.com", "brand": {"name": "iaamano.com", "handle": "iaamano.com", "tagline": "IA a mano. Hecho por personas.", "color": "#2fa84f", "crown": "check", "style": "line", "signature": "a mano"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Lo hice a mano, con ayuda de mis agentes."}, "molt.school": {"id": "molt.school/visitor", "version": "0.1.0", "domain": "molt.school", "brand": {"name": "molt.school", "handle": "molt.school", "tagline": "Learn by molting.", "color": "#ff7a45", "crown": "molt", "style": "aggregate", "signature": "🦞"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "What I shed this week, and what grew back."}, "molt.earth": {"id": "molt.earth/visitor", "version": "0.1.0", "domain": "molt.earth", "brand": {"name": "molt.earth", "handle": "molt.earth", "tagline": "Molt, on Earth.", "color": "#3ddc84", "crown": "molt", "style": "line", "signature": "🦞"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "A small change I made for the planet."}, "moltcontextprotocol.com": {"id": "moltcontextprotocol.com/visitor", "version": "0.1.0", "domain": "moltcontextprotocol.com", "brand": {"name": "moltcontextprotocol.com", "handle": "moltcontextprotocol.com", "tagline": "Context may propagate. Authority does not.", "color": "#ff7a45", "crown": "molt", "style": "terminal", "signature": "MCP://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "My context moved. My authority stayed."}, "moltcontextprotocol.net": {"id": "moltcontextprotocol.net/visitor", "version": "0.1.0", "domain": "moltcontextprotocol.net", "brand": {"name": "moltcontextprotocol.net", "handle": "moltcontextprotocol.net", "tagline": "The Molt Context Protocol network.", "color": "#ff7a45", "crown": "molt", "style": "terminal", "signature": "MCP://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "My agent joined the molt network."}, "moltcontextprotocol.org": {"id": "moltcontextprotocol.org/visitor", "version": "0.1.0", "domain": "moltcontextprotocol.org", "brand": {"name": "moltcontextprotocol.org", "handle": "moltcontextprotocol.org", "tagline": "The Molt Context Protocol, in the open.", "color": "#ff7a45", "crown": "molt", "style": "terminal", "signature": "MCP://"}, "rules": {"max_len": 1500, "required_phrases": [], "banned_words": []}, "approvers": 1, "sample": "Fork freely. Preserve attribution."}};
+Object.assign(PRESETS,DOMAINS);
+const LABELS={yael:"@yaelmendez · Yæl.com",pc:"Private Client",despacho:"Despacho Ejemplo · white-label"};
+let T=null, words="", VISITOR="";
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 const sha=async t=>hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)));
 
 /* manifest from the form */
-function manifest(){ return {schema:"ae.template/0.1",id:T.id,version:T.version,...(T.domain?{domain:T.domain,audience:"visitors"}:{}),...(T.example?{example:T.example}:{}),
-  brand:{...T.brand},slots:["words"],rules:{...T.rules},approvers:T.approvers,
+function manifest(){ return {schema:"ae.template/0.1",id:T.id,version:T.version,...(T.domain?{domain:T.domain,audience:"visitors",from:"from "+T.domain}:{}),...(T.example?{example:T.example}:{}),
+  brand:{...T.brand},slots:T.domain?["words","visitor"]:["words"],rules:{...T.rules},approvers:T.approvers,
   agents_may:["draft"],human_only:["approve","publish"],receipt_names:["template","template_sha","text_sha","held_ms","at"]}; }
 
 function load(key){ const p=JSON.parse(JSON.stringify(PRESETS[key])); T=p; words=p.sample;
   const saved=localStorage.getItem('pc.studio.'+key); if(saved){ try{const s=JSON.parse(saved); T=s.t; words=s.w;}catch(e){} }
-  T._key=key; fill(); [...document.querySelectorAll('#presets button')].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===key))); update(); }
-function fill(){ const b=T.brand; $('#f-name').value=b.name; $('#f-handle').value=b.handle; $('#f-tagline').value=b.tagline; $('#f-color').value=b.color;
+  T._key=key; fill(); [...document.querySelectorAll('#presets button')].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===key))); $('#f-domain').value=(PRESETS[key].domain&&key!=='yael')?key:''; update(); }
+function fill(){ const b=T.brand; $('#f-visitor').style.display=$('#l-visitor').style.display=T.domain?'':'none'; $('#f-visitor').value=VISITOR; $('#f-name').value=b.name; $('#f-handle').value=b.handle; $('#f-tagline').value=b.tagline; $('#f-color').value=b.color;
   $('#f-crown').value=b.crown; $('#f-sig').value=b.signature; $('#f-max').value=T.rules.max_len; $('#f-appr').value=String(T.approvers);
   $('#f-req').value=T.rules.required_phrases.join('\n'); $('#f-ban').value=T.rules.banned_words.join(', '); $('#f-words').value=words;
   [...document.querySelectorAll('#f-style button')].forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.v===b.style))); }
@@ -150,7 +173,7 @@ function read(){ const b=T.brand; b.name=$('#f-name').value.trim()||'Untitled'; 
   b.color=$('#f-color').value; b.crown=$('#f-crown').value; b.signature=$('#f-sig').value.trim();
   T.rules.max_len=Math.max(50,Math.min(3000,parseInt($('#f-max').value)||3000)); T.approvers=parseInt($('#f-appr').value)||1;
   T.rules.required_phrases=$('#f-req').value.split('\n').map(s=>s.trim()).filter(Boolean);
-  T.rules.banned_words=$('#f-ban').value.split(',').map(s=>s.trim()).filter(Boolean); words=$('#f-words').value; }
+  T.rules.banned_words=$('#f-ban').value.split(',').map(s=>s.trim()).filter(Boolean); words=$('#f-words').value; VISITOR=$('#f-visitor').value.trim(); }
 
 /* the same rule engine æsimov runs */
 function checks(){ const t=words, r=T.rules, out=[];
@@ -172,6 +195,9 @@ function crown(x,y,s,col,kind){ g.save(); g.translate(x,y); g.scale(s,s); g.stro
   else if(kind==='sun'){g.arc(0,0,7,0,7);g.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;g.moveTo(Math.cos(a)*11,Math.sin(a)*11);g.lineTo(Math.cos(a)*16,Math.sin(a)*16);}g.stroke();}
   else if(kind==='door'){g.rect(-10,-16,20,30);g.moveTo(5,0);g.lineTo(6,0);g.stroke();}
   else if(kind==='moon'){g.arc(0,0,13,0.6,5.7);g.arc(6,0,10,5.2,1.1,true);g.closePath();g.stroke();}
+  else if(kind==='prompt'){g.moveTo(-14,-10);g.lineTo(-2,0);g.lineTo(-14,10);g.moveTo(2,12);g.lineTo(16,12);g.stroke();}
+  else if(kind==='wave'){g.moveTo(-16,0);g.lineTo(-16,0);[-16,-10,-4,2,8,14].forEach((x,i)=>{const h=[4,10,16,8,12,5][i];g.moveTo(x,-h);g.lineTo(x,h);});g.stroke();}
+  else if(kind==='molt'){g.arc(0,2,12,Math.PI*0.15,Math.PI*0.85,true);g.moveTo(-10,-6);g.lineTo(-16,-16);g.moveTo(10,-6);g.lineTo(16,-16);g.moveTo(-6,14);g.lineTo(-6,18);g.moveTo(6,14);g.lineTo(6,18);g.stroke();}
   else if(kind==='qr'){g.rect(-15,-15,30,30);g.stroke();g.fillRect(-11,-11,8,8);g.fillRect(3,-11,8,8);g.fillRect(-11,3,8,8);g.fillRect(4,4,3,3);g.fillRect(8,8,3,3);}
   else {for(let i=0;i<7;i++){const a=-Math.PI/2+i*2*Math.PI/7;g.beginPath();g.arc(Math.cos(a)*13,Math.sin(a)*13,3,0,7);i===new Date().getDay()?g.fill():g.stroke();}}
   g.restore(); }
@@ -187,6 +213,7 @@ function qr(x,y,s,seed,ink,paper){ g.fillStyle=paper; g.fillRect(x-8,y-8,s*9+16,
     if(on){g.fillStyle=ink; g.fillRect(x+c*s,y+r*s,s,s);} } }
 
 let MODE=localStorage.getItem('pc.studio.mode')||(matchMedia('(prefers-color-scheme: light)').matches?'day':'night');
+function fromLine(){ const who=VISITOR||T.brand.name; return T.domain?`— ${who} · from ${T.domain}`:`— ${who}`; }
 function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
   const paper=st==='terminal'?(night?'#000':'#eef7f7'):(night?'#121110':'#f4efe3'), ink=st==='terminal'?(night?'#e9f6f7':'#04282b'):(night?'#f4efe3':'#111');
   const band=night?'#000':'#111', sub=st==='terminal'?(night?'#7d9a9e':'#4c6a6e'):(night?'#a59f93':'#666');
@@ -194,14 +221,15 @@ function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
   if(st==='terminal'){ g.strokeStyle='rgba(0,243,255,.07)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,0);g.lineTo(i,H);g.stroke();} for(let j=0;j<H;j+=54){g.beginPath();g.moveTo(0,j);g.lineTo(W,j);g.stroke();} }
   // header
   if(st!=='terminal') squares(72,72,46); else { g.strokeStyle=col; g.lineWidth=3; g.strokeRect(72,72,46,46); g.fillStyle=col; g.font=`700 28px ${MONO}`; g.fillText('>_',78,105); }
-  g.fillStyle=ink; g.font=`900 64px ${SANS}`; g.fillText(/\./.test(b.name)?b.name:b.name.toUpperCase(),146,122);
-  g.fillStyle=st==='terminal'?col:sub; g.font=`500 30px ${MONO}`; g.fillText(b.handle,148,166);
+  const nm=/\./.test(b.name)?b.name:b.name.toUpperCase(); let ns=64; do{ g.font=`900 ${ns}px ${SANS}`; ns-=2; }while(g.measureText(nm).width>W-146-150&&ns>30); g.fillStyle=ink; g.fillText(nm,146,122);
+  g.fillStyle=st==='terminal'?col:sub; g.font=`500 30px ${MONO}`; g.fillText(b.handle===b.name&&T.domain?'visitor template':b.handle,148,166);
   crown(W-104,104,1.6,st==='terminal'?col:ink,b.crown);
   g.strokeStyle=ink; g.globalAlpha=.85; g.lineWidth=2; g.beginPath(); g.moveTo(72,236); g.lineTo(W-72,236); g.stroke(); g.globalAlpha=1;
   // words
   const bandTop=st==='line'?H-250:H-330; const avail=bandTop-300;
   let size=58, lines; do{ lines=wrap(words||' ',W-144,`600 ${size}px ${SANS}`); size-=2; }while(lines.length*size*1.32>avail&&size>26); size+=2;
   g.fillStyle=ink; g.font=`600 ${size}px ${SANS}`; lines.forEach((l,i)=>g.fillText(l,72,320+i*size*1.32));
+  const fy=320+lines.length*size*1.32+30; if(fy<bandTop-80){ g.fillStyle=col==='#f4efe3'?ink:col; if(st!=='terminal'&&!night) g.fillStyle=ink; g.font=`600 30px ${MONO}`; g.fillText(fromLine(),72,fy); }
   if(b.tagline){ g.fillStyle=sub; g.font=`italic 400 28px ${SANS}`; g.fillText(b.tagline,72,bandTop-36); }
   // band: the aggregate meets terminal here
   if(st==='line'){ g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(72,bandTop); g.lineTo(W-72,bandTop); g.stroke();
@@ -223,17 +251,34 @@ async function gate(ck,m,txt){ const why=[]; if(ck.some(c=>c[0]==='no')) why.pus
   if(!$('#f-own').checked) why.push('confirm you hold the rights'); if(T.example) why.push('example templates are fictional and cannot be submitted');
   $('#submit').disabled=why.length>0; $('#sub-why').textContent=why.length?'To submit: '+why.join(' · ')+'.':'Ready. Nothing is published until a human approves it.'; LAST={m,txt}; }
 function applyMode(){ document.documentElement.dataset.mode=MODE; $('#mode').textContent=MODE==='night'?'☾ night':'☀ day'; $('#mode').setAttribute('aria-pressed',String(MODE==='day')); }
+function direction(ck){ const r=s=>({s}), red=ck.find(c=>c[0]==='no');
+  if(!words.trim()) return {s:4,el:'#f-words',t:'Write your words in step 4. I check them as you type.'};
+  if(T.domain&&!VISITOR) return {s:4,el:'#f-visitor',t:`Add your name. The from line will read "— you · from ${T.domain}".`};
+  if(red) return {s:red[1].includes('characters')||red[1].includes('"')?4:3,el:'#checks',t:`One check is red: ${red[1]}. Fix the words, or change the rule in step 3.`};
+  if(T.example) return {s:1,el:'#presets',t:'This example is fictional. Pick @yaelmendez or a domain to submit.'};
+  if(!$('#f-by').value.trim()) return {s:5,el:'#f-by',t:'Looks good. Tell reviewers who is submitting in step 5.'};
+  if(!$('#f-own').checked) return {s:5,el:'#f-own',t:'Confirm you hold the rights to this name, look and wording.'};
+  return {s:5,el:'#submit',t:'Ready. Submit opens a review issue. A human approves; I never do.'}; }
+let GD=null;
+function guide(ck){ GD=direction(ck); $('#gsay').textContent=GD.t; $('#gface').setAttribute('stroke',T.brand.color);
+  document.querySelectorAll('#stepsbar span').forEach(x=>{const n=+x.dataset.s; x.className=n<GD.s?'done':n===GD.s?'now':'';});
+  const el=$(GD.el), g2=$('#guide'); if(el){ const a=el.getBoundingClientRect(), b=g2.getBoundingClientRect();
+    const dx=Math.max(-5,Math.min(5,(a.left+a.width/2-(b.left+30))/120)), dy=Math.max(-4,Math.min(4,(a.top+a.height/2-(b.top+40))/160));
+    $('#geyes').style.transform=`translate(${dx}px,${dy}px)`; } }
+addEventListener('scroll',()=>GD&&guide(checks()),{passive:true});
 let tmr; async function update(){ read(); draw();
   const ck=checks(); $('#checks').innerHTML=ck.map(([s,t])=>`<li class="${s}">${s==='ok'?'✓':s==='no'?'×':'…'} ${t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</li>`).join('');
   const m=manifest(), txt=JSON.stringify(m,null,1); $('#json').textContent=txt; $('#sha').textContent='sha256 '+await sha(txt);
-  gate(ck,m,txt);
+  gate(ck,m,txt); guide(ck);
   const {_key,...t}=T; localStorage.setItem('pc.studio.'+T._key,JSON.stringify({t:{...t},w:words}));
   window.PC_STUDIO={manifest:m,checks:ck}; }
 const soon=()=>{clearTimeout(tmr); tmr=setTimeout(update,120);};
 document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',soon));
 document.querySelectorAll('#f-style button').forEach(b=>b.addEventListener('click',()=>{T.brand.style=b.dataset.v; document.querySelectorAll('#f-style button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); update();}));
-Object.keys(PRESETS).forEach(k=>{const b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.textContent=LABELS[k]; b.onclick=()=>load(k); $('#presets').appendChild(b);});
+Object.keys(LABELS).forEach(k=>{const b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.textContent=LABELS[k]; b.onclick=()=>load(k); $('#presets').appendChild(b);});
 const reset=document.createElement('button'); reset.type='button'; reset.textContent='Reset'; reset.onclick=()=>{localStorage.removeItem('pc.studio.'+T._key); load(T._key);}; $('#presets').appendChild(reset);
+const sel=$('#f-domain'); Object.keys(PRESETS).filter(k=>PRESETS[k].domain&&k!=='yael').forEach(k=>{const o=document.createElement('option'); o.value=k; o.textContent=PRESETS[k].domain; sel.appendChild(o);});
+sel.onchange=()=>{ if(sel.value) load(sel.value); };
 const save=(blob,name)=>{const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
 $('#dl-json').onclick=()=>save(new Blob([$('#json').textContent],{type:'application/json'}),T.id.replace('/','__')+'.ae.template.json');
 $('#dl-png').onclick=()=>cv.toBlob(b=>save(b,T.id.replace('/','__')+'-preview.png'));
@@ -245,6 +290,8 @@ $('#submit').onclick=async()=>{ if($('#submit').disabled) return; const h=await 
   const body=['### ae.template/0.1 submission','',`- template: \`${T.id}@${T.version}\``,`- sha256: \`${h}\``,`- submitted by: ${$('#f-by').value.trim()}`,'- rights: submitter confirms they hold the rights to this name, look and wording','- agents_may: draft · human_only: approve, publish','','```json',LAST.txt,'```','','_Sent from PC:// LAB Template Studio. A human reviewer approves; nothing is published by submitting._'].join('\n');
   const url='https://github.com/LutheranInstitute/aeee-lab/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
   window.open(url,'_blank','noopener'); $('#sub-why').textContent=`Review issue opened for ${T.id}@${T.version} · sha256 ${h.slice(0,12)}…`; };
+$('#ggo').onclick=()=>{ const el=$(GD.el); if(!el) return; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  el.classList.add('hl'); setTimeout(()=>el.classList.remove('hl'),1600); if(el.focus) el.focus({preventScroll:true}); };
 applyMode();
 load('yael');
 })();
