@@ -20,6 +20,12 @@
 .stepsbar span{border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--dim)}
 .stepsbar span.done{color:var(--ok);border-color:var(--ok)}.stepsbar span.now{color:var(--c);border-color:var(--c)}
 .choose h2{font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin:14px 0 0}
+.post{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.post h2,.sub h2{font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin:0 0 6px}
+.aic{display:flex;gap:8px;align-items:center;color:var(--ink);font-size:14px}.aic input{width:auto;min-height:0}
+.hold{position:relative;margin-top:10px;height:64px;border-radius:32px;border:1px solid var(--c);background:transparent;color:var(--ink);font:700 17px system-ui,sans-serif;overflow:hidden;width:100%;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer}
+.hold i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,transparent,var(--c))}.hold span{position:relative}.hold[disabled]{opacity:.45}
+.rc{margin-top:10px;font-size:12px;border:1px solid var(--ok);border-radius:12px;padding:10px;word-break:break-all}.rc b{color:var(--ok)}.rc a{color:var(--c)}
 .guide{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;gap:12px;align-items:flex-end;max-width:360px;padding:12px 14px;border:1px solid var(--c);border-radius:18px;background:var(--bg);box-shadow:0 8px 30px rgba(0,0,0,.35)}
 .guide p{margin:4px 0 8px;font-size:14px}.guide b{font-size:12px;color:var(--c)}
 #geyes{transition:transform .35s}
@@ -68,7 +74,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 <header class="head">
  <h1>Your template is <em>your platform.</em></h1>
  <p class="lead">Every domain can carry a template for its visitors. Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
- <div class="stepsbar mono" id="stepsbar"><span data-s="1">1 Choose</span><span data-s="2">2 Design</span><span data-s="3">3 Rules</span><span data-s="4">4 Compose</span><span data-s="5">5 Submit</span></div>
+ <div class="stepsbar mono" id="stepsbar"><span data-s="1">1 Choose</span><span data-s="2">2 Design</span><span data-s="3">3 Rules</span><span data-s="4">4 Compose</span><span data-s="5">5 Approve &amp; post</span></div>
  <section id="sec1" class="choose"><h2 class="mono">1 · Choose a template</h2>
  <div class="presets" id="presets" aria-label="Templates"></div>
  <label for="f-domain">Or a domain template for its visitors</label><select id="f-domain" style="max-width:340px"><option value="">Pick a domain…</option></select></section>
@@ -85,7 +91,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
  <div class="seg" id="f-style"><button type="button" data-v="aggregate">Aggregate</button><button type="button" data-v="line">Line</button><button type="button" data-v="terminal">Terminal</button></div>
  <label for="f-sig">Signature</label><input id="f-sig" class="mono">
  <h2 style="margin-top:18px" id="sec3">3 · Rules</h2>
- <div class="row"><div><label for="f-max">Max characters</label><input id="f-max" type="number" min="50" max="3000" step="50"></div>
+ <div class="row"><div><label for="f-max">Max characters</label><input id="f-max" type="number" min="50" max="2800" step="50"></div>
   <div><label for="f-appr">Human approvers</label><select id="f-appr"><option value="1">1</option><option value="2">2</option></select></div></div>
  <label for="f-req">Required phrases (one per line)</label><textarea id="f-req" style="min-height:60px"></textarea>
  <label for="f-ban">Banned words (comma separated)</label><input id="f-ban">
@@ -100,6 +106,19 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
   <label for="f-words">Your words</label>
   <textarea id="f-words" maxlength="3000"></textarea>
   <ul class="checks" id="checks" aria-live="polite"></ul>
+  <div class="post" id="sec5">
+   <h2>5 · Approve &amp; post</h2>
+   <p class="note" id="p-who"></p>
+   <label class="aic"><input id="f-ai" type="checkbox"> An AI helped me draft this</label>
+   <div class="btns" id="p-acts">
+    <button class="btn primary" id="p-sign" type="button">Sign in with LinkedIn to post</button>
+    <button class="btn primary" id="p-review" type="button" hidden>Review for posting</button>
+    <a class="btn primary" id="p-open" hidden>Post from privateclient.ai</a>
+   </div>
+   <button class="hold" id="p-hold" type="button" hidden><i id="p-fill"></i><span>Hold · I approve this message</span></button>
+   <div class="rc mono" id="p-rc" hidden></div>
+   <p class="note" id="p-msg" aria-live="polite"></p>
+  </div>
  </div>
 </section>
 
@@ -112,8 +131,8 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
   <button class="btn" id="dl-png" type="button">Download preview</button>
   <button class="btn" id="copy" type="button">Copy</button>
  </div>
- <div class="sub" id="sec5">
-  <h2>5 · Submit for review</h2>
+ <div class="sub" id="sec6">
+  <h2>Share this template · submit for review</h2>
   <label for="f-by">Submitted by</label><input id="f-by" placeholder="your name or handle">
   <label><input id="f-own" type="checkbox" style="width:auto;min-height:0;margin-right:8px">I hold the rights to this name, look and wording.</label>
   <div class="btns"><button class="btn primary" id="submit" type="button" disabled>Submit template</button></div>
@@ -136,14 +155,14 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 const $=s=>document.querySelector(s);
 const PRESETS={
  yael:{id:"yaelmendez/signature",version:"1.0.0",domain:"yæl.com",brand:{name:"Yæl Méndez",handle:"@yaelmendez",tagline:"Make something agents want.",color:"#f2d16b",crown:"sun",style:"aggregate",signature:">_æ:"},
-  rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,
+  rules:{max_len:2800,required_phrases:[],banned_words:[]},approvers:1,
   sample:"Every word I publish, I approved.\n\nMany agents. One principal. Point your agents at me 🪡 #opensourceware"},
  pc:{id:"privateclient/default",version:"1.0.0",brand:{name:"Private Client",handle:"privateclient.ai",tagline:"Only what you meant to say.",color:"#00f3ff",crown:"check",style:"terminal",signature:"v|"},
-  rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,sample:"You write. I check. You approve."},
+  rules:{max_len:2800,required_phrases:[],banned_words:[]},approvers:1,sample:"You write. I check. You approve."},
  aestore:{id:"xn--6ca.store/visitor",version:"0.1.0",domain:"æ.store",brand:{name:"æ.store",handle:"æ.store",tagline:"Soværeign edition · weekly",color:"#3ddc84",crown:"week",style:"aggregate",signature:"æ"},
   rules:{max_len:1500,required_phrases:[],banned_words:[]},approvers:1,sample:"What I'm building this week, in my own words."},
  llmstore:{id:"llm.store/visitor",version:"0.1.0",domain:"llm.store",brand:{name:"llm.store",handle:"llm.store",tagline:"Soværeign edition · monthly",color:"#ffb020",crown:"moon",style:"aggregate",signature:">_llm"},
-  rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,sample:"The model I trusted this month, and why."},
+  rules:{max_len:2800,required_phrases:[],banned_words:[]},approvers:1,sample:"The model I trusted this month, and why."},
  aeee:{id:"xn--6caaa.com/visitor",version:"0.1.0",domain:"æææ.com",brand:{name:"æææ QR",handle:"æææ.com",tagline:"Soværeign edition · quarterly",color:"#4c9be8",crown:"qr",style:"terminal",signature:"æææ://"},
   rules:{max_len:2000,required_phrases:[],banned_words:[]},approvers:1,sample:"Point your agents at me. This quarter's address is ready."},
  despacho:{id:"despacho-ejemplo/asesores",version:"0.1.0",example:"ficticio, white-label",brand:{name:"Despacho Ejemplo",handle:"@despacho",tagline:"Asesores que firman lo que dicen.",color:"#3ddc84",crown:"door",style:"line",signature:"DE"},
@@ -162,16 +181,16 @@ function manifest(){ return {schema:"ae.template/0.1",id:T.id,version:T.version,
   brand:{...T.brand},slots:T.domain?["words","visitor"]:["words"],rules:{...T.rules},approvers:T.approvers,
   agents_may:["draft"],human_only:["approve","publish"],receipt_names:["template","template_sha","text_sha","held_ms","at"]}; }
 
-function load(key){ const p=JSON.parse(JSON.stringify(PRESETS[key])); T=p; words=p.sample;
+function load(key){ if(typeof unseal==='function') unseal(); const p=JSON.parse(JSON.stringify(PRESETS[key])); T=p; words=p.sample;
   const saved=localStorage.getItem('pc.studio.'+key); if(saved){ try{const s=JSON.parse(saved); T=s.t; words=s.w;}catch(e){} }
   T._key=key; fill(); [...document.querySelectorAll('#presets button')].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===key))); $('#f-domain').value=(PRESETS[key].domain&&key!=='yael')?key:''; update(); }
-function fill(){ const b=T.brand; $('#f-visitor').style.display=$('#l-visitor').style.display=T.domain?'':'none'; $('#f-visitor').value=VISITOR; $('#f-name').value=b.name; $('#f-handle').value=b.handle; $('#f-tagline').value=b.tagline; $('#f-color').value=b.color;
+function fill(){ const b=T.brand; $('#f-visitor').style.display=$('#l-visitor').style.display=/\/visitor$/.test(T.id)?'':'none'; $('#f-visitor').value=VISITOR; $('#f-name').value=b.name; $('#f-handle').value=b.handle; $('#f-tagline').value=b.tagline; $('#f-color').value=b.color;
   $('#f-crown').value=b.crown; $('#f-sig').value=b.signature; $('#f-max').value=T.rules.max_len; $('#f-appr').value=String(T.approvers);
   $('#f-req').value=T.rules.required_phrases.join('\n'); $('#f-ban').value=T.rules.banned_words.join(', '); $('#f-words').value=words;
   [...document.querySelectorAll('#f-style button')].forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.v===b.style))); }
 function read(){ const b=T.brand; b.name=$('#f-name').value.trim()||'Untitled'; b.handle=$('#f-handle').value.trim(); b.tagline=$('#f-tagline').value.trim();
   b.color=$('#f-color').value; b.crown=$('#f-crown').value; b.signature=$('#f-sig').value.trim();
-  T.rules.max_len=Math.max(50,Math.min(3000,parseInt($('#f-max').value)||3000)); T.approvers=parseInt($('#f-appr').value)||1;
+  T.rules.max_len=Math.max(50,Math.min(2800,parseInt($('#f-max').value)||2800)); T.approvers=parseInt($('#f-appr').value)||1;
   T.rules.required_phrases=$('#f-req').value.split('\n').map(s=>s.trim()).filter(Boolean);
   T.rules.banned_words=$('#f-ban').value.split(',').map(s=>s.trim()).filter(Boolean); words=$('#f-words').value; VISITOR=$('#f-visitor').value.trim(); }
 
@@ -214,6 +233,9 @@ function qr(x,y,s,seed,ink,paper){ g.fillStyle=paper; g.fillRect(x-8,y-8,s*9+16,
 
 let MODE=localStorage.getItem('pc.studio.mode')||(matchMedia('(prefers-color-scheme: light)').matches?'day':'night');
 function fromLine(){ const who=VISITOR||T.brand.name; return T.domain?`— ${who} · from ${T.domain}`:`— ${who}`; }
+let RID=null, QRROWS=null;
+function qrReal(x,y,size,ink,paper){ const n=QRROWS.length, m=Math.floor(size/(n+4)), q=m*2; g.fillStyle=paper; g.fillRect(x,y,m*n+2*q,m*n+2*q);
+  g.fillStyle=ink; QRROWS.forEach((row,r)=>{ for(let c=0;c<n;c++) if(row[c]==='1') g.fillRect(x+q+c*m,y+q+r*m,m,m); }); }
 function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
   const paper=st==='terminal'?(night?'#000':'#eef7f7'):(night?'#121110':'#f4efe3'), ink=st==='terminal'?(night?'#e9f6f7':'#04282b'):(night?'#f4efe3':'#111');
   const band=night?'#000':'#111', sub=st==='terminal'?(night?'#7d9a9e':'#4c6a6e'):(night?'#a59f93':'#666');
@@ -234,17 +256,17 @@ function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
   // band: the aggregate meets terminal here
   if(st==='line'){ g.strokeStyle=ink; g.lineWidth=2; g.beginPath(); g.moveTo(72,bandTop); g.lineTo(W-72,bandTop); g.stroke();
     g.fillStyle=ink; g.font=`700 30px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',72,bandTop+70);
-    g.font=`400 24px ${MONO}`; g.fillStyle=sub; g.fillText(`${b.signature}  ·  ${T.id}@${T.version}  ·  receipt pending`,72,bandTop+116);
-    qr(W-72-9*13,bandTop+40,13,T.id+words,ink,paper); }
+    g.font=`400 24px ${MONO}`; g.fillStyle=sub; g.fillText(`${b.signature}  ·  ${T.id}@${T.version}  ·  ${RID?'receipt '+RID:'receipt pending'}`,72,bandTop+116);
+    if(QRROWS) qrReal(W-72-206,bandTop+18,206,'#111','#fff'); else qr(W-72-9*13,bandTop+40,13,T.id+words,ink,paper); }
   else { g.fillStyle=band; g.fillRect(0,bandTop,W,H-bandTop);
     if(st==='aggregate'){ g.strokeStyle='rgba(0,243,255,.08)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,bandTop);g.lineTo(i,H);g.stroke();} }
     g.strokeStyle=col; g.lineWidth=3; g.beginPath(); g.moveTo(0,bandTop); g.lineTo(W,bandTop); g.stroke();
     face(150,bandTop+165,1.55,col);
-    g.fillStyle=col; g.font=`700 34px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',260,bandTop+120);
+    g.fillStyle=col; let vs=34; do{ g.font=`700 ${vs}px ${MONO}`; vs-=1; }while(g.measureText('v| I APPROVED THIS MESSAGE').width>W-72-(QRROWS?236:130)-260&&vs>20); g.fillText('v| I APPROVED THIS MESSAGE',260,bandTop+120);
     g.fillStyle='#e9f6f7'; g.font=`500 28px ${MONO}`; g.fillText(b.signature+'  '+b.handle,260,bandTop+172);
-    g.fillStyle='#7d9a9e'; g.font=`400 21px ${MONO}`; g.fillText(`${T.id}@${T.version}`,260,bandTop+216); g.fillText(`${T.approvers} human hold${T.approvers>1?'s':''} · receipt pending`,260,bandTop+248);
-    qr(W-72-9*13,bandTop+90,13,T.id+words,'#000','#e9f6f7'); }
-  g.fillStyle=night?'#3a5a5e':'#8a8478'; g.font=`400 18px ${MONO}`; g.fillText((night?'NIGHT':'DAY')+' · PREVIEW · NOT SIGNED · æQR conceptual until issued',72,H-28); }
+    g.fillStyle='#7d9a9e'; g.font=`400 21px ${MONO}`; g.fillText(`${T.id}@${T.version}`,260,bandTop+216); g.fillText(`${T.approvers} human hold${T.approvers>1?'s':''} · ${RID?'receipt '+RID:'receipt pending'}`,260,bandTop+248);
+    if(QRROWS) qrReal(W-72-220,bandTop+56,220,'#000','#fff'); else qr(W-72-9*13,bandTop+90,13,T.id+words,'#000','#e9f6f7'); }
+  g.fillStyle=night?'#3a5a5e':'#8a8478'; g.font=`400 18px ${MONO}`; g.fillText(QRROWS?'SIGNED ONLY WHEN HELD · scan the æQR to verify · privateclient.ai/r/'+RID:(night?'NIGHT':'DAY')+' · PREVIEW · NOT SIGNED · æQR conceptual until issued',72,H-28); }
 
 let LAST={};
 async function gate(ck,m,txt){ const why=[]; if(ck.some(c=>c[0]==='no')) why.push('fix the red checks'); if(!$('#f-by').value.trim()) why.push('add who is submitting');
@@ -253,12 +275,14 @@ async function gate(ck,m,txt){ const why=[]; if(ck.some(c=>c[0]==='no')) why.pus
 function applyMode(){ document.documentElement.dataset.mode=MODE; $('#mode').textContent=MODE==='night'?'☾ night':'☀ day'; $('#mode').setAttribute('aria-pressed',String(MODE==='day')); }
 function direction(ck){ const r=s=>({s}), red=ck.find(c=>c[0]==='no');
   if(!words.trim()) return {s:4,el:'#f-words',t:'Write your words in step 4. I check them as you type.'};
-  if(T.domain&&!VISITOR) return {s:4,el:'#f-visitor',t:`Add your name. The from line will read "— you · from ${T.domain}".`};
+  if(isVisitor()&&!VISITOR) return {s:4,el:'#f-visitor',t:`Add your name. The from line will read "— you · from ${T.domain}".`};
   if(red) return {s:red[1].includes('characters')||red[1].includes('"')?4:3,el:'#checks',t:`One check is red: ${red[1]}. Fix the words, or change the rule in step 3.`};
   if(T.example) return {s:1,el:'#presets',t:'This example is fictional. Pick @yaelmendez or a domain to submit.'};
-  if(!$('#f-by').value.trim()) return {s:5,el:'#f-by',t:'Looks good. Tell reviewers who is submitting in step 5.'};
-  if(!$('#f-own').checked) return {s:5,el:'#f-own',t:'Confirm you hold the rights to this name, look and wording.'};
-  return {s:5,el:'#submit',t:'Ready. Submit opens a review issue. A human approves; I never do.'}; }
+  if(T.approvers>1) return {s:3,el:'#f-appr',t:'This template needs 2 approvers. The studio posts with 1 for now; set it to 1 or submit the template.'};
+  if(!LIVE) return {s:5,el:'#p-open',t:'Checks are green. Posting happens on privateclient.ai; your draft comes with you.'};
+  if(!ME||!ME.can_post) return {s:5,el:'#p-sign',t:'Checks are green. Sign in with LinkedIn; you come straight back here.'};
+  if(!RID) return {s:5,el:'#p-review',t:'Review for posting. I reserve a receipt and put the real æQR on your card.'};
+  return {s:5,el:'#p-hold',t:'Read the card once more. Hold to approve; only your hold posts it.'}; }
 let GD=null;
 function guide(ck){ GD=direction(ck); $('#gsay').textContent=GD.t; $('#gface').setAttribute('stroke',T.brand.color);
   document.querySelectorAll('#stepsbar span').forEach(x=>{const n=+x.dataset.s; x.className=n<GD.s?'done':n===GD.s?'now':'';});
@@ -266,13 +290,55 @@ function guide(ck){ GD=direction(ck); $('#gsay').textContent=GD.t; $('#gface').s
     const dx=Math.max(-5,Math.min(5,(a.left+a.width/2-(b.left+30))/120)), dy=Math.max(-4,Math.min(4,(a.top+a.height/2-(b.top+40))/160));
     $('#geyes').style.transform=`translate(${dx}px,${dy}px)`; } }
 addEventListener('scroll',()=>GD&&guide(checks()),{passive:true});
+/* ── 5 · approve & post, without leaving the studio ── */
+const LIVE=location.hostname==='privateclient.ai'; let ME=null, POSTING=false;
+const api=(path,b)=>fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify(b||{})}).then(async r=>({status:r.status,...await r.json().catch(()=>({}))}));
+function isVisitor(){ return /\/visitor$/.test(T.id); }
+function draft(){ const {_key,...t}=T; return {k:T._key,t,w:words,v:VISITOR}; }
+function b64e(o){ return btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(o)))); }
+function b64d(x){ return JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(x),c=>c.charCodeAt(0)))); }
+function unseal(){ RID=null; QRROWS=null; $('#p-hold').hidden=true; }
+function paintPost(ck){ const red=ck.some(c=>c[0]==='no'), ok=!red&&words.trim()&&T.approvers===1&&(!isVisitor()||VISITOR);
+  $('#p-open').hidden=LIVE; $('#p-sign').hidden=!LIVE||!!(ME&&ME.can_post); $('#p-review').hidden=!LIVE||!(ME&&ME.can_post)||!!RID;
+  $('#p-review').disabled=!ok; $('#p-hold').hidden=!RID; $('#p-hold').disabled=!RID||POSTING;
+  $('#p-who').textContent=!LIVE?'LAB copy. Open the studio on privateclient.ai to post; your draft travels in the link.':ME&&ME.signed_in?`Signed in as ${ME.name}. Posts go to your own LinkedIn feed.`:'Sign in to post to your own LinkedIn feed. Nothing posts without your hold.';
+  if(!LIVE) $('#p-open').href='https://privateclient.ai/studio#d='+b64e(draft()); }
+$('#p-sign').onclick=()=>{ localStorage.setItem('pc.studio.draft',JSON.stringify(draft())); location.href='/linkedin/login?scope=publish&next=studio'; };
+$('#p-review').onclick=async()=>{ const ck=checks(); if(ck.some(c=>c[0]==='no')) return;
+  $('#p-review').disabled=true; $('#p-msg').textContent='Private Client is checking…';
+  const tsha=await sha(JSON.stringify(manifest(),null,1));
+  const r=await api('/prepare',{text:words.trim(),ai_assisted:$('#f-ai').checked,template:T.id+'@'+T.version,template_sha:tsha}).catch(()=>({status:0}));
+  if(r.status!==200){ $('#p-msg').textContent=r.error||(r.checks?r.checks.filter(c=>c.level==='stop').map(c=>c.en).join(' '):'Could not reach Private Client. Nothing was posted.'); $('#p-review').disabled=false; return; }
+  RID=r.rid; QRROWS=r.qr; const warn=(r.checks||[]).filter(c=>c.level==='warn').map(c=>'⚠ '+c.en);
+  $('#p-msg').textContent=(warn.length?warn.join(' '):'Checked.')+' Receipt '+RID+' reserved for 15 minutes.'; draw(); paintPost(checks()); guide(checks()); };
+let h0=0, hraf=0; const HOLD=1200;
+function hstep(){ const p=Math.min(1,(performance.now()-h0)/HOLD); $('#p-fill').style.width=p*100+'%'; if(p<1) hraf=requestAnimationFrame(hstep); else postIt(performance.now()-h0); }
+function hdown(e){ if($('#p-hold').disabled||POSTING) return; e.preventDefault(); h0=performance.now(); hraf=requestAnimationFrame(hstep); navigator.vibrate&&navigator.vibrate(10); }
+function hup(){ if(POSTING) return; cancelAnimationFrame(hraf); $('#p-fill').style.width='0'; }
+$('#p-hold').addEventListener('pointerdown',hdown); ['pointerup','pointerleave','pointercancel'].forEach(ev=>$('#p-hold').addEventListener(ev,hup));
+$('#p-hold').onkeydown=e=>{ if((e.key==='Enter'||e.key===' ')&&!e.repeat) hdown(e); }; $('#p-hold').onkeyup=hup;
+async function postIt(held){ POSTING=true; $('#p-hold').querySelector('span').textContent='Posting…'; draw();
+  const r=await api('/sign',{rid:RID,image:cv.toDataURL('image/png'),alt:(words.trim().split('\n')[0]||T.brand.name).slice(0,200),held_ms:Math.round(held)}).catch(()=>({status:0}));
+  POSTING=false; $('#p-fill').style.width='0'; $('#p-hold').querySelector('span').textContent='Hold · I approve this message';
+  if(r.status!==200){ $('#p-msg').textContent='✕ '+(r.error||'Nothing was posted. Hold again.'); if(r.status===409) unseal(); paintPost(checks()); return; }
+  const rc=$('#p-rc'); rc.hidden=false; rc.innerHTML='';
+  [['Posted',new Date(r.t*1e3).toLocaleString()],['Receipt',r.rid],['Template',T.id+'@'+T.version],['Text SHA-256',r.text_sha],['Card SHA-256',r.card_sha||'—']].forEach(([k,v])=>{const d=document.createElement('div'); d.innerHTML='<b></b> '; d.firstChild.textContent=k; d.append(v); rc.appendChild(d);});
+  [[r.url,'Open your post'],[r.verify,'Verify receipt']].forEach(([u,t])=>{ if(!u) return; const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='noopener'; a.textContent=t+' ↗'; const d=document.createElement('div'); d.appendChild(a); rc.appendChild(d); });
+  $('#p-msg').textContent='Done. Your words are on your feed; the card carries the receipt.'; unseal(); words=''; $('#f-words').value=''; update(); }
+async function boot(){ let d=null;
+  if(location.hash.startsWith('#d=')){ try{ d=b64d(location.hash.slice(3)); }catch(e){} history.replaceState(null,'',location.pathname); }
+  if(!d&&LIVE){ try{ d=JSON.parse(localStorage.getItem('pc.studio.draft')||'null'); }catch(e){} }
+  localStorage.removeItem('pc.studio.draft');
+  if(d&&d.k&&PRESETS[d.k]){ localStorage.setItem('pc.studio.'+d.k,JSON.stringify({t:d.t,w:d.w})); VISITOR=d.v||''; load(d.k); } else load('yael');
+  const q=new URLSearchParams(location.search).get('signin'); if(q){ history.replaceState(null,'',location.pathname); if(q!=='ok') $('#p-msg').textContent='Sign-in '+q+'. Your draft is still here.'; }
+  if(LIVE){ ME=await fetch('/me',{credentials:'same-origin'}).then(r=>r.json()).catch(()=>null); } update(); }
 let tmr; async function update(){ read(); draw();
   const ck=checks(); $('#checks').innerHTML=ck.map(([s,t])=>`<li class="${s}">${s==='ok'?'✓':s==='no'?'×':'…'} ${t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</li>`).join('');
   const m=manifest(), txt=JSON.stringify(m,null,1); $('#json').textContent=txt; $('#sha').textContent='sha256 '+await sha(txt);
-  gate(ck,m,txt); guide(ck);
+  gate(ck,m,txt); paintPost(ck); guide(ck);
   const {_key,...t}=T; localStorage.setItem('pc.studio.'+T._key,JSON.stringify({t:{...t},w:words}));
   window.PC_STUDIO={manifest:m,checks:ck}; }
-const soon=()=>{clearTimeout(tmr); tmr=setTimeout(update,120);};
+const soon=()=>{ if(RID){ unseal(); $('#p-msg').textContent='You changed something, so review it again.'; } clearTimeout(tmr); tmr=setTimeout(update,120);};
 document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',soon));
 document.querySelectorAll('#f-style button').forEach(b=>b.addEventListener('click',()=>{T.brand.style=b.dataset.v; document.querySelectorAll('#f-style button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); update();}));
 Object.keys(LABELS).forEach(k=>{const b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.textContent=LABELS[k]; b.onclick=()=>load(k); $('#presets').appendChild(b);});
@@ -293,7 +359,7 @@ $('#submit').onclick=async()=>{ if($('#submit').disabled) return; const h=await 
 $('#ggo').onclick=()=>{ const el=$(GD.el); if(!el) return; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
   el.classList.add('hl'); setTimeout(()=>el.classList.remove('hl'),1600); if(el.focus) el.focus({preventScroll:true}); };
 applyMode();
-load('yael');
+boot();
 })();
 </script>
 </body></html>
