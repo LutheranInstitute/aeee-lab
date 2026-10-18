@@ -2,9 +2,8 @@
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>mæchlang · LAB</title>
-<meta name="description" content="Autoridad æ escrita como máquinas de estado en Mech. LAB.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>mæchlæng · LAB · Mech en vivo</title>
+<meta name="description" content="Autoridad æ escrita como máquinas de estado en Mech, ejecutadas en vivo con el runtime real de Mech. LAB.">
 <style>
 :root{--bg:#f4efe3;--ink:#111;--y:#f2c230;--b:#2a5bd7;--g:#2e9e5b;--acc:var(--y)}
 [data-t=b]{--acc:var(--b)}[data-t=g]{--acc:var(--g)}
@@ -63,14 +62,29 @@ header{position:relative;overflow:hidden}
 #fg path{stroke-dasharray:400;stroke-dashoffset:400;animation:draw .8s ease-out forwards}
 .stack i[data-t=u]{background:conic-gradient(#D4AF37,#39e6ff,#05060a,#D4AF37)!important}
 .stack i[data-t=r]{display:grid;place-items:center;font-size:13px;font-style:normal;line-height:1}
+
+/* ── reactivo · Mech en vivo ── */
+button,select{min-height:44px;font-size:16px}.stack i{width:44px;height:44px}input,select,textarea{font-size:16px}
+label.ck{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}label.ck input{width:24px;height:24px;flex:none;accent-color:var(--acc)}
+input[type=range]{min-height:44px;width:200px;accent-color:var(--acc)}
+pre.code{padding:10px 0;white-space:pre;overflow-x:auto}pre.code span{display:block;padding:0 12px;border-left:4px solid transparent}
+pre.code span.hl{background:rgba(212,175,55,.22);border-left-color:var(--acc)}
+pre.code span.no{background:rgba(255,59,107,.16);border-left-color:#ff3b6b}
+pre.code span.chg{background:rgba(57,230,255,.16);border-left-color:var(--cy)}
+.sk{display:inline-block;font-size:12px;border:2px solid var(--ink);padding:1px 8px;margin-top:6px}.sk.ok{background:var(--acc);color:#111}.sk.bad{background:#ff3b6b;color:#fff}
+.eng{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px;margin:8px 0}
+.rx{display:inline-block;border:2px solid var(--acc);padding:4px 10px;font-weight:700;margin:6px 0}
+.rx.blip{animation:blip .5s ease-out}@keyframes blip{0%{box-shadow:0 0 0 0 var(--acc)}100%{box-shadow:0 0 0 12px transparent}}
+.log{white-space:pre-wrap;font-size:13px;margin-top:10px;max-height:240px;overflow:auto;border-top:2px dashed var(--ink);padding-top:8px}
+.rc{font-size:12px;word-break:break-all}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}#line path,#fg path{stroke-dashoffset:0}.k{opacity:1;transform:none}}
 </style></head>
 <body data-t="u">
 <header>
- <div class="lab">LAB · SIMULACIÓN</div>
+ <div class="lab">LAB · MECH EN VIVO</div>
  <div class="ufo" aria-hidden="true">🛸🛸🛸</div>
  <h1 id="h1">m<span>æ</span>ch<br>lang</h1>
- <p class="tag">&gt;_ La autoridad como máquina de estados.<br>Evidence ≠ Authority. Many agents. One principal.</p>
+ <p class="tag">&gt;_ La autoridad como máquina de estados. No es estática: es reactiva.<br>Evidence ≠ Authority. Many agents. One principal.</p>
  <p class="tags">#makesomethingagentswant 🏹 #ioa</p>
  <div class="stack" aria-label="tema">
   <i style="background:var(--y)" data-t="y" title="amarillo"></i><i style="background:var(--b)" data-t="b" title="azul"></i><i style="background:var(--g)" data-t="g" title="verde"></i><i style="background:#0b0b0c" data-t="v" title="void dorado"></i><i data-t="u" title="🛸 holomesh"></i><i data-t="r" title="♻️ rotar">♻</i>
@@ -84,88 +98,55 @@ header{position:relative;overflow:hidden}
 <nav class="nav"><a href="#auth">#Authority</a><a href="#face">#Face · Asimov</a><a href="#fuentes">Fuentes</a></nav>
 <h2>Qué es</h2>
 <p>mæchlang escribe el eje de autoridad æ0–æ3 en <a href="https://mech-lang.org">Mech</a>, un lenguaje declarativo y reactivo donde los datos, sus relaciones y sus estados son el programa. Los agentes pueden avanzar contexto y evidencia; solo la persona principal concede æ2 y æ3.</p>
-<p>Mech es de Corey Montella, Apache-2.0, beta v0.3.5. mæchlang no está afiliado al proyecto Mech.</p>
+<p><b>mæchlæng no es estático.</b> Esta página trae el runtime real de Mech (wasm, Version 0.3.5, vendorizado en <a href="runtime/">runtime/</a>, sin CDN). Cada vez que cambias una entrada, el programa <code>.mec</code> completo se vuelve a ejecutar en Mech y el estado cambia al instante: Δ input → Δ estado. Cada cambio deja un recibo Witness SHA-256.</p>
+<p>Mech es de Corey Montella, Apache-2.0, beta. mæchlæng no está afiliado al proyecto Mech.</p>
 
-<h2 id="auth">#Authority · el código</h2>
-<pre>&lt;authority&gt; := :æ0 | :æ1 | :æ2 | :æ3
-
-agents := {"hark", "hermes", "codex"}
-principal := "yæl"
-
-#Authority(req&lt;u8&gt;) ⇒ &lt;u8&gt; :=
-  ├ :Context(req&lt;u8&gt;)
-  ├ :Evidence(req&lt;u8&gt;, pk&lt;bool&gt;, wr&lt;bool&gt;)
-  └ :Granted(level&lt;u8&gt;).
-
-#Authority(req&lt;u8&gt;) → :Context(req)
-  :Context(r)
-    ├ r &lt; 2u8 → :Granted(r)     -- æ0 public, æ1 published
-    └ r &gt; 1u8 → :Evidence(r, false, false)  -- æ2 operator, æ3 custody
-  :Evidence(r, pk, wr)
-    ├ pk &amp;&amp; wr → :Granted(r)        -- passkey de la persona principal + recibo Witness
-    └ * → :Evidence(r, pk, wr)      -- espera; ningún agente concede æ2/æ3
-  :Granted(l) ⇒ l
-.
-
-#Authority(3u8)</pre>
-<p>Boceto sin ejecutar todavía en un runtime de Mech. Fuente: <a href="authority.mec">authority.mec</a>.</p>
-
-<h2>Simulador</h2>
+<h2 id="auth">#Authority · en vivo</h2>
+<div class="eng"><span id="eng">motor: espejo JS · cargando runtime Mech…</span> <button id="loadmech" type="button" hidden>cargar runtime Mech (2.4 MB)</button></div>
+<p class="rx" id="rx" aria-live="polite">reactivo: Δ input → Δ estado</p>
 <div class="sim">
- <label>Un agente pide: <select id="req"><option value="0">æ0 · public</option><option value="1">æ1 · published</option><option value="2">æ2 · operator</option><option value="3" selected>æ3 · custody</option></select></label>
+ <div class="row"><label for="agent">Agente</label> <select id="agent"><option>hark-pro</option><option>hermes</option><option>codex</option></select></div>
+ <div class="row"><label for="req">Pide</label> <select id="req"><option value="0">æ0 · public</option><option value="1">æ1 · published</option><option value="2">æ2 · operator</option><option value="3" selected>æ3 · custody</option></select></div>
  <div class="states"><div class="st" id="s-ctx">:Context</div><div class="st" id="s-ev">:Evidence</div><div class="st" id="s-gr">:Granted</div></div>
- <label><input type="checkbox" id="pk"> Passkey de la persona principal</label>
- <label><input type="checkbox" id="wt"> Recibo Witness (SHA-256)</label>
- <button id="step">→ paso</button> <button id="reset">↺</button>
- <div id="log"></div>
+ <label class="ck"><input type="checkbox" id="pk"> pk · passkey de la persona principal (yæl)</label>
+ <label class="ck"><input type="checkbox" id="wr"> wr · recibo Witness (SHA-256)</label>
+ <p class="rc" id="rc">Witness: sin recibo.</p>
+ <div class="row"><button id="trace" type="button">▶ trace</button> <small>repite el recorrido paso a paso; el estado ya está calculado</small></div>
+ <pre class="code" id="acode" tabindex="0" aria-label="Programa Mech de #Authority, con las entradas actuales"></pre>
+ <span class="sk" id="abadge">espejo JS · aún no ejecutado en Mech en este navegador</span>
+ <div class="log" id="alog"></div>
 </div>
-<p><small>Simulación en JavaScript del boceto, no es el runtime de Mech.</small></p>
+<p><small>Este es el programa completo, <a href="authority.mec">authority.mec</a>. Las cuatro líneas de <code>⟦inputs⟧</code> cambian con tus controles y Mech vuelve a ejecutar todo: la rama activa se ilumina (en rojo, la espera). Hasta que el runtime carga, un espejo en JavaScript con las mismas reglas da el estado; después manda Mech y el espejo solo verifica. Ningún agente concede æ2/æ3 sin <code>pk &amp;&amp; wr</code>.</small></p>
 
-<h2 id="face">#Face · Asimov</h2>
-<p>La cara del robot en mæchlæng. Lee lo que el Asimov reporta y elige un ánimo; nunca lo controla. Las reglas van de arriba abajo, así que la seguridad gana.</p>
-<pre>&lt;mood&gt; := :hold | :lost | :tired | :sleep | :think | :ready | :work
-
-#Face(md, ar, ft, ag, sc) → :Read(md, ar, ft, ag, sc)
-  :Read(md, ar, ft, ag, sc)
-    ├ ft → :Show(:hold)                 -- fault latched
-    ├ ag &gt; 0.5 → :Show(:lost)           -- no fresh state
-    ├ sc &lt; 20 → :Show(:tired)           -- battery low
-    ├ md ⩵ "DAMP" → :Show(:sleep)
-    ├ md ⩵ "STAND" &amp;&amp; ¬ar → :Show(:think)
-    ├ md ⩵ "STAND" &amp;&amp; ar → :Show(:ready)
-    └ md ⩵ "MOVE" → :Show(:work)
-  :Show(m) ⇒ m
-.</pre>
+<h2 id="face">#Face · Asimov · en vivo</h2>
+<p>La cara del robot en mæchlæng. Lee lo que el Asimov reporta y elige un ánimo; nunca lo controla (autoridad æ1). Las reglas van de arriba abajo, así que la seguridad gana.</p>
 <div class="sim facebox">
- <div><svg id="fsvg" viewBox="0 0 200 200" aria-label="cara æ"><g id="fg" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></g></svg><div id="fmood">—</div></div>
+ <div><svg id="fsvg" viewBox="0 0 200 200" role="img" aria-label="cara æ del Asimov, solo lectura"><g id="fg" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></g></svg><div id="fmood">—</div></div>
  <div>
-  <div class="row">modo <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select></div>
-  <label><input type="checkbox" id="far"> armed</label>
-  <label><input type="checkbox" id="fft"> faulted (alerta crítica)</label>
-  <label><input type="checkbox" id="fst"> sin estado fresco (&gt; 0.5 s)</label>
-  <div class="row">batería <input type="range" id="fsc" min="0" max="100" value="80"> <span id="fscv">80</span>%</div>
+  <div class="row"><label for="fmd">md · modo</label> <select id="fmd"><option>DAMP</option><option selected>STAND</option><option>MOVE</option><option>FAULT_DAMP</option></select></div>
+  <label class="ck"><input type="checkbox" id="far"> ar · armed</label>
+  <label class="ck"><input type="checkbox" id="fft"> ft · faulted (alerta crítica)</label>
+  <label class="ck"><input type="checkbox" id="fst"> ag &gt; 0.5 s · sin estado fresco</label>
+  <div class="row"><label for="fsc">sc · batería</label> <input type="range" id="fsc" min="0" max="100" value="80"> <span id="fscv">80</span>%</div>
+  <pre class="code" id="fcode" tabindex="0" aria-label="Programa Mech de #Face, con las entradas actuales"></pre>
+  <span class="sk" id="fbadge">espejo JS · aún no ejecutado en Mech en este navegador</span>
   <div id="fjson"></div>
+  <div class="log" id="flog"></div>
  </div>
 </div>
-<p><small>Simulación en JavaScript de las mismas reglas que <a href="face.mec">face.mec</a> y del puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae">ae/face.py</a> (rama ae-face).</small></p>
+<p><small>Programa completo: <a href="face.mec">face.mec</a>, mismas reglas que el puente real <a href="https://github.com/LutheranInstitute/Robot/tree/ae-face/ae">ae/face.py</a> (rama ae-face). El borrador ampliado <a href="face-v2.mec">face-v2.mec</a> sigue siendo un boceto sin ejecutar.</small></p>
 
 <h2>Una regla de Mech</h2>
-<p>Mech no admite guiones bajos en identificadores: <code>agentic_environments</code> → <code>agentic-environments</code>. Sí admite emojis y Unicode: <code>:æ0</code>, <code>🤖</code>.</p>
+<p>Mech no admite guiones bajos en identificadores: <code>agentic_environments</code> → <code>agentic-environments</code>. Sí admite Unicode: <code>:æ0</code>, <code>→</code>, <code>⇒</code>, <code>⩵</code>, <code>¬</code>, <code>∨</code>, <code>∈</code>.</p>
+<p>Aprendido al correrlo de verdad (Mech 0.3.5): los comentarios <code>--</code> van en su propia línea; un comentario al final de una rama <code>├ … → …</code> rompe el parser. Y una máquina que se queda en <code>:Evidence</code> para siempre no termina: por eso la espera es el estado final <code>:Waiting(r) ⇒ :evidence</code>.</p>
 
 <h2 id="fuentes">Fuentes</h2>
-<p><a href="https://xn--l-3fa.net/mech-lang">æl.net/mech-lang</a> · <a href="https://docs.mech-lang.org/guides/mech-in-fifteen-minutes.html">Mech en 15 minutos</a> · <a href="https://try.mech-lang.org">try.mech-lang.org</a> · <a href="https://www.youtube.com/watch?v=-ypiPSaWJNk">Mech @ HYTRADBOI '22</a></p>
+<p><a href="https://xn--l-3fa.net/mech-lang">æl.net/mech-lang</a> · <a href="https://docs.mech-lang.org/guides/mech-in-fifteen-minutes.html">Mech en 15 minutos</a> · <a href="https://try.mech-lang.org">try.mech-lang.org</a> · <a href="https://github.com/mech-lang/mech">github.com/mech-lang/mech</a> · runtime: <a href="runtime/NOTICE">NOTICE</a> · <a href="runtime/LICENSE">LICENSE (Apache-2.0)</a> · <a href="https://www.youtube.com/watch?v=-ypiPSaWJNk">Mech @ HYTRADBOI '22</a></p>
 </main>
-<footer>$æ · mæchlang · LAB · noindex · Human stays root. · Make something agents want. · #makesomethingagentswant 🏹 #ioa</footer>
+<footer>$æ · mæchlæng · LAB · noindex · Mech © Corey Montella, Apache-2.0 · sin afiliación · Human stays root. · Make something agents want. · #makesomethingagentswant 🏹 #ioa</footer>
+<script src="runtime/maech-run.js"></script>
 <script>
-const $=id=>document.getElementById(id);let st=null;
-const set=s=>{["ctx","ev","gr"].forEach(k=>$("s-"+k).classList.toggle("on",k===s));st=s};
-const log=t=>$("log").textContent+=t+"\n";
-$("step").onclick=()=>{const r=+$("req").value;
- if(!st){set("ctx");log("#Authority("+r+"u8) → :Context("+r+")");return}
- if(st==="ctx"){if(r<2){set("gr");log(":Context → :Granted(æ"+r+")  agentes pueden");}else{set("ev");log(":Context → :Evidence(æ"+r+", pk, wr)  requiere a la persona principal");}return}
- if(st==="ev"){if($("pk").checked&&$("wt").checked){set("gr");log(":Evidence ├ pk && wr → :Granted(æ"+r+")  passkey + Witness ✓");}else log("└ * → :Evidence  ✗ bloqueado: falta "+(!$("pk").checked?"passkey ":"")+(!$("wt").checked?"Witness":""));return}
- log(":Granted ⇒ æ"+r)};
-$("reset").onclick=()=>{set(null);$("log").textContent=""};
+const $=id=>document.getElementById(id);
 document.querySelectorAll(".stack i").forEach(i=>i.onclick=()=>{if(i.dataset.t==="r")return;document.body.dataset.t=i.dataset.t;try{localStorage.maechT=i.dataset.t}catch(e){}});
 try{if(localStorage.maechT)document.body.dataset.t=localStorage.maechT}catch(e){}
 
@@ -173,14 +154,6 @@ try{if(localStorage.maechT)document.body.dataset.t=localStorage.maechT}catch(e){
 (function(){const h=$("h1");let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();[...c.textContent].forEach(ch=>{const sp=document.createElement("span");sp.className="k";sp.textContent=ch;sp.style.animationDelay=(i++*70)+"ms";f.appendChild(sp)});c.replaceWith(f)}else if(c.nodeName!=="BR")walk(c)})};walk(h)})();
 let rot=null;const TH=["y","b","g","u"];
 document.querySelectorAll(".stack i").forEach(i=>i.addEventListener("click",()=>{clearInterval(rot);if(i.dataset.t==="r"){let k=0;document.body.dataset.t=TH[0];rot=setInterval(()=>{document.body.dataset.t=TH[++k%TH.length]},4000)}}));
-const F={hold:"M60 70l20 20M80 70l-20 20M120 70l20 20M140 70l-20 20|M60 140h80",lost:"M60 80h20M120 80h20|M70 140q30 -10 60 0",tired:"M58 82q12 8 24 0M118 82q12 8 24 0|M70 142h60",sleep:"M58 80q12 10 24 0M118 80q12 10 24 0|M85 140q15 6 30 0",think:"M70 72v18M130 72v18|M75 140h40",ready:"M70 70v22M130 70v22|M65 132q35 22 70 0",work:"M60 80q10 -14 20 0M120 80q10 -14 20 0|M60 128q40 34 80 0"};
-const MEANS={hold:"fault latched",lost:"no fresh state",tired:"battery low",sleep:"DAMP",think:"STAND, not armed",ready:"STAND, armed",work:"MOVE"};
-function fmood(md,ar,ft,stale,sc){if(ft||md==="FAULT_DAMP")return"hold";if(stale)return"lost";if(sc<20)return"tired";if(md==="DAMP")return"sleep";if(md==="STAND")return ar?"ready":"think";return"work"}
-function frender(){const md=$("fmd").value,ar=$("far").checked,ft=$("fft").checked,st=$("fst").checked,sc=+$("fsc").value;$("fscv").textContent=sc;
- const m=fmood(md,ar,ft,st,sc);const [e,mo]=F[m].split("|");
- $("fg").innerHTML='<path d="'+e+'"/><path d="'+mo+'"/><text x="100" y="40" text-anchor="middle" font-size="22" stroke="none" fill="currentColor" font-family="monospace">æ æ æ</text>';
- $("fmood").textContent=":"+m;
- $("fjson").textContent=JSON.stringify({schema:"ae.face/0.1",who:"asimov",authority:"æ1",mood:m,means:MEANS[m],mode:md,armed:ar,battery:sc,stale:st})}
-["fmd","far","fft","fst","fsc"].forEach(id=>$(id).addEventListener("input",frender));frender();
+MaechRun.mount({base:"runtime/"});
 </script>
 </body></html>

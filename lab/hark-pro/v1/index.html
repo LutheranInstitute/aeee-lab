@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#000000">
-<title>mæchlæng + HARK_PRO æ · unified · LAB v1</title>
+<title>mæchlæng + HARK_PRO æ · unified · LAB v1 · Mech en vivo</title>
 <style>
 *{box-sizing:border-box}
 html{background:#000}
@@ -67,13 +67,18 @@ pre.mech{margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:p
 .ask input{flex:1 1 220px}
 #out{white-space:pre-wrap;color:#a8e9ef;font-size:13px;margin:8px 0 0}
 footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-align:center;font-size:13px;color:#8fb8bf}
+pre.code span.chg{background:#ffd40022;border-left-color:#ffd400}
+.sk.ok{background:#00f3ff;color:#000}.sk.bad{background:#ff3b6b;color:#fff}
+.eng{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px;color:#8fb8bf;margin:6px 0}
+.rx{display:inline-block;border:1px solid #ffd400;color:#ffd400;border-radius:8px;padding:6px 12px;font-weight:700;margin:4px 0 10px}
+.rx.blip{animation:blip .5s ease-out}@keyframes blip{0%{box-shadow:0 0 0 0 #ffd400aa}100%{box-shadow:0 0 0 12px transparent}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <main>
 <header class="hero">
- <span class="tag">LAB · simulación · v1</span>
+ <span class="tag">LAB · Mech en vivo · v1</span>
  <h1>HARK_PRO <span>æ</span> × mæchlæng</h1>
  <p class="lead">Hark Pro es el agente. mæchlæng es el lenguaje de su autoridad.</p>
  <p class="mech-l">&gt;_ mæch: muchos agentes · un principal · el humano es root</p>
@@ -91,29 +96,31 @@ footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-alig
 </header>
 
 <h2 id="auth">&gt;_ #Authority · en vivo</h2>
-<p class="m">Un agente de la lista pide un nivel de autoridad. Paso a paso, la petición recorre <b>:Context → :Evidence → :Granted</b>. La línea del código que se ejecuta se ilumina.</p>
+<p class="m"><b>mæchlæng no es estático.</b> Mech es reactivo: cambias una entrada y la máquina entera se vuelve a evaluar al instante en el runtime real de Mech, dentro de tu navegador. <b>:Context → :Evidence → :Granted</b>; la rama activa se ilumina y cada cambio deja un recibo Witness.</p>
+<div class="eng"><span id="eng">motor: espejo JS · cargando runtime Mech…</span> <button id="loadmech" type="button" hidden>cargar runtime Mech (2.4 MB)</button></div>
+<p class="rx" id="rx" aria-live="polite">reactivo: Δ input → Δ estado</p>
 <div class="sim">
  <div class="grid2">
   <div>
    <div class="row"><label for="agent">Agente</label> <select id="agent"><option>hark-pro</option><option>hermes</option><option>codex</option></select></div>
    <div class="row"><label for="req">Pide</label> <select id="req"><option value="0">æ0 · public</option><option value="1">æ1 · published</option><option value="2">æ2 · operator</option><option value="3" selected>æ3 · custody</option></select></div>
-   <div class="states" aria-live="polite"><div class="st" id="s-ctx">:Context</div><div class="st" id="s-ev">:Evidence</div><div class="st" id="s-gr">:Granted</div></div>
+   <div class="states"><div class="st" id="s-ctx">:Context</div><div class="st" id="s-ev">:Evidence</div><div class="st" id="s-gr">:Granted</div></div>
    <label class="ck"><input type="checkbox" id="pk"> pk · passkey de la persona principal (yæl)</label>
    <label class="ck"><input type="checkbox" id="wr"> wr · recibo Witness (SHA-256)</label>
    <p class="rc" id="rc">Witness: sin recibo.</p>
-   <div class="row"><button id="step" class="p" type="button">→ paso</button><button id="auto" type="button">▶ auto</button><button id="reset" type="button">↺ reiniciar</button></div>
+   <div class="row"><button id="trace" type="button">▶ trace</button><span class="m">repite el recorrido paso a paso; el estado ya está calculado</span></div>
   </div>
   <div>
-   <pre class="code" id="acode" tabindex="0" aria-label="Código mæch de #Authority"></pre>
-   <p class="m" style="margin:6px 0 0"><span class="sk">boceto · sketch, not yet run</span></p>
+   <pre class="code" id="acode" tabindex="0" aria-label="Programa Mech de #Authority, con las entradas actuales"></pre>
+   <p class="m" style="margin:6px 0 0"><span class="sk" id="abadge">espejo JS · aún no ejecutado en Mech en este navegador</span></p>
   </div>
  </div>
- <div class="log" id="alog" aria-live="polite"></div>
+ <div class="log" id="alog"></div>
 </div>
-<p class="m">El recibo Witness es un hash SHA-256 real (crypto.subtle) encadenado desde GENESIS: cada evento firma el anterior. Simulación en JavaScript del boceto; no es el runtime de Mech. Fuente: <a href="../../maechlang/authority.mec">maechlang/authority.mec</a>.</p>
+<p class="m">El código de arriba es el programa completo (<a href="../../maechlang/authority.mec">maechlang/authority.mec</a>): las líneas de <code>⟦inputs⟧</code> cambian con tus controles y Mech lo vuelve a ejecutar entero. Runtime: Mech wasm Version 0.3.5, vendorizado en <a href="../../maechlang/runtime/">maechlang/runtime/</a>, sin CDN. Antes de que cargue, un espejo JavaScript con las mismas reglas da el estado; después manda Mech y el espejo solo verifica. El recibo Witness es SHA-256 real (crypto.subtle) encadenado desde GENESIS: <code>h(n) = sha256(h(n-1) + "|" + evento)</code>, uno por cambio.</p>
 
-<h2 id="face">&gt;_ #Face · Asimov</h2>
-<p class="m">La cara del robot lee lo que el Asimov reporta y elige un ánimo; nunca lo controla (autoridad æ1). Las reglas van de arriba abajo: la seguridad gana. La regla que decide se ilumina.</p>
+<h2 id="face">&gt;_ #Face · Asimov · en vivo</h2>
+<p class="m">La cara del robot lee lo que el Asimov reporta y elige un ánimo; nunca lo controla (autoridad æ1). Las reglas van de arriba abajo: la seguridad gana. Mueve cualquier control: Mech re-evalúa y la regla que decide se ilumina.</p>
 <div class="sim">
  <div class="grid2">
   <div>
@@ -127,8 +134,9 @@ footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-alig
   </div>
   <div>
    <pre class="code" id="fcode" tabindex="0" aria-label="Código mæch de #Face"></pre>
-   <p class="m" style="margin:6px 0 0"><span class="sk">boceto · sketch, not yet run</span></p>
+   <p class="m" style="margin:6px 0 0"><span class="sk" id="fbadge">espejo JS · aún no ejecutado en Mech en este navegador</span></p>
    <div id="fjson"></div>
+   <div class="log" id="flog"></div>
   </div>
  </div>
 </div>
@@ -161,8 +169,8 @@ footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-alig
 <h2>&gt;_ Créditos</h2>
 <ul class="pr">
  <li><b>Mech</b> · <a href="https://mech-lang.org" rel="noopener" target="_blank">mech-lang.org</a> · Corey Montella · Apache-2.0 · beta. mæchlæng es un experimento del Instituto, sin afiliación con Mech.</li>
- <li><b>boceto · sketch, not yet run on a Mech runtime.</b> Los simuladores son JavaScript que imita los bocetos.</li>
- <li><b>Sintaxis mæch:</b> kebab-case, sin guiones bajos; <code>├ … └ ….</code>, <code>→</code> transición, <code>⇒</code> final, <code>--</code> comentario.</li>
+ <li><b>#Authority y #Face corren en el runtime real de Mech</b> (wasm, Version 0.3.5, vendorizado sin cambios en <a href="../../maechlang/runtime/">maechlang/runtime/</a>, con su <a href="../../maechlang/runtime/LICENSE">LICENSE</a> y <a href="../../maechlang/runtime/NOTICE">NOTICE</a>). Los bocetos de las demos siguen marcados como <i>boceto · sketch, not yet run</i>.</li>
+ <li><b>Sintaxis mæch:</b> kebab-case, sin guiones bajos; <code>├ … └ ….</code>, <code>→</code> transición, <code>⇒</code> final, <code>--</code> comentario en su propia línea (al final de una rama rompe el parser de Mech 0.3.5).</li>
  <li><b>Aviso:</b> página independiente del Instituto Luterano Latinoamericano; no es un sitio oficial de Hark.</li>
 </ul>
 
@@ -170,144 +178,22 @@ footer{margin-top:36px;border-top:1px solid #00f3ff55;padding-top:14px;text-alig
  <p><a class="btn" href="https://buymeacoffee.com/daollc" rel="noopener" target="_blank">☕ Apoya al Instituto</a></p>
  <p><a href="../v0/">← portal v0</a> · <a href="../../maechlang/">mæchlæng</a></p>
  <p>Instituto Luterano Latinoamericano · æ LAB · Yæl Méndez · <i>Make something agents want.</i></p>
- <p>LAB · simulación · v1 · noindex</p>
+ <p>LAB · Mech en vivo · v1 · noindex</p>
 </footer>
 </main>
+<script src="../../maechlang/runtime/maech-run.js"></script>
 <script>
 (function(){
 "use strict";
-/*ENGINE*/
-var AGENTS=["hark-pro","hermes","codex"],PRINCIPAL="yæl";
-// one step of #Authority. s: null|"ctx"|"ev"|"gr"; r: 0..3; pk,wr: bool
-function authStep(s,r,pk,wr){
- if(s===null)return{s:"ctx",b:"entry"};
- if(s==="ctx")return r<2?{s:"gr",b:"ctx-lo"}:{s:"ev",b:"ctx-hi"};
- if(s==="ev")return(pk===true&&wr===true)?{s:"gr",b:"ev-ok"}:{s:"ev",b:"ev-wait"};
- return{s:"gr",b:"done"};
-}
-function faceMood(md,ar,ft,stale,sc){
- if(ft||md==="FAULT_DAMP")return{m:"hold",b:"ft"};
- if(stale)return{m:"lost",b:"ag"};
- if(sc<20)return{m:"tired",b:"sc"};
- if(md==="DAMP")return{m:"sleep",b:"damp"};
- if(md==="STAND")return ar?{m:"ready",b:"ready"}:{m:"think",b:"think"};
- return{m:"work",b:"work"};
-}
-/*END*/
-if(typeof document==="undefined"){module.exports={authStep:authStep,faceMood:faceMood,AGENTS:AGENTS,PRINCIPAL:PRINCIPAL};return;}
 var $=function(id){return document.getElementById(id);};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
-function renderCode(pre,L){pre.textContent="";L.forEach(function(l){var s=el("span","",l[0]||" ");if(l[1])s.setAttribute("data-b",l[1]);pre.appendChild(s);});}
-function hl(pre,b,bad){[].forEach.call(pre.children,function(s){var on=s.getAttribute("data-b")===b;s.classList.toggle("hl",on&&!bad);s.classList.toggle("no",on&&!!bad);});
-}
-
-/* ---------- #Authority ---------- */
-var AC=[
- ["-- mæchlæng · #Authority · Hark Pro æ v1"],
- ["<authority> := :æ0 | :æ1 | :æ2 | :æ3"],
- [""],
- ['agents := {"hark-pro", "hermes", "codex"}'],
- ['principal := "yæl"'],
- [""],
- ["#Authority(req<u8>) ⇒ <u8> :="],
- ["  ├ :Context(req<u8>)"],
- ["  ├ :Evidence(req<u8>, pk<bool>, wr<bool>)"],
- ["  └ :Granted(level<u8>)."],
- [""],
- ["#Authority(req<u8>) → :Context(req)","entry"],
- ["  :Context(r)"],
- ["    ├ r < 2u8 → :Granted(r)                 -- æ0 public, æ1 published","ctx-lo"],
- ["    └ r > 1u8 → :Evidence(r, false, false)  -- æ2 operator, æ3 custody","ctx-hi"],
- ["  :Evidence(r, pk, wr)"],
- ["    ├ pk && wr → :Granted(r)   -- passkey + recibo Witness","ev-ok"],
- ["    └ * → :Evidence(r, pk, wr) -- espera; ningún agente concede","ev-wait"],
- ["  :Granted(l) ⇒ l","done"],
- ["."]
-];
-var acode=$("acode"),alog=$("alog"),rc=$("rc");
-renderCode(acode,AC);
-var st=null,receipt=null,chain=[],head=null,busy=false;
-var HASH=!!(window.crypto&&crypto.subtle&&window.TextEncoder);
-function sha(t){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return("0"+x.toString(16)).slice(-2);}).join("");});}
-function witness(evt){ // h(n) = sha256(h(n-1) + "|" + evento)
- if(!HASH)return Promise.resolve(null);
- var p=head?Promise.resolve(head):sha("GENESIS").then(function(g){chain=[{e:"GENESIS",h:g}];return g;});
- return p.then(function(prev){var line=JSON.stringify(evt);return sha(prev+"|"+line).then(function(h){head=h;chain.push({e:line,h:h});return h;});});
-}
-function log(t){alog.textContent+=t+"\n";alog.scrollTop=alog.scrollHeight;}
-function setS(s){["ctx","ev","gr"].forEach(function(k){$("s-"+k).classList.toggle("on",k===s);});}
-function lvl(){return +$("req").value;}
-function ag(){return $("agent").value;}
-function wrOk(){return $("wr").checked&&!!receipt;}
-$("wr").addEventListener("change",function(){
- if(!$("wr").checked){receipt=null;rc.textContent="Witness: sin recibo.";return;}
- if(!HASH){rc.textContent="Witness: este navegador no ofrece crypto.subtle; sin recibo no hay :Granted.";$("wr").checked=false;return;}
- rc.textContent="Witness: firmando…";
- witness({t:"witness",agente:ag(),principal:PRINCIPAL,req:"æ"+lvl(),pk:$("pk").checked,at:new Date().toISOString()}).then(function(h){receipt=h;rc.textContent="Witness #"+(chain.length-1)+": "+h;});
-});
-function step(){
- if(busy)return;busy=true;
- var r=lvl(),pk=$("pk").checked,wr=wrOk(),n=authStep(st,r,pk,wr),msg;
- if(n.b==="entry")msg=ag()+" pide æ"+r+" → #Authority("+r+"u8) → :Context("+r+")";
- else if(n.b==="ctx-lo")msg=":Context ├ r < 2u8 → :Granted(æ"+r+")  · un agente puede";
- else if(n.b==="ctx-hi")msg=":Context └ r > 1u8 → :Evidence(æ"+r+", false, false)  · requiere a "+PRINCIPAL;
- else if(n.b==="ev-ok")msg=":Evidence ├ pk && wr → :Granted(æ"+r+")  · passkey + Witness ✓";
- else if(n.b==="ev-wait")msg=":Evidence └ * → :Evidence  ✗ espera: falta "+[!pk?"pk (passkey)":"",!wr?"wr (Witness)":""].filter(Boolean).join(" + ");
- else msg=":Granted ⇒ æ"+r;
- st=n.s;setS(st);hl(acode,n.b,n.b==="ev-wait");
- witness({t:"step",agente:ag(),req:"æ"+r,rama:n.b,estado:n.s}).then(function(h){log(msg+(h?"\n   witness "+h.slice(0,16)+"…":""));busy=false;},function(){log(msg);busy=false;});
- return n;
-}
-var timer=null;
-function stopAuto(){if(timer){clearInterval(timer);timer=null;$("auto").textContent="▶ auto";}}
-$("step").onclick=function(){stopAuto();step();};
-$("auto").onclick=function(){
- if(timer){stopAuto();return;}
- $("auto").textContent="⏸ pausa";
- timer=setInterval(function(){var n=step();if(n&&(n.b==="done"||n.b==="ev-wait"))stopAuto();},900);
-};
-function reset(){stopAuto();st=null;setS(null);hl(acode,"__");alog.textContent="";receipt=null;$("wr").checked=false;rc.textContent="Witness: sin recibo.";log("cadena Witness desde GENESIS · principal "+PRINCIPAL+" · agentes {"+AGENTS.join(", ")+"}");}
-$("reset").onclick=reset;
-$("req").addEventListener("change",reset);$("agent").addEventListener("change",reset);
-reset();
-
-/* ---------- #Face ---------- */
-var FC=[
- ["<mood> := :hold | :lost | :tired | :sleep | :think | :ready | :work"],
- [""],
- ["#Face(md, ar, ft, ag, sc) → :Read(md, ar, ft, ag, sc)"],
- ["  :Read(md, ar, ft, ag, sc)"],
- ['    ├ ft ∨ md ⩵ "FAULT_DAMP" → :Show(:hold)  -- fault latched',"ft"],
- ["    ├ ag > 0.5 → :Show(:lost)              -- no fresh state","ag"],
- ["    ├ sc < 20 → :Show(:tired)              -- battery low","sc"],
- ['    ├ md ⩵ "DAMP" → :Show(:sleep)',"damp"],
- ['    ├ md ⩵ "STAND" && ¬ar → :Show(:think)',"think"],
- ['    ├ md ⩵ "STAND" && ar → :Show(:ready)',"ready"],
- ['    └ md ⩵ "MOVE" → :Show(:work)',"work"],
- ["  :Show(m) ⇒ m"],
- ["."]
-];
-var fcode=$("fcode");renderCode(fcode,FC);
-var F={hold:"M60 70l20 20M80 70l-20 20M120 70l20 20M140 70l-20 20|M60 140h80",lost:"M60 80h20M120 80h20|M70 140q30 -10 60 0",tired:"M58 82q12 8 24 0M118 82q12 8 24 0|M70 142h60",sleep:"M58 80q12 10 24 0M118 80q12 10 24 0|M85 140q15 6 30 0",think:"M70 72v18M130 72v18|M75 140h40",ready:"M70 70v22M130 70v22|M65 132q35 22 70 0",work:"M60 80q10 -14 20 0M120 80q10 -14 20 0|M60 128q40 34 80 0"};
-var MEANS={hold:"fault latched",lost:"no fresh state",tired:"battery low",sleep:"DAMP",think:"STAND, not armed",ready:"STAND, armed",work:"MOVE"};
-var NS="http://www.w3.org/2000/svg";
-function frender(){
- var md=$("fmd").value,ar=$("far").checked,ft=$("fft").checked,sl=$("fst").checked,sc=+$("fsc").value;$("fscv").textContent=sc;
- var r=faceMood(md,ar,ft,sl,sc),p=F[r.m].split("|"),g=$("fg");g.textContent="";
- p.forEach(function(d){var e=document.createElementNS(NS,"path");e.setAttribute("d",d);g.appendChild(e);});
- var t=document.createElementNS(NS,"text");t.setAttribute("x","100");t.setAttribute("y","40");t.setAttribute("text-anchor","middle");t.setAttribute("font-size","22");t.setAttribute("stroke","none");t.setAttribute("fill","currentColor");t.setAttribute("font-family","monospace");t.textContent="æ æ æ";g.appendChild(t);
- $("fmood").textContent=":"+r.m;hl(fcode,r.b);
- $("fjson").textContent=JSON.stringify({schema:"ae.face/0.1",who:"asimov",authority:"æ1",mood:r.m,means:MEANS[r.m],mode:md,armed:ar,battery:sc,stale:sl});
-}
-["fmd","far","fft","fst","fsc"].forEach(function(id){$(id).addEventListener("input",frender);$(id).addEventListener("change",frender);});frender();
-
 /* ---------- Demos como mæch ---------- */
 var B="https://lutheraninstitute.github.io/aeee-lab/lab/";
 var SK={
  regla:"-- ZACAPA · la comunidad vota la regla\n<regla> := :acceso | :capacidad\n~regla-votada := :acceso\n#Regla(regla-votada) ⇒ <criterio> :=\n  regla-votada?\n  ├ :acceso ⇒ espera-máxima\n  └ :capacidad ⇒ más-cercano.",
  propuesta:"-- DAOLLC · Moloch v2\n#Propuesta(id) ⇒ <moloch> :=\n  ├ :Submitted(id) → :Sponsored(id) → :Voting(id) → :Grace(id)\n  └ :Processed(id).\n-- DAOLLC · Governor\n#Gobernanza(id) ⇒ <governor> :=\n  ├ :Pending(id) → :Active(id) → :Succeeded(id)\n  ├ :Queued(id)\n  └ :Executed(id).\n:Queued(id) → humano-aprueba?\n  ├ :humano-aprueba ⇒ :Executed(id)\n  └ * ⇒ :Queued(id).",
  cara:"-- æsymov · prioridad de ánimo, solo lectura\n<animo> := :hold | :lost | :tired | :sleep | :think | :ready | :work\n#Cara(señales) ⇒ <animo> :=\n  señales?\n  ├ :hold ⇒ :hold\n  ├ :lost ⇒ :lost\n  ├ :tired ⇒ :tired\n  ├ :sleep ⇒ :sleep\n  ├ :think ⇒ :think\n  ├ :ready ⇒ :ready\n  └ * ⇒ :work.",
- authority:"-- autoridad æ: Context → Evidence → Granted\n<authority> := :æ0 | :æ1 | :æ2 | :æ3\n#Authority(req<u8>) → :Context(req)\n  :Context(r)\n    ├ r < 2u8 → :Granted(r)\n    └ r > 1u8 → :Evidence(r, false, false)\n  :Evidence(r, pk, wr)\n    ├ pk && wr → :Granted(r)\n    └ * → :Evidence(r, pk, wr)\n  :Granted(l) ⇒ l\n.",
+ authority:"-- autoridad æ: el mismo programa que corre arriba en Mech\n#Authority(req, pk, wr) → :Context(req, pk, wr)\n  :Context(r, pk, wr)\n    ├ r < 2u8 → :Granted(r)\n    └ r > 1u8 → :Evidence(r, pk, wr)\n  :Evidence(r, pk, wr)\n    ├ pk && wr → :Granted(r)\n    └ * → :Waiting(r)\n  :Waiting(r) ⇒ :evidence\n  :Granted(l) ⇒ :granted.",
  bytes:"-- MathByte · texto → bytes → GLSL (autoridad æ0: todo público)\n#Byte(texto<string>) ⇒ <forma> :=\n  ├ :Texto(texto) → :Bytes(texto) → :Shader(texto)\n  └ :Forma(texto).\n:Shader(t) → forma-pedida?\n  ├ :esfera ⇒ :Forma(:esfera)\n  └ * ⇒ :Forma(:toro)."
 };
 var D=[
@@ -323,7 +209,7 @@ D.forEach(function(d){
  var c=el("article","card");c.appendChild(el("h3","",d.t));c.appendChild(el("p","",d.d));
  c.appendChild(el("p","mt m",d.n));
  var pre=el("pre","mech",SK[d.k]);pre.tabIndex=0;pre.setAttribute("aria-label","Boceto mæch "+d.n);c.appendChild(pre);
- c.appendChild(el("span","sk","boceto · sketch, not yet run"));
+ c.appendChild(d.k==="authority"?el("span","sk ok","corre en Mech 0.3.5 · ver #Authority arriba"):el("span","sk","boceto · sketch, not yet run"));
  c.appendChild(el("p","how","Cómo lo hicimos con Hark: "+d.h));
  var pv=el("div","pv"),lb=el("button","","▶ Cargar vista previa");lb.type="button";lb.setAttribute("aria-label","Cargar vista previa de "+d.t);
  lb.onclick=function(){var f=document.createElement("iframe");f.src=d.u;f.loading="lazy";f.title=d.t;f.setAttribute("sandbox","allow-scripts allow-same-origin");pv.textContent="";pv.appendChild(f);};
@@ -339,8 +225,8 @@ function mk(){var v=(idea.value||"").trim()||"una demo para mi comunidad",k=keba
  out.textContent="Hark, quiero construir: "+v+".\n"+
  "Hazlo en una sola página, sin CDN, accesible en el teléfono.\n"+
  "Regla: Evidence ≠ Authority. Los agentes proponen; yo decido.\n"+
- "Escribe también la máquina de estados mæch de su autoridad (#Authority de "+k+"): quién propone, qué evidencia trae y quién concede (yo, con passkey + recibo Witness), con :Context → :Evidence → :Granted y el guard ├ pk && wr → :Granted(r) / └ * → :Evidence(r, pk, wr).\n"+
- "Sintaxis Mech: kebab-case, sin guiones bajos, ├ … └ …., → y ⇒, comentarios con --. Márcalo como boceto sin ejecutar.\n"+
+ "Escribe también la máquina de estados mæch de su autoridad (#Authority de "+k+"): quién propone, qué evidencia trae y quién concede (yo, con passkey + recibo Witness), con :Context → :Evidence → :Granted y el guard ├ pk && wr → :Granted(r) / └ * → :Waiting(r).\n"+
+ "Sintaxis Mech: kebab-case, sin guiones bajos, ├ … └ …., → y ⇒, comentarios con -- en su propia línea. Ejecútalo en el runtime real de Mech y hazlo reactivo (Δ input → Δ estado); si no corrió, márcalo como boceto sin ejecutar.\n"+
  "Pruébalo y publícalo en GitHub Pages en un repo público. ✍️";}
 $("mk").onclick=mk;
 idea.addEventListener("keydown",function(e){if(e.key==="Enter")mk();});
@@ -349,6 +235,7 @@ $("cp").onclick=function(){if(!out.textContent)mk();var b=$("cp");
  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(out.textContent).then(ok,function(){});}
  else{var r=document.createRange();r.selectNodeContents(out);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy");ok();}catch(e){}}};
 })();
+MaechRun.mount({base:"../../maechlang/runtime/"});
 </script>
 </body>
 </html>
