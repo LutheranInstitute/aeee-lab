@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Template Studio · @yaelmendez · PC:// LAB</title>
+<style>
+:root{--bg:#000;--ink:#e9f6f7;--dim:#7d9a9e;--c:#00f3ff;--line:#12383b;--ok:#3ee08f;--no:#ff5a6a;--wait:#ffcf5c}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+body{background-image:linear-gradient(rgba(0,243,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,243,255,.05) 1px,transparent 1px);background-size:40px 40px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+.top{display:flex;justify-content:space-between;align-items:center;max-width:1240px;margin:0 auto;padding:14px 16px;font-size:13px;color:var(--dim)}
+.top a{color:var(--ink);font-weight:700;font-size:15px;text-decoration:none}
+.tag{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:11px;letter-spacing:.08em;color:var(--c)}
+.head{max-width:1240px;margin:0 auto;padding:4px 16px 14px}
+h1{font:800 34px/1.05 system-ui,sans-serif;letter-spacing:-.01em;margin:6px 0;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--c)}
+.lead{color:var(--dim);margin:0;max-width:720px}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.presets button,.seg button{min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:#041214;color:var(--ink);font:600 14px system-ui,sans-serif;cursor:pointer}
+.presets button[aria-pressed=true],.seg button[aria-pressed=true]{border-color:var(--c);color:var(--c)}
+.grid{max-width:1240px;margin:0 auto;padding:0 16px 60px;display:grid;grid-template-columns:340px 1fr 340px;gap:18px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:16px;background:rgba(3,16,18,.88);padding:14px}
+.panel h2{font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin:0 0 10px}
+label{display:block;font-size:12px;color:var(--dim);margin:10px 0 4px}
+input,select,textarea{width:100%;min-height:44px;background:#000;border:1px solid var(--line);border-radius:10px;color:var(--ink);font:14px system-ui,sans-serif;padding:8px 10px}
+input[type=color]{padding:4px;height:44px}
+textarea{min-height:110px;resize:vertical;line-height:1.45}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--c)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.stage{position:sticky;top:8px}
+canvas{width:100%;height:auto;border-radius:14px;display:block;box-shadow:0 0 0 1px var(--line)}
+.checks{list-style:none;margin:10px 0 0;padding:0;font:13px ui-monospace,Menlo,monospace}
+.checks li{padding:4px 0;border-top:1px solid var(--line)}
+.checks li.ok{color:var(--ok)}.checks li.no{color:var(--no)}.checks li.wait{color:var(--wait)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--c);background:#041214;color:var(--ink);font:600 14px system-ui,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+pre{white-space:pre-wrap;word-break:break-all;font-size:11.5px;color:var(--dim);margin:0;max-height:520px;overflow:auto}
+.sha{font:12px ui-monospace,Menlo,monospace;color:var(--ok);word-break:break-all;margin:0 0 8px}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--dim);text-align:center}footer a{color:var(--c)}
+@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}.right{grid-column:1/-1}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{position:static}}
+</style></head>
+<body>
+<div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span class="tag mono">LAB · TEMPLATE STUDIO</span></div>
+<header class="head">
+ <h1>Your template is <em>your platform.</em></h1>
+ <p class="lead">Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
+ <div class="presets" id="presets" aria-label="Templates"></div>
+</header>
+
+<div class="grid">
+<section class="panel" aria-label="Design">
+ <h2>Design</h2>
+ <div class="row"><div><label for="f-name">Name</label><input id="f-name"></div><div><label for="f-handle">Handle</label><input id="f-handle"></div></div>
+ <label for="f-tagline">Tagline</label><input id="f-tagline">
+ <div class="row"><div><label for="f-color">Color</label><input id="f-color" type="color"></div>
+  <div><label for="f-crown">Crown</label><select id="f-crown"><option value="check">v| check</option><option value="sun">sun</option><option value="door">door</option><option value="moon">moon</option><option value="week">week ring</option></select></div></div>
+ <label>Style</label>
+ <div class="seg" id="f-style"><button type="button" data-v="aggregate">Aggregate</button><button type="button" data-v="line">Line</button><button type="button" data-v="terminal">Terminal</button></div>
+ <label for="f-sig">Signature</label><input id="f-sig" class="mono">
+ <h2 style="margin-top:18px">Rules</h2>
+ <div class="row"><div><label for="f-max">Max characters</label><input id="f-max" type="number" min="50" max="3000" step="50"></div>
+  <div><label for="f-appr">Human approvers</label><select id="f-appr"><option value="1">1</option><option value="2">2</option></select></div></div>
+ <label for="f-req">Required phrases (one per line)</label><textarea id="f-req" style="min-height:60px"></textarea>
+ <label for="f-ban">Banned words (comma separated)</label><input id="f-ban">
+ <p class="note">Approve and publish are locked to humans. No template can change that.</p>
+</section>
+
+<section class="stage" aria-label="Preview">
+ <div class="panel">
+  <h2>Card preview · not signed</h2>
+  <canvas id="card" width="1080" height="1350" role="img" aria-label="Card preview"></canvas>
+  <label for="f-words">Your words</label>
+  <textarea id="f-words" maxlength="3000"></textarea>
+  <ul class="checks" id="checks" aria-live="polite"></ul>
+ </div>
+</section>
+
+<section class="panel right" aria-label="Manifest">
+ <h2>Manifest · ae.template/0.1</h2>
+ <p class="sha" id="sha"></p>
+ <pre id="json" class="mono"></pre>
+ <div class="btns">
+  <button class="btn" id="dl-json" type="button">Download manifest</button>
+  <button class="btn" id="dl-png" type="button">Download preview</button>
+  <button class="btn" id="copy" type="button">Copy</button>
+ </div>
+ <p class="note">Saved in this browser only. A template goes live when you publish it through privateclient.ai, not from here.</p>
+</section>
+</div>
+<footer class="mono">LAB DEMO · nothing is posted · <a href="../aesimov/">æsimov verifies templates</a> · <a href="../">PC:// LAB</a></footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const PRESETS={
+ yael:{id:"yaelmendez/signature",version:"1.0.0",brand:{name:"Yæl Méndez",handle:"@yaelmendez",tagline:"Make something agents want.",color:"#f2d16b",crown:"sun",style:"aggregate",signature:">_æ:"},
+  rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,
+  sample:"Every word I publish, I approved.\n\nMany agents. One principal. Point your agents at me 🪡 #opensourceware"},
+ pc:{id:"privateclient/default",version:"1.0.0",brand:{name:"Private Client",handle:"privateclient.ai",tagline:"Only what you meant to say.",color:"#00f3ff",crown:"check",style:"terminal",signature:"v|"},
+  rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,sample:"You write. I check. You approve."},
+ despacho:{id:"despacho-ejemplo/asesores",version:"0.1.0",example:"ficticio, white-label",brand:{name:"Despacho Ejemplo",handle:"@despacho",tagline:"Asesores que firman lo que dicen.",color:"#3ddc84",crown:"door",style:"line",signature:"DE"},
+  rules:{max_len:1200,required_phrases:["No es asesoría financiera."],banned_words:["garantizado","sin riesgo"]},approvers:2,
+  sample:"Tres preguntas antes de invertir este trimestre. No es asesoría financiera."}
+};
+const LABELS={yael:"@yaelmendez",pc:"Private Client",despacho:"Despacho Ejemplo · white-label"};
+let T=null, words="";
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const sha=async t=>hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)));
+
+/* manifest from the form */
+function manifest(){ return {schema:"ae.template/0.1",id:T.id,version:T.version,...(T.example?{example:T.example}:{}),
+  brand:{...T.brand},slots:["words"],rules:{...T.rules},approvers:T.approvers,
+  agents_may:["draft"],human_only:["approve","publish"],receipt_names:["template","template_sha","text_sha","held_ms","at"]}; }
+
+function load(key){ const p=JSON.parse(JSON.stringify(PRESETS[key])); T=p; words=p.sample;
+  const saved=localStorage.getItem('pc.studio.'+key); if(saved){ try{const s=JSON.parse(saved); T=s.t; words=s.w;}catch(e){} }
+  T._key=key; fill(); [...document.querySelectorAll('#presets button')].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===key))); update(); }
+function fill(){ const b=T.brand; $('#f-name').value=b.name; $('#f-handle').value=b.handle; $('#f-tagline').value=b.tagline; $('#f-color').value=b.color;
+  $('#f-crown').value=b.crown; $('#f-sig').value=b.signature; $('#f-max').value=T.rules.max_len; $('#f-appr').value=String(T.approvers);
+  $('#f-req').value=T.rules.required_phrases.join('\n'); $('#f-ban').value=T.rules.banned_words.join(', '); $('#f-words').value=words;
+  [...document.querySelectorAll('#f-style button')].forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.v===b.style))); }
+function read(){ const b=T.brand; b.name=$('#f-name').value.trim()||'Untitled'; b.handle=$('#f-handle').value.trim(); b.tagline=$('#f-tagline').value.trim();
+  b.color=$('#f-color').value; b.crown=$('#f-crown').value; b.signature=$('#f-sig').value.trim();
+  T.rules.max_len=Math.max(50,Math.min(3000,parseInt($('#f-max').value)||3000)); T.approvers=parseInt($('#f-appr').value)||1;
+  T.rules.required_phrases=$('#f-req').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  T.rules.banned_words=$('#f-ban').value.split(',').map(s=>s.trim()).filter(Boolean); words=$('#f-words').value; }
+
+/* the same rule engine æsimov runs */
+function checks(){ const t=words, r=T.rules, out=[];
+  if(!t.trim()) return [['wait','waiting for your words']];
+  out.push(t.length<=r.max_len?['ok',`${t.length} / ${r.max_len.toLocaleString('en-US')} characters`]:['no',`over ${r.max_len.toLocaleString('en-US')} characters`]);
+  r.required_phrases.forEach(x=>out.push(t.includes(x)?['ok',`has "${x}"`]:['no',`missing "${x}"`]));
+  r.banned_words.forEach(x=>{ if(t.toLowerCase().includes(x.toLowerCase())) out.push(['no',`"${x}" not allowed`]); });
+  const dbl=t.match(/\b(\w+)\s+\1\b/i); out.push(dbl?['no',`doubled word "${dbl[1]}"`]:['ok','no doubled words']);
+  out.push(['wait',`needs ${T.approvers} human hold${T.approvers>1?'s':''} to publish`]);
+  return out; }
+
+/* ── the card ── */
+const cv=$('#card'), g=cv.getContext('2d'), W=1080, H=1350;
+const SANS='system-ui,-apple-system,"Segoe UI",Roboto,sans-serif', MONO='ui-monospace,Menlo,Consolas,monospace';
+function wrap(text,maxW,font){ g.font=font; const lines=[]; for(const para of text.split('\n')){ if(!para.trim()){lines.push('');continue;}
+  let line=''; for(const w of para.split(/\s+/)){ const test=line?line+' '+w:w; if(g.measureText(test).width>maxW&&line){lines.push(line);line=w;} else line=test; } lines.push(line);} return lines; }
+function crown(x,y,s,col,kind){ g.save(); g.translate(x,y); g.scale(s,s); g.strokeStyle=col; g.fillStyle=col; g.lineWidth=2.4/s*s; g.lineCap='round'; g.lineJoin='round'; g.beginPath();
+  if(kind==='check'){g.moveTo(-14,-6);g.lineTo(-4,12);g.lineTo(6,-14);g.moveTo(14,-16);g.lineTo(14,14);g.stroke();}
+  else if(kind==='sun'){g.arc(0,0,7,0,7);g.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;g.moveTo(Math.cos(a)*11,Math.sin(a)*11);g.lineTo(Math.cos(a)*16,Math.sin(a)*16);}g.stroke();}
+  else if(kind==='door'){g.rect(-10,-16,20,30);g.moveTo(5,0);g.lineTo(6,0);g.stroke();}
+  else if(kind==='moon'){g.arc(0,0,13,0.6,5.7);g.arc(6,0,10,5.2,1.1,true);g.closePath();g.stroke();}
+  else {for(let i=0;i<7;i++){const a=-Math.PI/2+i*2*Math.PI/7;g.beginPath();g.arc(Math.cos(a)*13,Math.sin(a)*13,3,0,7);i===new Date().getDay()?g.fill():g.stroke();}}
+  g.restore(); }
+function face(x,y,s,col){ g.save(); g.translate(x,y); g.scale(s,s); g.lineWidth=2.2; g.lineCap='round'; g.strokeStyle=col;
+  g.beginPath(); g.moveTo(-34,-20); g.quadraticCurveTo(-34,-64,0,-64); g.quadraticCurveTo(34,-64,34,-20); g.lineTo(34,26); g.quadraticCurveTo(34,58,0,60); g.quadraticCurveTo(-34,58,-34,26); g.closePath(); g.stroke();
+  g.beginPath(); g.roundRect(-26,-14,52,28,14); g.stroke(); g.lineWidth=3.4; g.beginPath(); g.moveTo(-14,0); g.lineTo(-6,0); g.moveTo(6,0); g.lineTo(14,0); g.stroke();
+  g.lineWidth=2; g.beginPath(); g.moveTo(-9,36); g.quadraticCurveTo(0,42,9,36); g.stroke(); g.restore(); }
+function squares(x,y,sz){ const C=['#f5c400','#2f6fd6','#2fa84f']; C.forEach((c,i)=>{g.fillStyle=c; g.fillRect(x,y+i*(sz+6),sz,sz);});
+  g.fillStyle='#111'; g.font=`700 ${sz*.62}px ${SANS}`; g.textAlign='center'; g.textBaseline='middle'; g.fillText('æ',x+sz/2,y+sz/2+2); g.textAlign='left'; g.textBaseline='alphabetic'; }
+function qr(x,y,s,seed,ink,paper){ g.fillStyle=paper; g.fillRect(x-8,y-8,s*9+16,s*9+16); let h=0; for(const ch of seed) h=(h*31+ch.charCodeAt(0))>>>0;
+  for(let r=0;r<9;r++)for(let c=0;c<9;c++){ const f=(r<3&&c<3)||(r<3&&c>5)||(r>5&&c<3); let on;
+    if(f){ const rr=r%6, cc=c%6; on=!(rr===1&&cc===1); } else { h=(h*1103515245+12345)>>>0; on=(h>>16)&1; }
+    if(on){g.fillStyle=ink; g.fillRect(x+c*s,y+r*s,s,s);} } }
+
+function draw(){ const b=T.brand, col=b.color, st=b.style;
+  const paper=st==='terminal'?'#000':'#f4efe3', ink=st==='terminal'?'#e9f6f7':'#111';
+  g.clearRect(0,0,W,H); g.fillStyle=paper; g.fillRect(0,0,W,H);
+  if(st==='terminal'){ g.strokeStyle='rgba(0,243,255,.07)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,0);g.lineTo(i,H);g.stroke();} for(let j=0;j<H;j+=54){g.beginPath();g.moveTo(0,j);g.lineTo(W,j);g.stroke();} }
+  // header
+  if(st!=='terminal') squares(72,72,46); else { g.strokeStyle=col; g.lineWidth=3; g.strokeRect(72,72,46,46); g.fillStyle=col; g.font=`700 28px ${MONO}`; g.fillText('>_',78,105); }
+  g.fillStyle=ink; g.font=`900 64px ${SANS}`; g.fillText(b.name.toUpperCase(),146,122);
+  g.fillStyle=st==='terminal'?col:'#555'; g.font=`500 30px ${MONO}`; g.fillText(b.handle,148,166);
+  crown(W-104,104,1.6,st==='terminal'?col:ink,b.crown);
+  g.strokeStyle=ink; g.globalAlpha=.85; g.lineWidth=2; g.beginPath(); g.moveTo(72,236); g.lineTo(W-72,236); g.stroke(); g.globalAlpha=1;
+  // words
+  const bandTop=st==='line'?H-250:H-330; const avail=bandTop-300;
+  let size=58, lines; do{ lines=wrap(words||' ',W-144,`600 ${size}px ${SANS}`); size-=2; }while(lines.length*size*1.32>avail&&size>26); size+=2;
+  g.fillStyle=ink; g.font=`600 ${size}px ${SANS}`; lines.forEach((l,i)=>g.fillText(l,72,320+i*size*1.32));
+  if(b.tagline){ g.fillStyle=st==='terminal'?'#7d9a9e':'#666'; g.font=`italic 400 28px ${SANS}`; g.fillText(b.tagline,72,bandTop-36); }
+  // band: the aggregate meets terminal here
+  if(st==='line'){ g.strokeStyle='#111'; g.lineWidth=2; g.beginPath(); g.moveTo(72,bandTop); g.lineTo(W-72,bandTop); g.stroke();
+    g.fillStyle='#111'; g.font=`700 30px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',72,bandTop+70);
+    g.font=`400 24px ${MONO}`; g.fillStyle='#555'; g.fillText(`${b.signature}  ·  ${T.id}@${T.version}  ·  receipt pending`,72,bandTop+116);
+    qr(W-72-9*13,bandTop+40,13,T.id+words,'#111','#f4efe3'); }
+  else { g.fillStyle='#000'; g.fillRect(0,bandTop,W,H-bandTop);
+    if(st==='aggregate'){ g.strokeStyle='rgba(0,243,255,.08)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,bandTop);g.lineTo(i,H);g.stroke();} }
+    g.strokeStyle=col; g.lineWidth=3; g.beginPath(); g.moveTo(0,bandTop); g.lineTo(W,bandTop); g.stroke();
+    face(150,bandTop+165,1.55,col);
+    g.fillStyle=col; g.font=`700 34px ${MONO}`; g.fillText('v| I APPROVED THIS MESSAGE',260,bandTop+120);
+    g.fillStyle='#e9f6f7'; g.font=`500 28px ${MONO}`; g.fillText(b.signature+'  '+b.handle,260,bandTop+172);
+    g.fillStyle='#7d9a9e'; g.font=`400 21px ${MONO}`; g.fillText(`${T.id}@${T.version}`,260,bandTop+216); g.fillText(`${T.approvers} human hold${T.approvers>1?'s':''} · receipt pending`,260,bandTop+248);
+    qr(W-72-9*13,bandTop+90,13,T.id+words,'#000','#e9f6f7'); }
+  g.fillStyle=st==='terminal'?'#3a5a5e':'#9a948a'; g.font=`400 18px ${MONO}`; g.fillText('PREVIEW · NOT SIGNED · æQR conceptual until issued',72,H-28); }
+
+let tmr; async function update(){ read(); draw();
+  const ck=checks(); $('#checks').innerHTML=ck.map(([s,t])=>`<li class="${s}">${s==='ok'?'✓':s==='no'?'×':'…'} ${t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</li>`).join('');
+  const m=manifest(), txt=JSON.stringify(m,null,1); $('#json').textContent=txt; $('#sha').textContent='sha256 '+await sha(txt);
+  const {_key,...t}=T; localStorage.setItem('pc.studio.'+T._key,JSON.stringify({t:{...t},w:words}));
+  window.PC_STUDIO={manifest:m,checks:ck}; }
+const soon=()=>{clearTimeout(tmr); tmr=setTimeout(update,120);};
+document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',soon));
+document.querySelectorAll('#f-style button').forEach(b=>b.addEventListener('click',()=>{T.brand.style=b.dataset.v; document.querySelectorAll('#f-style button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); update();}));
+Object.keys(PRESETS).forEach(k=>{const b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.textContent=LABELS[k]; b.onclick=()=>load(k); $('#presets').appendChild(b);});
+const reset=document.createElement('button'); reset.type='button'; reset.textContent='Reset'; reset.onclick=()=>{localStorage.removeItem('pc.studio.'+T._key); load(T._key);}; $('#presets').appendChild(reset);
+const save=(blob,name)=>{const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
+$('#dl-json').onclick=()=>save(new Blob([$('#json').textContent],{type:'application/json'}),T.id.replace('/','__')+'.ae.template.json');
+$('#dl-png').onclick=()=>cv.toBlob(b=>save(b,T.id.replace('/','__')+'-preview.png'));
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#json').textContent); $('#copy').textContent='Copied';}catch(e){$('#copy').textContent='Select the text';} setTimeout(()=>$('#copy').textContent='Copy',1500);};
+load('yael');
+})();
+</script>
+</body></html>
