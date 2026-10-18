@@ -56,7 +56,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
 <div class="top"><a class="mono" href="../">&gt;_PrivateClient</a><span style="display:flex;gap:8px;align-items:center"><button class="mode" id="mode" type="button" aria-label="Day or night"></button><span class="tag mono">LAB · TEMPLATE STUDIO</span></span></div>
 <header class="head">
  <h1>Your template is <em>your platform.</em></h1>
- <p class="lead">Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
+ <p class="lead">Every domain can carry a template for its visitors. Design the card your words travel in: its look, its rules, its approvers. The template is a manifest with a hash, so every receipt can name the rules that were in force. Agents may draft; you approve and publish.</p>
  <div class="presets" id="presets" aria-label="Templates"></div>
 </header>
 
@@ -66,7 +66,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:v
  <div class="row"><div><label for="f-name">Name</label><input id="f-name"></div><div><label for="f-handle">Handle</label><input id="f-handle"></div></div>
  <label for="f-tagline">Tagline</label><input id="f-tagline">
  <div class="row"><div><label for="f-color">Color</label><input id="f-color" type="color"></div>
-  <div><label for="f-crown">Crown</label><select id="f-crown"><option value="check">v| check</option><option value="sun">sun</option><option value="door">door</option><option value="moon">moon</option><option value="week">week ring</option></select></div></div>
+  <div><label for="f-crown">Crown</label><select id="f-crown"><option value="check">v| check</option><option value="sun">sun</option><option value="door">door</option><option value="moon">moon</option><option value="week">week ring</option><option value="qr">QR square</option></select></div></div>
  <label>Style</label>
  <div class="seg" id="f-style"><button type="button" data-v="aggregate">Aggregate</button><button type="button" data-v="line">Line</button><button type="button" data-v="terminal">Terminal</button></div>
  <label for="f-sig">Signature</label><input id="f-sig" class="mono">
@@ -119,17 +119,23 @@ const PRESETS={
   sample:"Every word I publish, I approved.\n\nMany agents. One principal. Point your agents at me 🪡 #opensourceware"},
  pc:{id:"privateclient/default",version:"1.0.0",brand:{name:"Private Client",handle:"privateclient.ai",tagline:"Only what you meant to say.",color:"#00f3ff",crown:"check",style:"terminal",signature:"v|"},
   rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,sample:"You write. I check. You approve."},
+ aestore:{id:"xn--6ca.store/visitor",version:"0.1.0",domain:"æ.store",brand:{name:"æ.store",handle:"æ.store",tagline:"Soværeign edition · weekly",color:"#3ddc84",crown:"week",style:"aggregate",signature:"æ"},
+  rules:{max_len:1500,required_phrases:[],banned_words:[]},approvers:1,sample:"What I'm building this week, in my own words."},
+ llmstore:{id:"llm.store/visitor",version:"0.1.0",domain:"llm.store",brand:{name:"llm.store",handle:"llm.store",tagline:"Soværeign edition · monthly",color:"#ffb020",crown:"moon",style:"aggregate",signature:">_llm"},
+  rules:{max_len:3000,required_phrases:[],banned_words:[]},approvers:1,sample:"The model I trusted this month, and why."},
+ aeee:{id:"xn--6caaa.com/visitor",version:"0.1.0",domain:"æææ.com",brand:{name:"æææ QR",handle:"æææ.com",tagline:"Soværeign edition · quarterly",color:"#4c9be8",crown:"qr",style:"terminal",signature:"æææ://"},
+  rules:{max_len:2000,required_phrases:[],banned_words:[]},approvers:1,sample:"Point your agents at me. This quarter's address is ready."},
  despacho:{id:"despacho-ejemplo/asesores",version:"0.1.0",example:"ficticio, white-label",brand:{name:"Despacho Ejemplo",handle:"@despacho",tagline:"Asesores que firman lo que dicen.",color:"#3ddc84",crown:"door",style:"line",signature:"DE"},
   rules:{max_len:1200,required_phrases:["No es asesoría financiera."],banned_words:["garantizado","sin riesgo"]},approvers:2,
   sample:"Tres preguntas antes de invertir este trimestre. No es asesoría financiera."}
 };
-const LABELS={yael:"@yaelmendez",pc:"Private Client",despacho:"Despacho Ejemplo · white-label"};
+const LABELS={yael:"@yaelmendez · Yæl.com",pc:"Private Client",aestore:"æ.store",llmstore:"llm.store",aeee:"æææ.com",despacho:"Despacho Ejemplo · white-label"};
 let T=null, words="";
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 const sha=async t=>hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)));
 
 /* manifest from the form */
-function manifest(){ return {schema:"ae.template/0.1",id:T.id,version:T.version,...(T.example?{example:T.example}:{}),
+function manifest(){ return {schema:"ae.template/0.1",id:T.id,version:T.version,...(T.domain?{domain:T.domain,audience:"visitors"}:{}),...(T.example?{example:T.example}:{}),
   brand:{...T.brand},slots:["words"],rules:{...T.rules},approvers:T.approvers,
   agents_may:["draft"],human_only:["approve","publish"],receipt_names:["template","template_sha","text_sha","held_ms","at"]}; }
 
@@ -166,6 +172,7 @@ function crown(x,y,s,col,kind){ g.save(); g.translate(x,y); g.scale(s,s); g.stro
   else if(kind==='sun'){g.arc(0,0,7,0,7);g.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;g.moveTo(Math.cos(a)*11,Math.sin(a)*11);g.lineTo(Math.cos(a)*16,Math.sin(a)*16);}g.stroke();}
   else if(kind==='door'){g.rect(-10,-16,20,30);g.moveTo(5,0);g.lineTo(6,0);g.stroke();}
   else if(kind==='moon'){g.arc(0,0,13,0.6,5.7);g.arc(6,0,10,5.2,1.1,true);g.closePath();g.stroke();}
+  else if(kind==='qr'){g.rect(-15,-15,30,30);g.stroke();g.fillRect(-11,-11,8,8);g.fillRect(3,-11,8,8);g.fillRect(-11,3,8,8);g.fillRect(4,4,3,3);g.fillRect(8,8,3,3);}
   else {for(let i=0;i<7;i++){const a=-Math.PI/2+i*2*Math.PI/7;g.beginPath();g.arc(Math.cos(a)*13,Math.sin(a)*13,3,0,7);i===new Date().getDay()?g.fill():g.stroke();}}
   g.restore(); }
 function face(x,y,s,col){ g.save(); g.translate(x,y); g.scale(s,s); g.lineWidth=2.2; g.lineCap='round'; g.strokeStyle=col;
@@ -187,7 +194,7 @@ function draw(){ const b=T.brand, col=b.color, st=b.style, night=MODE==='night';
   if(st==='terminal'){ g.strokeStyle='rgba(0,243,255,.07)'; g.lineWidth=1; for(let i=0;i<W;i+=54){g.beginPath();g.moveTo(i,0);g.lineTo(i,H);g.stroke();} for(let j=0;j<H;j+=54){g.beginPath();g.moveTo(0,j);g.lineTo(W,j);g.stroke();} }
   // header
   if(st!=='terminal') squares(72,72,46); else { g.strokeStyle=col; g.lineWidth=3; g.strokeRect(72,72,46,46); g.fillStyle=col; g.font=`700 28px ${MONO}`; g.fillText('>_',78,105); }
-  g.fillStyle=ink; g.font=`900 64px ${SANS}`; g.fillText(b.name.toUpperCase(),146,122);
+  g.fillStyle=ink; g.font=`900 64px ${SANS}`; g.fillText(/\./.test(b.name)?b.name:b.name.toUpperCase(),146,122);
   g.fillStyle=st==='terminal'?col:sub; g.font=`500 30px ${MONO}`; g.fillText(b.handle,148,166);
   crown(W-104,104,1.6,st==='terminal'?col:ink,b.crown);
   g.strokeStyle=ink; g.globalAlpha=.85; g.lineWidth=2; g.beginPath(); g.moveTo(72,236); g.lineTo(W-72,236); g.stroke(); g.globalAlpha=1;
