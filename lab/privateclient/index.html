@@ -74,6 +74,8 @@ footer a{color:var(--c)}
  <div class="card"><div class="h"><b>væult</b><span class="st lab">○ lab</span></div>
   <span class="d">Local secret custody: scrypt → AES-256-GCM, QR air-gap. The tool is open; the secrets are not.</span>
   <div class="sub mono"><a href="./vaeult/">tool</a><a href="./vaeult/app.html">app</a><a href="./vaeult/layers.html">layers</a></div></div>
+ <a class="card" href="./aesimov/"><div class="h"><b>æsimov_private_client</b><span class="st lab">○ lab</span></div>
+  <span class="d">Full-size, in line. Reads the page's DOM, walks to each step and verifies it: words, hold, seal, receipt, æQR, re-check.</span></a>
  <div class="card"><div class="h"><b>Terminal &gt;_æ|</b><span class="st sim">◌ simulation</span></div>
   <span class="d">The command prompt as a scripted demo. Becomes the owner console once it's wired to the droplet.</span>
   <div class="sub mono"><a href="./terminal/">open</a></div></div>
@@ -106,7 +108,7 @@ footer a{color:var(--c)}
 </main>
 <script>
 const LAB={schema:"ae.lab/0.1",id:"pc-lab",principal:"HUMAN://ROOT",identity:"PRIVATECLIENT://",live:{approve:"https://privateclient.ai/",labs:"https://privateclient.ai/labs",receipt:"https://privateclient.ai/r/{rid}"},
- lab:{aeqr:"./aeqr/",vaeult:{tool:"./vaeult/",app:"./vaeult/app.html",layers:"./vaeult/layers.html"},terminal:{href:"./terminal/",status:"simulation"}},
+ lab:{aesimov_private_client:"./aesimov/",aeqr:"./aeqr/",vaeult:{tool:"./vaeult/",app:"./vaeult/app.html",layers:"./vaeult/layers.html"},terminal:{href:"./terminal/",status:"simulation"}},
  retired:["omnibox"],left_at_origin:["compute (llm.store)","hermes secret bridge"],authority:{agents_may:["draft","read","verify"],human_only:["approve","publish"]}};
 document.getElementById("agent").textContent=JSON.stringify(LAB,null,1);window.PC_LAB=LAB;
 </script>
