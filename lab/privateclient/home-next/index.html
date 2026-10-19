@@ -5,6 +5,14 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000">
 <title>&gt;_PrivateClient · draft for human approval</title>
+<meta name="description" content="You write. I check. You approve. Sign in with LinkedIn, hold to approve, and every post carries a public receipt.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://privateclient.ai/">
+<meta property="og:title" content="&gt;_PrivateClient · You write. I check. You approve.">
+<meta property="og:description" content="Sign in with LinkedIn, hold to approve, and every post carries a public receipt. Human stays root.">
+<meta property="og:image" content="https://privateclient.ai/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://privateclient.ai/og.png">
+<link rel="icon" href="/logo.png">
+<script src="pc-face.js"></script>
 <style>
 :root{--c:#00f3ff;--li:#0a66c2;--ink:#e9f6f7;--dim:#7d9a9e;--ok:#3ddc84;--warn:#ffc53d;--stop:#ff5d5d;--bg:#000;--bg0:#050607;--fl:#06191b;--fl2:#031416;--bd:#1d4a4e;--bd2:#0e3b3f;--grid:.07}
 [data-theme=day]{--c:#00747c;--ink:#161616;--dim:#48443d;--ok:#1a7f45;--warn:#8a5a00;--stop:#b3261e;--bg:#f4efe3;--bg0:#e9e3d4;--fl:#fffaf0;--fl2:#fffaf0;--bd:#c9c0ad;--bd2:#c9c0ad;--grid:.09}
@@ -86,7 +94,7 @@ a{color:var(--c)}
 .pci .e{font-size:18px}.pci .k{color:var(--c)}.pci .d{color:var(--dim);font:13px/1.3 system-ui,sans-serif}
 .pcback{align-self:flex-start;background:none;border:0;color:var(--c);font:14px ui-monospace,Menlo,monospace;min-height:44px;cursor:pointer;padding:0}
 #bot{position:absolute;left:0;top:0;z-index:5;width:44px;height:50px;border:0;background:none;cursor:pointer;transition:transform .7s cubic-bezier(.3,1.3,.5,1);display:none;padding:0}
-#bot.on{display:block}#bot svg{width:44px;height:50px;filter:drop-shadow(0 0 6px #00f3ff55)}
+#bot.on{display:block}#bot pc-face{filter:drop-shadow(0 0 6px #00f3ff55)}
 #bot .eyes{transition:transform .4s}
 #tip{position:absolute;z-index:6;max-width:min(78%,300px);background:var(--fl2);border:1px solid var(--c);border-radius:14px;padding:10px 12px;font:14px/1.4 system-ui,sans-serif;display:none;box-shadow:0 8px 30px #000a}
 #tip.on{display:block;animation:in .3s ease}#tip p{margin:0 0 8px}#tip .r{display:flex;gap:8px;justify-content:flex-end}
@@ -128,7 +136,7 @@ a{color:var(--c)}
     <path id="eyes" d="M88 120 h18 M134 120 h18" stroke="#00f3ff" stroke-width="4" stroke-linecap="round" opacity="0"/>
     <path id="mouth" d="M100 196 Q120 206 140 196" fill="none" stroke="#00f3ff" stroke-width="3" stroke-linecap="round"/>
     <path d="M52 176 Q60 232 120 240 Q180 232 188 176" fill="none" stroke="#b87333" stroke-opacity=".55" stroke-width="2"/>
-    <circle cx="120" cy="40" r="12" fill="none" stroke="#3a6fe0" stroke-width="1.5"/><circle cx="120" cy="40" r="4" fill="#00f3ff"/>
+    <path d="M111 40L115.5 45L120 40M125 31V45" fill="none" stroke="#00f3ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
    </svg>
   </button>
   <p class="kick" data-en="Private Client draft · for human approval" data-es="Borrador Private Client · para aprobación humana"></p>
@@ -199,7 +207,7 @@ a{color:var(--c)}
   <ul class="pci" id="pci"></ul>
  </section>
 </main>
-<button id="bot" aria-label="Private Client guide"><svg viewBox="0 0 240 270" aria-hidden="true"><path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="5"/><rect x="66" y="92" width="108" height="56" rx="26" fill="#030a0b" stroke="#00f3ff" stroke-width="6"/><g class="eyes"><path d="M88 120 h18 M134 120 h18" stroke="#00f3ff" stroke-width="10" stroke-linecap="round"/></g><path d="M100 196 Q120 206 140 196" fill="none" stroke="#00f3ff" stroke-width="7" stroke-linecap="round"/><circle cx="120" cy="40" r="9" fill="#00f3ff"/></svg></button>
+<button id="bot" aria-label="Private Client guide"><pc-face id="botf" mood="ready" crown="pc" size="44" label="private_client_æsimov"></pc-face></button>
 <div id="tip" role="dialog" aria-live="polite"><p id="tipt"></p><div class="r"><button id="tiph"></button><button class="y" id="tipy"></button></div></div>
 </div>
 <script>
@@ -217,7 +225,7 @@ function paint(){document.documentElement.lang=L;$("lang").value=L;
  if(typeof brand==="function"){brand();if($("s4").classList.contains("on"))index();$("bot").setAttribute("aria-label",pt("guide"))}
  $("tag0").textContent=LIVE?"privateclient.ai · 🧿 guarded":tr("LAB DEMO · no LinkedIn calls","LAB DEMO · sin llamadas a LinkedIn");}
 $("lang").onchange=()=>{L=$("lang").value;try{localStorage.setItem("pc_lang",L)}catch(e){}paint();if($("s2").classList.contains("on"))review();};
-function show(n){document.querySelectorAll("section").forEach((s,i)=>s.classList.toggle("on",i===n));if(n===4){$("pcq").value="";index()}if(typeof guide==="function")setTimeout(()=>guide(n),380);}
+function show(n){document.querySelectorAll("section").forEach((s,i)=>s.classList.toggle("on",i===n));if(typeof mood==="function"){const M={1:"think",3:"ok",4:"ready"};if(M[n])mood(M[n])}if(n===4){$("pcq").value="";index()}if(typeof guide==="function")setTimeout(()=>guide(n),380);}
 
 /* ── checks: same rules as checks.py (the server's word is final when live) ── */
 const SEC=[["API key",/\bsk-[A-Za-z0-9_-]{20,}/],["GitHub token",/\bgh[pousr]_[A-Za-z0-9]{30,}/],["AWS key",/\bAKIA[0-9A-Z]{16}\b/],["Slack token",/\bxox[abprs]-[A-Za-z0-9-]{10,}/],["Private key",/-----BEGIN [A-Z ]*PRIVATE KEY-----/],["Google key",/\bAIza[0-9A-Za-z_-]{35}\b/]];
@@ -295,14 +303,14 @@ function drawCard(){const c=document.createElement("canvas");c.width=1080;c.heig
  return c.toDataURL("image/png");}
 const PCM='<svg class="pcm" viewBox="0 0 24 24" aria-label="Private Client check" role="img"><path d="M3 12 L7.5 17 L12 12 M17 3 V17" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 let kt=0;$("kl").oninput=()=>{clearTimeout(kt);kt=setTimeout(()=>{CARD=drawCard();$("cardImg").src=CARD},150)};
-async function review(){const t=$("tx").value.trim();$("toCheck").disabled=true;
+async function review(){const t=$("tx").value.trim();$("toCheck").disabled=true;mood("checking");
  const r=await API.prepare({text:t,ai_assisted:$("ai").checked}).catch(()=>({status:0,...localCheck(t)}));$("toCheck").disabled=false;
  CK=r.checks?r:localCheck(t);RID=r.status===200?r.rid:null;QR=r.status===200?r.qr:null;
  $("pv").textContent=t;$("ft").textContent=footer(RID);$("nm").textContent=ME.name;$("av").textContent=ME.name[0];
  if(!$("kl").value)$("kl").value=keyLine(t);CARD=drawCard();$("cardImg").src=CARD;$("cardImg").alt=$("kl").value;
  $("ck").innerHTML="";for(const c of CK.checks){const li=document.createElement("li");li.className=c.level;li.textContent=(c.level==="warn"?"⚠ ":c.level==="ok"?" ":"✕ ")+(c[L]||c.en);if(c.level==="ok")li.insertAdjacentHTML("afterbegin",PCM);$("ck").appendChild(li)}
  const h=document.createElement("li");h.className="ok";h.textContent="🧿 "+tr("Private Client checked it. You decide.","Private Client lo revisó. Tú decides.");$("ck").appendChild(h);
- $("hold").disabled=!(CK.ok&&RID);show(2);}
+ $("hold").disabled=!(CK.ok&&RID);show(2);mood(CK.ok&&RID?"ready":"stop");}
 $("toCheck").onclick=review;$("edit").onclick=()=>{$("kl").value="";show(1)};
 
 /* hold-to-approve, 1.2 s */
@@ -312,10 +320,10 @@ function down(e){if($("hold").disabled||busy)return;e.preventDefault();t0=perfor
 function up(){if(busy)return;cancelAnimationFrame(raf);$("fill").style.width="0"}
 $("hold").addEventListener("pointerdown",down);["pointerup","pointerleave","pointercancel"].forEach(ev=>$("hold").addEventListener(ev,up));
 $("hold").onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&!e.repeat)down(e)};$("hold").onkeyup=up;
-async function approve(held){busy=true;navigator.vibrate&&navigator.vibrate([20,40,20]);$("hold").querySelector("span").textContent=tr("Posting…","Publicando…");
+async function approve(held){busy=true;mood("checking");navigator.vibrate&&navigator.vibrate([20,40,20]);$("hold").querySelector("span").textContent=tr("Posting…","Publicando…");
  const r=await API.sign({rid:RID,image:CARD,alt:$("kl").value,held_ms:Math.round(held)}).catch(()=>({status:0}));
  busy=false;$("fill").style.width="0";paint();
- if(r.status!==200){$("ck").insertAdjacentHTML("afterbegin",`<li class="stop">✕ ${r.error||(r.checks?tr("Checks failed on the server.","La revisión falló en el servidor."):tr("Nothing was posted. Try again.","No se publicó nada. Intenta de nuevo."))}</li>`);return}
+ if(r.status!==200){mood("stop");$("ck").insertAdjacentHTML("afterbegin",`<li class="stop">✕ ${r.error||(r.checks?tr("Checks failed on the server.","La revisión falló en el servidor."):tr("Nothing was posted. Try again.","No se publicó nada. Intenta de nuevo."))}</li>`);return}
  LAST=r;const when=new Date(r.t*1e3).toLocaleString(L);
  $("rc").innerHTML="";[[tr("Receipt","Recibo"),r.rid],[tr("Approved","Aprobado"),when],[tr("Text SHA-256","SHA-256 del texto"),r.text_sha],[tr("Card SHA-256","SHA-256 de la tarjeta"),r.card_sha||"—"],[tr("AI-assisted","Con IA"),r.ai_assisted?tr("yes · human-reviewed","sí · revisado por humano"):tr("no","no")],[tr("Verify","Verificar"),r.verify.replace("https://","")]].forEach(([k,v])=>{const d=document.createElement("div");d.innerHTML="<b></b> ";d.firstChild.textContent=k;d.append(v);$("rc").appendChild(d)});
  if(r.demo){const d=document.createElement("div");d.textContent=tr("LAB DEMO: nothing was posted to LinkedIn.","LAB DEMO: no se publicó nada en LinkedIn.");$("rc").appendChild(d)}
@@ -358,7 +366,9 @@ let CUR=null;const seen=()=>{try{return JSON.parse(localStorage.getItem("pc_tw")
 const mark=k=>{try{const s=seen();s[k]=1;localStorage.setItem("pc_tw",JSON.stringify(s))}catch(e){}};
 function place(el){const st=$("st").getBoundingClientRect(),r=el.getBoundingClientRect(),bot=$("bot");
  let x=Math.min(st.width-52,Math.max(6,r.right-st.left-22)),y=r.top-st.top-56;if(y<56)y=r.bottom-st.top+6;y=Math.min(st.height-58,y);
- bot.style.transform=`translate(${x}px,${y}px)`;const cx=r.left+r.width/2-st.left,dx=Math.max(-8,Math.min(8,(cx-x-22)/20));bot.querySelector(".eyes").style.transform=`translate(${dx}px,${r.top-st.top>y?4:-4}px)`;return{x,y,st}}
+ bot.style.transform=`translate(${x}px,${y}px)`;return{x,y,st}}
+/* the face shows the real state: ae.face/0.1 moods */
+function mood(m){const f=$("botf");if(f)f.mood=m}
 function guide(n,force){const bot=$("bot"),tip=$("tip");tip.classList.remove("on");if(!ME||n===0){bot.classList.remove("on");return}
  bot.classList.add("on");const t=TIPS[n];if(!t){bot.style.transform="translate(8px,60px)";return}
  requestAnimationFrame(()=>{const el=t[1]();if(!el)return;const {x,y,st}=place(el);CUR=[n,t[0]];
