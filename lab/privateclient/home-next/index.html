@@ -83,15 +83,16 @@ a{color:var(--c)}
 #tip button{min-height:40px;border-radius:10px;border:1px solid #1d4a4e;background:none;color:var(--dim);font:13px system-ui,sans-serif;padding:0 10px;cursor:pointer}#tip button.y{border-color:var(--c);color:var(--ink)}
 .toast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:7;background:#031416;border:1px solid var(--c);border-radius:20px;padding:8px 14px;font-size:13px}
 #s0{overflow-y:auto;overflow-x:hidden}
+.dl,.dr{display:contents}
 @media (min-width:760px) and (orientation:landscape){
  body{display:block}
  #st{width:100%;height:100dvh;border:0;padding:24px clamp(24px,5vw,72px)}
  main{width:100%;max-width:1180px;margin:0 auto}
  section:not(#s0){width:100%;max-width:600px;margin:0 auto}
- #s0.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-flow:row dense;column-gap:clamp(32px,5vw,80px);align-content:center}
- #s0>*{grid-column:1;max-width:520px;width:100%;justify-self:center}
- #s0>.new,#s0>.offer{grid-column:2;max-width:460px}
- #s0>.new{margin:0 auto 6px!important}
+ #s0.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(32px,5vw,80px);align-items:center}
+ #s0 .dl,#s0 .dr{display:flex;flex-direction:column;width:100%;justify-self:center}
+ #s0 .dl{max-width:520px}#s0 .dr{max-width:460px}
+ #s0 .dr>.new{margin:0 0 6px!important;max-width:none!important}
  #s0 .face{width:min(240px,26vh);margin:0 auto}
  #s0 h1{font-size:clamp(28px,2.6vw,40px);margin:18px 0 8px}
  #s0 .sub{font-size:15px}
@@ -107,6 +108,7 @@ a{color:var(--c)}
 <main>
  <!-- 0 · door -->
  <section id="s0" class="on">
+  <div class="dl">
   <button class="face pulse" id="face" aria-label="Sign in with LinkedIn">
    <svg viewBox="0 0 240 270" aria-hidden="true">
     <path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="2"/>
@@ -128,6 +130,7 @@ a{color:var(--c)}
   </ul>
   <button class="btn li" id="go"><b>in</b><span data-en="Sign in with LinkedIn" data-es="Entrar con LinkedIn"></span></button>
   <p class="tag" id="tag0"></p>
+  </div><div class="dr">
  <div class="new" style="margin:18px auto 0;max-width:400px;text-align:left;border-left:2px solid #00f3ff;padding:2px 0 2px 12px">
    <p class="kick" style="margin:0 0 6px" data-en="New · Oct 2026" data-es="Nuevo · oct 2026"></p>
    <p style="margin:2px 0">🗝️ <b>pc://owner</b> · <span data-en="Your door. Only you." data-es="Tu puerta. Solo tú."></span></p>
@@ -146,6 +149,7 @@ a{color:var(--c)}
    <p style="margin:6px 0;font:700 18px/1.3 Georgia,serif" data-en="Start your business with its own Private Client." data-es="Empieza tu negocio con su propio Private Client."></p>
    <p class="sub" style="margin:0 0 10px" data-en="From day one: owner sign-in, your own agent browser over MCP, and a public receipt on every post you approve. Owner-only setup with Yæl, from $1,200." data-es="Desde el primer día: acceso del dueño, tu propio navegador para agentes por MCP y un recibo público en cada post que apruebes. Instalación solo-dueño con Yæl, desde $1,200."></p>
    <a class="btn ghost" style="text-decoration:none;display:inline-flex;min-height:44px;align-items:center;justify-content:center" href="mailto:yaelmendez@pm.me?subject=%23startabusiness%20%C2%B7%20Private%20Client%20setup" data-en="#startabusiness →" data-es="#startabusiness →"></a>
+  </div>
   </div>
  </section>
  <!-- 1 · write -->
