@@ -149,7 +149,7 @@ async function step(n){
  $("tiph").textContent=T("Skip","Saltar");$("tipy").textContent=n===ST.length-1?T("Done","Listo"):s.cmd?T("Run "+s.cmd,"Ejecutar "+s.cmd):T("Next","Siguiente");
  place(tgt);
 }
-function place0(){const sr=stage.getBoundingClientRect(),f=$("f").getBoundingClientRect();bot.style.transform=`translate(${sr.width-60}px,${f.top-sr.top-62}px)`;bot.querySelector(".eyes").style.transform=""}
+function place0(){const sr=stage.getBoundingClientRect(),f=$("f").getBoundingClientRect();bot.style.transform=`translate(${Math.min(sr.width-60,f.right-sr.left-52)}px,${f.top-sr.top-62}px)`;bot.querySelector(".eyes").style.transform=""}
 $("tipy").onclick=async()=>{const s=ST[SI];if(s&&s.cmd&&!s.ran){s.ran=1;$("tipy").disabled=true;await typeIn(s.cmd);$("tipy").disabled=false;$("tipy").textContent=T("Next","Siguiente");$("tipt").textContent=s.say+" ✓";place($("f"));return}step(SI+1)};
 $("tiph").onclick=()=>step(ST.length);
 bot.onclick=()=>{ST.forEach(s=>delete s.ran);step(SI>=0?ST.length:0)};
