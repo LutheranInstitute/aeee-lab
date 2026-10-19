@@ -73,8 +73,8 @@ const C={
   if(k.d.human_until){const fresh=k.d.human_until*1000>Date.now();row("human until",day(k.d.human_until),fresh?"ok":"stop")}
   row("mint",link((API||"")+"/mcp/connect","pc://mcp/connect"))},
  "#deploy":async()=>{
-  const h=await j("/health");row("privateclient",h.d&&h.d.ok?"✓ ok":"✗ down",h.d&&h.d.ok?"ok":"stop");
-  const g=await j("/guard");
+  const g=await j("/guard");const h=SAME?await j("/health"):{d:{ok:!!g.d}};
+  row("privateclient",h.d&&h.d.ok?"✓ ok":"✗ unreachable",h.d&&h.d.ok?"ok":"stop");
   if(g.d){row("guard",esc(g.d.guard+" · "+g.d.mood),g.d.mood==="ready"?"ok":"warn");row("uptime",Math.round(g.d.uptime_s/3600*10)/10+" h");row("blocked 1h",String(g.d.blocked_last_hour));row("witness head",esc(g.d.witness_head.slice(0,16))+"…","gold");row("promise",esc(g.d.promise))}
   else row("guard","unreachable","stop")},
  "#verify":async a=>{
