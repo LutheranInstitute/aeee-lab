@@ -20,7 +20,7 @@ h1{font-size:30px;line-height:1.1;margin:20px 0 4px}.lead{color:var(--dim);margi
 .moods{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .f{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);border-radius:14px;padding:10px 6px 8px;background:var(--fl);text-decoration:none;color:var(--ink);transition:border-color .3s}
-.f:hover,.f.ping{border-color:var(--c)}
+.f:hover,.f.ping{border-color:var(--c)}.f.off{border-style:dashed}
 .f b{font:600 13px ui-monospace,Menlo,monospace;text-align:center;overflow-wrap:anywhere}
 .f small{color:var(--dim);font-size:11.5px;text-align:center;line-height:1.3}
 h2{font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--c);margin:30px 0 10px}
@@ -54,14 +54,16 @@ footer{margin-top:36px;text-align:center;font-size:12px;color:var(--dim)}footer 
 <footer class="mono">$🤖osw · <a href="../lang/">face language</a> · <a href="../../privateclient/">PC:// LAB</a></footer>
 </main>
 <script>
+/* door check 2026-10-19 00:58 CDT: null = no working page yet (no dead ends), string = verified URL */
+const GO={"æ.store":"http://æ.store/","teologia.ai":"http://teologia.ai/","yæl.com":null,"æ.me":null,"zacapa.ai":null,"teologia.live":null,"molt.earth":null,"moltcontextprotocol.org":null,"iaamano.com":null};
 const D=PC_FACE.domains,M=Object.keys(PC_FACE.moods),grid=document.getElementById("grid");
-Object.entries(D).forEach(([d,v])=>{const a=document.createElement("a");a.className="f";a.href="https://"+d+"/";a.rel="noopener";
- a.innerHTML=`<pc-face domain="${d}" mood="ready" size="78"></pc-face><b></b><small></small>`;a.querySelector("b").innerHTML=d.replace(/[&<>]/g,"").replace(/\./g,"<wbr>.");a.querySelector("small").textContent=v.role;grid.appendChild(a)});
+Object.entries(D).forEach(([d,v])=>{const go=d in GO?GO[d]:"https://"+d+"/",a=document.createElement(go?"a":"div");a.className="f"+(go?"":" off");if(go){a.href=go;a.rel="noopener"}else{a.title=d+" · face ready, page not live yet"}
+ a.innerHTML=`<pc-face domain="${d}" mood="ready" size="78"></pc-face><b></b><small></small>`;a.querySelector("b").innerHTML=d.replace(/[&<>]/g,"").replace(/\./g,"<wbr>.");a.querySelector("small").textContent=v.role+(go?"":" · ◌ not live yet");grid.appendChild(a)});
 const faces=[...grid.querySelectorAll("pc-face")];
 function wave(m,from){const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;faces.forEach((f,i)=>{const d=rm?0:Math.abs(i-(from||0))*55;setTimeout(()=>{f.mood=m;const c=f.parentElement;c.classList.add("ping");setTimeout(()=>c.classList.remove("ping"),400)},d)})}
 const mb=document.getElementById("moods");M.forEach(m=>{const b=document.createElement("button");b.textContent=m;b.setAttribute("aria-pressed",m==="ready");b.onclick=()=>{wave(m,0);mb.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b))};mb.appendChild(b)});
 const K="pc_term_theme";function th(x){document.documentElement.dataset.th=x;try{localStorage.setItem(K,x)}catch(e){}document.querySelectorAll(".top button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.t===x))}
 document.querySelectorAll(".top button").forEach(b=>b.onclick=()=>th(b.dataset.t));let t0="night";try{t0=localStorage.getItem(K)||"night"}catch(e){}th(t0);
-document.getElementById("agent").textContent=JSON.stringify({schema:"ae.face.registry/0.1",name:"soværeign æsymovs",count:Object.keys(D).length,source:"../lang/pc-face.js",moods:PC_FACE.moods,domains:D,authority:{face:"shows",human:"decides"}},null,1);
+document.getElementById("agent").textContent=JSON.stringify({schema:"ae.face.registry/0.1",checked:"2026-10-19",live:Object.keys(D).filter(d=>!(d in GO)||GO[d]),not_live:Object.keys(D).filter(d=>d in GO&&!GO[d]),name:"soværeign æsymovs",count:Object.keys(D).length,source:"../lang/pc-face.js",moods:PC_FACE.moods,domains:D,authority:{face:"shows",human:"decides"}},null,1);
 </script>
 </body></html>
