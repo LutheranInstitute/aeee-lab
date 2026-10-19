@@ -84,7 +84,7 @@ footer{margin-top:36px;text-align:center;font-size:12px;color:var(--dim)}footer 
 
 <div class="prompt" id="pr">
  <div class="bar"><label for="cmd">&gt;_æ:</label>
-  <input id="cmd" autocomplete="off" spellcheck="false" placeholder="write a post · verify b092dae80b2f · start a business">
+  <input id="cmd" autocomplete="off" spellcheck="false" placeholder="write a post…">
   <button id="go">↵</button></div>
  <div class="out" id="out" aria-live="polite"></div>
 </div>
@@ -166,10 +166,11 @@ function pills(){const p=$("pills");p.innerHTML="";P.forEach(([e,s])=>{const b=d
 async function doors(){const box=$("doors");try{const d=await j("/.well-known/pc.json");box.innerHTML="";
  Object.entries(d.addresses).forEach(([k,v])=>{if(k.includes("{"))return;const a=document.createElement(v.https?"a":"div");a.className="card";if(v.https)a.href=v.https;a.innerHTML="<b class='mono'></b><span></span>";a.querySelector("b").textContent=k;a.querySelector("span").textContent=v.what||"";box.appendChild(a)})}
  catch(e){box.innerHTML="<a class='card' href='"+API+"/'><b class='mono'>pc://</b><span>privateclient.ai</span></a>"}}
-async function lights(){try{const h=await j("/health");$("d1").className="dot "+(h.ok?"ok":"x");$("s1").textContent=h.ok?"ok":"down"}catch(e){$("d1").className="dot x";$("s1").textContent="no answer"}
- try{const g=await j("/guard");$("d2").className="dot ok";$("s2").textContent="æsymov · "+g.mood;$("s3").textContent=(g.witness_head||"").slice(0,16)+"…";$("s4").textContent=g.promise||"";
+async function lights(){let up=false;try{const h=await j("/health");up=!!h.ok}catch(e){}
+ try{const g=await j("/guard");up=true;$("d2").className="dot ok";$("s2").textContent="æsymov · "+g.mood;$("s3").textContent=(g.witness_head||"").slice(0,16)+"…";$("s4").textContent=g.promise||"";
   $("tks").textContent="▸ health ok  ▸ guard "+g.mood+"  ▸ witness "+(g.witness_head||"").slice(0,12)+"  ▸ HUMAN://ROOT  ▸ agents draft · humans approve  ▸ receipt on every post  ▸ pc://write  ▸ pc://studio  ▸ pc://labs"}
- catch(e){$("d2").className="dot x";$("s2").textContent="no answer"}}
+ catch(e){$("d2").className="dot x";$("s2").textContent="no answer"}
+ $("d1").className="dot "+(up?"ok":"x");$("s1").textContent=up?"ok · serving":"no answer"}
 function i18n(){document.documentElement.lang=L;$("lang").value=L;document.querySelectorAll("[data-i]").forEach(el=>el.textContent=t(el.dataset.i));out.innerHTML="";line(t("hi"),"d")}
 $("lang").onchange=e=>{L=e.target.value;localStorage.setItem("pc_lang",L);i18n()};
 const K="pc_term_theme";function th(x){document.documentElement.dataset.th=x;try{localStorage.setItem(K,x)}catch(e){}document.querySelectorAll(".ctl button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.t===x));if(x==="agent")tele(t("lead"))}
