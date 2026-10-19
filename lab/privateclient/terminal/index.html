@@ -31,6 +31,13 @@ form b{color:var(--c)}form b .ae{color:var(--g)}
 form input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--ink);font:16px ui-monospace,Menlo,monospace}
 #boot{position:absolute;inset:0;z-index:5;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .6s}
 #boot.out{opacity:0;pointer-events:none}#boot .ae{font:700 64px/1 Georgia,serif;color:var(--g)}#boot p{color:var(--dim);min-height:1.5em}#boot .gr{color:var(--ok);opacity:0;transition:opacity .4s}#boot .gr.on{opacity:1}
+#bot{position:absolute;left:0;top:0;z-index:6;width:48px;height:54px;border:0;background:none;cursor:pointer;padding:0;transition:transform .7s cubic-bezier(.3,1.3,.5,1)}
+#bot svg{width:48px;height:54px;filter:drop-shadow(0 0 6px #00f3ff66)}#bot .eyes{transition:transform .35s}
+#tip{position:absolute;z-index:7;width:min(82%,320px);background:#031416;border:1px solid var(--c);border-radius:14px;padding:10px 12px;font:14px/1.45 system-ui,-apple-system,sans-serif;display:none;box-shadow:0 8px 30px #000a}
+#tip.on{display:block;animation:in .25s ease}#tip p{margin:0 0 8px}#tip small{color:var(--dim);font:11px ui-monospace,Menlo,monospace}
+#tip .r{display:flex;gap:8px;justify-content:flex-end;align-items:center}#tip .r span{flex:1}
+#tip button{min-height:44px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--dim);font:13px system-ui,sans-serif;padding:0 12px;cursor:pointer}#tip button.y{border-color:var(--c);color:var(--ink)}
+.hit{box-shadow:0 0 0 2px var(--c)!important;border-radius:12px}
 @media (min-width:760px) and (orientation:landscape){
  body{display:block}#st{width:100%;height:100dvh;border:0;padding:24px clamp(24px,6vw,96px)}
  header,#o,#sg,form{width:100%;max-width:860px;margin-left:auto;margin-right:auto}
@@ -44,6 +51,8 @@ form input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--
  <main id="o" aria-live="polite"></main>
  <div id="sg"></div>
  <form id="f" autocomplete="off"><b>&gt;_<span class="ae">æ</span>|</b><input id="i" aria-label="command" placeholder="#help" spellcheck="false" autocapitalize="off"></form>
+<button id="bot" type="button" aria-label="private_client_æsimov · guide" title="private_client_æsimov"><svg viewBox="0 0 240 270" aria-hidden="true"><path d="M52 78 Q52 18 120 18 Q188 18 188 78 V176 Q188 246 120 250 Q52 246 52 176 Z" fill="#141416" stroke="#3a3a3e" stroke-width="5"/><rect x="66" y="92" width="108" height="56" rx="26" fill="#030a0b" stroke="#00f3ff" stroke-width="6"/><g class="eyes"><path d="M88 120 h18 M134 120 h18" stroke="#00f3ff" stroke-width="10" stroke-linecap="round"/></g><path d="M100 196 Q120 206 140 196" fill="none" stroke="#00f3ff" stroke-width="7" stroke-linecap="round"/><path d="M112 34 l6 10 l4 -16" fill="none" stroke="#00f3ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+ <div id="tip" role="dialog" aria-live="polite"><small>private_client_æsimov</small><p id="tipt"></p><div class="r"><span id="tipn" class="meta"></span><button type="button" id="tiph"></button><button type="button" class="y" id="tipy"></button></div></div>
 </div>
 <script>
 // pc://terminal · rescued from myaelmendez.github.io/privateclient/terminal.html
@@ -108,6 +117,43 @@ async function run(raw){
 }
 $("f").onsubmit=e=>{e.preventDefault();const v=$("i").value;$("i").value="";run(v)};
 for(const s of SUG){const b=document.createElement("button");b.type="button";b.textContent=s;b.onclick=()=>run(s);$("sg").appendChild(b)}
+
+// private_client_æsimov · DOM-aware guide: looks at each part, types the command, reads what came back.
+const ES=(navigator.language||"").toLowerCase().startsWith("es");
+const T=(en,es)=>ES?es:en;
+const ST=[
+ {el:"i",say:T("This is the prompt. >_æ| means: you ask, I read it live.","Este es el prompt. >_æ| significa: tú preguntas, yo leo en vivo.")},
+ {el:"sg",say:T("Pills are shortcuts. Same words in every language.","Las píldoras son atajos. Mismas palabras en todo idioma.")},
+ {el:"i",cmd:"#deploy",say:T("#deploy: is the door up? The witness head is the latest link in the log.","#deploy: ¿está arriba la puerta? El witness head es el último eslabón del registro.")},
+ {el:"i",cmd:"#verify",say:T("#verify: a public receipt. HUMAN://ROOT means a person approved it.","#verify: un recibo público. HUMAN://ROOT significa que lo aprobó una persona.")},
+ {el:"i",cmd:"#connect",say:T("#connect: where agents plug in. Keys work only while you sign in weekly.","#connect: donde se conectan los agentes. Las claves funcionan si entras cada semana.")},
+ {el:"i",cmd:"#manifesto",say:T("+æ context. ^æ compress. >_æ execute. You approve.","+æ contexto. ^æ comprime. >_æ ejecuta. Tú apruebas.")},
+ {el:"bot",say:T("Your turn. Type #help. Tap me anytime.","Tu turno. Escribe #help. Tócame cuando quieras.")}
+];
+let SI=-1;const bot=$("bot"),tip=$("tip"),stage=$("st");
+function place(el){
+ const sr=stage.getBoundingClientRect(),r=el.getBoundingClientRect();
+ let x=Math.min(sr.width-56,Math.max(4,r.left-sr.left+r.width/2-24)),y=r.top-sr.top-62;if(y<50)y=r.bottom-sr.top+8;
+ bot.style.transform=`translate(${x}px,${y}px)`;
+ const eyes=bot.querySelector(".eyes"),dx=Math.max(-6,Math.min(6,(r.left+r.width/2-(sr.left+x+24))/30));eyes.style.transform=`translate(${dx}px,${y>r.top-sr.top?-4:4}px)`;
+ const tw=Math.min(sr.width*.82,320);let tx=Math.min(sr.width-tw-8,Math.max(8,x-tw/2+24)),ty=y>r.top-sr.top?y+60:y-8;
+ tip.style.left=tx+"px";tip.classList.add("on");const th=tip.offsetHeight;tip.style.top=(y>r.top-sr.top?ty:Math.max(50,ty-th))+"px";
+}
+async function typeIn(c){const i=$("i");i.value="";for(const ch of c){i.value+=ch;await wait(matchMedia("(prefers-reduced-motion:reduce)").matches?0:70)}await wait(200);i.value="";await run(c)}
+async function step(n){
+ document.querySelectorAll(".hit").forEach(e=>e.classList.remove("hit"));
+ if(n<0||n>=ST.length){tip.classList.remove("on");SI=-1;localStorage.setItem("pc_term_learned","1");bot.style.transform="";place0();return}
+ SI=n;const s=ST[n],el=$(s.el);const tgt=s.el==="i"?$("f"):el;
+ if(s.el!=="bot")tgt.classList.add("hit");
+ $("tipt").textContent=s.say;$("tipn").textContent=(n+1)+"/"+ST.length;
+ $("tiph").textContent=T("Skip","Saltar");$("tipy").textContent=n===ST.length-1?T("Done","Listo"):s.cmd?T("Run "+s.cmd,"Ejecutar "+s.cmd):T("Next","Siguiente");
+ place(tgt);
+}
+function place0(){const sr=stage.getBoundingClientRect(),f=$("f").getBoundingClientRect();bot.style.transform=`translate(${sr.width-60}px,${f.top-sr.top-62}px)`;bot.querySelector(".eyes").style.transform=""}
+$("tipy").onclick=async()=>{const s=ST[SI];if(s&&s.cmd&&!s.ran){s.ran=1;$("tipy").disabled=true;await typeIn(s.cmd);$("tipy").disabled=false;$("tipy").textContent=T("Next","Siguiente");$("tipt").textContent=s.say+" ✓";place($("f"));return}step(SI+1)};
+$("tiph").onclick=()=>step(ST.length);
+bot.onclick=()=>{ST.forEach(s=>delete s.ran);step(SI>=0?ST.length:0)};
+addEventListener("resize",()=>SI>=0?place(ST[SI].el==="i"?$("f"):$(ST[SI].el)):place0());
 setInterval(()=>$("clk").textContent=new Date().toTimeString().slice(0,8),1000);
 (async()=>{
  const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
@@ -121,6 +167,7 @@ setInterval(()=>$("clk").textContent=new Date().toTimeString().slice(0,8),1000);
  line("meta",(ME&&ME.signed_in?esc(ME.name.split(" ")[0])+" · ":"")+new Date().toISOString().slice(0,10)+" · live reads, no simulation");
  line("meta","human stays root");
  $("i").focus({preventScroll:true});
+ place0();if(!localStorage.getItem("pc_term_learned"))setTimeout(()=>step(0),600);
 })();
 </script>
 </body></html>
