@@ -1,62 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1"/>
-<meta name="theme-color" content="#000000"/>
-<title>>_æ| · private client</title>
-<meta name="description" content="Private client command prompt. æ.store — agentic entrepreneurship."/>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050607">
+<title>pc://terminal · &gt;_PrivateClient</title>
+<meta name="description" content="pc://terminal: every answer is read live from privateclient.ai. Human stays root.">
 <style>
-:root{--void:#000000;--gold:#00f3ff;--gold-dim:rgba(0,243,255,.08);--neon:#3ee08f;--ink:#e9f6f7;--muted:#7d9a9e;--border:rgba(0,243,255,.10)}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html{height:100%}body{min-height:100dvh;background:var(--void);color:var(--ink);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.65;overflow:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--gold);color:var(--void)}
-body::before{content:'';position:fixed;inset:0;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");opacity:.025;pointer-events:none}body::after{content:'';position:fixed;inset:0;z-index:2;background:radial-gradient(ellipse at center,transparent 35%,rgba(6,6,6,.88) 100%);pointer-events:none}
-#auth{position:fixed;inset:0;z-index:100;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .7s ease}#auth.out{opacity:0;pointer-events:none}#auth .æ{font-family:system-ui,serif;font-weight:300;font-size:clamp(56px,16vw,96px);color:var(--gold);opacity:0;animation:fadeUp .7s .2s ease forwards;filter:drop-shadow(0 0 40px rgba(0,243,255,.12))}#auth .line{font-size:10px;letter-spacing:2px;color:var(--muted);min-height:1.4em}#auth .grant{color:var(--gold);font-weight:700;letter-spacing:1.5px;opacity:0}#auth .grant.show{animation:fadeUp .4s ease forwards}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-#term{position:relative;z-index:10;height:100dvh;max-width:480px;margin:0 auto;padding:env(safe-area-inset-top) 22px env(safe-area-inset-bottom);display:flex;flex-direction:column}#term::before{content:'';position:absolute;top:0;left:22px;right:22px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.18}#term.hidden{display:none}.hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;flex-shrink:0;border-bottom:1px solid var(--border)}.hdr .live{color:var(--gold)}.out{flex:1;overflow-y:auto;overflow-x:hidden;padding:14px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}.out::-webkit-scrollbar{display:none}
-.ln{opacity:0;transform:translateY(4px);transition:opacity .2s ease,transform .2s ease}.ln.on{opacity:1;transform:translateY(0)}.ln.sys{color:var(--ink);font-size:11px;padding:2px 0}.ln.meta{color:var(--muted);font-size:9px;letter-spacing:1px;padding:1px 0}.ln.hr{border-bottom:1px solid var(--border);margin:8px 0;height:0}.ln.cmd{color:var(--gold);font-weight:700;padding:10px 0 3px;font-size:11px;letter-spacing:.5px}.ln.r{padding:1px 0 1px 14px;font-size:10.5px}.ln.r .arr{color:var(--muted);margin-right:8px}.ln.r .k{display:inline-block;color:var(--muted);width:16ch}.ln.r .v{color:var(--ink)}.ln.r .v.g{color:var(--gold)}.ln.r .v.n{color:var(--neon)}.ln.err{color:#c44;padding:1px 0 1px 14px;font-size:10px}
-.sug{display:flex;flex-wrap:wrap;gap:5px;padding:10px 0 6px;flex-shrink:0}.pill{font-size:9px;letter-spacing:1px;padding:6px 12px;border:1px solid var(--border);color:var(--muted);background:transparent;font-family:ui-monospace,Menlo,Consolas,monospace;cursor:pointer;transition:all .15s}.pill:active,.pill:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}.pill.done{opacity:.25;pointer-events:none}.pr{display:flex;align-items:center;padding:8px 0 2px;border-top:1px solid var(--border);flex-shrink:0}.pr .g{color:var(--gold);font-weight:700;font-size:12px;flex-shrink:0;letter-spacing:1px}#ci{flex:1;background:transparent;border:none;outline:none;color:var(--ink);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;caret-color:var(--gold);padding:0;margin:0}.cur{color:var(--gold);font-size:12px;animation:bl 1s step-end infinite}#ci:focus~.cur{display:none}@keyframes bl{50%{opacity:0}}
-.tst{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px)+14px);left:50%;transform:translateX(-50%) translateY(60px);background:var(--gold);color:var(--void);font-weight:700;font-size:10px;letter-spacing:1px;padding:8px 18px;z-index:200;transition:transform .3s ease;text-transform:uppercase}.tst.on{transform:translateX(-50%) translateY(0)}@media(min-aspect-ratio:1/1){#term{max-width:560px}.ln.r .k{width:18ch}}
-</style>
-
-<meta property="og:title" content=">_æ| · private client">
-<meta property="og:description" content="Private client command prompt. æ.store — agentic entrepreneurship.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://myaelmendez.github.io/private-client.html">
-<meta property="og:image" content="https://myaelmendez.github.io/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content=">_æ| · private client">
-<meta name="twitter:description" content="Private client command prompt. æ.store — agentic entrepreneurship.">
-<meta name="twitter:image" content="https://myaelmendez.github.io/og-image.png">
-
-<meta name="robots" content="noindex"><style>
-/* ── PC:// LAB theme: one theme across Private Client ── */
-:root{--void:#000;--gold:#00f3ff;--gold-glow:rgba(0,243,255,.28);--neon:#3ee08f;--ink:#e9f6f7;--muted:rgba(233,246,247,.5);--border:rgba(0,243,255,.16);--border-hot:rgba(0,243,255,.45)}
-html,body{background-color:#000!important}
-body{background-image:linear-gradient(rgba(0,243,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,243,255,.05) 1px,transparent 1px)!important;background-size:40px 40px!important}
-.pcbar{position:relative;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:1080px;margin:0 auto;padding:12px 16px;font:13px ui-monospace,Menlo,Consolas,monospace;color:#7d9a9e}
-.pcbar a{color:#e9f6f7;text-decoration:none;font-weight:700;font-size:15px}
-.pcbar .tag{border:1px solid #12383b;border-radius:999px;padding:2px 10px;font-size:11px;letter-spacing:.08em;color:#00f3ff}
-.pcsim{position:relative;z-index:50;max-width:1080px;margin:0 auto 6px;padding:8px 16px;font:12px ui-monospace,Menlo,monospace;color:#ffcf5c;border:1px dashed rgba(255,207,92,.4);border-radius:10px}
-</style></head>
-<body><div class="pcbar"><a href="../">&gt;_PrivateClient</a><span class="tag">LAB · terminal</span></div><div class="pcsim">SIMULATION · a scripted prompt. Nothing here is signed in, connected, or executed. The real sign-in lives at privateclient.ai.</div>
-<div id="auth"><div class="æ">æ</div><div class="line" id="at"></div><div class="grant" id="ag">✓ access granted</div></div>
-<div id="term" class="hidden"><header class="hdr"><span>æ://</span><span id="clk">00:00:00</span><span class="live">private</span></header><main class="out" id="o"></main><div class="sug" id="sg"></div><div class="pr"><span class="g">&gt;_æ|</span><input id="ci" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"/><span class="cur">█</span></div></div>
-<div class="tst" id="tst">✓ copied</div>
-<script>
-const CMDS={'#connect':[{t:'cmd',x:'>_æ|#connect'},{t:'r',k:'hermes conductor',v:'standing by',c:'n'},{t:'r',k:'mcp protocol',v:'1517'},{t:'r',k:'context',v:'#startabusiness',c:'g'},{t:'r',k:'status',v:'ready',c:'n'}],'#deploy':[{t:'cmd',x:'>_æ|#deploy'},{t:'r',k:'skill',v:'installed',c:'n'},{t:'r',k:'viewport',v:'9:16 native'},{t:'r',k:'namespace',v:'æ.store',c:'g'},{t:'r',k:'surface',v:'github pages · live'}],'#formation':[{t:'cmd',x:'>_æ|#formation'},{t:'r',k:'blueprint',v:'loaded',c:'n'},{t:'r',k:'providers',v:'^atlas · ^doola',c:'g'},{t:'r',k:'entity',v:'user-controlled'},{t:'r',k:'jurisdiction',v:'your rules'}],'^cash':[{t:'cmd',x:'>_æ|^cash'},{t:'r',k:'stripe',v:'connected',c:'n'},{t:'r',k:'mode',v:'self-owning',c:'g'},{t:'r',k:'keys',v:'user-held'},{t:'r',k:'reachy',v:'watching'}],'#serve':[{t:'cmd',x:'>_æ|#serve'},{t:'r',k:'clerk',v:'reachyᴿ',c:'g'},{t:'r',k:'surface',v:'physical · digital'},{t:'r',k:'posture',v:'ready',c:'n'},{t:'r',k:'role',v:'explain #startabusiness'}],'$OS250':[{t:'cmd',x:'>_æ|$OS250'},{t:'r',k:'mission',v:'250 businesses',c:'g'},{t:'r',k:'philosophy',v:'#opensourceware',c:'n'},{t:'r',k:'method',v:'one command · one person'},{t:'r',k:'promise',v:'full agency',c:'g'}],'#manifesto':[{t:'cmd',x:'>_æ|#manifesto'},{t:'r',k:'+æ',v:'adds context',c:'g'},{t:'r',k:'^æ',v:'compresses language',c:'g'},{t:'r',k:'>_æ',v:'executes',c:'n'},{t:'r',k:'',v:'we equip owners with care',c:'g'}]};
-const SUG=['#connect','#deploy','#formation','^cash','#serve','$OS250','#manifesto'];const BOOT=[{t:'sys',x:'æ:// private client session'},{t:'meta',x:'authenticated · mcp/1517 · '+new Date().toISOString().slice(0,10)},{t:'hr'},{t:'r',k:'runtime',v:'hermes conductor',c:'g'},{t:'r',k:'protocol',v:'mcp/1517'},{t:'r',k:'skill',v:'#startabusiness',c:'g'},{t:'r',k:'viewport',v:'9:16 · æ.store'},{t:'r',k:'namespace',v:'æ.store',c:'n'},{t:'hr'},{t:'meta',x:'7 commands available · type or tap'}];
-const $=id=>document.getElementById(id);const wait=ms=>new Promise(r=>setTimeout(r,ms));async function type(el,text,spd=48){el.textContent='';for(const ch of text){el.textContent+=ch;await wait(spd+Math.random()*20)}}function mkLine(d){const el=document.createElement('div');el.className='ln '+d.t;if(d.t==='sys'||d.t==='meta'||d.t==='cmd'){el.textContent=d.x}else if(d.t==='r'){const k=d.k?'<span class="k">'+d.k+'</span>':'';const c=d.c?' '+d.c:'';el.innerHTML='<span class="arr">→</span>'+k+'<span class="v'+c+'">'+d.v+'</span>'}return el}async function feed(lines,ms=65){const o=$('o');for(const d of lines){const el=mkLine(d);o.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('on')));o.scrollTop=o.scrollHeight;await wait(ms)}}function exec(raw){const cmd=raw.trim();if(!cmd)return;const key=cmd.toLowerCase();if(CMDS[key]){feed(CMDS[key]);const p=$('sg').querySelector('[data-c="'+key+'"]');if(p)p.classList.add('done')}else{feed([{t:'cmd',x:'>_æ|'+cmd},{t:'err',x:'  not recognized'},{t:'err',x:'  try: '+SUG.slice(0,4).join(' · ')}])}}$('ci').addEventListener('keydown',e=>{if(e.key==='Enter'){exec($('ci').value);$('ci').value=''}});function buildSug(){SUG.forEach(cmd=>{const b=document.createElement('button');b.className='pill';b.textContent=cmd;b.dataset.c=cmd.toLowerCase();b.addEventListener('click',()=>{exec(cmd);b.classList.add('done')});$('sg').appendChild(b)})}function tick(){$('clk').textContent=new Date().toTimeString().slice(0,8)}setInterval(tick,1000);tick();async function auth(){await wait(500);await type($('at'),'æ:// authenticating...',52);await wait(900);$('ag').classList.add('show');await wait(1100);$('auth').classList.add('out');await wait(700);$('auth').style.display='none';$('term').classList.remove('hidden');await wait(200);await feed(BOOT,55);await wait(250);buildSug()}auth();
-</script>
-
-<!-- æ:// QR Verification Badge -->
-<div id="æ-qr-badge" style="
-  position:fixed;bottom:16px;right:16px;z-index:99999;
-  width:56px;height:56px;border:1px solid #00f3ff;border-radius:8px;
-  background:#000000;padding:4px;cursor:pointer;
-  transition:transform 0.2s,box-shadow 0.2s;
-" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 20px rgba(0,243,255,0.4)'"
-   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'"
-   onclick="window.open('https://myaelmendez.github.io/verify.html?url='+encodeURIComponent(location.href),'_blank')"
-   title="æ:// Verify this surface">
+:root{--c:#00f3ff;--g:#d4af37;--ink:#e9f6f7;--dim:#7d9a9e;--ok:#3ddc84;--warn:#ffc53d;--stop:#ff5d5d;--bd:#1d4a4e}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#050607;color:var(--ink);font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{display:grid;place-items:center;min-height:100dvh}
+#st{position:relative;width:min(100vw,calc(100dvh*9/16));height:min(100dvh,calc(100vw*16/9));background:#000;border:1px solid #0e3b3f;display:flex;flex-direction:column;padding:max(14px,env(safe-area-inset-top)) 18px max(14px,env(safe-area-inset-bottom));overflow:hidden}
+#st::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;background:linear-gradient(var(--c) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,var(--c) 1px,transparent 1px) 0 0/28px 28px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;z-index:1;font-size:12px;color:var(--dim);min-height:44px}
+header b{color:var(--c);font-size:15px}header .ae{color:var(--g)}
+#mode{border:1px solid var(--bd);border-radius:20px;padding:2px 10px}
+#mode.live{color:var(--ok);border-color:#1f5a3a}
+#o{flex:1;overflow-y:auto;z-index:1;padding:8px 0;min-height:0}
+.l{padding:1px 0;white-space:pre-wrap;word-break:break-word;animation:in .18s ease}
+@keyframes in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+.cmd{color:var(--c);margin-top:12px}.cmd .ae{color:var(--g)}
+.sys{color:var(--ink)}.meta{color:var(--dim);font-size:12px}
+.r{display:grid;grid-template-columns:11em 1fr;gap:8px}.r i{font-style:normal;color:var(--dim)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.stop{color:var(--stop)}.gold{color:var(--g)}
+.l a{color:var(--c)}
+#sg{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;z-index:1}
+#sg button{min-height:44px;padding:0 12px;border:1px solid var(--bd);border-radius:22px;background:none;color:var(--dim);font:13px ui-monospace,Menlo,monospace;cursor:pointer}
+#sg button:hover,#sg button:focus{border-color:var(--c);color:var(--ink);outline:none}
+form{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:12px;padding:0 12px;min-height:50px;background:#06191b;z-index:1}
+form b{color:var(--c)}form b .ae{color:var(--g)}
+form input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--ink);font:16px ui-monospace,Menlo,monospace}
+#boot{position:absolute;inset:0;z-index:5;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .6s}
+#boot.out{opacity:0;pointer-events:none}#boot .ae{font:700 64px/1 Georgia,serif;color:var(--g)}#boot p{color:var(--dim);min-height:1.5em}#boot .gr{color:var(--ok);opacity:0;transition:opacity .4s}#boot .gr.on{opacity:1}
+@media (min-width:760px) and (orientation:landscape){
+ body{display:block}#st{width:100%;height:100dvh;border:0;padding:24px clamp(24px,6vw,96px)}
+ header,#o,#sg,form{width:100%;max-width:860px;margin-left:auto;margin-right:auto}
+ html,body{font-size:15px}.r{grid-template-columns:14em 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="st">
+ <div id="boot" aria-hidden="true"><div class="ae">æ</div><p id="bt"></p><p class="gr" id="bg">✓ pc://terminal</p></div>
+ <header><span><b>pc://</b>terminal <span class="ae">æ</span></span><span id="clk">--:--:--</span><span id="mode">…</span></header>
+ <main id="o" aria-live="polite"></main>
+ <div id="sg"></div>
+ <form id="f" autocomplete="off"><b>&gt;_<span class="ae">æ</span>|</b><input id="i" aria-label="command" placeholder="#help" spellcheck="false" autocapitalize="off"></form>
 </div>
-</body>
-</html>
+<script>
+// pc://terminal · rescued from myaelmendez.github.io/privateclient/terminal.html
+// Rule: every answer is read live from privateclient.ai, or says plainly that it can't be.
+const SAME=location.hostname==="privateclient.ai"||location.hostname==="localhost"||location.hostname==="127.0.0.1";
+const API=SAME?"":"https://privateclient.ai";
+const $=id=>document.getElementById(id),O=$("o");
+const SUG=["#help","#connect","#deploy","#verify","#owner","#formation","^cash","$OS250","#manifesto"];
+const RID="b092dae80b2f";
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function line(cls,html){const d=document.createElement("div");d.className="l "+cls;d.innerHTML=html;O.appendChild(d);O.scrollTop=O.scrollHeight;return d}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const row=(k,v,c="")=>line("r",`<i>${esc(k)}</i><span class="${c}">${v}</span>`);
+const link=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t||u)}</a>`;
+async function j(p,cred){try{const r=await fetch(API+p,{credentials:cred&&SAME?"same-origin":"omit",cache:"no-store"});return{s:r.status,d:await r.json()}}catch(e){return{s:0,d:null}}}
+const day=t=>new Date(t*1000).toISOString().slice(0,10);
+let ME=null;
+const C={
+ "#help":async()=>{for(const[k,v]of[["#connect","your MCP keys + human freshness"],["#deploy","service health + witness head"],["#verify <rid>","a public receipt"],["#owner","owner door"],["#formation","#startabusiness rail"],["^cash","payments"],["$OS250","mission"],["#manifesto","+æ ^æ >_æ"],["#clear","clear"]])row(k,esc(v))},
+ "#connect":async()=>{
+  const p=await j("/.well-known/pc.json");
+  if(p.d){row("pc://mcp",esc(p.d.addresses["pc://mcp"].mcp));row("pc://yael",esc(p.d.addresses["pc://yael"].mcp));row("auth",esc("Bearer pck_ · human ≤ 7 days"))}else row("resolver","unreachable","stop");
+  if(!SAME){row("your keys","sign in at "+link("https://privateclient.ai/","privateclient.ai"),"warn");return}
+  const k=await j("/mcp/keys",1);
+  if(!k.d||!k.d.signed_in){row("your keys","sign in with LinkedIn first","warn");return}
+  row("you",esc(k.d.name));row("keys",String((k.d.keys||[]).length),"ok");
+  if(k.d.human_until){const fresh=k.d.human_until*1000>Date.now();row("human until",day(k.d.human_until),fresh?"ok":"stop")}
+  row("mint",link((API||"")+"/mcp/connect","pc://mcp/connect"))},
+ "#deploy":async()=>{
+  const h=await j("/health");row("privateclient",h.d&&h.d.ok?"✓ ok":"✗ down",h.d&&h.d.ok?"ok":"stop");
+  const g=await j("/guard");
+  if(g.d){row("guard",esc(g.d.guard+" · "+g.d.mood),g.d.mood==="ready"?"ok":"warn");row("uptime",Math.round(g.d.uptime_s/3600*10)/10+" h");row("blocked 1h",String(g.d.blocked_last_hour));row("witness head",esc(g.d.witness_head.slice(0,16))+"…","gold");row("promise",esc(g.d.promise))}
+  else row("guard","unreachable","stop")},
+ "#verify":async a=>{
+  const rid=(a||RID).toLowerCase();
+  if(!/^[0-9a-f]{12}$/.test(rid)){row("rid","12 hex chars","stop");return}
+  const r=await j("/r/"+rid);
+  if(!r.d||!r.d.found){row("pc://r/"+rid,"not found","stop");return}
+  const m=r.d.manifest||{};
+  row("pc://r/"+rid,"✓ found","ok");
+  if(r.d.t)row("signed",new Date(r.d.t*1000).toISOString().slice(0,16).replace("T"," ")+" UTC");
+  for(const k of["post","text_sha","card_sha","witness"])if(r.d[k])row(k,esc(String(r.d[k]).slice(0,24))+(String(r.d[k]).length>24?"…":""));
+  row("ai_assisted",String(!!r.d.ai_assisted));
+  const root=JSON.stringify(m).match(/HUMAN:\/\/ROOT/);if(root)row("root","HUMAN://ROOT","gold");
+  if(r.d.means)row("means",esc(r.d.means));
+  row("open",link((API||location.origin)+"/r/"+rid,"pc://r/"+rid))},
+ "#owner":async()=>{
+  if(!SAME){row("owner","owner only · "+link("https://privateclient.ai/owner","pc://owner"),"warn");return}
+  if(ME&&ME.owner){row("owner","✓ you",'ok');row("door",link("/owner","pc://owner"))}else row("owner","owner only","stop")},
+ "#formation":async()=>{row("rail","^doola","gold");row("entity","you form it · you own it");row("bookend","Private Client");row("setup",link((API||"")+"/#startabusiness","#startabusiness")+" · from $1,200")},
+ "^cash":async()=>{row("payments","not connected","warn");row("rule","no card · no charge · until you say")},
+ "$OS250":async()=>{row("mission","250 businesses","gold");row("method","one command · one person");row("nature","#opensourceware")},
+ "#manifesto":async()=>{row("+æ","adds context","gold");row("^æ","compresses language","gold");row(">_æ","executes","ok");row("HUMAN://ROOT","approves · publishes","gold")},
+ "#clear":async()=>{O.innerHTML=""}
+};
+async function run(raw){
+ const s=raw.trim();if(!s)return;
+ const[c,...a]=s.split(/\s+/);const k=Object.keys(C).find(x=>x.toLowerCase()===c.toLowerCase());
+ line("cmd",`&gt;_<span class="ae">æ</span>|${esc(s)}`);
+ if(!k){row(c,"unknown · #help","warn");return}
+ await C[k](a[0]);
+}
+$("f").onsubmit=e=>{e.preventDefault();const v=$("i").value;$("i").value="";run(v)};
+for(const s of SUG){const b=document.createElement("button");b.type="button";b.textContent=s;b.onclick=()=>run(s);$("sg").appendChild(b)}
+setInterval(()=>$("clk").textContent=new Date().toTimeString().slice(0,8),1000);
+(async()=>{
+ const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ const t="pc:// private client";
+ if(!rm)for(const ch of t){$("bt").textContent+=ch;await wait(38)}else $("bt").textContent=t;
+ if(SAME){const m=await j("/me",1);ME=m.d}
+ $("bg").classList.add("on");await wait(rm?0:500);$("boot").classList.add("out");
+ const md=$("mode");
+ if(SAME&&ME&&ME.signed_in){md.textContent="human ✓";md.className="live"}else if(SAME){md.textContent="signed out"}else{md.textContent="LAB · public reads";}
+ line("sys","pc:// private client · terminal");
+ line("meta",(ME&&ME.signed_in?esc(ME.name.split(" ")[0])+" · ":"")+new Date().toISOString().slice(0,10)+" · live reads, no simulation");
+ line("meta","human stays root");
+ $("i").focus({preventScroll:true});
+})();
+</script>
+</body></html>
