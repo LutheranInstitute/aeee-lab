@@ -54,8 +54,8 @@ footer{margin-top:36px;text-align:center;font-size:12px;color:var(--dim)}footer 
 <footer class="mono">$🤖osw · <a href="../lang/">face language</a> · <a href="../../privateclient/">PC:// LAB</a></footer>
 </main>
 <script>
-/* door check 2026-10-19 00:58 CDT: null = no working page yet (no dead ends), string = verified URL */
-const GO={"æ.store":"http://æ.store/","teologia.ai":"http://teologia.ai/","yæl.com":null,"æ.me":null,"zacapa.ai":null,"teologia.live":null,"molt.earth":null,"moltcontextprotocol.org":null,"iaamano.com":null};
+/* door check 2026-10-19 01:05 CDT: null = no working page yet (no dead ends), string = verified URL */
+const GO={"æ.store":null,"teologia.ai":"http://teologia.ai/","yæl.com":null,"æ.me":null,"zacapa.ai":null,"teologia.live":null,"molt.earth":null,"moltcontextprotocol.org":null,"iaamano.com":null};
 const D=PC_FACE.domains,M=Object.keys(PC_FACE.moods),grid=document.getElementById("grid");
 Object.entries(D).forEach(([d,v])=>{const go=d in GO?GO[d]:"https://"+d+"/",a=document.createElement(go?"a":"div");a.className="f"+(go?"":" off");if(go){a.href=go;a.rel="noopener"}else{a.title=d+" · face ready, page not live yet"}
  a.innerHTML=`<pc-face domain="${d}" mood="ready" size="78"></pc-face><b></b><small></small>`;a.querySelector("b").innerHTML=d.replace(/[&<>]/g,"").replace(/\./g,"<wbr>.");a.querySelector("small").textContent=v.role+(go?"":" · ◌ not live yet");grid.appendChild(a)});
