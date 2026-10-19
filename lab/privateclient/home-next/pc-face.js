@@ -60,7 +60,7 @@ class PCFace extends HTMLElement{
    glyph=this.getAttribute("glyph")||D.g||null,crown=CROWN[this.getAttribute("crown")]?this.getAttribute("crown"):(D.k||"pc"),
    c=this.getAttribute("color")||D.c||CROWN[crown],tint=m.tint||c,size=+this.getAttribute("size")||96;
   const esc=x=>String(x).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
-  const crownSvg=glyph?`<text x="120" y="${glyph.length>2?48:52}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-weight="800" font-size="${glyph.length>2?20:glyph.length>1?26:30}" stroke="none">${esc(glyph)}</text>`:CROWNPATH[crown];
+  const crownSvg=glyph?`<text x="120" y="${glyph.length>2?50:52}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-weight="800" font-size="${glyph.length>2?24:glyph.length>1?28:32}" ${glyph.length>2?'textLength="56" lengthAdjust="spacingAndGlyphs"':""} stroke="none">${esc(glyph)}</text>`:CROWNPATH[crown];
   let eyes;
   if(m.eyes==="dots")eyes=`<g class="dots"><circle cx="100" cy="120" r="5"/><circle cx="120" cy="120" r="5"/><circle cx="140" cy="120" r="5"/></g>`;
   else if(m.eyes==="scan")eyes=`<rect class="scan" x="72" y="98" width="8" height="44" rx="3" stroke="none"/><path d="M88 120H106M134 120H152" stroke-width="4" stroke-linecap="round" opacity=".35"/>`;
