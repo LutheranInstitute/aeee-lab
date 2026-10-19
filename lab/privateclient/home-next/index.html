@@ -82,6 +82,23 @@ a{color:var(--c)}
 #tip.on{display:block;animation:in .3s ease}#tip p{margin:0 0 8px}#tip .r{display:flex;gap:8px;justify-content:flex-end}
 #tip button{min-height:40px;border-radius:10px;border:1px solid #1d4a4e;background:none;color:var(--dim);font:13px system-ui,sans-serif;padding:0 10px;cursor:pointer}#tip button.y{border-color:var(--c);color:var(--ink)}
 .toast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:7;background:#031416;border:1px solid var(--c);border-radius:20px;padding:8px 14px;font-size:13px}
+#s0{overflow-y:auto;overflow-x:hidden}
+@media (min-width:900px) and (min-aspect-ratio:1/1){
+ body{display:block}
+ #st{width:100%;height:100dvh;border:0;padding:24px clamp(24px,5vw,72px)}
+ main{width:100%;max-width:1180px;margin:0 auto}
+ section:not(#s0){width:100%;max-width:600px;margin:0 auto}
+ #s0.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-flow:row dense;column-gap:clamp(32px,5vw,80px);align-content:center}
+ #s0>*{grid-column:1;max-width:520px;width:100%;justify-self:center}
+ #s0>.new,#s0>.offer{grid-column:2;max-width:460px}
+ #s0>.new{margin:0 auto 6px!important}
+ #s0 .face{width:min(240px,26vh);margin:0 auto}
+ #s0 h1{font-size:clamp(28px,2.6vw,40px);margin:18px 0 8px}
+ #s0 .sub{font-size:15px}
+ #s0 .promise{margin:18px 0 14px;font-size:13px}
+ .card{max-height:56vh}
+}
+@media (min-width:1500px) and (min-aspect-ratio:1/1){html,body{font-size:17px}}
 @media (prefers-reduced-motion:reduce){#bot{transition:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
