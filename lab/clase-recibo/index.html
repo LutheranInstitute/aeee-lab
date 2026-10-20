@@ -2,8 +2,8 @@
 <html lang="es" data-tt="noche">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Recibo de clase · Nivelación Agéntica · Diplomado</title>
-<meta name="description" content="Recibo de participación del alumno: Nivelación Agéntica, Diplomado en Transformación Digital, 20 de octubre de 2026.">
+<title>Recibo de nivelación · Diplomado</title>
+<meta name="description" content="Recibo de nivelación del alumno: cada vez que subes de nivel, genéralo y envíalo a tu correo. Diplomado en Transformación Digital.">
 <style>
 html{--tv:#07060b;--tc:#100e17;--tg:#d4af37;--th:#ffd873;--ti:#ece3c6;--tn:#00ffaa;--tl:rgba(212,175,55,.25);--ts:#a99f86;--go:#d4af37;--goi:#07060b}
 html[data-tt="dia"]{--tv:#f6f1e3;--tc:#fffdf6;--tg:#9a7400;--th:#5e4500;--ti:#1c1a14;--tn:#007a52;--tl:rgba(70,52,10,.2);--ts:#5d5442;--go:#1c1a14;--goi:#ffd873}
@@ -34,8 +34,8 @@ pre{white-space:pre-wrap;word-break:break-word;margin:0;font:14px/1.5 ui-monospa
 <body>
 <main>
 <p class="k">ILL://Escuela_de_tecnologia · Diplomado</p>
-<h1>Recibo de clase</h1>
-<p class="sub">Nivelación Agéntica · martes 20 de octubre de 2026 · 7:00–8:00 p. m. (hora de Texas)</p>
+<h1>Recibo de nivelación</h1>
+<p class="sub">Cada vez que subes de nivel, genera tu recibo y envíalo a tu correo. Así llevas tu propio historial.</p>
 <div class="tt" role="group" aria-label="Tema"><button type="button" data-tt="noche">NOCHE</button><button type="button" data-tt="dia">DÍA</button><button type="button" data-tt="latam">LATAM</button></div>
 
 <form id="f" autocomplete="on">
@@ -43,20 +43,29 @@ pre{white-space:pre-wrap;word-break:break-word;margin:0;font:14px/1.5 ui-monospa
   <input id="nom" name="name" autocomplete="name" required placeholder="Nombre y apellido">
   <label for="mail">Tu correo <small>(a donde llega el recibo)</small></label>
   <input id="mail" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="tu@correo.com">
-  <label>Tu nivel hoy</label>
+  <label>Venía del nivel</label>
+  <div class="lv">
+    <label><input type="radio" name="lv0" value="0"><b>0</b>Conversar</label>
+    <label><input type="radio" name="lv0" value="1"><b>1</b>Dirigir</label>
+    <label><input type="radio" name="lv0" value="2"><b>2</b>Delegar</label>
+    <label><input type="radio" name="lv0" value="3"><b>3</b>Publicar</label>
+  </div>
+  <label>Ahora estoy en el nivel</label>
   <div class="lv">
     <label><input type="radio" name="lv" value="0"><b>0</b>Conversar</label>
     <label><input type="radio" name="lv" value="1"><b>1</b>Dirigir</label>
     <label><input type="radio" name="lv" value="2"><b>2</b>Delegar</label>
     <label><input type="radio" name="lv" value="3"><b>3</b>Publicar</label>
   </div>
+  <label for="ses">Sesión o actividad</label>
+  <input id="ses" placeholder="Ej.: Nivelación Agéntica" value="Nivelación Agéntica">
   <label for="p1">El agente propuso…</label>
   <textarea id="p1" placeholder="Qué te entregó Hark Pro"></textarea>
   <label for="p2">Yo comprobé…</label>
   <textarea id="p2" placeholder="Qué revisaste o corregiste"></textarea>
   <label for="p3">Yo decidí…</label>
   <textarea id="p3" placeholder="Qué aceptaste, cambiaste o descartaste"></textarea>
-  <button class="btn btn--go" type="submit">Generar mi recibo</button>
+  <button class="btn btn--go" type="submit">Generar mi recibo de nivelación</button>
   <p class="note">Nada se guarda en internet: el recibo se arma en tu celular y tú decides a dónde enviarlo.</p>
 </form>
 
@@ -67,8 +76,9 @@ pre{white-space:pre-wrap;word-break:break-word;margin:0;font:14px/1.5 ui-monospa
   <button class="btn" id="share" type="button">Compartir (WhatsApp, etc.)</button>
   <button class="btn" id="copy" type="button">Copiar recibo</button>
   <p class="ok" id="msg"></p>
-  <p class="note">Este recibo también sirve como borrador de tu tarea «Bitácora de nivelación»: entrégala en Classroom antes del lunes 26 de octubre de 2026, con tu captura.</p>
+  <p class="note">Guárdalo en tu correo: cada recibo es una prueba de tu avance. También sirve como borrador de tu Bitácora de nivelación en Classroom.</p>
 </section>
+<section class="card" id="hist" style="display:none"><p class="k">Mis recibos en este celular</p><pre id="hl"></pre><button class="btn" id="hclr" type="button">Borrar historial de este celular</button></section>
 </main>
 <script>
 (function(){
@@ -77,34 +87,40 @@ function tt(t){if(L.indexOf(t)<0)t="noche";r.setAttribute("data-tt",t);try{local
 [].forEach.call(document.querySelectorAll(".tt button"),function(b){b.setAttribute("aria-pressed",String(b.dataset.tt===t))})}
 var s="noche";try{s=localStorage.getItem("ill-tt")||"noche"}catch(e){}tt(s);
 [].forEach.call(document.querySelectorAll(".tt button"),function(b){b.onclick=function(){tt(b.dataset.tt)}});
-var $=function(i){return document.getElementById(i)},K="ill-recibo-20oct2026",N=["Conversar","Dirigir","Delegar","Publicar"];
-try{var sv=JSON.parse(localStorage.getItem(K)||"{}");["nom","mail","p1","p2","p3"].forEach(function(i){if(sv[i])$(i).value=sv[i]});
-if(sv.lv){var x=document.querySelector('input[name=lv][value="'+sv.lv+'"]');if(x)x.checked=true}}catch(e){}
-function code(t){var h=0;for(var i=0;i<t.length;i++){h=(h*31+t.charCodeAt(i))>>>0}return "ILL-201026-"+h.toString(36).toUpperCase().slice(-5)}
+var $=function(i){return document.getElementById(i)},K="ill-recibo",KH="ill-recibos",N=["Conversar","Dirigir","Delegar","Publicar"];
+try{var sv=JSON.parse(localStorage.getItem(K)||"{}");["nom","mail","ses"].forEach(function(i){if(sv[i])$(i).value=sv[i]});
+if(sv.lv!=null){var x=document.querySelector('input[name=lv0][value="'+sv.lv+'"]');if(x)x.checked=true}}catch(e){}
+function H(){var a=[];try{a=JSON.parse(localStorage.getItem(KH)||"[]")}catch(e){}return a}
+function showH(){var a=H();$("hist").style.display=a.length?"block":"none";$("hl").textContent=a.map(function(x){return x.f+" · "+x.c+" · nivel "+x.de+" → "+x.a+" · "+x.s}).join("\n")}
+showH();$("hclr").onclick=function(){try{localStorage.removeItem(KH)}catch(e){}showH()};
+function code(t,ymd){var h=0;for(var i=0;i<t.length;i++){h=(h*31+t.charCodeAt(i))>>>0}return "ILL-"+ymd+"-"+h.toString(36).toUpperCase().slice(-5)}
 var TXT="";
 $("f").onsubmit=function(e){e.preventDefault();
-var lv=(document.querySelector("input[name=lv]:checked")||{}).value,d={nom:$("nom").value.trim(),mail:$("mail").value.trim(),lv:lv,p1:$("p1").value.trim(),p2:$("p2").value.trim(),p3:$("p3").value.trim()};
-try{localStorage.setItem(K,JSON.stringify(d))}catch(e){}
-var now=new Date(),hora=now.toLocaleString("es-MX",{timeZone:"America/Chicago",dateStyle:"long",timeStyle:"short"});
-TXT=["RECIBO DE CLASE · "+code(d.nom.toLowerCase()+d.mail.toLowerCase()),
+var lv=(document.querySelector("input[name=lv]:checked")||{}).value,lv0=(document.querySelector("input[name=lv0]:checked")||{}).value,d={nom:$("nom").value.trim(),mail:$("mail").value.trim(),lv:lv,ses:$("ses").value.trim()||"Nivelación Agéntica",p1:$("p1").value.trim(),p2:$("p2").value.trim(),p3:$("p3").value.trim()};
+try{localStorage.setItem(K,JSON.stringify({nom:d.nom,mail:d.mail,ses:d.ses,lv:lv}))}catch(e){}
+var now=new Date(),hora=now.toLocaleString("es-MX",{timeZone:"America/Chicago",dateStyle:"long",timeStyle:"short"}),fecha=now.toLocaleDateString("es-MX",{timeZone:"America/Chicago",dateStyle:"long"});
+var ymd=now.toLocaleDateString("en-CA",{timeZone:"America/Chicago"}).replace(/-/g,"").slice(2),C=code(d.nom.toLowerCase()+d.mail.toLowerCase()+lv0+lv+now.getTime(),ymd);
+var de=lv0!=null?lv0+" · "+N[+lv0]:"[sin indicar]",a=lv!=null?lv+" · "+N[+lv]:"[sin indicar]";
+try{var hh=H();hh.unshift({f:fecha,c:C,de:lv0!=null?lv0:"?",a:lv!=null?lv:"?",s:d.ses});localStorage.setItem(KH,JSON.stringify(hh.slice(0,30)))}catch(e){}showH();
+TXT=["RECIBO DE NIVELACIÓN · "+C,
 "Diplomado en Transformación Digital",
 "Instituto Luterano Latinoamericano · ILL://Escuela de Tecnología","",
 "Clase: APRENDER&ENSEÑAR el uso de la inteligencia artificial en lugares difíciles de alcanzar. 101",
-"Sesión: Nivelación Agéntica · martes 20 de octubre de 2026 · 7:00–8:00 p. m. (Texas)","",
+"Sesión: "+d.ses+" · "+fecha,"",
 "Alumno: "+d.nom,
 "Correo: "+d.mail,
-"Nivel: "+(lv!=null?lv+" · "+N[+lv]:"[sin indicar]"),"",
+"Nivel: "+de+"  →  "+a,"",
 "Propuso: "+(d.p1||"[por completar]"),
 "Comprobé: "+(d.p2||"[por completar]"),
 "Decidí: "+(d.p3||"[por completar]"),"",
 "Generado: "+hora+" (hora del centro)",
 "Evidencia ≠ autoridad: la supervisión informa, el humano decide.",
-"Tarea: Bitácora de nivelación · entrega en Classroom antes del lunes 26 de octubre de 2026."].join("\n");
+"Esto aprendí. Esto construí. Esto publiqué. Esto puedo enseñar."].join("\n");
 $("rc").textContent=TXT;$("out").classList.add("on");
-$("send").href="mailto:"+encodeURIComponent(d.mail)+"?subject="+encodeURIComponent("Recibo de clase · Nivelación Agéntica · 20 oct 2026")+"&body="+encodeURIComponent(TXT);
+$("send").href="mailto:"+encodeURIComponent(d.mail)+"?subject="+encodeURIComponent("Recibo de nivelación · "+C+" · nivel "+(lv0!=null?lv0:"?")+" → "+(lv!=null?lv:"?"))+"&body="+encodeURIComponent(TXT);
 $("share").style.display=navigator.share?"flex":"none";$("msg").textContent="";
 $("out").scrollIntoView({behavior:"smooth"});};
-$("share").onclick=function(){navigator.share({title:"Recibo de clase",text:TXT}).catch(function(){})};
+$("share").onclick=function(){navigator.share({title:"Recibo de nivelación",text:TXT}).catch(function(){})};
 $("copy").onclick=function(){(navigator.clipboard?navigator.clipboard.writeText(TXT):Promise.reject()).then(function(){$("msg").textContent="Copiado ✓"},function(){$("msg").textContent="Mantén presionado el recibo para copiarlo."})};
 })();
 </script>
