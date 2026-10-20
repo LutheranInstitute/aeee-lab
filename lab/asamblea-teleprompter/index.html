@@ -327,10 +327,50 @@
       .x-app .x-head p, .x-tile span, .x-sheet h3, .x-sheet__head p, .x-drawer__head p { color: #4a443b; }
       .x-tiles { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .x-tile input { min-width: 0; width: 100%; text-overflow: ellipsis; }
+      .x-cover { position: fixed; inset: 0; z-index: 200; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(16px, 4vw, 56px); padding: clamp(16px, 4vw, 56px); background: #f3ecdf; color: #141414; font-family: "Inter", system-ui, sans-serif; overflow: auto; }
+      .x-cover.is-off { display: none; }
+      .x-cover__art { margin: 0; height: 100%; max-height: calc(100vh - 2 * clamp(16px, 4vw, 56px)); display: flex; justify-content: center; }
+      .x-cover__art img { height: 100%; max-width: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 18px 50px rgba(20,20,20,.18); }
+      .x-cover__txt { max-width: 640px; }
+      .x-cover__k { margin: 0 0 .6em; font: 600 13px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .18em; color: #b9872d; }
+      .x-cover__h { margin: 0; font: 400 clamp(38px, 6vw, 84px)/1 "DM Serif Display", Georgia, serif; color: #17385d; }
+      .x-cover__t { margin: .35em 0 0; font: 400 clamp(22px, 2.8vw, 38px)/1.15 "DM Serif Display", Georgia, serif; color: #8f1d1d; }
+      .x-cover__en { margin: .4em 0 0; font-style: italic; color: #6c645a; }
+      .x-cover__rule { border: 0; height: 2px; margin: 1.2em 0; background: repeating-linear-gradient(90deg, #8f1d1d 0 10px, transparent 10px 16px); }
+      .x-cover__dl { display: grid; gap: 6px; margin: 0; }
+      .x-cover__dl div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; }
+      .x-cover__dl dt { font: 600 12px/1.6 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; color: #6c645a; }
+      .x-cover__dl dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+      .x-cover__v { margin: 1.4em 0 0; padding-left: 14px; border-left: 3px solid #b9872d; font: italic 400 clamp(16px, 1.5vw, 20px)/1.45 "DM Serif Display", Georgia, serif; }
+      .x-cover__v cite { display: block; margin-top: .3em; font: 600 12px "JetBrains Mono", monospace; font-style: normal; color: #6c645a; }
+      .x-cover__go { margin-top: 1.6em; min-height: 56px; padding: 0 28px; border: 0; border-radius: 999px; background: #8f1d1d; color: #fffdf8; font: 600 18px "Inter", system-ui, sans-serif; cursor: pointer; }
+      .x-cover__go:focus-visible { outline: 3px solid #b9872d; outline-offset: 3px; }
+      .x-cover__hint { margin: .8em 0 0; font-size: 13px; color: #6c645a; }
+      @media (max-aspect-ratio: 1/1) { .x-cover { grid-template-columns: 1fr; align-items: start; } .x-cover__art { height: auto; max-height: 52vh; } .x-cover__art img { height: auto; max-height: 52vh; } }
     </style>
   </head>
   <body>
     <div class="page" id="top">
+      <section class="x-cover" id="cover" role="dialog" aria-label="Portada de la Asamblea">
+        <figure class="x-cover__art"><img src="https://lutheraninstitute.github.io/annual-meeting/portada-estanzuela.jpg" alt="Manos de Amor · Del hilo a la aguja · bordado Estanzuela Pixel" decoding="async"/></figure>
+        <div class="x-cover__txt">
+          <p class="x-cover__k">LALM · LALS · LALI</p>
+          <h1 class="x-cover__h">Asamblea General 2026</h1>
+          <p class="x-cover__t">Manos de Amor · <em>Del hilo a la aguja</em></p>
+          <p class="x-cover__en">Faith passed from hand to hand</p>
+          <hr class="x-cover__rule"/>
+          <dl class="x-cover__dl">
+            <div><dt>Fecha</dt><dd>Martes 20 de octubre de 2026</dd></div>
+            <div><dt>Hora</dt><dd>8:30–9:30 AM Texas (CDT)</dd></div>
+            <div><dt>Zoom</dt><dd>897 9724 3388 · código 807997</dd></div>
+            <div><dt>Quórum</dt><dd>15 miembros</dd></div>
+            <div><dt>Preside</dt><dd>M. Yael Méndez</dd></div>
+          </dl>
+          <p class="x-cover__v">«Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.» <cite>Jeremías 29:11</cite></p>
+          <button class="x-cover__go" id="cover-go" type="button">Comenzar ▶</button>
+          <p class="x-cover__hint">Enter o Esc para entrar · botón «Portada» para volver</p>
+        </div>
+      </section>
       <main class="x-app" id="app" data-role="pres">
         <canvas class="x-life" id="life" aria-hidden="true"></canvas>
         <div class="x-top" id="top-bar" aria-hidden="true"><div class="x-top__fill" id="top-fill"></div></div>
@@ -344,6 +384,7 @@
             <button class="x-q" id="q-chip" type="button" aria-controls="q-pop" aria-expanded="false">QUÓRUM 0/15</button>
             <div class="x-head__tools x-hide">
               <button class="x-btn x-btn--amber" id="mode" type="button" title="Cambiar modo de reloj">Ensayo</button>
+              <button class="x-btn" id="cover-btn" type="button">Portada</button>
               <button class="x-btn" id="follow" type="button">Horario</button>
               <button class="x-btn" id="bi" type="button" aria-pressed="false" title="Español con guía en inglés">ES+EN</button>
               <button class="x-btn" id="open-agenda" type="button" aria-controls="drawer">Orden del día</button>
@@ -1303,4 +1344,19 @@
     </script>
   
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4d8013438240bee',t:'MTc5MjQ5OTEyMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4d8013438240bee',t:'MTc5MjQ5OTEyMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
+      (function () {
+        var c = document.getElementById("cover");
+        function hide() { c.classList.add("is-off"); }
+        function show() { c.classList.remove("is-off"); document.getElementById("cover-go").focus(); }
+        document.getElementById("cover-go").addEventListener("click", hide);
+        document.getElementById("cover-btn").addEventListener("click", show);
+        document.addEventListener("keydown", function (e) {
+          if (c.classList.contains("is-off")) return;
+          if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); e.stopImmediatePropagation(); hide(); }
+          else if (e.key !== "Tab") { e.stopImmediatePropagation(); }
+        }, true);
+        document.getElementById("cover-go").focus();
+      })();
+    </script>
+</body></html>
