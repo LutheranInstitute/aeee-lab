@@ -19,7 +19,7 @@ li.s{background:color-mix(in srgb,var(--c,#1f4fa3) 10%,transparent)}li.s .n{font
 .t{font:700 20px ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
 .o{font:12px ui-monospace,Menlo,monospace;color:var(--dim,#5a554b);min-width:4.2em;text-align:right}
 .d{font-size:12px;color:var(--dim,#5a554b)}
-.e{padding:10px 14px;border-top:1px solid var(--bd,#d6ccb6);font:600 13px ui-monospace,Menlo,monospace;color:var(--c,#1f4fa3)}
+.e span{white-space:nowrap}.e{padding:10px 14px;border-top:1px solid var(--bd,#d6ccb6);font:600 13px ui-monospace,Menlo,monospace;color:var(--c,#1f4fa3)}
 </style><div class="w" role="group" aria-label="Reloj latinoamericano"><div class="h"><span>L:// reloj LATAM</span><span id="d"></span></div><ul id="u"></ul><div class="e" id="e" hidden></div></div>`;
   this.tick();this.t=setInterval(()=>this.tick(),1000*15);
  }
@@ -34,7 +34,7 @@ li.s{background:color-mix(in srgb,var(--c,#1f4fa3) 10%,transparent)}li.s .n{font
    return `<li class="${i?"":"s"}"><span aria-hidden="true">${h>=6&&h<19?"☀️":"🌙"}</span><span class="n">${f} ${n}${dd?` <span class="d">· ${dd}</span>`:""}</span><span class="t">${t}</span><span class="o">UTC${off(tz,d)}</span></li>`}).join("");
   const e=R.getElementById("e");
   if(this.E){const at=new Date(this.E[0]),ms=at-d;e.hidden=false;
-   if(ms>0){const hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);e.textContent=`⏳ ${this.E[1]||"Evento"} · ${this.L==="en"?"in":"en"} ${hh} h ${mm} min · `+this.Z.map(([tz,n])=>n.split(" ·")[0]+" "+new Intl.DateTimeFormat(loc,{timeZone:tz,hour:"numeric",minute:"2-digit"}).format(at)).slice(0,3).join(" · ")}
+   if(ms>0){const hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);e.innerHTML=`<span>⏳ ${this.E[1]||"Evento"}</span> · <span>${this.L==="en"?"in":"en"} ${hh} h ${mm} min</span><br>`+this.Z.map(([tz,n])=>`<span>${n.split(" ·")[0]} ${new Intl.DateTimeFormat(loc,{timeZone:tz,hour:"numeric",minute:"2-digit"}).format(at)}</span>`).slice(0,3).join(" · ")}
    else if(ms>-2*36e5)e.textContent=`🔴 ${this.E[1]||"Evento"} · ${this.L==="en"?"live now":"en vivo ahora"}`;else e.hidden=true}
  }
 }
