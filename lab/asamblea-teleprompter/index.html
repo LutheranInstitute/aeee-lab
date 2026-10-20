@@ -172,11 +172,11 @@
       .x-agenda li.is-done .x-n { color: var(--text-secondary); }
 
       /* role colors */
-      [data-role="pres"] { --x-role: #ffbf47; }
-      [data-role="sec"] { --x-role: #5aa9ff; }
-      [data-role="tes"] { --x-role: #4cd07d; }
-      [data-role="dir"] { --x-role: #b48cff; }
-      [data-role="cap"] { --x-role: #f3e3b5; }
+      [data-role="pres"] { --x-role: #b9872d; }
+      [data-role="sec"] { --x-role: #17385d; }
+      [data-role="tes"] { --x-role: #4e6f4e; }
+      [data-role="dir"] { --x-role: #8f1d1d; }
+      [data-role="cap"] { --x-role: #6b4a8a; }
       .x-rdot { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; background: var(--x-role); margin-right: 0.45em; vertical-align: 0.02em; flex: none; }
 
       /* speaker indicator: always visible */
@@ -324,6 +324,9 @@
       .x-big--go { background: #8f1d1d !important; color: #fffdf8 !important; border-color: #8f1d1d !important; }
       .x-life { opacity: 0.06; }
       .x-scrim { background: rgba(20,20,20,.35); }
+      .x-app .x-head p, .x-tile span, .x-sheet h3, .x-sheet__head p, .x-drawer__head p { color: #4a443b; }
+      .x-tiles { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .x-tile input { min-width: 0; width: 100%; text-overflow: ellipsis; }
     </style>
   </head>
   <body>
@@ -704,7 +707,7 @@
           return h ? h + ":" + pad(m) + ":" + pad(s) : pad(m) + ":" + pad(s);
         }
         function hh(t) { return t ? (t.length < 5 ? "0" + t : t) : "--:--"; }
-        function hd(s) { return "[" + hh(s.t) + "] " + s.title.toUpperCase().replace(/\s+/g, "_"); }
+        function hd(s) { return hh(s.t) + " · " + s.title; }
         function virt(sec) {
           var t = Math.floor(30600 + sec), h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = t % 60;
           return hm(h, m) + ":" + pad(s);
