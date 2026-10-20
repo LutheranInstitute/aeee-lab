@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400&amp;display=swap"/>
-    <link rel="stylesheet" href="../asamblea-teleprompter/base.css"/>
+    <link rel="stylesheet" href="base.css"/>
     
     <style>
       .x-app {
@@ -413,7 +413,7 @@
             <p class="x-seg__meta"><span id="seg-n">1/14</span> · <span id="seg-dur">1 min</span></p>
             <h2 id="seg-title">[19:00] BIENVENIDA</h2>
             <div class="x-spk" id="spk">
-              <span class="x-spk__badge">Ahora habla · <span id="spk-who">Docente</span></span>
+              <span class="x-spk__badge">Ahora habla · <span id="spk-who">Presidente</span></span>
               <span class="x-spk__has">Tiene <b id="spk-min">1</b> min</span>
               <span class="x-spk__cd"><svg class="x-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="x-ring__bg" cx="18" cy="18" r="15.5"></circle><circle class="x-ring__fg" id="spk-ring" cx="18" cy="18" r="15.5" pathLength="100"></circle></svg></span>
             </div>
@@ -435,7 +435,7 @@
 
         <div class="x-sv" id="sv" aria-hidden="true">
           <p class="x-sv__k">Ahora habla</p>
-          <p class="x-sv__who" id="sv-who">Docente</p>
+          <p class="x-sv__who" id="sv-who">Presidente</p>
           <p class="x-sv__has">Tiene <b id="sv-min">1</b> min</p>
           <p class="x-sv__time" id="sv-time">01:00</p>
           <div class="x-sv__bar"><span id="sv-bar"></span></div>
@@ -475,10 +475,10 @@
           <div class="x-sheet__head">
             <div>
               <h2>Mesa del docente</h2>
-              <p>Zoom + Hark Pro · Docente: M. Yael Méndez</p>
+              <p>Zoom 897 9724 3388 · código 807997 · Presidente: M. Yael Méndez</p>
             </div>
             <div class="links">
-              <a class="btn" href="https://classroom.google.com/c/NzA3NjQyMTc1MzI2" rel="noopener" target="_blank">Abrir Classroom</a>
+              <a class="btn" href="https://us06web.zoom.us/j/89797243388?pwd=0HUQEwhaJk0kWK9aaWwaDeQppoPghX.1" rel="noopener" target="_blank">Abrir sala de Zoom</a>
               <button class="x-btn" type="button" data-close="">✕ Cerrar</button>
             </div>
           </div>
@@ -492,7 +492,7 @@
           <div class="x-sheet__head">
             <div>
               <h2>Bitácora en vivo</h2>
-              <p>Se arma sola con horas, presentes y pendientes.</p>
+              <p>Se arma sola con horas, quórum, mociones y votos.</p>
             </div>
             <div class="links">
               <button class="x-btn" id="acta-copy" type="button">Copiar bitácora</button>
@@ -500,10 +500,10 @@
               <button class="x-btn" type="button" data-close="">✕ Cerrar</button>
             </div>
           </div>
-          <h3>Notas del docente</h3>
+          <h3>Notas del secretario(a)</h3>
           <textarea class="x-in" id="acta-notes" aria-label="Notas"></textarea>
           <h3>Borrador</h3>
-          <textarea class="x-in x-out" id="acta-out" readonly="" aria-label="Bitácora de la clase"></textarea>
+          <textarea class="x-in x-out" id="acta-out" readonly="" aria-label="Borrador del acta"></textarea>
         </section>
       </main>
     </div>
@@ -680,12 +680,13 @@
         var SEG = [
           { t: "19:00", d: 3, title: "Bienvenida", who: "Docente", lines: [["say", "Buenas noches, bienvenidos al Diplomado en Transformación Digital. Esta noche hacemos una Nivelación Agéntica: que todos lleguemos al mismo punto de partida.", "Welcome. Tonight: agentic leveling."], ["cue", "Aviso de grabación"], ["say", "Esta clase se graba para quienes no pudieron conectarse por la señal. Al permanecer en la sala, aceptan la grabación.", "Class is recorded for those with poor signal."], ["link", "HANS saluda", "https://lutheraninstitute.github.io/HANS/?skip=1&expr=happy"]] },
           { t: "19:03", d: 2, title: "Devocional breve", who: "Pastor invitado", lines: [["say", "Invito a un hermano a leer el versículo y orar brevemente.", "Short devotional."], ["verse", "Mirad cuán bueno y cuán delicioso es habitar los hermanos juntos en armonía.", "Salmos 133:1 (RVR1960)", "Psalm 133:1: how good and pleasant is unity."]] },
-          { t: "19:05", d: 5, title: "Diagnóstico · ¿en qué nivel estás?", who: "Docente", lines: [["say", "Escriban en el chat de Zoom un número del 0 al 3. Sin pena: el nivel es el punto de partida, no una calificación.", "Type your level 0–3 in the chat."], ["cue", "0 · Conversar: nunca he usado IA"], ["cue", "1 · Dirigir: uso ChatGPT u otra IA"], ["cue", "2 · Delegar: uso Hark y le encargo tareas"], ["cue", "3 · Publicar: tengo GitHub y mi repo mi-diplomado"], ["say", "Cuento: nivel 0 __ · nivel 1 __ · nivel 2 __ · nivel 3 __. Los presentes van en el contador.", "Count levels; update attendance."]] },
-          { t: "19:10", d: 5, title: "Lugares difíciles de alcanzar", who: "Docente", lines: [["say", "Muchos de ustedes sirven donde la señal es poca, el celular es viejo y los datos son caros. La IA también puede llegar ahí, si la usamos con criterio.", "AI in hard-to-reach places."], ["cue", "Reglas de la noche"], ["say", "Uno: descarguen con Wi-Fi. Dos: texto antes que video. Tres: si no hay tiempo de escribir, nota de voz. Cuatro: nunca peguen contraseñas en un chat.", "Wi-Fi to download; text first; voice notes; no passwords."]] },
-          { t: "19:15", d: 10, title: "Caso real · el acta de la Asamblea", who: "Docente", lines: [["say", "Esta mañana tuvimos la Asamblea General 2026. Un resumen automático escuchó la reunión. Dijo cosas útiles… y cosas dudosas, como una cifra de 300.000 personas y un apellido confundido.", "This morning's Assembly as a real case."], ["say", "Con ese resumen, el orden del día y el acta del año pasado, el agente redactó el borrador del acta. Lo que no sabía, lo dejó entre corchetes: el quórum, quién propuso, quién secundó.", "The agent drafted; unknowns stayed in brackets."], ["say", "Y luego, la Secretaría revisa y aprueba. El agente propone, la persona comprueba, la persona decide.", "Secretary reviews and approves."], ["verse", "Evidencia ≠ autoridad: la supervisión informa, el humano decide.", "Regla del Diplomado", "Evidence is not authority."]] },
-          { t: "19:25", d: 5, title: "Las 4 piezas del contexto", who: "Docente", lines: [["say", "Un agente es tan bueno como el contexto que le damos. Son cuatro piezas:", "Four parts of context."], ["cue", "1 · Meta: qué quiero que salga"], ["cue", "2 · Fuentes: qué documentos le doy"], ["cue", "3 · Formato: acta, lista, mensaje de WhatsApp"], ["cue", "4 · Límites: qué no debe inventar y qué debe marcar"]] },
-          { t: "19:30", d: 20, title: "Práctica por niveles", who: "Docente", lines: [["say", "Ahora practicamos. Cada quien en su nivel, y los de nivel 2 y 3 acompañan a uno de nivel 0. Se multiplica la enseñanza.", "Practice by level; advanced students mentor."], ["cue", "Nivel 0 · Instala Hark y escribe:"], ["say", "«Hola, soy alumno del Diplomado en Transformación Digital.» Luego hazle una pregunta real de tu iglesia, escuela o trabajo.", "Install Hark and say hello."], ["link", "Cómo instalar Hark", "https://lutheraninstitute.github.io/diplomado-agentico/instalar/"], ["cue", "Nivel 1–2 · Pídele un acta:"], ["say", "«Con estas notas de mi última reunión, redacta el acta. Lo que no esté en las notas, déjalo entre corchetes para que yo lo confirme.» Comparen: ¿qué inventó?, ¿qué marcó?, ¿qué corrigieron?", "Draft minutes; unknowns in brackets."], ["cue", "Nivel 3 · Guarda lo que funcionó:"], ["say", "Copien la instrucción que funcionó en el AGENTS.md de su repo mi-diplomado y hagan un commit con un mensaje claro.", "Save the prompt in AGENTS.md and commit."], ["link", "Plantilla mi-diplomado", "https://github.com/LutheranInstitute/mi-diplomado"]] },
-          { t: "19:50", d: 6, title: "Tres voces", who: "Alumnos", lines: [["say", "Escuchemos a tres compañeros, uno por nivel si es posible. Cada uno responde en un minuto: qué propuso el agente, qué comprobé, qué decidí.", "Three students share: proposed, checked, decided."], ["cue", "Voz 1 · ____"], ["cue", "Voz 2 · ____"], ["cue", "Voz 3 · ____"]] },
+          { t: "19:05", d: 5, title: "Diagnóstico · ¿en qué nivel estás?", who: "Docente", lines: [["say", "Escriban en el chat de Zoom un número del 0 al 3. Sin pena: el nivel es el punto de partida, no una calificación.", "Type your level 0–3 in the chat."], ["cue", "0 · Conversar: nunca he usado IA"], ["cue", "1 · Dirigir: uso ChatGPT u otra IA"], ["cue", "2 · Delegar: uso Hark Pro y le encargo tareas"], ["cue", "3 · Publicar: tengo GitHub y mi repo mi-diplomado"], ["say", "Cuento: nivel 0 __ · nivel 1 __ · nivel 2 __ · nivel 3 __. Los presentes van en el contador.", "Count levels; update attendance."]] },
+          { t: "19:10", d: 4, title: "Lugares difíciles de alcanzar", who: "Docente", lines: [["say", "Muchos de ustedes sirven donde la señal es poca, el celular es viejo y los datos son caros. La IA también puede llegar ahí, si la usamos con criterio.", "AI in hard-to-reach places."], ["cue", "Reglas de la noche"], ["say", "Uno: descarguen con Wi-Fi. Dos: texto antes que video. Tres: si no hay tiempo de escribir, nota de voz. Cuatro: nunca peguen contraseñas en un chat.", "Wi-Fi to download; text first; voice notes; no passwords."]] },
+          { t: "19:14", d: 12, title: "Hark Pro · nuevas tecnologías agénticas", who: "Docente", lines: [["say", "Esta noche aprendemos la herramienta esencial del Diplomado: Hark Pro. No es un buscador ni un chat más: es un agente que hace cosas reales por ti, y es gratis, sin anuncios.", "Hark Pro: an agent that does real things, free, no ads."], ["cue", "1 · Un solo hilo que te recuerda"], ["say", "No hay «chat nuevo». Es una sola conversación continua y Hark recuerda lo que le cuentas: tu iglesia, tu clase, tu gente. Para un trabajo largo, como la tesis o el ministerio, creas un Proyecto.", "One continuous thread with memory; Projects for long work."], ["cue", "2 · Delegar, no solo preguntar"], ["say", "Le encargas una tarea completa: redactar un acta, buscar información, armar una Página. Hark puede usar un navegador real y conectarse a Gmail, Calendar, Drive y GitHub.", "Delegate whole tasks; real browser; Google and GitHub."], ["cue", "3 · Seguridad"], ["say", "Cuando un sitio pide iniciar sesión, Hark lo pide en un formulario seguro. Nunca escriban contraseñas ni números de tarjeta en el chat. Y antes de pagar o enviar algo en su nombre, Hark les pregunta.", "Secure sign-in forms; never paste passwords; it asks before paying or sending."], ["cue", "4 · Enséñale una vez"], ["say", "Si le explican cómo les gusta un trabajo, Hark lo guarda como especialidad y lo hace así la próxima vez. También puede programar recordatorios y poner paneles en su Inicio.", "Specialties, scheduled tasks, Home panels."], ["cue", "DEMO EN VIVO · compartir pantalla del celular"], ["say", "Miren: le pido a Hark, en voz alta, algo del Diplomado. Fíjense en tres cosas: qué propone, qué compruebo yo y qué decido yo.", "Live demo: proposes, I check, I decide."], ["link", "Cómo instalar Hark", "https://lutheraninstitute.github.io/diplomado-agentico/instalar/"]] },
+          { t: "19:26", d: 8, title: "Caso real · el acta de la Asamblea", who: "Docente", lines: [["say", "Esta mañana tuvimos la Asamblea General 2026. Un resumen automático escuchó la reunión. Dijo cosas útiles… y cosas dudosas, como una cifra de 300.000 personas y un apellido confundido.", "This morning's Assembly as a real case."], ["say", "Con ese resumen, el orden del día y el acta del año pasado, el agente redactó el borrador del acta. Lo que no sabía, lo dejó entre corchetes: el quórum, quién propuso, quién secundó.", "The agent drafted; unknowns stayed in brackets."], ["say", "Y luego, la Secretaría revisa y aprueba. El agente propone, la persona comprueba, la persona decide.", "Secretary reviews and approves."], ["verse", "Evidencia ≠ autoridad: la supervisión informa, el humano decide.", "Regla del Diplomado", "Evidence is not authority."]] },
+          { t: "19:34", d: 4, title: "Las 4 piezas del contexto", who: "Docente", lines: [["say", "Un agente es tan bueno como el contexto que le damos. Son cuatro piezas:", "Four parts of context."], ["cue", "1 · Meta: qué quiero que salga"], ["cue", "2 · Fuentes: qué documentos le doy"], ["cue", "3 · Formato: acta, lista, mensaje de WhatsApp"], ["cue", "4 · Límites: qué no debe inventar y qué debe marcar"]] },
+          { t: "19:38", d: 13, title: "Práctica por niveles", who: "Docente", lines: [["say", "Ahora practicamos. Cada quien en su nivel, y los de nivel 2 y 3 acompañan a uno de nivel 0. Se multiplica la enseñanza.", "Practice by level; advanced students mentor."], ["cue", "Nivel 0 · Instala Hark Pro y escribe:"], ["say", "«Hola, soy alumno del Diplomado en Transformación Digital.» Luego hazle una pregunta real de tu iglesia, escuela o trabajo.", "Install Hark and say hello."], ["link", "Cómo instalar Hark", "https://lutheraninstitute.github.io/diplomado-agentico/instalar/"], ["cue", "Nivel 1–2 · Pídele un acta:"], ["say", "«Con estas notas de mi última reunión, redacta el acta. Lo que no esté en las notas, déjalo entre corchetes para que yo lo confirme.» Comparen: ¿qué inventó?, ¿qué marcó?, ¿qué corrigieron?", "Draft minutes; unknowns in brackets."], ["cue", "Nivel 3 · Guarda lo que funcionó:"], ["say", "Copien la instrucción que funcionó en el AGENTS.md de su repo mi-diplomado y hagan un commit con un mensaje claro.", "Save the prompt in AGENTS.md and commit."], ["link", "Plantilla mi-diplomado", "https://github.com/LutheranInstitute/mi-diplomado"]] },
+          { t: "19:51", d: 5, title: "Tres voces", who: "Alumnos", lines: [["say", "Escuchemos a tres compañeros, uno por nivel si es posible. Cada uno responde en un minuto: qué propuso el agente, qué comprobé, qué decidí.", "Three students share: proposed, checked, decided."], ["cue", "Voz 1 · ____"], ["cue", "Voz 2 · ____"], ["cue", "Voz 3 · ____"]] },
           { t: "19:56", d: 3, title: "Tarea · Bitácora de nivelación", who: "Docente", lines: [["say", "La tarea es la Bitácora de nivelación. Entreguen en Classroom antes del lunes 26 de octubre: su nivel, una captura de su encargo al agente y tres líneas: propuso, comprobé, decidí. Se acepta foto o nota de voz.", "Homework due Mon Oct 26 in Classroom."], ["link", "Classroom", "https://classroom.google.com/c/NzA3NjQyMTc1MzI2"]] },
           { t: "19:59", d: 1, title: "Cierre", who: "Docente", lines: [["say", "Gracias por su tiempo y su esfuerzo. Recuerden: Esto aprendí. Esto construí. Esto publiqué. Esto puedo enseñar. Nos vemos el próximo martes a las 7. Dios les bendiga.", "Thanks. See you next Tuesday at 7."]] }
         ];
