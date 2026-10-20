@@ -322,6 +322,34 @@
         .x-say { font-size: clamp(20px, 5.6vw, 26px); }
         .x-life { opacity: 0.06 !important; }
       }
+      /* Móvil v2: cabecera de una línea, guion al centro */
+      .x-menu-btn { display: none; }
+      @media (max-width: 700px) {
+        .x-head { flex-wrap: nowrap; padding: 6px 10px; gap: 8px; }
+        .x-head > div:first-child { display: none; }
+        .x-head > .x-head__tools { display: flex; width: 100%; align-items: center; gap: 8px; flex-wrap: nowrap; }
+        .x-q { min-height: 38px !important; padding: 4px 12px !important; font-size: 15px !important; flex: 1; text-align: left; }
+        .x-menu-btn { display: block; order: 2; min-height: 38px; min-width: 46px; border-radius: 12px; border: 1px solid var(--tl); background: transparent; color: var(--th); font-size: 20px; }
+        .x-head__tools .x-head__tools { display: none !important; }
+        .x-head.is-menu { flex-wrap: wrap; }
+        .x-head.is-menu > .x-head__tools { flex-wrap: wrap; }
+        .x-head.is-menu .x-head__tools .x-head__tools { display: flex !important; flex-wrap: wrap; gap: 6px; width: 100%; order: 3; }
+        .x-head.is-menu .x-head__tools .x-head__tools .x-btn { flex: 1 1 30%; min-height: 40px; }
+        .x-seg { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 10px; padding: 6px 12px !important; }
+        .x-seg > div:first-child { min-width: 0; }
+        .x-seg__meta, .x-spk__has, .x-spk__cd, .x-upnext, .x-status { display: none !important; }
+        .x-seg h2, #seg-title { font-size: 17px !important; line-height: 1.2 !important; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .x-spk { margin: 2px 0 0 !important; }
+        .x-spk__badge { font-size: 11px !important; padding: 2px 8px !important; min-height: 0 !important; letter-spacing: .06em; }
+        .x-timer { font-size: 34px !important; margin: 0 !important; grid-column: 2; grid-row: 1; }
+        .x-seg .x-bar { grid-column: 1 / -1; height: 3px !important; margin: 6px 0 0 !important; }
+        .x-next { display: none !important; }
+        .x-ctrl { padding: 6px 10px max(6px, env(safe-area-inset-bottom)) !important; }
+        .x-ctrl__main { grid-template-columns: 52px minmax(0, 1fr) minmax(0, 1.5fr) 48px !important; gap: 6px !important; }
+        .x-big, .x-ctrl__more { min-height: 48px !important; font-size: 16px !important; border-radius: 12px !important; }
+        .x-say { font-size: clamp(22px, 6.4vw, 30px); line-height: 1.35; }
+        .x-script { padding: 12px 14px !important; }
+      }
       /* Fusión · Escuela de Tecnología ILL:// (Noche · Día · LATAM) */
       html { --tv:#07060b; --tc:#100e17; --tg:#d4af37; --th:#ffd873; --ti:#ece3c6; --tn:#00ffaa; --ty:#5fd8ff; --tl:rgba(212,175,55,.22); --ts:#a99f86; --tgo:#d4af37; --tgoi:#07060b; }
       html[data-tt="dia"] { --tv:#f6f1e3; --tc:#fffdf6; --tg:#9a7400; --th:#5e4500; --ti:#1c1a14; --tn:#007a52; --ty:#0a5fa0; --tl:rgba(70,52,10,.18); --ts:#5d5442; --tgo:#1c1a14; --tgoi:#ffd873; }
@@ -406,6 +434,7 @@
             <p>Diplomado en Transformación Digital · APRENDER&amp;ENSEÑAR la IA en lugares difíciles de alcanzar 101 · Mar 20 oct 2026 · 7:00–8:00 PM CDT</p>
           </div>
           <div class="x-head__tools">
+            <button class="x-menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-label="Menú">☰</button>
             <button class="x-q" id="q-chip" type="button" aria-controls="q-pop" aria-expanded="false">PRESENTES 0/23</button>
             <div class="x-head__tools x-hide">
               <button class="x-btn x-btn--amber" id="mode" type="button" title="Cambiar modo de reloj">Ensayo</button>
@@ -1377,5 +1406,11 @@ r.setAttribute("data-tt",s);})();
 <script>
 document.addEventListener("DOMContentLoaded",function(){var m=document.getElementById("more-btn"),c=document.querySelector(".x-ctrl");if(!m||!c)return;
 m.addEventListener("click",function(e){e.stopPropagation();var o=c.classList.toggle("is-open");m.setAttribute("aria-expanded",String(o));m.textContent=o?"✕":"⚙︎";});});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("menu-btn"),hd=document.querySelector(".x-head");
+if(b&&hd)b.addEventListener("click",function(e){e.stopPropagation();var o=hd.classList.toggle("is-menu");b.setAttribute("aria-expanded",String(o));b.textContent=o?"✕":"☰";});
+[].forEach.call(document.querySelectorAll(".x-head__tools .x-head__tools .x-btn:not(#tt-btn):not(#bi):not(#mode)"),function(x){x.addEventListener("click",function(){if(window.innerWidth<=700&&hd){setTimeout(function(){hd.classList.remove("is-menu");b.textContent="☰";b.setAttribute("aria-expanded","false")},150)}})});
+if(window.matchMedia("(max-width: 700px)").matches){var p=document.getElementById("prev");if(p)p.textContent="◀";}});
 </script>
 </body></html>
