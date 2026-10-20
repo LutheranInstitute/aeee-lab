@@ -173,9 +173,9 @@
 
       /* role colors */
       [data-role="pres"] { --x-role: #b9872d; }
-      [data-role="sec"] { --x-role: #17385d; }
+      [data-role="sec"] { --x-role: var(--ty); }
       [data-role="tes"] { --x-role: #4e6f4e; }
-      [data-role="dir"] { --x-role: #8f1d1d; }
+      [data-role="dir"] { --x-role: var(--tn); }
       [data-role="cap"] { --x-role: #6b4a8a; }
       .x-rdot { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; background: var(--x-role); margin-right: 0.45em; vertical-align: 0.02em; flex: none; }
 
@@ -304,57 +304,63 @@
         .x-spk.is-warn .x-ring__fg { animation: none; }
         .x-life { display: none; }
       }
-      /* Estilo Asamblea 2026 · Manos de Amor (cream paper, ink, red thread, gold, blue) */
-      .x-app { color-scheme: light; --x-black: #f3ecdf; --x-panel: #fffdf8; --x-amber: #b9872d; --x-green: #8f1d1d; --x-cyan: #17385d;
-        --x-mono: "JetBrains Mono", ui-monospace, Menlo, monospace; --sans: "Inter", system-ui, sans-serif;
-        --text-primary: #141414; --text-secondary: #6c645a; --text-primary-on: #fffdf8; --fill-primary: #17385d; --fill-tertiary: #e8dcc6;
-        --fill-system-green: #4e6f4e; --fill-system-red: #8f1d1d; --stroke-primary: rgba(20,20,20,.22); --stroke-secondary: rgba(20,20,20,.12); --hover-wash: rgba(143,29,29,.07);
-        background: #f3ecdf; color: #141414; font-family: "Inter", system-ui, sans-serif; }
-      .x-app h1, .x-app h2, .x-seg h2, .x-sheet h2, .x-drawer h2 { font-family: "DM Serif Display", Georgia, serif !important; font-weight: 400; letter-spacing: .005em; }
-      .x-seg h2 { color: #8f1d1d; text-shadow: none; }
-      .x-say { color: #141414; }
-      .x-verse { border-left: 3px solid #b9872d; }
-      .x-verse p { font-family: "DM Serif Display", Georgia, serif; font-style: italic; }
-      .x-cue { color: #17385d; font-family: var(--x-mono); }
-      .x-motion { background: #fffdf8; border-color: rgba(143,29,29,.35); border-left-color: #8f1d1d; }
-      .x-motion__tag::before { content: "☩ "; color: #b9872d; }
-      #acta-out { background: #fffdf8; color: #141414; border-color: rgba(20,20,20,.2); }
-      .x-sheet, .x-drawer { background: #fffdf8 !important; color: #141414; }
-      .x-agenda li.is-cur button { box-shadow: 0 0 0 2px #8f1d1d; }
-      .x-big--go { background: #8f1d1d !important; color: #fffdf8 !important; border-color: #8f1d1d !important; }
-      .x-life { opacity: 0.06; }
-      .x-scrim { background: rgba(20,20,20,.35); }
-      .x-app .x-head p, .x-tile span, .x-sheet h3, .x-sheet__head p, .x-drawer__head p { color: #4a443b; }
+      /* Fusión · Escuela de Tecnología ILL:// (Noche · Día · LATAM) */
+      html { --tv:#07060b; --tc:#100e17; --tg:#d4af37; --th:#ffd873; --ti:#ece3c6; --tn:#00ffaa; --ty:#5fd8ff; --tl:rgba(212,175,55,.22); --ts:#a99f86; --tgo:#d4af37; --tgoi:#07060b; }
+      html[data-tt="dia"] { --tv:#f6f1e3; --tc:#fffdf6; --tg:#9a7400; --th:#5e4500; --ti:#1c1a14; --tn:#007a52; --ty:#0a5fa0; --tl:rgba(70,52,10,.18); --ts:#5d5442; --tgo:#1c1a14; --tgoi:#ffd873; }
+      html[data-tt="latam"] { --tv:#032a33; --tc:#053e4a; --tg:#ffb703; --th:#ffd166; --ti:#fdf6e3; --tn:#06d6a0; --ty:#7ee8fa; --tl:rgba(72,202,228,.32); --ts:#bfe3e8; --tgo:#ff6b6b; --tgoi:#fffaf0; }
+      .x-app { color-scheme: dark; --x-black: var(--tv); --x-panel: var(--tc); --x-amber: var(--tg); --x-green: var(--tn); --x-cyan: var(--ty);
+        --x-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        --text-primary: var(--ti); --text-secondary: var(--ts); --text-primary-on: var(--tgoi); --fill-primary: var(--tg); --fill-tertiary: var(--tl);
+        --fill-system-green: var(--tn); --fill-system-red: #ff6b6b; --stroke-primary: var(--tl); --stroke-secondary: var(--tl); --hover-wash: rgba(212,175,55,.08);
+        background: var(--tv); color: var(--ti); font-family: var(--sans); }
+      html[data-tt="dia"] .x-app { color-scheme: light; }
+      .x-app h1, .x-app h2, .x-seg h2, .x-sheet h2, .x-drawer h2 { font-family: var(--x-mono) !important; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
+      .x-seg h2 { color: var(--th); text-shadow: 0 0 18px rgba(212,175,55,.25); }
+      .x-say { color: var(--ti); }
+      .x-verse { border-left: 3px solid var(--tn); }
+      .x-verse p { font-style: italic; }
+      .x-cue { color: var(--tn); font-family: var(--x-mono); }
+      .x-cue::before { content: ">_ "; color: var(--tg); }
+      .x-motion { background: var(--tc); border-color: var(--tl); border-left-color: var(--tg); }
+      #acta-out { background: var(--tc); color: var(--ti); border-color: var(--tl); }
+      .x-sheet, .x-drawer { background: var(--tc) !important; color: var(--ti); }
+      .x-agenda li.is-cur button { box-shadow: 0 0 0 2px var(--tg); }
+      .x-big--go { background: var(--tgo) !important; color: var(--tgoi) !important; border-color: var(--tgo) !important; }
+      .x-life { opacity: 0.14; }
+      html[data-tt="dia"] .x-life { opacity: 0.07; }
+      .x-scrim { background: rgba(0,0,0,.45); }
+      .x-app .x-head p, .x-tile span, .x-sheet h3, .x-sheet__head p, .x-drawer__head p { color: var(--ts); }
       .x-tiles { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .x-tile input { min-width: 0; width: 100%; text-overflow: ellipsis; }
-      .x-cover { position: fixed; inset: 0; z-index: 200; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(16px, 4vw, 56px); padding: clamp(16px, 4vw, 56px); background: #f3ecdf; color: #141414; font-family: "Inter", system-ui, sans-serif; overflow: auto; }
+      #tt-btn { border-color: var(--tg); color: var(--th); }
+      .x-cover { position: fixed; inset: 0; z-index: 200; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(16px, 4vw, 56px); padding: clamp(16px, 4vw, 56px); background: var(--tv); color: var(--ti); font-family: "Inter", system-ui, sans-serif; overflow: auto; }
       .x-cover.is-off { display: none; }
       .x-cover__art { margin: 0; height: 100%; max-height: calc(100vh - 2 * clamp(16px, 4vw, 56px)); display: flex; justify-content: center; }
-      .x-cover__art img { height: 100%; max-width: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 18px 50px rgba(20,20,20,.18); }
+      .x-cover__art img { height: 100%; max-width: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 0 0 1px var(--tl), 0 18px 50px rgba(0,0,0,.35); }
       .x-cover__txt { max-width: 640px; }
-      .x-cover__k { margin: 0 0 .6em; font: 600 13px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .18em; color: #b9872d; }
-      .x-cover__h { margin: 0; font: 400 clamp(38px, 6vw, 84px)/1 "DM Serif Display", Georgia, serif; color: #17385d; }
-      .x-cover__t { margin: .35em 0 0; font: 400 clamp(22px, 2.8vw, 38px)/1.15 "DM Serif Display", Georgia, serif; color: #8f1d1d; }
-      .x-cover__en { margin: .4em 0 0; font-style: italic; color: #6c645a; }
-      .x-cover__rule { border: 0; height: 2px; margin: 1.2em 0; background: repeating-linear-gradient(90deg, #8f1d1d 0 10px, transparent 10px 16px); }
+      .x-cover__k { margin: 0 0 .6em; font: 600 13px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .18em; color: var(--tn); }
+      .x-cover__h { margin: 0; font: 800 clamp(36px, 6vw, 80px)/1 ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; color: var(--th); }
+      .x-cover__t { margin: .35em 0 0; font: 600 clamp(20px, 2.6vw, 34px)/1.2 -apple-system, system-ui, sans-serif; color: var(--ti); }
+      .x-cover__en { margin: .4em 0 0; font-family: ui-monospace, Menlo, monospace; color: var(--tn); }
+      .x-cover__rule { border: 0; height: 2px; margin: 1.2em 0; background: repeating-linear-gradient(90deg, var(--tg) 0 10px, transparent 10px 16px); }
       .x-cover__dl { display: grid; gap: 6px; margin: 0; }
       .x-cover__dl div { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; }
-      .x-cover__dl dt { font: 600 12px/1.6 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; color: #6c645a; }
+      .x-cover__dl dt { font: 600 12px/1.6 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--ts); }
       .x-cover__dl dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
-      .x-cover__v { margin: 1.4em 0 0; padding-left: 14px; border-left: 3px solid #b9872d; font: italic 400 clamp(16px, 1.5vw, 20px)/1.45 "DM Serif Display", Georgia, serif; }
-      .x-cover__v cite { display: block; margin-top: .3em; font: 600 12px "JetBrains Mono", monospace; font-style: normal; color: #6c645a; }
-      .x-cover__go { margin-top: 1.6em; min-height: 56px; padding: 0 28px; border: 0; border-radius: 999px; background: #8f1d1d; color: #fffdf8; font: 600 18px "Inter", system-ui, sans-serif; cursor: pointer; }
-      .x-cover__go:focus-visible { outline: 3px solid #b9872d; outline-offset: 3px; }
-      .x-cover__hint { margin: .8em 0 0; font-size: 13px; color: #6c645a; }
+      .x-cover__v { margin: 1.4em 0 0; padding-left: 14px; border-left: 3px solid var(--tn); font: italic 400 clamp(16px, 1.5vw, 20px)/1.45 -apple-system, system-ui, sans-serif; }
+      .x-cover__v cite { display: block; margin-top: .3em; font: 600 12px ui-monospace, monospace; font-style: normal; color: var(--ts); }
+      .x-cover__go { margin-top: 1.6em; min-height: 56px; padding: 0 28px; border: 0; border-radius: 999px; background: var(--tgo); color: var(--tgoi); font: 600 18px "Inter", system-ui, sans-serif; cursor: pointer; }
+      .x-cover__go:focus-visible { outline: 3px solid var(--tn); outline-offset: 3px; }
+      .x-cover__hint { margin: .8em 0 0; font-size: 13px; color: var(--ts); } .x-cover__tt { display: flex; gap: 8px; margin-top: 1em; } .x-cover__tt button { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--tl); background: transparent; color: var(--ti); font: 600 13px ui-monospace, monospace; cursor: pointer; } .x-cover__tt button[aria-pressed="true"] { border-color: var(--tg); color: var(--th); }
       @media (max-aspect-ratio: 1/1) { .x-cover { grid-template-columns: 1fr; align-items: start; } .x-cover__art { height: auto; max-height: 52vh; } .x-cover__art img { height: auto; max-height: 52vh; } }
     </style>
   </head>
   <body>
     <div class="page" id="top">
       <section class="x-cover" id="cover" role="dialog" aria-label="Portada de la clase">
-        <figure class="x-cover__art"><img src="https://lutheraninstitute.github.io/annual-meeting/portada-estanzuela.jpg" alt="Manos de Amor · Del hilo a la aguja · bordado Estanzuela Pixel" decoding="async"/></figure>
+        <figure class="x-cover__art"><img src="https://lutheraninstitute.github.io/assets/instituto-luterano-pizarron.jpg" alt="ILL:// Escuela de Tecnología · Instituto Luterano Latinoamericano" decoding="async"/></figure>
         <div class="x-cover__txt">
-          <p class="x-cover__k">Instituto Luterano Latinoamericano · Diplomado en Transformación Digital</p>
+          <p class="x-cover__k">ILL://Escuela_de_tecnologia · Diplomado en Transformación Digital</p>
           <h1 class="x-cover__h">Nivelación Agéntica</h1>
           <p class="x-cover__t">Aprender y enseñar el uso de la IA <em>en lugares difíciles de alcanzar</em></p>
           <p class="x-cover__en">Agente propone → alumno comprueba → humano decide</p>
@@ -368,6 +374,7 @@
           </dl>
           <p class="x-cover__v">«Evidencia ≠ autoridad: la supervisión informa, el humano decide.» <cite>Regla del Diplomado</cite></p>
           <button class="x-cover__go" id="cover-go" type="button">Comenzar ▶</button>
+          <div class="x-cover__tt" role="group" aria-label="Tema"><button type="button" data-tt="noche">NOCHE</button><button type="button" data-tt="dia">DÍA</button><button type="button" data-tt="latam">LATAM</button></div>
           <p class="x-cover__hint">Enter o Esc para entrar · botón «Portada» para volver</p>
         </div>
       </section>
@@ -384,6 +391,7 @@
             <button class="x-q" id="q-chip" type="button" aria-controls="q-pop" aria-expanded="false">PRESENTES 0/23</button>
             <div class="x-head__tools x-hide">
               <button class="x-btn x-btn--amber" id="mode" type="button" title="Cambiar modo de reloj">Ensayo</button>
+              <button class="x-btn" id="tt-btn" type="button" title="Tema: Noche / Día / LATAM">NOCHE</button>
               <button class="x-btn" id="cover-btn" type="button">Portada</button>
               <button class="x-btn" id="follow" type="button">Horario</button>
               <button class="x-btn" id="bi" type="button" aria-pressed="false" title="Español con guía en inglés">ES+EN</button>
@@ -1336,4 +1344,14 @@
         document.getElementById("cover-go").focus();
       })();
     </script>
+<script>
+(function(){var L=["noche","dia","latam"],N={noche:"NOCHE",dia:"DÍA",latam:"LATAM"},r=document.documentElement;
+function set(t){if(L.indexOf(t)<0)t="noche";r.setAttribute("data-tt",t);try{localStorage.setItem("ill-tt",t)}catch(e){}
+var b=document.getElementById("tt-btn");if(b)b.textContent=N[t];[].forEach.call(document.querySelectorAll(".x-cover__tt button"),function(x){x.setAttribute("aria-pressed",String(x.getAttribute("data-tt")===t))});}
+var s="noche";try{s=localStorage.getItem("ill-tt")||"noche"}catch(e){}
+document.addEventListener("DOMContentLoaded",function(){set(s);
+var b=document.getElementById("tt-btn");if(b)b.addEventListener("click",function(){set(L[(L.indexOf(r.getAttribute("data-tt"))+1)%3])});
+[].forEach.call(document.querySelectorAll(".x-cover__tt button"),function(x){x.addEventListener("click",function(e){e.stopPropagation();set(x.getAttribute("data-tt"))})});});
+r.setAttribute("data-tt",s);})();
+</script>
 </body></html>
