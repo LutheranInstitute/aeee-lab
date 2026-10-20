@@ -304,6 +304,24 @@
         .x-spk.is-warn .x-ring__fg { animation: none; }
         .x-life { display: none; }
       }
+      /* Móvil: controles fijos abajo, sin superponerse al guion */
+      .x-ctrl__more { display: none; }
+      @media (max-width: 700px) {
+        .x-app:not(.is-r169) { grid-template-rows: auto auto auto auto minmax(0, 1fr) auto; grid-template-areas: "top" "head" "seg" "next" "stage" "ctrl"; }
+        .x-ctrl { grid-area: ctrl; position: static; background: var(--tc) !important; border-top: 1px solid var(--tl); padding: 8px 12px max(8px, env(safe-area-inset-bottom)); backdrop-filter: none; }
+        .x-app.is-idle .x-hide, .x-app .x-hide { opacity: 1 !important; pointer-events: auto !important; }
+        .x-ctrl__main { grid-template-columns: 1fr 1fr 1.25fr 52px; gap: 6px; }
+        .x-ctrl__more { display: block; min-height: 54px; border-radius: 14px; border: 1px solid var(--tl); background: transparent; color: var(--th); font-size: 22px; }
+        .x-ctrl__tools { display: none; max-height: 34vh; overflow-y: auto; padding-top: 4px; }
+        .x-ctrl.is-open .x-ctrl__tools { display: flex; }
+        .x-big { min-height: 54px; font-size: 17px !important; padding: 0 6px; white-space: nowrap; }
+        .x-script.is-rolling .x-script__in { padding-bottom: 25vh; }
+        .x-seg { padding-top: 6px; padding-bottom: 6px; }
+        .x-timer { font-size: 56px !important; line-height: 1; }
+        .x-head__tools .x-btn { min-height: 40px; padding: 4px 10px; font-size: 14px; }
+        .x-say { font-size: clamp(20px, 5.6vw, 26px); }
+        .x-life { opacity: 0.06 !important; }
+      }
       /* Fusión · Escuela de Tecnología ILL:// (Noche · Día · LATAM) */
       html { --tv:#07060b; --tc:#100e17; --tg:#d4af37; --th:#ffd873; --ti:#ece3c6; --tn:#00ffaa; --ty:#5fd8ff; --tl:rgba(212,175,55,.22); --ts:#a99f86; --tgo:#d4af37; --tgoi:#07060b; }
       html[data-tt="dia"] { --tv:#f6f1e3; --tc:#fffdf6; --tg:#9a7400; --th:#5e4500; --ti:#1c1a14; --tn:#007a52; --ty:#0a5fa0; --tl:rgba(70,52,10,.18); --ts:#5d5442; --tgo:#1c1a14; --tgoi:#ffd873; }
@@ -446,6 +464,7 @@
             <button class="x-big" id="prev" type="button" aria-label="Anterior">◀ Anterior</button>
             <button class="x-big" id="pause" type="button">⏯ Iniciar</button>
             <button class="x-big x-big--go" id="nextbtn" type="button" aria-label="Siguiente">Siguiente ▶</button>
+            <button class="x-ctrl__more" id="more-btn" type="button" aria-expanded="false" aria-label="Más ajustes">⚙︎</button>
           </div>
           <div class="x-ctrl__tools">
             <button class="x-btn" id="roll" type="button" aria-pressed="false">▶ Desplazar</button>
@@ -1354,5 +1373,9 @@ document.addEventListener("DOMContentLoaded",function(){set(s);
 var b=document.getElementById("tt-btn");if(b)b.addEventListener("click",function(){set(L[(L.indexOf(r.getAttribute("data-tt"))+1)%3])});
 [].forEach.call(document.querySelectorAll(".x-cover__tt button"),function(x){x.addEventListener("click",function(e){e.stopPropagation();set(x.getAttribute("data-tt"))})});});
 r.setAttribute("data-tt",s);})();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){var m=document.getElementById("more-btn"),c=document.querySelector(".x-ctrl");if(!m||!c)return;
+m.addEventListener("click",function(e){e.stopPropagation();var o=c.classList.toggle("is-open");m.setAttribute("aria-expanded",String(o));m.textContent=o?"✕":"⚙︎";});});
 </script>
 </body></html>
