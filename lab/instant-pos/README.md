@@ -10,6 +10,7 @@ Name + menu → `ae.json` manifest + æQR + checkout. Open for business in about
   - After a human approves, the receipt is also emitted shaped like an **ACP checkout session** and an **AP2 human-present payment mandate**, with the Witness hash as the user authorization. These are shaped like the protocols, not certified implementations.
   - Plan switch: æ0 free with a per-sale fee only, or æ1 at $19/mo. Both are suggestions, and the fee % is still undecided.
   - Directory: `registry.json` (`ae.network/0.1`). Publishing is human_only and opens a public issue labelled `instant-pos-shop`, which the steward approves.
+- **Viewport (TV) mode (Yael 2026-10-21):** `?m=…&view=tv` turns any smart TV into a 16:9 menu board. The current item is highlighted, ads rotate (up to 6 lines entered in make mode), and the ordering æQR stays on screen. Make mode also gives a **Viewport æQR** for the screen. The TV only shows; ordering and payment always happen on the buyer's phone.
 - **Rail + trail:** in production a payment processor holds the funds and takes the platform fee. We never touch client money.
 
 LAB only. Paper money. Not a payment processor. Fork freely. Preserve attribution. #OPENSOURCEWARE
