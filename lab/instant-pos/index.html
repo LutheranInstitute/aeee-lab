@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Instant POS · æQR</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<style>
+:root{--paper:#F4EFE4;--ink:#111;--blue:#2C64B4;--green:#2E8B57;--red:#C0392B;--amber:#D99A00;--y:#F2C94C}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 ui-monospace,Menlo,monospace}
+main{max-width:560px;margin:0 auto;padding:20px 18px 60px}
+.strip{background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.08em;padding:6px 12px;text-align:center}
+h1{font:900 34px/1 system-ui,sans-serif;text-transform:uppercase;letter-spacing:-1px;margin:18px 0 4px}
+h2{font:800 18px/1.1 system-ui,sans-serif;text-transform:uppercase;margin:26px 0 8px}
+.stack{display:inline-flex;flex-direction:column;gap:2px;vertical-align:middle;margin-right:8px}.stack i{width:10px;height:10px;display:block}
+.mut{color:#555}.card{border:1px solid var(--ink);padding:14px;margin:12px 0;background:#FBF8F1}
+label{display:block;font-size:12px;text-transform:uppercase;margin:10px 0 4px}
+input,textarea,select{width:100%;font:inherit;padding:10px;border:1.5px solid var(--ink);background:#fff}
+textarea{min-height:110px}
+button{font:700 14px system-ui,sans-serif;text-transform:uppercase;padding:12px 16px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;margin:10px 8px 0 0}
+button.ghost{background:transparent;color:var(--ink)}
+pre{white-space:pre-wrap;word-break:break-all;font-size:11px;max-height:240px;overflow:auto;background:#fff;border:1px solid #ccc;padding:8px}
+.ok{color:var(--green);font-weight:700}.no{color:var(--red);font-weight:700}.pend{color:var(--amber);font-weight:700;animation:p 1.2s infinite}
+@keyframes p{50%{opacity:.35}}
+#qr canvas{width:100%;max-width:300px;image-rendering:pixelated;border:1px solid var(--ink);background:#fff;padding:8px}
+.row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed #bbb;padding:8px 0}
+.row button{margin:0;padding:6px 10px}
+.badge{display:inline-block;border:1.5px solid var(--blue);color:var(--blue);padding:2px 8px;font-size:12px}
+@media print{.noprint,.strip{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="strip">LAB · SIMULACIÓN · DINERO DE PAPEL · NO ES UN PROCESADOR DE PAGOS</div>
+<main id="app"></main>
+<script>
+const $=s=>document.querySelector(s), app=$('#app');
+const b64u={enc:s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''),
+  dec:s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))))};
+const slug=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'negocio';
+const money=n=>'$'+n.toFixed(2);
+async function sha(t){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+const head=(t,s)=>`<h1><span class="stack"><i style="background:var(--y)"></i><i style="background:var(--blue)"></i><i style="background:var(--green)"></i></span>${t}</h1><p class="mut">${s}</p>`;
+
+function parseMenu(txt){return txt.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[\s\-–:·]*\$?\s*(\d+(?:[.,]\d{1,2})?)\s*$/);return m?{name:m[1].trim(),price:+m[2].replace(',','.')}:null}).filter(x=>x&&x.name&&x.price>0)}
+
+function manifest(name,kind,city,items){const id=slug(name);return{
+  schema:'ae.manifest/0.1',id:`instant-pos/${id}`,name,status:'lab',
+  address:`x0:y0:z0:æ1 · æ://pos/${id}`,surface:'instant-pos',
+  context:{kind,city},
+  capabilities:{menu:items.map(i=>({name:i.name,price_usd:i.price}))},
+  checkout:{mode:'real',processor:'mock (paper) · processor tbd',custody:'processor holds funds'},
+  authority:{agents_may:['resolve','read','verify','checkout.create'],human_only:['checkout.pay','refund.issue','publish']},
+  provenance:{generator:'lab/instant-pos',principal:'merchant',created:new Date().toISOString()}}}
+
+// ---------- MAKE MODE ----------
+function make(){
+  app.innerHTML=head('Instant POS','Nombre + menú → manifiesto + æQR + cobro. Abierto en dos minutos.')+`
+  <div class="card noprint">
+   <label>Nombre del negocio</label><input id="n" value="Tacos María">
+   <label>Tipo</label><input id="k" value="taco truck">
+   <label>Ciudad</label><input id="c" value="Donna, TX">
+   <label>Menú · una línea por producto: nombre precio</label>
+   <textarea id="m">Al pastor 2.50
+Barbacoa 3.00
+Quesadilla 6.00
+Horchata 3.50</textarea>
+   <button onclick="gen()">Generar æQR</button>
+  </div><div id="out"></div>`;
+}
+async function gen(){
+  const items=parseMenu($('#m').value); if(!items.length){$('#out').innerHTML='<p class="no">✗ menú vacío</p>';return}
+  const man=manifest($('#n').value.trim()||'Mi negocio',$('#k').value.trim(),$('#c').value.trim(),items);
+  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price])};
+  const url=location.origin+location.pathname+'?m='+b64u.enc(JSON.stringify(compact));
+  const qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();
+  const cell=6,size=qr.getModuleCount()*cell+cell*8,cv=document.createElement('canvas');cv.width=cv.height=size;
+  const g=cv.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,size,size);g.fillStyle='#111';
+  for(let r=0;r<qr.getModuleCount();r++)for(let c=0;c<qr.getModuleCount();c++)if(qr.isDark(r,c))g.fillRect(c*cell+cell*4,r*cell+cell*4,cell,cell);
+  const img=g.getImageData(0,0,size,size),dec=jsQR(img.data,size,size);
+  const pass=dec&&dec.data===url;
+  $('#out').innerHTML=`<h2>æQR · ${man.name}</h2><div id="qr"></div>
+   <p>${pass?'<span class="ok">✓ verificado</span> · decodificado de vuelta, bytes idénticos (jsQR)':'<span class="no">✗ no verificado</span> · el decodificador no coincide'}</p>
+   <p class="mut">El æQR lleva solo nombre, tipo, ciudad y menú; la tienda reconstruye el ae.json completo. Gate de producción: cv2 + pyzbar deben coincidir. Aquí: una sola verificación en el navegador.</p>
+   <p class="badge">${man.address}</p>
+   <div class="noprint"><button onclick="window.print()">Imprimir</button><a href="${url}" target="_blank"><button class="ghost">Abrir tienda</button></a><button class="ghost" onclick='dl(${JSON.stringify(JSON.stringify(man,null,2))})'>Descargar ae.json</button></div>
+   <h2 class="noprint">ae.json</h2><pre class="noprint">${JSON.stringify(man,null,2).replace(/</g,'&lt;')}</pre>`;
+  $('#qr').appendChild(cv);
+}
+function dl(t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='ae.json';a.click()}
+
+// ---------- STORE MODE ----------
+let man,cart={},preview=null;
+const KEY=()=> 'ipos-chain-'+man.id;
+const chain=()=>JSON.parse(localStorage.getItem(KEY())||'[]');
+async function witness(ev){const c=chain(),prev=c.at(-1)?.hash||'GENESIS',body={...ev,at:new Date().toISOString(),prev};const r={...body,hash:await sha(JSON.stringify(body))};c.push(r);localStorage.setItem(KEY(),JSON.stringify(c));return r}
+function store(){
+  const it=man.capabilities.menu;
+  app.innerHTML=head(man.name,`${man.context.kind||''} · ${man.context.city||''}`)+`<p class="badge">${man.address}</p>
+  <div class="card">${it.map((i,k)=>`<div class="row"><span>${i.name}<br><span class="mut">${money(i.price_usd)}</span></span><span><button class="ghost" onclick="add(${k},-1)">−</button> <b id="q${k}">0</b> <button onclick="add(${k},1)">+</button></span></div>`).join('')}
+  <p>Total: <b id="tot">$0.00</b></p>
+  <button onclick="prep()">Agente: preparar cobro</button></div>
+  <div id="pv"></div><h2>Recibos</h2><div id="rc"></div>
+  <p class="mut">Escanear nunca da permiso. Agentes preparan; solo un humano paga. El procesador custodia los fondos.</p>`;
+  rc();
+}
+function total(){return man.capabilities.menu.reduce((s,i,k)=>s+(cart[k]||0)*i.price_usd,0)}
+function add(k,d){cart[k]=Math.max(0,(cart[k]||0)+d);$('#q'+k).textContent=cart[k];$('#tot').textContent=money(total());preview=null;$('#pv').innerHTML=''}
+async function prep(){
+  const t=+total().toFixed(2);if(!t){$('#pv').innerHTML='<p class="no">✗ carrito vacío</p>';return}
+  const lines=man.capabilities.menu.map((i,k)=>cart[k]?{item:i.name,qty:cart[k],price:i.price_usd}:null).filter(Boolean);
+  preview={id:crypto.randomUUID(),lines,total:t,expires:Date.now()+120000,used:false};
+  await witness({type:'checkout.create',by:'agent',authority:'æ0',total:t});
+  $('#pv').innerHTML=`<div class="card"><p class="pend">● esperando al comprador</p>${lines.map(l=>`${l.qty} × ${l.item}`).join('<br>')}<p>Total <b>${money(t)}</b> · procesador: mock</p>
+  <button onclick="pay(false)" class="ghost">Agente intenta pagar</button><button onclick="pay(true)">Aprobar pago (humano)</button></div>`;rc();
+}
+async function pay(human){
+  if(!preview)return;
+  if(!human){await witness({type:'refused',action:'checkout.pay',reason:'checkout.pay is human_only'});$('#pv').insertAdjacentHTML('beforeend','<p class="no">✗ checkout.pay es human_only</p>');return rc()}
+  if(preview.used){await witness({type:'refused',action:'checkout.pay',reason:'single_use'});$('#pv').insertAdjacentHTML('beforeend','<p class="no">✗ single_use</p>');return rc()}
+  if(Date.now()>preview.expires){await witness({type:'refused',action:'checkout.pay',reason:'expired'});$('#pv').insertAdjacentHTML('beforeend','<p class="no">✗ expirado</p>');return rc()}
+  preview.used=true;
+  const r=await witness({type:'checkout.pay',by:'buyer',authority:'æ2',lines:preview.lines,total:preview.total,processor:'mock',custody:'processor'});
+  $('#pv').innerHTML=`<div class="card"><p class="ok">✓ pagado · ${money(preview.total)}</p><p class="mut">recibo ${r.hash.slice(0,16)}…</p></div>`;
+  cart={};man.capabilities.menu.forEach((_,k)=>$('#q'+k).textContent=0);$('#tot').textContent='$0.00';rc();
+}
+async function verify(){let prev='GENESIS';for(const r of chain()){const{hash,...b}=r;if(b.prev!==prev||await sha(JSON.stringify(b))!==hash)return'<span class="no">✗ cadena rota</span>';prev=hash}return`<span class="ok">✓ cadena íntegra · ${chain().length}</span>`}
+async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
+
+const m=new URLSearchParams(location.search).get('m');
+if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})));store()}catch(e){app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
+</script>
+</body>
+</html>
