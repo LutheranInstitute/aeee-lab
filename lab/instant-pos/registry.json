@@ -1,0 +1,15 @@
+{
+  "schema": "ae.network/0.1",
+  "id": "lab/instant-pos/registry",
+  "steward": "Yæl Méndez",
+  "rule": "Shops join by public issue labelled instant-pos-shop; the steward approves. Agents never publish.",
+  "shops": [
+    {
+      "name": "Tacos María (muestra)",
+      "kind": "taco truck",
+      "city": "Donna, TX",
+      "status": "sample · paper money",
+      "url": "./?m=eyJuIjoiVGFjb3MgTWFyw61hIChtdWVzdHJhKSIsImsiOiJ0YWNvIHRydWNrIiwiYyI6IkRvbm5hLCBUWCIsImkiOltbIkFsIHBhc3RvciIsMi41XSxbIkJhcmJhY29hIiwzXSxbIlF1ZXNhZGlsbGEiLDZdLFsiSG9yY2hhdGEiLDMuNV1dLCJwbCI6ImFlMCJ9"
+    }
+  ]
+}
