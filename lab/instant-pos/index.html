@@ -45,7 +45,8 @@ const head=(t,s)=>`<h1><span class="stack"><i style="background:var(--y)"></i><i
 
 function parseMenu(txt){return txt.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[\s\-–:·]*\$?\s*(\d+(?:[.,]\d{1,2})?)\s*$/);return m?{name:m[1].trim(),price:+m[2].replace(',','.')}:null}).filter(x=>x&&x.name&&x.price>0)}
 
-function manifest(name,kind,city,items,owner,plan){const id=slug(name);return{
+function manifest(name,kind,city,items,owner,plan,ads){const id=slug(name);return{
+  viewport:{ads:ads||[],modes:['phone','tv']},
   plan:plan==='ae1'?{tier:'æ1',monthly_usd:19,fee_pct:'tbd',note:'suggested, not validated'}:{tier:'æ0',monthly_usd:0,fee_pct:'tbd',note:'free + per-sale fee via processor'},
   schema:'ae.manifest/0.1',id:`instant-pos/${id}`,name,status:'lab',
   address:`x0:y0:z0:æ1 · æ://pos/${id}`,surface:'instant-pos',
@@ -80,6 +81,9 @@ function make(){
    <label>Nombre del negocio</label><input id="n" value="${(me.name.split(' ')[0]||'Mi')}'s Shop">
    <label>Tipo</label><input id="k" value="taco truck">
    <label>Ciudad</label><input id="c" value="Donna, TX">
+   <label>Anuncios para la pantalla · una línea cada uno (opcional)</label>
+   <textarea id="ad" style="min-height:70px">Martes 2x1 en al pastor
+Pide desde tu teléfono · escanea el æQR</textarea>
    <label>Plan</label><select id="pl"><option value="ae0">æ0 · Libre · solo comisión por venta (por definir)</option><option value="ae1">æ1 · $19/mes (sugerido) · comisión por definir</option></select>
    <label>Menú · una línea por producto: nombre precio</label>
    <textarea id="m">Al pastor 2.50
@@ -96,9 +100,9 @@ function publish(name,url){const body=`Tienda: ${name}\nURL æQR: ${url}\n\nSoli
 async function gen(){
   const items=parseMenu($('#m').value); if(!items.length){$('#out').innerHTML='<p class="no">✗ menú vacío</p>';return}
   const man=manifest($('#n').value.trim()||'Mi negocio',$('#k').value.trim(),$('#c').value.trim(),items,me,$('#pl').value);
-  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price]),o:me.name,p:me.sub,pl:$('#pl').value};
+  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price]),o:me.name,p:me.sub,pl:$('#pl').value,a:$('#ad').value.split('\n').map(x=>x.trim()).filter(Boolean).slice(0,6)};
   const url=location.origin+location.pathname+'?m='+b64u.enc(JSON.stringify(compact));
-  const qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();
+  const tvurl=url+'&view=tv';const qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();
   const cell=6,size=qr.getModuleCount()*cell+cell*8,cv=document.createElement('canvas');cv.width=cv.height=size;
   const g=cv.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,size,size);g.fillStyle='#111';
   for(let r=0;r<qr.getModuleCount();r++)for(let c=0;c<qr.getModuleCount();c++)if(qr.isDark(r,c))g.fillRect(c*cell+cell*4,r*cell+cell*4,cell,cell);
@@ -108,12 +112,33 @@ async function gen(){
    <p>${pass?'<span class="ok">✓ verificado</span> · decodificado de vuelta, bytes idénticos (jsQR)':'<span class="no">✗ no verificado</span> · el decodificador no coincide'}</p>
    <p class="mut">El æQR lleva solo nombre, tipo, ciudad y menú; la tienda reconstruye el ae.json completo. Gate de producción: cv2 + pyzbar deben coincidir. Aquí: una sola verificación en el navegador.</p>
    <p class="badge">${man.address}</p>
-   <div class="noprint"><button onclick="window.print()">Imprimir</button><a href="${url}" target="_blank"><button class="ghost">Abrir tienda</button></a><button class="ghost" onclick="publish(${JSON.stringify(man.name).replace(/"/g,'&quot;')},'${url}')">Publicar en el directorio</button><button class="ghost" onclick='dl(${JSON.stringify(JSON.stringify(man,null,2))})'>Descargar ae.json</button></div>
+   <div class="noprint"><button onclick="window.print()">Imprimir</button><a href="${url}" target="_blank"><button class="ghost">Abrir tienda</button></a><a href="${tvurl}" target="_blank"><button class="ghost">Viewport TV</button></a><button class="ghost" onclick="publish(${JSON.stringify(man.name).replace(/"/g,'&quot;')},'${url}')">Publicar en el directorio</button><button class="ghost" onclick='dl(${JSON.stringify(JSON.stringify(man,null,2))})'>Descargar ae.json</button></div>
    <h2 class="noprint">ae.json</h2><pre class="noprint">${JSON.stringify(man,null,2).replace(/</g,'&lt;')}</pre>`;
   $('#qr').appendChild(cv);
+  $('#qr').insertAdjacentHTML('afterend','<h2>Viewport æQR · para la pantalla</h2><p class="mut">Escanéalo con el teléfono y envíalo a la TV, o abre el enlace en el navegador de la smart TV. La pantalla muestra el menú, los anuncios y el æQR para pedir.</p><div id="tvqr"></div>');
+  $('#tvqr').appendChild(qrCanvas(tvurl,4));
 }
 function dl(t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='ae.json';a.click()}
 
+function qrCanvas(text,cell){const q=qrcode(0,'M');q.addData(text,'Byte');q.make();const n=q.getModuleCount(),size=n*cell+cell*8,cv=document.createElement('canvas');cv.width=cv.height=size;const g=cv.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,size,size);g.fillStyle='#111';for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))g.fillRect(c*cell+cell*4,r*cell+cell*4,cell,cell);return cv}
+// ---------- VIEWPORT (TV) ----------
+function tv(){
+  document.querySelector('.strip').style.display='none';
+  const it=man.capabilities.menu,ads=(man.viewport&&man.viewport.ads)||[];
+  const order=location.origin+location.pathname+'?m='+new URLSearchParams(location.search).get('m');
+  document.body.style.cssText='margin:0;background:#111;color:#F4EFE4;overflow:hidden';
+  app.style.cssText='max-width:none;padding:0';
+  app.innerHTML=`<div style="height:100vh;display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:auto 1fr auto;gap:2vw;padding:3vw;box-sizing:border-box">
+   <div style="grid-column:1/3;display:flex;align-items:center;gap:1.5vw"><span style="display:flex;flex-direction:column;gap:.3vw">${['#F2C94C','#2C64B4','#2E8B57'].map(c=>`<i style="width:1.4vw;height:1.4vw;background:${c};display:block"></i>`).join('')}</span>
+     <span style="font:900 6vw/1 system-ui,sans-serif;text-transform:uppercase;letter-spacing:-.15vw">${man.name}</span><span style="margin-left:auto;font-size:1.4vw;opacity:.7">${man.context.kind||''} · ${man.context.city||''}</span></div>
+   <div id="tvmenu" style="font-size:3vw;line-height:1.25">${it.map((i,k)=>`<div id="tvi${k}" style="display:flex;justify-content:space-between;border-bottom:.15vw dashed #555;padding:.9vw 0;transition:all .4s"><span>${i.name}</span><b>${money(i.price_usd)}</b></div>`).join('')}</div>
+   <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1vw"><div id="tvq"></div><div style="font:800 2.2vw system-ui,sans-serif;text-transform:uppercase">Escanea para pedir</div><div style="font-size:1.2vw;opacity:.7">agentes preparan · tú apruebas</div></div>
+   <div id="tvad" style="grid-column:1/3;background:#F2C94C;color:#111;font:900 3.4vw/1.1 system-ui,sans-serif;text-transform:uppercase;padding:1.5vw 2vw;min-height:5vw;transition:opacity .5s">${ads[0]||'>_æ: pide desde tu teléfono'}</div></div>`;
+  const cv=qrCanvas(order,8);cv.style.cssText='width:24vw;max-width:46vh;image-rendering:pixelated;background:#fff;padding:1vw';$('#tvq').appendChild(cv);
+  let k=0,a=0;setInterval(()=>{it.forEach((_,j)=>{const e=$('#tvi'+j);e.style.color=j===k?'#F2C94C':'';e.style.paddingLeft=j===k?'1.2vw':'0'});k=(k+1)%it.length},3000);
+  if(ads.length>1)setInterval(()=>{const e=$('#tvad');e.style.opacity=0;setTimeout(()=>{a=(a+1)%ads.length;e.textContent=ads[a];e.style.opacity=1},500)},7000);
+  document.addEventListener('click',()=>document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{}),{once:true});
+}
 // ---------- STORE MODE ----------
 let man,cart={},preview=null;
 const KEY=()=> 'ipos-chain-'+man.id;
@@ -163,7 +188,7 @@ async function verify(){let prev='GENESIS';for(const r of chain()){const{hash,..
 async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
 
 const m=new URLSearchParams(location.search).get('m');
-if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null,x.pl);store()}catch(e){app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
+if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null,x.pl,x.a);if(new URLSearchParams(location.search).get('view')==='tv'){tv();throw 'tv'}store()}catch(e){if(e==='tv'){}else app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
 </script>
 </body>
 </html>
