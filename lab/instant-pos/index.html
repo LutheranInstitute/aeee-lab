@@ -45,20 +45,38 @@ const head=(t,s)=>`<h1><span class="stack"><i style="background:var(--y)"></i><i
 
 function parseMenu(txt){return txt.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[\s\-–:·]*\$?\s*(\d+(?:[.,]\d{1,2})?)\s*$/);return m?{name:m[1].trim(),price:+m[2].replace(',','.')}:null}).filter(x=>x&&x.name&&x.price>0)}
 
-function manifest(name,kind,city,items){const id=slug(name);return{
+function manifest(name,kind,city,items,owner){const id=slug(name);return{
   schema:'ae.manifest/0.1',id:`instant-pos/${id}`,name,status:'lab',
   address:`x0:y0:z0:æ1 · æ://pos/${id}`,surface:'instant-pos',
   context:{kind,city},
   capabilities:{menu:items.map(i=>({name:i.name,price_usd:i.price}))},
   checkout:{mode:'real',processor:'mock (paper) · processor tbd',custody:'processor holds funds'},
   authority:{agents_may:['resolve','read','verify','checkout.create'],human_only:['checkout.pay','refund.issue','publish']},
-  provenance:{generator:'lab/instant-pos',principal:'merchant',created:new Date().toISOString()}}}
+  provenance:{generator:'lab/instant-pos',principal:owner?{provider:'linkedin (simulado)',sub:owner.sub,name:owner.name}:'merchant',created:new Date().toISOString()}}}
 
 // ---------- MAKE MODE ----------
+let me=JSON.parse(sessionStorage.getItem('ipos-me')||'null');
+function signin(){
+  app.innerHTML=head('Instant POS','¿Tienes LinkedIn? Bienvenido. Sales con tu tienda æQR.')+`
+  <div class="card">
+   <button id="li" style="background:#0A66C2;border-color:#0A66C2;width:100%" onclick="liForm()">in · Sign in with LinkedIn</button>
+   <p class="mut">Simulación del LAB. La versión real usa LinkedIn OIDC (openid profile email) con el secreto en el servidor, en auth.privateclient.ai.</p>
+   <div id="lf"></div></div>
+   <p class="mut">LinkedIn prueba quién eres (æ0). Publicar tu tienda es æ1. Cobrar dinero real requiere registrarte con un procesador de pagos; nosotros nunca custodiamos fondos.</p>`;
+}
+function liForm(){$('#lf').innerHTML=`<label>Nombre (como en LinkedIn)</label><input id="ln" placeholder="María López">
+  <label>Correo (solo se queda en esta sesión, nunca entra al æQR)</label><input id="le" placeholder="maria@ejemplo.com">
+  <button onclick="liOk()">Permitir · openid profile email</button>`}
+async function liOk(){const name=$('#ln').value.trim();if(!name)return;
+  const sub='sim-'+(await sha('linkedin:'+name.toLowerCase()+':'+($('#le').value||''))).slice(0,12);
+  me={name,sub,provider:'linkedin (simulado)'};sessionStorage.setItem('ipos-me',JSON.stringify(me));make()}
+function signout(){me=null;sessionStorage.removeItem('ipos-me');signin()}
 function make(){
+  if(!me)return signin();
   app.innerHTML=head('Instant POS','Nombre + menú → manifiesto + æQR + cobro. Abierto en dos minutos.')+`
+  <p class="noprint"><span class="badge" style="border-color:#0A66C2;color:#0A66C2">in · ${me.name} · ${me.sub}</span> <a href="#" onclick="signout();return false" class="mut">salir</a></p>
   <div class="card noprint">
-   <label>Nombre del negocio</label><input id="n" value="Tacos María">
+   <label>Nombre del negocio</label><input id="n" value="${(me.name.split(' ')[0]||'Mi')}'s Shop">
    <label>Tipo</label><input id="k" value="taco truck">
    <label>Ciudad</label><input id="c" value="Donna, TX">
    <label>Menú · una línea por producto: nombre precio</label>
@@ -71,8 +89,8 @@ Horchata 3.50</textarea>
 }
 async function gen(){
   const items=parseMenu($('#m').value); if(!items.length){$('#out').innerHTML='<p class="no">✗ menú vacío</p>';return}
-  const man=manifest($('#n').value.trim()||'Mi negocio',$('#k').value.trim(),$('#c').value.trim(),items);
-  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price])};
+  const man=manifest($('#n').value.trim()||'Mi negocio',$('#k').value.trim(),$('#c').value.trim(),items,me);
+  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price]),o:me.name,p:me.sub};
   const url=location.origin+location.pathname+'?m='+b64u.enc(JSON.stringify(compact));
   const qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();
   const cell=6,size=qr.getModuleCount()*cell+cell*8,cv=document.createElement('canvas');cv.width=cv.height=size;
@@ -97,7 +115,8 @@ const chain=()=>JSON.parse(localStorage.getItem(KEY())||'[]');
 async function witness(ev){const c=chain(),prev=c.at(-1)?.hash||'GENESIS',body={...ev,at:new Date().toISOString(),prev};const r={...body,hash:await sha(JSON.stringify(body))};c.push(r);localStorage.setItem(KEY(),JSON.stringify(c));return r}
 function store(){
   const it=man.capabilities.menu;
-  app.innerHTML=head(man.name,`${man.context.kind||''} · ${man.context.city||''}`)+`<p class="badge">${man.address}</p>
+  const pr=man.provenance.principal;
+  app.innerHTML=head(man.name,`${man.context.kind||''} · ${man.context.city||''}`)+`<p class="badge">${man.address}</p>${pr&&pr.sub?` <p class="badge" style="border-color:#0A66C2;color:#0A66C2">in · dueño: ${pr.name} · ${pr.sub}</p>`:''}
   <div class="card">${it.map((i,k)=>`<div class="row"><span>${i.name}<br><span class="mut">${money(i.price_usd)}</span></span><span><button class="ghost" onclick="add(${k},-1)">−</button> <b id="q${k}">0</b> <button onclick="add(${k},1)">+</button></span></div>`).join('')}
   <p>Total: <b id="tot">$0.00</b></p>
   <button onclick="prep()">Agente: preparar cobro</button></div>
@@ -129,7 +148,7 @@ async function verify(){let prev='GENESIS';for(const r of chain()){const{hash,..
 async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
 
 const m=new URLSearchParams(location.search).get('m');
-if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})));store()}catch(e){app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
+if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null);store()}catch(e){app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
 </script>
 </body>
 </html>
