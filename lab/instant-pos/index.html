@@ -53,7 +53,7 @@ function manifest(name,kind,city,items,owner,plan,ads){const id=slug(name);retur
   context:{kind,city},
   capabilities:{menu:items.map(i=>({name:i.name,price_usd:i.price}))},
   checkout:{mode:'real',processor:'mock (paper) · processor tbd',custody:'processor holds funds'},
-  authority:{agents_may:['resolve','read','verify','checkout.create'],human_only:['checkout.pay','refund.issue','publish']},
+  authority:{agents_may:['resolve','read','verify','checkout.create'],human_only:['checkout.pay','refund.issue','publish','socio.grant']},
   provenance:{generator:'lab/instant-pos',principal:owner?{provider:'linkedin (simulado)',sub:owner.sub,name:owner.name}:'merchant',created:new Date().toISOString()}}}
 
 // ---------- MAKE MODE ----------
@@ -140,7 +140,7 @@ function tv(){
   document.addEventListener('click',()=>document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{}),{once:true});
 }
 // ---------- STORE MODE ----------
-let man,cart={},preview=null;
+let man,cart={},preview=null,socio=null;
 const KEY=()=> 'ipos-chain-'+man.id;
 const chain=()=>JSON.parse(localStorage.getItem(KEY())||'[]');
 async function witness(ev){const c=chain(),prev=c.at(-1)?.hash||'GENESIS',body={...ev,at:new Date().toISOString(),prev};const r={...body,hash:await sha(JSON.stringify(body))};c.push(r);localStorage.setItem(KEY(),JSON.stringify(c));return r}
@@ -151,15 +151,44 @@ function store(){
   <div class="card">${it.map((i,k)=>`<div class="row"><span>${i.name}<br><span class="mut">${money(i.price_usd)}</span></span><span><button class="ghost" onclick="add(${k},-1)">−</button> <b id="q${k}">0</b> <button onclick="add(${k},1)">+</button></span></div>`).join('')}
   <p>Total: <b id="tot">$0.00</b></p>
   <button onclick="prep()">Agente: preparar cobro</button></div>
+  <div id="sb"></div>
   <div id="pv"></div><h2>Recibos</h2><div id="rc"></div>
+  <details><summary>Socios en misión · solo el dueño de la tienda</summary>
+   <p class="mut">La tienda emite un æQR por socio. El socio vende; la tienda envía y sigue siendo el vendedor; el recibo divide la comisión. Emitir es human_only (æ2).</p>
+   <label>Nombre del socio</label><input id="sn" value="Iglesia (muestra)">
+   <label>Comisión %</label><input id="sr" type="number" value="10" min="1" max="50">
+   <label>Vigencia (días)</label><input id="sd" type="number" value="90" min="1" max="365">
+   <button class="ghost" onclick="grantSocio(false)">Agente intenta emitir</button> <button onclick="grantSocio(true)">Emitir æQR de socio (dueño)</button>
+   <div id="so"></div></details>
   <p class="mut">Escanear nunca da permiso. Agentes preparan; solo un humano paga. El procesador custodia los fondos. Plan ${man.plan?man.plan.tier:'æ0'}.</p>
   <details><summary>Vista de agente · lo que lee cualquier agente</summary><pre>${JSON.stringify({ae:man,jsonld:ld()},null,2).replace(/</g,'&lt;')}</pre></details>`;
+  loadSocio();
   ['ld','ae'].forEach(k=>{const el=document.createElement('script');el.type=k==='ld'?'application/ld+json':'application/ae+json';el.id='agent-'+k;el.textContent=JSON.stringify(k==='ld'?ld():man);document.head.appendChild(el)});
   rc();
 }
 function ld(){const k=(man.context.kind||'').toLowerCase(),t=/libr|book|biblia/.test(k)?'BookStore':/food|truck|taco|ceviche|comida|restaur|café|cafe/.test(k)?'FoodEstablishment':'Store';return{'@context':'https://schema.org','@type':t,name:man.name,address:man.context.city,...(t==='FoodEstablishment'?{servesCuisine:man.context.kind}:{description:man.context.kind}),
   [t==='FoodEstablishment'?'hasMenu':'hasOfferCatalog']:{'@type':t==='FoodEstablishment'?'Menu':'OfferCatalog',[t==='FoodEstablishment'?'hasMenuItem':'itemListElement']:man.capabilities.menu.map(i=>({'@type':t==='FoodEstablishment'?'MenuItem':'Product',name:i.name,offers:{'@type':'Offer',price:i.price_usd.toFixed(2),priceCurrency:'USD'}}))},
   potentialAction:{'@type':'OrderAction',description:'Agents may prepare (checkout.create). Only the human buyer may pay (checkout.pay, human_only).'}}}
+const base=()=>location.origin+location.pathname+'?m='+new URLSearchParams(location.search).get('m');
+async function socioHash(t){return(await sha([man.id,t.n,t.r,t.x].join('|'))).slice(0,16)}
+async function grantSocio(human){
+  if(!human){await witness({type:'refused',action:'socio.grant',reason:'socio.grant is human_only (æ2)'});$('#so').innerHTML='<p class="no">✗ socio.grant es human_only</p>';return rc()}
+  const t={n:$('#sn').value.trim()||'Socio',r:Math.min(50,Math.max(1,+$('#sr').value||10)),x:Date.now()+(+$('#sd').value||90)*864e5};
+  t.h=await socioHash(t);
+  const url=base()+'&s='+b64u.enc(JSON.stringify(t));
+  await witness({type:'socio.grant',by:'owner',authority:'æ2',socio:t.n,rate_pct:t.r,expires:new Date(t.x).toISOString(),grant:t.h});
+  $('#so').innerHTML=`<p class="ok">✓ ${t.n} · ${t.r}% · vence ${new Date(t.x).toLocaleDateString()}</p><div id="sq"></div><p><a href="${url}" target="_blank"><button class="ghost">Abrir tienda del socio</button></a></p><p class="mut">Firma simulada (hash). En producción la firma la hace la llave (passkey) del dueño.</p>`;
+  const cv=qrCanvas(url,4);cv.style.maxWidth='100%';$('#sq').appendChild(cv);rc();
+}
+async function loadSocio(){
+  const sp=new URLSearchParams(location.search).get('s');if(!sp)return;
+  let t;try{t=JSON.parse(b64u.dec(sp))}catch(e){t=null}
+  const bad=async why=>{await witness({type:'refused',action:'socio.attach',reason:why});$('#sb').innerHTML=`<p class="no">✗ socio inválido · ${why} · la venta sigue sin comisión</p>`;rc()};
+  if(!t)return bad('malformed');
+  if(await socioHash(t)!==t.h)return bad('grant_mismatch');
+  if(Date.now()>t.x)return bad('expired');
+  socio=t;$('#sb').innerHTML=`<div class="card" style="border-color:#2E8B57"><p class="ok">✓ Socio en misión: <b>${t.n}</b> · ${t.r}% · la tienda envía y es el vendedor</p></div>`;
+}
 function total(){return man.capabilities.menu.reduce((s,i,k)=>s+(cart[k]||0)*i.price_usd,0)}
 function add(k,d){cart[k]=Math.max(0,(cart[k]||0)+d);$('#q'+k).textContent=cart[k];$('#tot').textContent=money(total());preview=null;$('#pv').innerHTML=''}
 async function prep(){
@@ -176,16 +205,17 @@ async function pay(human){
   if(preview.used){await witness({type:'refused',action:'checkout.pay',reason:'single_use'});$('#pv').insertAdjacentHTML('beforeend','<p class="no">✗ single_use</p>');return rc()}
   if(Date.now()>preview.expires){await witness({type:'refused',action:'checkout.pay',reason:'expired'});$('#pv').insertAdjacentHTML('beforeend','<p class="no">✗ expirado</p>');return rc()}
   preview.used=true;
-  const r=await witness({type:'checkout.pay',by:'buyer',authority:'æ2',lines:preview.lines,total:preview.total,processor:'mock',custody:'processor'});
+  const split=socio?{socio:socio.n,grant:socio.h,rate_pct:socio.r,socio_usd:+(preview.total*socio.r/100).toFixed(2),store_usd:+(preview.total*(1-socio.r/100)).toFixed(2)}:null;
+  const r=await witness({type:'checkout.pay',by:'buyer',authority:'æ2',lines:preview.lines,total:preview.total,processor:'mock',custody:'processor',...(split?{split}:{})});
   const cents=v=>Math.round(v*100);
   const acp={id:'cs_'+preview.id.slice(0,12),status:'completed',currency:'usd',line_items:preview.lines.map((l,i)=>({id:'li_'+i,item:{id:slug(l.item),quantity:l.qty},base_amount:cents(l.price*l.qty),total:cents(l.price*l.qty)})),totals:[{type:'total',display_text:'Total',amount:cents(preview.total)}],payment_provider:{provider:'mock'}};
   const ap2={mode:'human_present',payment_mandate:{payment_mandate_contents:{payment_mandate_id:preview.id,payment_details_total:{label:'Total',amount:{currency:'USD',value:preview.total}},merchant_agent:man.id,timestamp:r.at},user_authorization:'witness:'+r.hash}};
-  $('#pv').innerHTML=`<div class="card"><p class="ok">✓ pagado · ${money(preview.total)}</p><p class="mut">recibo ${r.hash.slice(0,16)}…</p>
+  $('#pv').innerHTML=`<div class="card"><p class="ok">✓ pagado · ${money(preview.total)}</p><p class="mut">recibo ${r.hash.slice(0,16)}…</p>${split?`<p>Tienda ${money(split.store_usd)} · ${split.socio} ${money(split.socio_usd)} (${split.rate_pct}%)</p>`:''}
    <details><summary>Puente de protocolos · con la forma de ACP y AP2 (no certificado)</summary><p class="mut">ACP · checkout session</p><pre>${JSON.stringify(acp,null,2)}</pre><p class="mut">AP2 · mandato con humano presente; la autorización es el recibo Witness</p><pre>${JSON.stringify(ap2,null,2)}</pre></details></div>`;
   cart={};man.capabilities.menu.forEach((_,k)=>$('#q'+k).textContent=0);$('#tot').textContent='$0.00';rc();
 }
 async function verify(){let prev='GENESIS';for(const r of chain()){const{hash,...b}=r;if(b.prev!==prev||await sha(JSON.stringify(b))!==hash)return'<span class="no">✗ cadena rota</span>';prev=hash}return`<span class="ok">✓ cadena íntegra · ${chain().length}</span>`}
-async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
+async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||r.socio||''}${r.split?` · socio ${money(r.split.socio_usd)}`:''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
 
 const m=new URLSearchParams(location.search).get('m');
 if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null,x.pl,x.a);if(new URLSearchParams(location.search).get('view')==='tv'){tv();throw 'tv'}store()}catch(e){if(e==='tv'){}else app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
