@@ -45,7 +45,8 @@ const head=(t,s)=>`<h1><span class="stack"><i style="background:var(--y)"></i><i
 
 function parseMenu(txt){return txt.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[\s\-–:·]*\$?\s*(\d+(?:[.,]\d{1,2})?)\s*$/);return m?{name:m[1].trim(),price:+m[2].replace(',','.')}:null}).filter(x=>x&&x.name&&x.price>0)}
 
-function manifest(name,kind,city,items,owner){const id=slug(name);return{
+function manifest(name,kind,city,items,owner,plan){const id=slug(name);return{
+  plan:plan==='ae1'?{tier:'æ1',monthly_usd:19,fee_pct:'tbd',note:'suggested, not validated'}:{tier:'æ0',monthly_usd:0,fee_pct:'tbd',note:'free + per-sale fee via processor'},
   schema:'ae.manifest/0.1',id:`instant-pos/${id}`,name,status:'lab',
   address:`x0:y0:z0:æ1 · æ://pos/${id}`,surface:'instant-pos',
   context:{kind,city},
@@ -79,18 +80,23 @@ function make(){
    <label>Nombre del negocio</label><input id="n" value="${(me.name.split(' ')[0]||'Mi')}'s Shop">
    <label>Tipo</label><input id="k" value="taco truck">
    <label>Ciudad</label><input id="c" value="Donna, TX">
+   <label>Plan</label><select id="pl"><option value="ae0">æ0 · Libre · solo comisión por venta (por definir)</option><option value="ae1">æ1 · $19/mes (sugerido) · comisión por definir</option></select>
    <label>Menú · una línea por producto: nombre precio</label>
    <textarea id="m">Al pastor 2.50
 Barbacoa 3.00
 Quesadilla 6.00
 Horchata 3.50</textarea>
    <button onclick="gen()">Generar æQR</button>
-  </div><div id="out"></div>`;
+  </div><div id="out"></div>
+  <h2>Directorio</h2><p class="mut">Publicar es human_only: abre un issue público y el steward lo aprueba. Ningún agente publica solo.</p><div id="dir"></div>`;
+  fetch('registry.json').then(r=>r.json()).then(d=>{$('#dir').innerHTML=d.shops.map(x=>`<div class="row"><span>${x.name}<br><span class="mut">${x.kind} · ${x.city} · ${x.status}</span></span><a href="${x.url}" target="_blank"><button class="ghost">abrir</button></a></div>`).join('')||'<p class="mut">vacío</p>'}).catch(()=>{});
 }
+function publish(name,url){const body=`Tienda: ${name}\nURL æQR: ${url}\n\nSolicito publicar esta tienda en el directorio de Instant POS (LAB). Entiendo que es una simulación con dinero de papel.`;
+  window.open('https://github.com/LutheranInstitute/aeee-lab/issues/new?labels=instant-pos-shop&title='+encodeURIComponent('instant-pos: '+name)+'&body='+encodeURIComponent(body),'_blank')}
 async function gen(){
   const items=parseMenu($('#m').value); if(!items.length){$('#out').innerHTML='<p class="no">✗ menú vacío</p>';return}
-  const man=manifest($('#n').value.trim()||'Mi negocio',$('#k').value.trim(),$('#c').value.trim(),items,me);
-  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price]),o:me.name,p:me.sub};
+  const man=manifest($('#n').value.trim()||'Mi negocio',$('#k').value.trim(),$('#c').value.trim(),items,me,$('#pl').value);
+  const compact={n:man.name,k:man.context.kind,c:man.context.city,i:items.map(x=>[x.name,x.price]),o:me.name,p:me.sub,pl:$('#pl').value};
   const url=location.origin+location.pathname+'?m='+b64u.enc(JSON.stringify(compact));
   const qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();
   const cell=6,size=qr.getModuleCount()*cell+cell*8,cv=document.createElement('canvas');cv.width=cv.height=size;
@@ -102,7 +108,7 @@ async function gen(){
    <p>${pass?'<span class="ok">✓ verificado</span> · decodificado de vuelta, bytes idénticos (jsQR)':'<span class="no">✗ no verificado</span> · el decodificador no coincide'}</p>
    <p class="mut">El æQR lleva solo nombre, tipo, ciudad y menú; la tienda reconstruye el ae.json completo. Gate de producción: cv2 + pyzbar deben coincidir. Aquí: una sola verificación en el navegador.</p>
    <p class="badge">${man.address}</p>
-   <div class="noprint"><button onclick="window.print()">Imprimir</button><a href="${url}" target="_blank"><button class="ghost">Abrir tienda</button></a><button class="ghost" onclick='dl(${JSON.stringify(JSON.stringify(man,null,2))})'>Descargar ae.json</button></div>
+   <div class="noprint"><button onclick="window.print()">Imprimir</button><a href="${url}" target="_blank"><button class="ghost">Abrir tienda</button></a><button class="ghost" onclick="publish(${JSON.stringify(man.name).replace(/"/g,'&quot;')},'${url}')">Publicar en el directorio</button><button class="ghost" onclick='dl(${JSON.stringify(JSON.stringify(man,null,2))})'>Descargar ae.json</button></div>
    <h2 class="noprint">ae.json</h2><pre class="noprint">${JSON.stringify(man,null,2).replace(/</g,'&lt;')}</pre>`;
   $('#qr').appendChild(cv);
 }
@@ -121,9 +127,14 @@ function store(){
   <p>Total: <b id="tot">$0.00</b></p>
   <button onclick="prep()">Agente: preparar cobro</button></div>
   <div id="pv"></div><h2>Recibos</h2><div id="rc"></div>
-  <p class="mut">Escanear nunca da permiso. Agentes preparan; solo un humano paga. El procesador custodia los fondos.</p>`;
+  <p class="mut">Escanear nunca da permiso. Agentes preparan; solo un humano paga. El procesador custodia los fondos. Plan ${man.plan?man.plan.tier:'æ0'}.</p>
+  <details><summary>Vista de agente · lo que lee cualquier agente</summary><pre>${JSON.stringify({ae:man,jsonld:ld()},null,2).replace(/</g,'&lt;')}</pre></details>`;
+  ['ld','ae'].forEach(k=>{const el=document.createElement('script');el.type=k==='ld'?'application/ld+json':'application/ae+json';el.id='agent-'+k;el.textContent=JSON.stringify(k==='ld'?ld():man);document.head.appendChild(el)});
   rc();
 }
+function ld(){return{'@context':'https://schema.org','@type':'FoodEstablishment',name:man.name,address:man.context.city,servesCuisine:man.context.kind,
+  hasMenu:{'@type':'Menu',hasMenuItem:man.capabilities.menu.map(i=>({'@type':'MenuItem',name:i.name,offers:{'@type':'Offer',price:i.price_usd.toFixed(2),priceCurrency:'USD'}}))},
+  potentialAction:{'@type':'OrderAction',description:'Agents may prepare (checkout.create). Only the human buyer may pay (checkout.pay, human_only).'}}}
 function total(){return man.capabilities.menu.reduce((s,i,k)=>s+(cart[k]||0)*i.price_usd,0)}
 function add(k,d){cart[k]=Math.max(0,(cart[k]||0)+d);$('#q'+k).textContent=cart[k];$('#tot').textContent=money(total());preview=null;$('#pv').innerHTML=''}
 async function prep(){
@@ -141,14 +152,18 @@ async function pay(human){
   if(Date.now()>preview.expires){await witness({type:'refused',action:'checkout.pay',reason:'expired'});$('#pv').insertAdjacentHTML('beforeend','<p class="no">✗ expirado</p>');return rc()}
   preview.used=true;
   const r=await witness({type:'checkout.pay',by:'buyer',authority:'æ2',lines:preview.lines,total:preview.total,processor:'mock',custody:'processor'});
-  $('#pv').innerHTML=`<div class="card"><p class="ok">✓ pagado · ${money(preview.total)}</p><p class="mut">recibo ${r.hash.slice(0,16)}…</p></div>`;
+  const cents=v=>Math.round(v*100);
+  const acp={id:'cs_'+preview.id.slice(0,12),status:'completed',currency:'usd',line_items:preview.lines.map((l,i)=>({id:'li_'+i,item:{id:slug(l.item),quantity:l.qty},base_amount:cents(l.price*l.qty),total:cents(l.price*l.qty)})),totals:[{type:'total',display_text:'Total',amount:cents(preview.total)}],payment_provider:{provider:'mock'}};
+  const ap2={mode:'human_present',payment_mandate:{payment_mandate_contents:{payment_mandate_id:preview.id,payment_details_total:{label:'Total',amount:{currency:'USD',value:preview.total}},merchant_agent:man.id,timestamp:r.at},user_authorization:'witness:'+r.hash}};
+  $('#pv').innerHTML=`<div class="card"><p class="ok">✓ pagado · ${money(preview.total)}</p><p class="mut">recibo ${r.hash.slice(0,16)}…</p>
+   <details><summary>Puente de protocolos · con la forma de ACP y AP2 (no certificado)</summary><p class="mut">ACP · checkout session</p><pre>${JSON.stringify(acp,null,2)}</pre><p class="mut">AP2 · mandato con humano presente; la autorización es el recibo Witness</p><pre>${JSON.stringify(ap2,null,2)}</pre></details></div>`;
   cart={};man.capabilities.menu.forEach((_,k)=>$('#q'+k).textContent=0);$('#tot').textContent='$0.00';rc();
 }
 async function verify(){let prev='GENESIS';for(const r of chain()){const{hash,...b}=r;if(b.prev!==prev||await sha(JSON.stringify(b))!==hash)return'<span class="no">✗ cadena rota</span>';prev=hash}return`<span class="ok">✓ cadena íntegra · ${chain().length}</span>`}
 async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
 
 const m=new URLSearchParams(location.search).get('m');
-if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null);store()}catch(e){app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
+if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null,x.pl);store()}catch(e){app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
 </script>
 </body>
 </html>
