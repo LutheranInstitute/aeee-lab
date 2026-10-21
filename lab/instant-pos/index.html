@@ -157,8 +157,8 @@ function store(){
   ['ld','ae'].forEach(k=>{const el=document.createElement('script');el.type=k==='ld'?'application/ld+json':'application/ae+json';el.id='agent-'+k;el.textContent=JSON.stringify(k==='ld'?ld():man);document.head.appendChild(el)});
   rc();
 }
-function ld(){return{'@context':'https://schema.org','@type':'FoodEstablishment',name:man.name,address:man.context.city,servesCuisine:man.context.kind,
-  hasMenu:{'@type':'Menu',hasMenuItem:man.capabilities.menu.map(i=>({'@type':'MenuItem',name:i.name,offers:{'@type':'Offer',price:i.price_usd.toFixed(2),priceCurrency:'USD'}}))},
+function ld(){const k=(man.context.kind||'').toLowerCase(),t=/libr|book|biblia/.test(k)?'BookStore':/food|truck|taco|ceviche|comida|restaur|café|cafe/.test(k)?'FoodEstablishment':'Store';return{'@context':'https://schema.org','@type':t,name:man.name,address:man.context.city,...(t==='FoodEstablishment'?{servesCuisine:man.context.kind}:{description:man.context.kind}),
+  [t==='FoodEstablishment'?'hasMenu':'hasOfferCatalog']:{'@type':t==='FoodEstablishment'?'Menu':'OfferCatalog',[t==='FoodEstablishment'?'hasMenuItem':'itemListElement']:man.capabilities.menu.map(i=>({'@type':t==='FoodEstablishment'?'MenuItem':'Product',name:i.name,offers:{'@type':'Offer',price:i.price_usd.toFixed(2),priceCurrency:'USD'}}))},
   potentialAction:{'@type':'OrderAction',description:'Agents may prepare (checkout.create). Only the human buyer may pay (checkout.pay, human_only).'}}}
 function total(){return man.capabilities.menu.reduce((s,i,k)=>s+(cart[k]||0)*i.price_usd,0)}
 function add(k,d){cart[k]=Math.max(0,(cart[k]||0)+d);$('#q'+k).textContent=cart[k];$('#tot').textContent=money(total());preview=null;$('#pv').innerHTML=''}
