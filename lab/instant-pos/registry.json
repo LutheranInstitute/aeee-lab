@@ -5,6 +5,13 @@
   "rule": "Shops join by public issue labelled instant-pos-shop; the steward approves. Agents never publish.",
   "shops": [
     {
+      "name": "L://Gospel_Bookstore (pilot)",
+      "kind": "librería cristiana",
+      "city": "Laredo, TX",
+      "status": "pilot · paper money · real catalog prices",
+      "url": "./?m=eyJuIjoiTDovL0dvc3BlbF9Cb29rc3RvcmUiLCJrIjoibGlicmVyw61hIGNyaXN0aWFuYSIsImMiOiJMYXJlZG8sIFRYIiwiaSI6W1siU2FudGEgQmlibGlhIFJlaW5hIFZhbGVyYSAxOTYwIiw3LjVdLFsiTGEgQmlibGlhIExhdGlub2Ftw6lyaWNhIiwxOS45OV0sWyJPYXNpcyBlbiBlbCBEZXNpZXJ0byIsNC45OV0sWyJFbCBMbGFtYWRvIC0gSGVybWFubyBBbmRyw6lzIiw5Ljk5XSxbIlBhcsOhYm9sYXMgZGUgSmVzw7pzIHBhcmEgTmnDsW9zIiw5Ljk5XSxbIlBlc3Rhw7FhcyBCw61ibGljYXMgKMONbmRpY2UpIiw1Ljk5XSxbIkJpYmxlIENvdmVyIHNpemUgTSIsMjkuOTldXSwicGwiOiJhZTAiLCJhIjpbIkJpYmxpYSBSZWluYSBWYWxlcmEgMTk2MCBkZXNkZSAkNy41MCIsIjEyMTkgQmFsdGltb3JlIFN0IMK3IEx1buKAk1PDoWIgMTDigJM2IiwiRXNjYW5lYSBlbCDDplFSIMK3IGFwYXJ0YSB0dSBsaWJybyIsIkxpYnJvcyBFdmFuZ8OpbGljb3MgwrcgTGFyZWRvLCBUWCJdfQ"
+    },
+    {
       "name": "Tacos María (muestra)",
       "kind": "taco truck",
       "city": "Donna, TX",
