@@ -143,7 +143,10 @@ function tv(){
 let man,cart={},preview=null,socio=null;
 const KEY=()=> 'ipos-chain-'+man.id;
 const chain=()=>JSON.parse(localStorage.getItem(KEY())||'[]');
-async function witness(ev){const c=chain(),prev=c.at(-1)?.hash||'GENESIS',body={...ev,at:new Date().toISOString(),prev};const r={...body,hash:await sha(JSON.stringify(body))};c.push(r);localStorage.setItem(KEY(),JSON.stringify(c));return r}
+async function witness(ev){const c=chain(),prev=c.at(-1)?.hash||'GENESIS',body={...ev,at:new Date().toISOString(),prev};const r={...body,hash:await sha(JSON.stringify(body))};c.push(r);localStorage.setItem(KEY(),JSON.stringify(c));await mirror(ev);return r}
+const SERVER=/(^|\.)privateclient\.ai$/.test(location.hostname);
+async function mirror(ev){if(!SERVER||!man)return;try{await fetch('/pos/api/witness',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({shop:man.id,ev})})}catch(e){}}
+async function serverLine(){if(!SERVER||!man)return'';try{const d=await (await fetch('/pos/api/chain?shop='+encodeURIComponent(man.id))).json();return` · <span class="${d.intact?'ok':'no'}">servidor node^0 ${d.intact?'✓':'✗'} ${d.count}</span>`}catch(e){return' · <span class="no">servidor sin conexión</span>'}}
 function store(){
   const it=man.capabilities.menu;
   const pr=man.provenance.principal;
@@ -215,7 +218,7 @@ async function pay(human){
   cart={};man.capabilities.menu.forEach((_,k)=>$('#q'+k).textContent=0);$('#tot').textContent='$0.00';rc();
 }
 async function verify(){let prev='GENESIS';for(const r of chain()){const{hash,...b}=r;if(b.prev!==prev||await sha(JSON.stringify(b))!==hash)return'<span class="no">✗ cadena rota</span>';prev=hash}return`<span class="ok">✓ cadena íntegra · ${chain().length}</span>`}
-async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||r.socio||''}${r.split?` · socio ${money(r.split.socio_usd)}`:''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}</p>`}
+async function rc(){const c=chain();$('#rc').innerHTML=(c.length?c.slice().reverse().map(r=>`<div class="row"><span>${r.type} · ${r.total!=null?money(r.total):r.reason||r.socio||''}${r.split?` · socio ${money(r.split.socio_usd)}`:''}</span><span class="mut">${r.hash.slice(0,10)}</span></div>`).join(''):'<p class="mut">sin recibos</p>')+`<p>${await verify()}${await serverLine()}</p>`}
 
 const m=new URLSearchParams(location.search).get('m');
 if(m){try{const x=JSON.parse(b64u.dec(m));man=x.schema?x:manifest(x.n,x.k,x.c,x.i.map(([name,price])=>({name,price})),x.o?{name:x.o,sub:x.p}:null,x.pl,x.a);if(new URLSearchParams(location.search).get('view')==='tv'){tv();throw 'tv'}store()}catch(e){if(e==='tv'){}else app.innerHTML='<p class="no">✗ manifiesto inválido</p>'}}else make();
