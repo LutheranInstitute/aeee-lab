@@ -6,6 +6,7 @@ runtime: browser
 language: [es]
 license: MIT
 registry: subagents.json
+media_routes: 14 (línea, pixel, 3D, video, GIF, imagen, audio, transcribir, slides, gráfica, documento, página, clase, texto)
 authority: none (routes only)
 human_only: [enroll, publish, pay, sign, approve_cards]
 ---
