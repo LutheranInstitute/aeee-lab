@@ -46,7 +46,7 @@ pre{font:12px/1.45 var(--m);background:#f6f6f6;border-radius:8px;padding:10px;ov
 <input id="tk" placeholder="Tarea: ej. Clase 3 · mi primer manifiesto" aria-label="Tarea">
 <div id="o4"></div></div>
 
-<div class="st"><h2>📟 TESTIGO · recibos encadenados</h2><div class="log" id="lg"><div>génesis · x0:y0:z0:æ0</div></div></div>
+<div class="st"><h2>📟 TESTIGO · recibos encadenados</h2><div class="log" id="lg"><div>génesis · x0:y0:z0:æ0</div></div><button id="bv">Verificar cadena</button><button id="bt" class="g">Alterar un recibo (prueba)</button><div id="ov"></div></div>
 <p class="ft">Many agents. One principal. · Evidencia ≠ autoridad · <a href="manifest.json" style="color:inherit">manifest.json</a> · <a href="../pico/" style="color:inherit">⚪️ pico</a></p>
 </div>
 <script src="qrcode.min.js"></script><script src="jsQR.min.js"></script>
@@ -57,7 +57,7 @@ var $=function(i){return document.getElementById(i)},prev="x0:y0:z0:æ0",n=0,S={
 function hex(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")}
 async function sha(s){return hex(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)))}
 function rnd(k){var a=new Uint8Array(k);crypto.getRandomValues(a);return hex(a.buffer)}
-async function witness(act,obj){var h=await sha(JSON.stringify({n:++n,act:act,obj:obj,prev:prev,t:Date.now()}));prev=h;var d=document.createElement("div");d.textContent="#"+n+" "+act+" · "+h.slice(0,16)+"…";$("lg").appendChild(d);return h}
+var CH=[];async function witness(act,obj){var rec={n:++n,act:act,obj:obj,prev:prev,t:Date.now()};var h=await sha(JSON.stringify(rec));CH.push({rec:rec,h:h});prev=h;var d=document.createElement("div");d.textContent="#"+n+" "+act+" · "+h.slice(0,16)+"…";$("lg").appendChild(d);return h}
 function draw(text){var q=qrcode(0,"M");q.addData(text);q.make();var c=q.getModuleCount(),s=4,m=4,cv=document.createElement("canvas");cv.width=cv.height=(c+2*m)*s;var x=cv.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,cv.width,cv.height);x.fillStyle="#111";for(var r=0;r<c;r++)for(var k=0;k<c;k++)if(q.isDark(r,k))x.fillRect((k+m)*s,(r+m)*s,s,s);return cv}
 function verify(cv,text){var x=cv.getContext("2d"),d=x.getImageData(0,0,cv.width,cv.height),r=jsQR(d.data,cv.width,cv.height);return {ok:!!r&&r.data===text,got:r?r.data:null}}
 function show(host,text,label,onTap){var cv=draw(text),v=verify(cv,text),w=document.createElement("div");w.className="qr";w.appendChild(cv);var p=document.createElement("div");p.className="p";p.innerHTML="<b></b><br><span></span><br>";p.querySelector("b").textContent=label;p.querySelector("span").textContent=text;var ok=document.createElement("span");ok.className=v.ok?"ok":"no";ok.textContent=v.ok?"✓ verificado desde píxeles (jsQR)":"✗ no decodifica";p.appendChild(ok);w.appendChild(p);if(onTap){cv.title="Tocar para escanear";cv.onclick=function(){var r=verify(cv,text);onTap(r.got)}}host.appendChild(w);return v.ok}
@@ -86,5 +86,9 @@ $("b4a").onclick=async function(){var addr="L/"+S.coh.id+"/"+S.st.sub;var man={s
 $("b4b").onclick=async function(){if(!S.man){say($("o4"),"Primero crea tu æQR.","no");return}var t=$("tk").value.trim()||"Clase 3 · mi primer manifiesto";var h=await witness("work.submit",{by:S.st.sub,t:t,env:S.man.id});
  show($("o4"),"æQR://"+S.man.id+"/r/"+h.slice(0,16),"Entrega · "+t);say($("o4"),"Tu docente la revisa; done lo decide una persona.","p")};
 $("b4c").onclick=async function(){say($("o4"),"No. Pagar es human_only: æQR·pico propone, tú decides fuera del agente.","no");await witness("refused.human_only",{act:"pay",by:"agent"})};
+$("bv").onclick=async function(){var o=$("ov");o.innerHTML="";if(!CH.length){say(o,"Cadena vacía: solo génesis.","p");return}var p="x0:y0:z0:æ0",bad=0;
+ for(var i=0;i<CH.length;i++){var c=CH[i],h=await sha(JSON.stringify(c.rec));if(c.rec.prev!==p||h!==c.h){bad=c.rec.n;break}p=c.h}
+ if(bad)say(o,"✗ Cadena rota en el recibo #"+bad+". Ese recibo o uno anterior fue alterado.","no");else say(o,"✓ "+CH.length+" recibos recalculados desde x0:y0:z0:æ0. Cadena íntegra · punta "+p.slice(0,16)+"…","ok")};
+$("bt").onclick=function(){var o=$("ov");o.innerHTML="";if(!CH.length){say(o,"Primero haz algún acto.","p");return}var c=CH[0];c.rec.obj=Object.assign({},c.rec.obj,{alterado:true});say(o,"Se alteró en silencio el recibo #"+c.rec.n+". Ahora toca Verificar cadena.","p")};
 })();
 </script></body></html>
