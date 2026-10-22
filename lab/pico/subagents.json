@@ -1,0 +1,11 @@
+{
+  "schema": "ae.subagents/0.1",
+  "router": {"name": "⚪️ pico", "type": "pico-agent^expert_in_subagents", "owner": "Instituto Luterano Latinoamericano", "authority": "none: routes only; the human decides"},
+  "subagents": [
+    {"id": "1uan", "emoji": "🤗", "name": "Agent 1uan", "role": "orientation: what is new, where to start", "url": "https://lutheraninstitute.github.io/aeee-lab/lab/1uan/", "runtime": "browser", "agents_may": ["read", "recommend", "share_links"]},
+    {"id": "tutor", "emoji": ">_", "name": "Tutor æ", "role": "learning: explain a concept, practice, no cloud", "url": "https://lutheraninstitute.github.io/diplomado-agentico/", "runtime": "browser (small model)", "agents_may": ["explain", "quiz"]},
+    {"id": "hark", "emoji": "æ", "name": "Hark Pro", "role": "student's own agent on the phone: research, prepare, ask before acting", "url": "https://hark.com/download", "runtime": "phone/web", "agents_may": ["prepare", "research"]},
+    {"id": "hermes", "emoji": "🪽", "name": "Hermes æ", "role": "execution: only approved cards, leaves evidence", "url": "https://github.com/LutheranInstitute/Cli.llc", "runtime": "Institute server", "agents_may": ["execute_approved_cards"]}
+  ],
+  "human_only": ["enroll", "publish", "pay", "sign", "approve_cards"]
+}

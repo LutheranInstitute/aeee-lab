@@ -1,0 +1,60 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>⚪️ pico · agente del Instituto · L://</title>
+<meta name="description" content="⚪️ pico: el agente institucional del Instituto Luterano Latinoamericano. No responde por sí mismo: elige al subagente correcto y te dice por qué. El humano decide.">
+<style>
+:root{--i:#111;--i2:#6b6b6b;--l:#e4e4e4;--m:ui-monospace,"SF Mono",Menlo,monospace}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--i);font:16px/1.5 system-ui,-apple-system,sans-serif}
+.w{max-width:600px;margin:auto;padding:28px 18px 120px}
+.o{width:44px;height:44px;border-radius:50%;border:2px solid var(--i);margin:0 0 14px}
+h1{font:600 26px/1.15 system-ui;margin:0 0 4px;letter-spacing:-.2px}
+.k{font:500 12px var(--m);color:var(--i2);margin:0 0 20px;letter-spacing:.3px}
+.tbl{border-top:1px solid var(--l);margin:0 0 20px}
+.row{display:grid;grid-template-columns:36px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--l)}
+.row .e{font:600 15px var(--m);text-align:center}.row b{font-weight:600}.row span{display:block;color:var(--i2);font-size:14px}
+.log{display:flex;flex-direction:column;gap:10px}
+.m{padding:12px 14px;border:1px solid var(--l);border-radius:10px}
+.u{align-self:flex-end;background:#f5f5f5;max-width:85%}
+.a{align-self:stretch}
+.rc{font:500 12px/1.5 var(--m);color:var(--i2);margin-top:8px;white-space:pre-wrap}
+.go{display:inline-block;margin-top:10px;padding:9px 14px;border:1.5px solid var(--i);border-radius:8px;color:var(--i);text-decoration:none;font-weight:600}
+.ft{font:500 11px var(--m);color:var(--i2);text-align:center;margin-top:24px}
+form{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--l);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+form div{max-width:600px;margin:auto;display:flex;gap:8px}
+input{flex:1;font:16px system-ui;padding:12px;border:1px solid #bbb;border-radius:8px}
+form button{font:600 16px system-ui;border:0;background:var(--i);color:#fff;border-radius:8px;padding:0 18px}
+</style></head><body><div class="w">
+<div class="o" aria-hidden="true"></div>
+<h1>⚪️ pico</h1>
+<p class="k">AGENTE DEL INSTITUTO · PICO-AGENT^EXPERT_IN_SUBAGENTS</p>
+<p>No respondo por mí mismo. Elijo al subagente correcto, te digo por qué y te paso con él. Las decisiones son tuyas.</p>
+<div class="tbl" id="tbl"></div>
+<div class="log" id="log"></div>
+<p class="ft">Instituto Luterano Latinoamericano · Many agents. One principal. · <a href="subagents.json" style="color:inherit">subagents.json</a></p>
+</div>
+<form id="f"><div><input id="q" placeholder="¿Qué necesitas?" autocomplete="off" aria-label="Pregunta"><button>Enviar</button></div></form>
+<script>
+(function(){
+var R={"schema": "ae.subagents/0.1", "router": {"name": "⚪️ pico", "type": "pico-agent^expert_in_subagents", "owner": "Instituto Luterano Latinoamericano", "authority": "none: routes only; the human decides"}, "subagents": [{"id": "1uan", "emoji": "🤗", "name": "Agent 1uan", "role": "orientation: what is new, where to start", "url": "https://lutheraninstitute.github.io/aeee-lab/lab/1uan/", "runtime": "browser", "agents_may": ["read", "recommend", "share_links"]}, {"id": "tutor", "emoji": ">_", "name": "Tutor æ", "role": "learning: explain a concept, practice, no cloud", "url": "https://lutheraninstitute.github.io/diplomado-agentico/", "runtime": "browser (small model)", "agents_may": ["explain", "quiz"]}, {"id": "hark", "emoji": "æ", "name": "Hark Pro", "role": "student's own agent on the phone: research, prepare, ask before acting", "url": "https://hark.com/download", "runtime": "phone/web", "agents_may": ["prepare", "research"]}, {"id": "hermes", "emoji": "🪽", "name": "Hermes æ", "role": "execution: only approved cards, leaves evidence", "url": "https://github.com/LutheranInstitute/Cli.llc", "runtime": "Institute server", "agents_may": ["execute_approved_cards"]}], "human_only": ["enroll", "publish", "pay", "sign", "approve_cards"]},S={};R.subagents.forEach(function(a){S[a.id]=a;});
+var t=document.getElementById("tbl");R.subagents.forEach(function(a){var d=document.createElement("div");d.className="row";d.innerHTML='<div class="e"></div><div><b></b><span></span></div>';d.querySelector(".e").textContent=a.emoji;d.querySelector("b").textContent=a.name;d.querySelector("span").textContent=a.role;t.appendChild(d);});
+var RULES=[
+ [/pag|compr|pay|firm|sign|public|post|inscr|enrol|aprob/i,null,"Eso es una decisión humana. Ningún agente del Instituto lo hace por ti."],
+ [/nuev|new|novedad|qu[eé] hay|empiez|empez|start|d[oó]nde|mapa|taller|conectoma|tienda|pos/i,"1uan","Es orientación: 1uan conoce el mapa en vivo."],
+ [/expl|qu[eé] es|c[oó]mo funciona|aprend|learn|practic|ejercic|teolog|catecism|tarea/i,"tutor","Es aprendizaje: Tutor æ explica y practica contigo sin nube."],
+ [/investig|research|busca|prepar|celular|tel[eé]fono|mi agente/i,"hark","Es trabajo tuyo: Hark Pro prepara en tu celular y te pide permiso."],
+ [/ejecut|tarjeta|card|deploy|despleg|servidor|automat/i,"hermes","Es ejecución: Hermes æ solo corre tarjetas aprobadas y deja evidencia."]
+];
+var log=document.getElementById("log"),n=0,prev="x0:y0:z0:æ0";
+function add(c,el){el.className="m "+c;log.appendChild(el);el.scrollIntoView({behavior:"smooth",block:"end"});}
+async function sha(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}
+async function route(q){
+ var u=document.createElement("div");u.textContent=q;add("u",u);
+ var hit=null;for(var i=0;i<RULES.length;i++)if(RULES[i][0].test(q)){hit=RULES[i];break;}
+ var a=document.createElement("div"),p=document.createElement("div");
+ if(!hit){p.textContent="No estoy seguro de a quién pasarte. Prueba con «qué hay nuevo», «explícame», «investiga» o «ejecuta una tarjeta».";a.appendChild(p);add("a",a);return;}
+ var sub=hit[1]?S[hit[1]]:null;p.textContent=hit[2];a.appendChild(p);
+ if(sub){var g=document.createElement("a");g.className="go";g.textContent="Pasar a "+sub.emoji+" "+sub.name+" →";g.href=sub.id==="1uan"?sub.url+"#"+encodeURIComponent(q):sub.url;g.rel="noopener";a.appendChild(g);}
+ var act=JSON.stringify({n:++n,q:q,to:sub?sub.id:"human",prev:prev});var h=await sha(act);prev=h;
+ var rc=document.createElement("div");rc.className="rc";rc.textContent="recibo #"+n+" · ruta → "+(sub?sub.id:"humano")+" · "+h.slice(0,16)+"…\nautoridad: ninguna · tú decides";a.appendChild(rc);add("a",a);}
+document.getElementById("f").onsubmit=function(e){e.preventDefault();var q=document.getElementById("q"),v=q.value.trim();if(v){route(v);q.value="";}};
+})();
+</script></body></html>
